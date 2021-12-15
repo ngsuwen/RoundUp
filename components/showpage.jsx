@@ -1,3 +1,9 @@
+// need to do summation based on daily entry, that means having more than one entry consolidated per day with summation and breakdown of daily expenses
+// search icon, 
+// icon for category
+// link to edit/delete page for every entry 
+// show total expense/savings/investments for that month above graph 
+
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
