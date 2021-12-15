@@ -10,33 +10,26 @@ import Entries from './Entries/entries';
 export default function Showpage({ navigation }) {
 
 const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height*0.3
+const screenHeight = Dimensions.get('screen').height
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection:'column',
     backgroundColor: '#fff',
-    alignItems: 'center',
+    height:screenHeight,
   },
   carousel:{
-    flex: 1,
+    flex:1,
     width: screenWidth,
-    height: screenHeight,
-    backgroundColor:'white'
+    backgroundColor:'white',
   },
-  list:{
-    flex: 1,
-    width: screenWidth,
-    height: screenHeight,
-    backgroundColor:'#efd3d7'
-  }
-})
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Carousel showsControls={false} style={styles.carousel} dotStyle={{
-      backgroundColor: "#F5E0EE",
+  carouselContainer:{
+    height: screenHeight*0.28,
+    marginBottom:'5%',
+  },
+  dotStyle:{
+    backgroundColor: "#F5E0EE",
       width: 8,
       height: 8,
       borderRadius:4,
@@ -44,8 +37,8 @@ const styles = StyleSheet.create({
       marginRight: 3,
       marginTop: 3,
       marginBottom: 3
-    }}
-    activeDotStyle={{
+    },
+    activeDotStyle: {
       backgroundColor: "#F49BD6",
       width: 8,
       height: 8,
@@ -54,14 +47,17 @@ const styles = StyleSheet.create({
       marginRight: 3,
       marginTop: 3,
       marginBottom: 3
-    }}>
+    },
+  })
 
+  return (
+    <View style={styles.container}>
+      <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
         <PieChartComponent/>
         <LineChartComponent/>
       </Carousel>
       <Entries/>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   )
 }
 

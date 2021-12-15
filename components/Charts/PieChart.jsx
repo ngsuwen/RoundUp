@@ -16,7 +16,7 @@ export default function PieChartComponent() {
       ]
 
   const screenWidth = Dimensions.get('screen').width
-  const screenHeight = Dimensions.get('screen').height*0.3
+  const screenHeight = Dimensions.get('screen').height
 
   const chartConfig = {
     backgroundGradientFrom: "#FFFFFF",
@@ -29,21 +29,11 @@ export default function PieChartComponent() {
     useShadowColorFromDataset: false // optional
   }
 
-    const styles = StyleSheet.create({
-        container: {
-        flex: 1,
-        flexDirection:'column',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        },
-    })
-
   return (
         <PieChart
             data={piedata}
             width={screenWidth}
-            height={screenHeight}
+            height={screenHeight*0.2}
             chartConfig={chartConfig}
             accessor="population"
             backgroundColor="transparent"

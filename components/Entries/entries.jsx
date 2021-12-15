@@ -57,7 +57,7 @@ export default function Entries(){
   const screenHeight = Dimensions.get('screen').height
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flex: 2,
       flexDirection:'column',
       backgroundColor: '#fff',
       alignItems: 'center',
@@ -69,7 +69,7 @@ export default function Entries(){
       justifyContent:'center',
       backgroundColor: '#D1DEFB',
       width: screenWidth*0.9,
-      height: screenHeight*0.15,
+      height: screenHeight*0.12,
       borderRadius: 10,
       margin: '1%',
       padding: '3%'

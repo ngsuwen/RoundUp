@@ -8,7 +8,7 @@ import {
 export default function LineChartComponent() {
 
     const linedata = {
-        labels: ["January", "February", "March", "April", "May", "June","July"],
+        labels: ['JAN', "FEB", "MAR", "APR", "MAY", "JUN","JUL"],
         datasets: [
           {
             data: [20, 25, 21, 30, 50, 70, 100],
@@ -20,7 +20,7 @@ export default function LineChartComponent() {
       }
 
   const screenWidth = Dimensions.get('screen').width
-  const screenHeight = Dimensions.get('screen').height*0.3
+  const screenHeight = Dimensions.get('screen').height
 
   const chartConfig = {
     backgroundGradientFrom: "#FFFFFF",
@@ -33,22 +33,11 @@ export default function LineChartComponent() {
     useShadowColorFromDataset: false // optional
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection:'column',
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-})
-
   return (
         <LineChart
             data={linedata}
             width={screenWidth}
-            height={screenHeight}
-            verticalLabelRotation={30}
+            height={screenHeight*0.2}
             chartConfig={chartConfig}
             bezier
         />
