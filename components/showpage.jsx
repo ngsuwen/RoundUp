@@ -2,9 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
 import { NativeBaseProvider, Box } from 'native-base'
+import Carousel from "pinar";
 import LineChartComponent from './Charts/LineChart';
 import PieChartComponent from './Charts/PieChart';
-import Carousel from "pinar";
+import Entries from './Entries/entries';
 
 export default function Showpage({ navigation }) {
 
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <LineChartComponent/>
       </Carousel>
-      <Text style={styles.list}>List Items</Text>
+      <Entries/>
       <StatusBar style="auto" />
     </SafeAreaView>
   )
