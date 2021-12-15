@@ -34,7 +34,27 @@ const styles = StyleSheet.create({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Carousel showsControls={false} style={styles.carousel}>
+      <Carousel showsControls={false} style={styles.carousel} dotStyle={{
+      backgroundColor: "#F5E0EE",
+      width: 8,
+      height: 8,
+      borderRadius:4,
+      marginLeft: 3,
+      marginRight: 3,
+      marginTop: 3,
+      marginBottom: 3
+    }}
+    activeDotStyle={{
+      backgroundColor: "#F49BD6",
+      width: 8,
+      height: 8,
+      borderRadius:4,
+      marginLeft: 3,
+      marginRight: 3,
+      marginTop: 3,
+      marginBottom: 3
+    }}>
+
         <PieChartComponent/>
         <LineChartComponent/>
       </Carousel>
