@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button} from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
 import { NativeBaseProvider, Box } from 'native-base'
 import {
   LineChart,
@@ -46,28 +46,54 @@ export default function Showpage({ navigation }) {
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
   };
+
+  let bullets = [];
+  for (let i = 1; i <= 2; i++) {
+    bullets.push(
+      <Text
+        key={i}
+        style={{
+          ...styles.bullet,
+          opacity: 2 === i ? 0.5 : 0.1
+        }}
+      >
+        &bull;
+      </Text>
+    );
+  }
   
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.linechart}>
-    <LineChart
-        data={linedata}
-        width={screenWidth}
-        height={screenHeight}
-        verticalLabelRotation={30}
-        chartConfig={chartConfig}
-        bezier
-    />
-    </View>
-    <PieChart
-        data={piedata}
-        width={screenWidth}
-        height={220}
-        chartConfig={chartConfig}
-        accessor="population"
-        backgroundColor="transparent"
-        paddingLeft="15"
-    />
+
+    <ScrollView
+    horizontal={true}
+    contentContainerStyle={{ width: `${100 * 2}%` }}
+    showsHorizontalScrollIndicator={false}
+    scrollEventThrottle={200}
+    decelerationRate="fast"
+    pagingEnabled>
+        <LineChart
+            data={linedata}
+            width={screenWidth}
+            height={screenHeight}
+            verticalLabelRotation={30}
+            chartConfig={chartConfig}
+            bezier
+        />
+        <PieChart
+            data={piedata}
+            width={screenWidth}
+            height={screenHeight}
+            chartConfig={chartConfig}
+            accessor="population"
+            backgroundColor="transparent"
+            paddingLeft="15"
+        />
+        
+    </ScrollView>
+     <View style={styles.bullets}>
+        {bullets}
+      </View>
       <Text>Show page</Text>
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -84,5 +110,15 @@ const styles = StyleSheet.create({
   },
   linechart:{
     margin:'5%',
-  }
+  },
+  bullets: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingTop: 5,
+  },
 })
