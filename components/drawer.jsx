@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './home';
 import About from './about';
 import Showpage from './showpage';
-import Carousel from './carousel';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,7 +23,6 @@ export default function App() {
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="Show Page" component={Showpage} />
-        <Drawer.Screen name="Carousel" component={Carousel} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
