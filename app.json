@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FinanceTracker",
-    "slug": "FinanceTracker",
+    "name": "RoundUp",
+    "slug": "RoundUp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "RoundUp is a finance app that tracks your savings, expenses and investments all in one app."
   }
 }
