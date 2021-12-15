@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/home';
 import About from './components/about';
-import DrawerComponent from './components/drawer1'
+import DrawerComponent from './components/drawer'
 
 const Stack = createNativeStackNavigator();
 
