@@ -9,7 +9,7 @@ export default function Entries(){
   {
     date:'01/01/22',
     amount:10,
-    desc:'A cup of coffee'
+    desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
   },
   {
     date:'01/01/22',
@@ -72,7 +72,7 @@ export default function Entries(){
       height: screenHeight*0.12,
       borderRadius: 10,
       margin: '1%',
-      padding: '3%'
+      padding: '3%',
     },
     text:{
       flex:1,
@@ -87,19 +87,17 @@ export default function Entries(){
     date:{
       flexGrow:1,
       textAlign:'left',
-      height:'50%',
       fontSize:screenHeight*0.025,
     },
     amount:{
       flexGrow:1,
       textAlign:'right',
-      height:'50%',
       fontSize:screenHeight*0.025,
     },
     desc:{
       flexGrow:1,
-      height:'50%',
       fontSize:screenHeight*0.025,
+      height:'60%',
     }
   });
   

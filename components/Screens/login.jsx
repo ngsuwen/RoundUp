@@ -11,7 +11,7 @@ import {
   Pressable,
 } from "native-base";
 
-export default function About({ navigation }) {
+export default function LoginPage({ navigation }) {
   return (
     <NativeBaseProvider>
       <Center flex={1} px="3">

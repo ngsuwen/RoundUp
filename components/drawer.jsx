@@ -5,13 +5,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './home';
 import About from './about';
 import Showpage from './showpage';
+import LoginPage from './Screens/login'
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Show Page" screenOptions={{
+      <Drawer.Navigator initialRouteName="Login" screenOptions={{
         headerShown:true, 
         headerStyle:{
           backgroundColor:'white',
@@ -23,6 +24,7 @@ export default function App() {
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="Show Page" component={Showpage} />
+        <Drawer.Screen name="Login" component={LoginPage} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
