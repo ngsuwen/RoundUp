@@ -10,6 +10,7 @@ import {
   Text,
   Pressable,
 } from "native-base";
+import { Image } from 'react-native';
 
 export default function LoginPage({ navigation }) {
   return (
@@ -23,7 +24,7 @@ export default function LoginPage({ navigation }) {
           }}
         >
           <Center>
-            {/* Replace with logo if have */}
+          <Image source={require("../../assets/rounduplogo.png")}/>
             <Heading mb="5">Round Up</Heading>
           </Center>
           <FormControl isRequired>

@@ -21,8 +21,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        // initialRouteName="Login"
-        initialRouteName="Home" // doing this to bypass login page for development purposes
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
