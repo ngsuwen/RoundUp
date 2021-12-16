@@ -19,16 +19,16 @@ function App() {
   });
 
   return (
-    // <DrawerComponent/>
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        // initialRouteName="Login"
+        initialRouteName="Home" // doing this to bypass login page for development purposes
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={DrawerComponent} />
+        <Stack.Screen name="Home" component={DrawerComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
