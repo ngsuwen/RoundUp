@@ -30,13 +30,14 @@ export default function LoginPage({ navigation }) {
             <Input size="md" placeholder="username or email" />
             <Input size="md" placeholder="password" />
           </FormControl>
-          <Button small primary>
+          {/* Link to be updated */}
+          <Button onPress={() => navigation.navigate("Home")} small primary>
             <Text>Log In</Text>
           </Button>
           <Center>
             <Text>Don't have an account?
                 {/* Link to be updated */}
-                <Pressable onPress={() => navigation.navigate("About")}>
+                <Pressable onPress={() => navigation.navigate("Home")}>
                 <Text color={"cyan.600"} fontWeight={'bold'}>  Sign up</Text>
                 </Pressable>
             </Text>

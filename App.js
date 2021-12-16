@@ -1,33 +1,36 @@
-import * as React from 'react';
-import { View, Text,SafeAreaView,StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './components/home';
-import About from './components/about';
-import DrawerComponent from './components/drawer'
+import * as React from "react";
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./components/Screens/login";
+import DrawerComponent from "./components/drawer";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection:'column',
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+      flexDirection: "column",
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
     },
   });
 
   return (
-    <DrawerComponent/>
-  // <NavigationContainer>
-  //     <Stack.Navigator initialRouteName="Home">
-  //       <Stack.Screen name="Home" component={Home} options={{ title: 'Homepage' }}/>
-  //       <Stack.Screen name="About" component={About} options={{ title: 'About' }}/>
-  //     </Stack.Navigator>
-  //   </NavigationContainer>
+    // <DrawerComponent/>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={DrawerComponent} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
