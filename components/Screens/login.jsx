@@ -23,6 +23,7 @@ export default function About({ navigation }) {
           }}
         >
           <Center>
+            {/* Replace with logo if have */}
             <Heading mb="5">Round Up</Heading>
           </Center>
           <FormControl isRequired>
@@ -34,6 +35,7 @@ export default function About({ navigation }) {
           </Button>
           <Center>
             <Text>Don't have an account?
+                {/* Link to be updated */}
                 <Pressable onPress={() => navigation.navigate("About")}>
                 <Text color={"cyan.600"} fontWeight={'bold'}>  Sign up</Text>
                 </Pressable>
