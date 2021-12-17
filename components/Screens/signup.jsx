@@ -13,30 +13,32 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import loginAuth from "./loginAuth";
 
 export default function LoginPage({ navigation }) {
   // useState
-  const [isLoginValid, setIsLoginValid] = useState("pass");
+  const [isSignUpValid, setIsSignUpValid] = useState("pass");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [username, setUsername] = useState("");
 
   // password state
   const [show, setShow] = useState(false);
   const passwordHandler = () => setShow(!show);
+  const [show2, setShow2] = useState(false);
+  const passwordHandler2 = () => setShow2(!show2);
 
-  //check login
-  async function loginHandler() {
-    const checkUserAuth = await loginAuth(username, password);
-    setIsLoginValid(
-      checkUserAuth.error
-        ? checkUserAuth.error == "invalid user"
-        ? "invalid user"
-        : "invalid password"
-        : "pass"
-    );
-    navigation.navigate(checkUserAuth.error ? "Login" : "Home");
-  }
+  // check signup
+    async function signUpHandler() {
+    //   const checkUserAuth = await loginAuth(username, password);
+    //   setIsLoginValid(
+    //     checkUserAuth.error
+    //       ? checkUserAuth.error == "uername taken"
+    //       ? "uername taken"
+    //       : "passwords do not match"
+    //       : "pass"
+    //   );
+    //   navigation.navigate(checkUserAuth.error ? "Sign Up" : "Login");
+    }
 
   return (
     <NativeBaseProvider>
@@ -52,11 +54,11 @@ export default function LoginPage({ navigation }) {
             <Image source={require("../../assets/rounduplogo.png")} />
             <Heading mb="5">Round Up</Heading>
             <Text color={"red.600"}>
-              {isLoginValid == "pass"
+              {isSignUpValid == "pass"
                 ? ""
-                : isLoginValid == "invalid user"
-                ? "invalid user"
-                : "invalid password"}
+                : isSignUpValid == "username taken"
+                ? "username taken"
+                : "passwords do not match"}
             </Text>
           </Center>
           <FormControl isRequired>
@@ -82,17 +84,34 @@ export default function LoginPage({ navigation }) {
               }
               placeholder="password"
             />
+            <Input
+              type={show2 ? "text" : "password"}
+              size="md"
+              onChangeText={(text) => setPassword2(text)}
+              InputRightElement={
+                <Pressable onPress={passwordHandler2}>
+                  <Icon
+                    as={Entypo}
+                    name={show2 ? "eye" : "eye-with-line"}
+                    color="coolGray.600"
+                    size={5}
+                    marginRight={3}
+                  />
+                </Pressable>
+              }
+              placeholder="repeat password"
+            />
           </FormControl>
-          <Button onPress={loginHandler} small primary>
-            <Text>Log In</Text>
+          <Button onPress={signUpHandler} small primary>
+            <Text>Sign Up</Text>
           </Button>
           <Center>
             <Text>
-              Don't have an account?
-              <Pressable onPress={() => navigation.navigate("Sign Up")}>
+              Have an account?
+              <Pressable onPress={() => navigation.navigate("Login")}>
                 <Text color={"cyan.600"} fontWeight={"bold"}>
                   {" "}
-                  Sign up
+                  Login
                 </Text>
               </Pressable>
             </Text>

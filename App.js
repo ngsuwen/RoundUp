@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Screens/login";
+import Signup from "./components/Screens/signup";
 import DrawerComponent from "./components/drawer";
 
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ function App() {
         }}
       >
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Sign Up" component={Signup} />
         <Stack.Screen name="Home" component={DrawerComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
