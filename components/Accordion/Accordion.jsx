@@ -61,7 +61,7 @@ const cashentry = [
         // backgroundColor:'yellow'
     },
     divider:{
-        backgroundColor:'gray',
+        backgroundColor:'#D8D8D8',
     }
 
 
@@ -94,7 +94,7 @@ return(
     <Accordion.Details key={index}>
         <Text style={styles.entryDesc}>{entry.desc}</Text>
         <Text style={styles.entryPrice}>{`$ ${entry.amount}`}</Text>
-    <Divider my={2} style={styles.Divider}/>
+    <Divider my={2} style={styles.divider}/>
     </Accordion.Details>
     )})}
 </Accordion.Item>
