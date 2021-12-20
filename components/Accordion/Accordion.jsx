@@ -1,6 +1,10 @@
+// flexbox for pricing component 
+// category in accordion box? 
+// spacing for accordion with graph 
+
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Accordion, NativeBaseProvider, Center, Box } from 'native-base';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Accordion, NativeBaseProvider, Center, Box, Divider } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 const _ = require('underscore')
 
@@ -8,7 +12,7 @@ const _ = require('underscore')
 const cashentry = [
     {
       date: '01/01/22',
-      amount: 10,
+      amount: 5.55,
       category: 'food',
       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
     },
@@ -26,7 +30,7 @@ const cashentry = [
     },
     {
       date: '02/01/22',
-      amount: 10,
+      amount: 6,
       category: 'food',
       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
     },
@@ -39,41 +43,58 @@ const cashentry = [
   ]
   
 
+  const styles = StyleSheet.create({
+    entryWrapper: {
+        flex:1,
+        flexDirection:'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        // backgroundColor:'blue'
+    },
+    entryDesc: {
+        flex: 1,
+        // backgroundColor:'green',
+    },
+    entryPrice: {
+        flex: 1,
+        textAlign:'right',
+        // backgroundColor:'yellow'
+    },
+    divider:{
+        backgroundColor:'gray',
+    }
+
+
+})
+
 // grouping logic
-
 const entriesByDay = _.groupBy(cashentry,'date')
-// console.log('entriesbyday',entriesByDay)
-// output is {[{}]} object with date wrapping arrays (one arr for each date) wrapping object (amount,date,desc)
 const allDates = Object.keys(entriesByDay)
-
-// const totalAmountForDay = allDates.map((date)=>{
-//     let totalAmount = 0
-//     entriesByDay[date].forEach((entry)=>{
-//       totalAmount += entry.amount
-//     })
-//     return totalAmount
-//   })
-
-// const objForEachEntry = allDates.map((date)=>{
-//     const allDailyEntries = entriesByDay[date].map((entry)=> {return entry})
-//     return allDailyEntries
-//   })
 
 function AccordionComponent() {
 
-const entries = allDates.map((date)=>{
+const entries = allDates.map((date,index)=>{
+
+// method for calculating total amount for each day
+let totalAmount = 0
+entriesByDay[date].forEach((entry)=>{
+    totalAmount += entry.amount
+})
+
 return(
-<Accordion.Item>
-    <Accordion.Summary>
+<Accordion.Item key={index}>
+    <Accordion.Summary _expanded={{backgroundColor:'#DFD3C3'}}>
     {date}
-    <Accordion.Icon /> 
+    {`$ ${totalAmount}`}
+    {/* <Accordion.Icon />  */}
     {/* replace icon with total amount  */}
     </Accordion.Summary>
-    {entriesByDay[date].map((entry)=>{
+    {entriesByDay[date].map((entry,index)=>{
     return(
-    <Accordion.Details>
-    {entry.amount}
-    {entry.desc}
+    <Accordion.Details key={index}>
+        <Text style={styles.entryDesc}>{entry.desc}</Text>
+        <Text style={styles.entryPrice}>{`$ ${entry.amount}`}</Text>
+    <Divider my={2} style={styles.Divider}/>
     </Accordion.Details>
     )})}
 </Accordion.Item>
@@ -81,8 +102,8 @@ return(
 })
 
 return (
-    <Box m={3}>
-    <Accordion index={[0, 1]}>
+    <Box>
+    <Accordion index={[0]}>
     {entries}
     </Accordion>
     </Box>
@@ -94,8 +115,8 @@ export default function AccordionList () {
   return (
     <NativeBaseProvider>
       <Center flex={1}>
-        <ScrollView>
-          <AccordionComponent />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <AccordionComponent/>
         </ScrollView>
       </Center>
     </NativeBaseProvider>

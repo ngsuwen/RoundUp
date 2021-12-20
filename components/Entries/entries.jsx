@@ -5,39 +5,54 @@ import { NativeBaseProvider, Pressable,ScrollView } from 'native-base';
 
 export default function Entries(){
 
-  const cashentry = [
-    {
-      date: '01/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '01/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '01/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '02/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '03/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-  ]
-  
+  const data = [
+  {
+    date:'01/01/22',
+    amount:10,
+    desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
+  },
+  {
+    date:'01/01/22',
+    amount:20,
+    desc:'some flowers'
+  },
+  {
+    date:'01/01/22',
+    amount:5,
+    desc:'bread'
+  },
+  {
+    date:'01/01/22',
+    amount:10,
+    desc:'A cup of coffee'
+  },
+  {
+    date:'01/01/22',
+    amount:20,
+    desc:'some flowers'
+  },
+  {
+    date:'01/01/22',
+    amount:5,
+    desc:'bread'
+  },
+  {
+    date:'01/01/22',
+    amount:10,
+    desc:'A cup of coffee'
+  },
+  {
+    date:'01/01/22',
+    amount:20,
+    desc:'some flowers'
+  },
+  {
+    date:'01/01/22',
+    amount:5,
+    desc:'bread'
+  }
+]
+
   const screenWidth = Dimensions.get('screen').width
   const screenHeight = Dimensions.get('screen').height
   const styles = StyleSheet.create({

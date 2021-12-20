@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height:screenHeight,
   },
+  accordion:{
+    flex: 2,
+    flexDirection:'column',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   carousel:{
     flex:1,
     width: screenWidth,
@@ -63,7 +70,9 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <LineChartComponent/>
       </Carousel>
-      <AccordionList/>
+       <View style={styles.accordion}>
+        <AccordionList/>
+        </View>
       {/* <Entries/> */}
     </View>
   )
