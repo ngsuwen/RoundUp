@@ -12,6 +12,7 @@ import Carousel from "pinar";
 import LineChartComponent from './Charts/LineChart';
 import PieChartComponent from './Charts/PieChart';
 import Entries from './Entries/entries';
+import AccordionList from './Accordion/Accordion'
 
 export default function Showpage({ navigation }) {
 
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <LineChartComponent/>
       </Carousel>
-      <Entries/>
+      <AccordionList/>
+      {/* <Entries/> */}
     </View>
   )
 }
