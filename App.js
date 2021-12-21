@@ -5,6 +5,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Screens/login";
+import Loading from "./components/Screens/loading";
 import Signup from "./components/Screens/signup";
 import DrawerComponent from "./components/drawer";
 import checkToken from "./components/Sessions/checkToken";
@@ -31,14 +32,17 @@ function App() {
       // check if token is valid
       const isTokenValid = await checkToken(accessToken, refreshToken);
       isTokenValid.error
-        ? ""
+        ? setTokenData({
+            accessToken: "",
+            refreshToken: "",
+          })
         : setTokenData({
             accessToken: accessToken,
             refreshToken: refreshToken,
           });
       console.log("tokens checked");
     } catch (err) {
-      console.log("no existing token");
+      console.log("error");
     }
   }, []);
 
@@ -52,10 +56,16 @@ function App() {
             headerShown: false,
           }}
         >
-          {/* if user if logged in, load drawer instead */}
+          {/* if user is logged in, load drawer instead */}
           <Stack.Screen
             name="Login"
-            component={tokenData.accessToken ? DrawerComponent : Login}
+            component={
+              tokenData.accessToken === ""
+                ? Login
+                : tokenData.accessToken
+                ? DrawerComponent
+                : Loading
+            }
           />
           <Stack.Screen name="Sign Up" component={Signup} />
           <Stack.Screen name="Drawer" component={DrawerComponent} />

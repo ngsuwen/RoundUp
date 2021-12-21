@@ -41,10 +41,10 @@ export default function LoginPage({ navigation }) {
         : "pass"
     );
     try {
-      setTokenData({accessToken:checkUserAuth.accessToken, refreshToken:checkUserAuth.refreshToken})
       // store tokens in FE
       await SecureStore.setItemAsync('accessToken',checkUserAuth.accessToken);
       await SecureStore.setItemAsync('refreshToken',checkUserAuth.refreshToken);
+      setTokenData({accessToken:checkUserAuth.accessToken, refreshToken:checkUserAuth.refreshToken})
       navigation.navigate("Drawer");
     } catch(err) {
       console.log(err)
