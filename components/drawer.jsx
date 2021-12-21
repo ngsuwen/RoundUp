@@ -23,7 +23,7 @@ export default function App() {
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="General Page" component={Generalpage} />
-        <Drawer.Screen name="Entry Page" component={Entrypage} />
+        <Drawer.Screen name="Entry Page Cash" component={Entrypage} />
       </Drawer.Navigator>
   );
 }
