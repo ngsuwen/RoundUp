@@ -1,35 +1,46 @@
 // TO FIX //
 // have to fix back button going back to login page
 
-import React, { createContext, useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import React, { createContext, useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Screens/login";
 import Signup from "./components/Screens/signup";
 import DrawerComponent from "./components/drawer";
+import checkToken from "./components/Sessions/checkToken";
+import * as SecureStore from "expo-secure-store";
 
 const Stack = createNativeStackNavigator();
 
-// userContext
+// tokenContext test
 export const TokenContext = createContext();
 
 function App() {
-  // user state, to be provided at all pages to check for session
+  // token state, to be provided at all pages to check for session
   const [tokenData, setTokenData] = useState({
-    accessToken: "",
-    refreshToken: "",
+    accessToken: null,
+    refreshToken: null,
   });
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: "column",
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
+  // check storage for tokens upon opening app
+  useEffect(async () => {
+    try {
+      // get tokens from local storage
+      const accessToken = await SecureStore.getItemAsync("accessToken");
+      const refreshToken = await SecureStore.getItemAsync("refreshToken");
+      // check if token is valid
+      const isTokenValid = await checkToken(accessToken, refreshToken);
+      isTokenValid.error
+        ? ""
+        : setTokenData({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          });
+      console.log("tokens checked");
+    } catch (err) {
+      console.log("no existing token");
+    }
+  }, []);
 
   return (
     <NavigationContainer>
@@ -40,7 +51,11 @@ function App() {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="Login" component={Login} />
+          {/* if user if logged in, load drawer instead */}
+          <Stack.Screen
+            name="Login"
+            component={tokenData.accessToken ? DrawerComponent : Login}
+          />
           <Stack.Screen name="Sign Up" component={Signup} />
           <Stack.Screen name="Drawer" component={DrawerComponent} />
         </Stack.Navigator>
