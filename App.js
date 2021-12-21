@@ -1,3 +1,6 @@
+// TO FIX //
+// have to fix back button going back to login page 
+
 import * as React from "react";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,14 +25,14 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Drawer"
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Sign Up" component={Signup} />
-        <Stack.Screen name="Home" component={DrawerComponent}/>
+        <Stack.Screen name="Drawer" component={DrawerComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
