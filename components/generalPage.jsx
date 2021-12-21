@@ -9,7 +9,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar";
-import LineChartComponent from './Charts/LineChart';
+import ExpenseLineChartComponent from './Charts/expenseLineChart';
 import PieChartComponent from './Charts/PieChart';
 import Entries from './Entries/entries';
 import AccordionList from './Accordion/Accordion'
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     <View style={styles.container}>
       <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
         <PieChartComponent/>
-        <LineChartComponent/>
+        <ExpenseLineChartComponent/>
       </Carousel>
        <View style={styles.accordion}>
         <AccordionList/>

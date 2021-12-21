@@ -5,7 +5,7 @@ import {
 } from 'react-native-chart-kit'
  
 
-export default function LineChartComponent() {
+export default function cashLineChartComponent() {
 
     const linedata = {
         labels: ['JAN', "FEB", "MAR", "APR", "MAY", "JUN","JUL"],
@@ -16,7 +16,7 @@ export default function LineChartComponent() {
             strokeWidth: 3 // optional
           }
         ],
-        legend: ["Net Worth"] // optional
+        legend: ["Cash"] // optional
       }
 
   const screenWidth = Dimensions.get('screen').width
