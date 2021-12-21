@@ -15,6 +15,7 @@ import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import loginAuth from "../Sessions/loginAuth";
 import { TokenContext } from "../../App";
+import * as SecureStore from 'expo-secure-store';
 
 export default function LoginPage({ navigation }) {
   // useState
@@ -39,9 +40,16 @@ export default function LoginPage({ navigation }) {
         : "invalid password"
         : "pass"
     );
-    checkUserAuth.error ? '' : setTokenData(checkUserAuth)
-    console.log(tokenData)
-    navigation.navigate(checkUserAuth.error ? "Login" : "Drawer");
+    try {
+      setTokenData({accessToken:checkUserAuth.accessToken, refreshToken:checkUserAuth.refreshToken})
+      // store tokens in FE
+      await SecureStore.setItemAsync('accessToken',checkUserAuth.accessToken);
+      await SecureStore.setItemAsync('refreshToken',checkUserAuth.refreshToken);
+      navigation.navigate("Drawer");
+    } catch(err) {
+      console.log(err)
+      navigation.navigate("Login");
+    }
   }
 
   return (
