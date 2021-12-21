@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   FormControl,
   Stack,
@@ -13,13 +13,17 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import loginAuth from "./loginAuth";
+import loginAuth from "../Sessions/loginAuth";
+import { TokenContext } from "../../App";
 
 export default function LoginPage({ navigation }) {
   // useState
   const [isLoginValid, setIsLoginValid] = useState("pass");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+
+  // useContext
+  const [tokenData, setTokenData] = useContext(TokenContext)
 
   // password state
   const [show, setShow] = useState(false);
@@ -35,7 +39,9 @@ export default function LoginPage({ navigation }) {
         : "invalid password"
         : "pass"
     );
-    navigation.navigate(checkUserAuth.error ? "Login" : "Home");
+    checkUserAuth.error ? '' : setTokenData(checkUserAuth)
+    console.log(tokenData)
+    navigation.navigate(checkUserAuth.error ? "Login" : "Drawer");
   }
 
   return (
