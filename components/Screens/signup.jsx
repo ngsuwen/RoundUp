@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FormControl,
   Stack,
@@ -13,13 +13,21 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import signUpApi from "../api/signUpApi";
+import loginAuth from "../api/loginAuth";
+import * as SecureStore from "expo-secure-store";
+import { TokenContext } from "../../App";
 
 export default function LoginPage({ navigation }) {
+  // useContext TokenContext
+  const [tokenData, setTokenData]=useContext(TokenContext)
+
   // useState
   const [isSignUpValid, setIsSignUpValid] = useState("pass");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [username, setUsername] = useState("");
+  const [referral, setReferral] = useState("");
 
   // password state
   const [show, setShow] = useState(false);
@@ -28,17 +36,55 @@ export default function LoginPage({ navigation }) {
   const passwordHandler2 = () => setShow2(!show2);
 
   // check signup
-    async function signUpHandler() {
-    //   const checkUserAuth = await loginAuth(username, password);
-    //   setIsLoginValid(
-    //     checkUserAuth.error
-    //       ? checkUserAuth.error == "uername taken"
-    //       ? "uername taken"
-    //       : "passwords do not match"
-    //       : "pass"
-    //   );
-    //   navigation.navigate(checkUserAuth.error ? "Sign Up" : "Login");
+  async function signUpHandler() {
+    try {
+      const checkSignUp = await signUpApi(
+        username,
+        password,
+        password2,
+        referral
+      );
+      setIsSignUpValid(
+        checkSignUp.error
+          ? checkSignUp.error == "incorrect password"
+            ? "passwords do not match"
+            : "username taken"
+          : "pass"
+      );
+      // go back sign up page if got error
+      if (checkSignUp.error) {
+        navigation.navigate("Sign Up");
+        return;
+      }
+      //try to login if signup is successful
+      try {
+        const checkUserAuth = await loginAuth(username, password);
+        // store tokens in FE
+        await SecureStore.setItemAsync(
+          "accessToken",
+          checkUserAuth.accessToken
+        );
+        await SecureStore.setItemAsync(
+          "refreshToken",
+          checkUserAuth.refreshToken
+        );
+        setTokenData({
+          accessToken: checkUserAuth.accessToken,
+          refreshToken: checkUserAuth.refreshToken,
+        });
+        // load drawer if login successful
+        navigation.navigate("Drawer");
+      } catch (err) {
+        console.log(err);
+        // load login page if login unsuccessful
+        navigation.navigate("Login");
+      }
+    } catch (err) {
+      console.log(err);
+      // go back sign up page if unexpected error
+      navigation.navigate("Sign Up");
     }
+  }
 
   return (
     <NativeBaseProvider>
@@ -101,6 +147,11 @@ export default function LoginPage({ navigation }) {
               }
               placeholder="repeat password"
             />
+            <Input
+              size="md"
+              placeholder="referral (optional)"
+              onChangeText={(text) => setReferral(text)}
+            />
           </FormControl>
           <Button onPress={signUpHandler} small primary>
             <Text>Sign Up</Text>
@@ -108,9 +159,13 @@ export default function LoginPage({ navigation }) {
           <Center>
             <Text>
               Have an account?{" "}
-                <Text color={"cyan.600"} fontWeight={"bold"} onPress={() => navigation.navigate("Login")}>
-                  Login
-                </Text>
+              <Text
+                color={"cyan.600"}
+                fontWeight={"bold"}
+                onPress={() => navigation.navigate("Login")}
+              >
+                Login
+              </Text>
             </Text>
           </Center>
         </Stack>
