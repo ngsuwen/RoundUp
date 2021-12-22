@@ -13,7 +13,7 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import loginAuth from "../Sessions/loginAuth";
+import loginAuth from "../api/loginAuth";
 import { TokenContext } from "../../App";
 import * as SecureStore from 'expo-secure-store';
 

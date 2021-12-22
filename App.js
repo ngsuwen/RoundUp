@@ -8,7 +8,7 @@ import Login from "./components/Screens/login";
 import Loading from "./components/Screens/loading";
 import Signup from "./components/Screens/signup";
 import DrawerComponent from "./components/drawer";
-import checkToken from "./components/Sessions/checkToken";
+import checkToken from "./components/api/checkToken";
 import * as SecureStore from "expo-secure-store";
 
 const Stack = createNativeStackNavigator();
