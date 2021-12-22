@@ -14,7 +14,7 @@ import PieChartComponent from './Charts/PieChart';
 import Entries from './Entries/entries';
 import AccordionList from './Accordion/Accordion'
 
-export default function Showpage({ navigation }) {
+export default function GeneralBreakdownPage() {
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <ExpenseLineChartComponent/>
       </Carousel>
-       <View style={styles.accordion}>
-        <AccordionList/>
-        </View>
+      <View style={styles.accordion}>
+      <AccordionList/>
+      </View>
       {/* <Entries/> */}
     </View>
   )

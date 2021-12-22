@@ -4,8 +4,9 @@
 
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { Accordion, NativeBaseProvider, Center, Box, Divider } from 'native-base';
+import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 const _ = require('underscore')
 
 
@@ -73,6 +74,8 @@ const allDates = Object.keys(entriesByDay)
 
 function AccordionComponent() {
 
+const navigation = useNavigation();
+
 const entries = allDates.map((date,index)=>{
 
 // method for calculating total amount for each day
@@ -91,11 +94,13 @@ return(
     </Accordion.Summary>
     {entriesByDay[date].map((entry,index)=>{
     return(
+    <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
     <Accordion.Details key={index}>
         <Text style={styles.entryDesc}>{entry.desc}</Text>
         <Text style={styles.entryPrice}>{`$ ${entry.amount}`}</Text>
     <Divider my={2} style={styles.divider}/>
     </Accordion.Details>
+    </Pressable>
     )})}
 </Accordion.Item>
 )
