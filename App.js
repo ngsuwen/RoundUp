@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Screens/login";
 import Loading from "./components/Screens/loading";
 import Signup from "./components/Screens/signup";
-import DrawerComponent from "./components/drawer";
+import DrawerComponent from "./components/Screens/drawer";
 import checkToken from "./components/api/checkToken";
 import * as SecureStore from "expo-secure-store";
 

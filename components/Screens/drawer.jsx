@@ -6,7 +6,7 @@ import Home from "./home";
 import About from "./about";
 import Generalpage from "./generalPage";
 import Entrypage from "./entryPage"
-import Login from "./Screens/login"
+import Login from "./login"
 
 const Drawer = createDrawerNavigator();
 
