@@ -3,6 +3,7 @@
 // spacing for accordion with graph 
 
 import React from 'react';
+import { useState,useEffect } from 'react'
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
@@ -73,6 +74,21 @@ const entriesByDay = _.groupBy(cashentry,'date')
 const allDates = Object.keys(entriesByDay)
 
 function AccordionComponent() {
+
+const [fetchedEntries,setFetchedEntries] = useState([])
+
+const fetchExpenses = () => {
+  fetch(`https://roundup-api.herokuapp.com/data/expense`)
+  .then(data=>data.json())
+  .then((parsedData)=>{
+    // console.log('parseddata:',parsedData)
+    setFetchedEntries(parsedData)})
+  .catch((err)=>console.log(err))
+  }
+
+  useEffect(()=>{
+    fetchExpenses()
+  },[])
 
 const navigation = useNavigation();
 

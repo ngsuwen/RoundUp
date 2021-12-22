@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Screens/login";
 import Loading from "./components/Screens/loading";
 import Signup from "./components/Screens/signup";
+import ShowPage from "./components/Screens/showPage"
 import DrawerComponent from "./components/Screens/drawer";
 import checkToken from "./components/Sessions/checkToken";
 import * as SecureStore from "expo-secure-store";
@@ -69,6 +70,7 @@ function App() {
           />
           <Stack.Screen name="Sign Up" component={Signup} />
           <Stack.Screen name="Drawer" component={DrawerComponent} />
+          <Stack.Screen name="Show Page" component={ShowPage}/>
         </Stack.Navigator>
       </TokenContext.Provider>
     </NavigationContainer>
