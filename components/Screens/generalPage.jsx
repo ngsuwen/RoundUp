@@ -9,10 +9,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar";
-import ExpenseLineChartComponent from './Charts/expenseLineChart';
-import PieChartComponent from './Charts/PieChart';
-import Entries from './Entries/entries';
-import AccordionList from './Accordion/Accordion'
+import ExpenseLineChartComponent from '../Charts/expenseLineChart';
+import PieChartComponent from '../Charts/PieChart';
+import Entries from '../Entries/entries';
+import AccordionList from '../Accordion/Accordion'
 
 export default function GeneralBreakdownPage() {
 

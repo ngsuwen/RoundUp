@@ -2,14 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button } from 'react-native';
 import { NativeBaseProvider, Pressable } from 'native-base';
-import NetworthLineChartComponent from './Charts/networthLineChart';
-import ExpenseLineChartComponent from './Charts/expenseLineChart';
-import CashLineChartComponent from './Charts/cashLineChart';
-import InvestmentLineChartComponent from './Charts/investmentLineChart';
+import NetworthLineChartComponent from '../Charts/networthLineChart';
+import ExpenseLineChartComponent from '../Charts/expenseLineChart';
+import CashLineChartComponent from '../Charts/cashLineChart';
+import InvestmentLineChartComponent from '../Charts/investmentLineChart';
 import Carousel from "pinar";
-import HomePageCashCard from './Cards/homepageCashCard'
-import HomePageExpenseCard from './Cards/homepageExpenseCard'
-import HomePageInvestmentCard from './Cards/homepageInvestmentCard'
+import HomePageCashCard from '../Cards/homepageCashCard'
+import HomePageExpenseCard from '../Cards/homepageExpenseCard'
+import HomePageInvestmentCard from '../Cards/homepageInvestmentCard'
 
 export default function Home({ navigation }) {
   const screenWidth = Dimensions.get('screen').width
