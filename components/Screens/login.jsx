@@ -102,13 +102,10 @@ export default function LoginPage({ navigation }) {
           </Button>
           <Center>
             <Text>
-              Don't have an account?
-              <Pressable onPress={() => navigation.navigate("Sign Up")}>
-                <Text color={"cyan.600"} fontWeight={"bold"}>
-                  {" "}
+              Don't have an account?{" "}
+                <Text color={"cyan.600"} fontWeight={"bold"} onPress={() => navigation.navigate("Sign Up")}>
                   Sign up
-                </Text>
-              </Pressable>
+                </Text>         
             </Text>
           </Center>
         </Stack>
