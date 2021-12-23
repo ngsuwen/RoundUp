@@ -6,7 +6,7 @@ import Home from "./home";
 import About from "./about";
 import Generalpage from "./generalPage";
 import Entrypage from "./entryPage"
-import Login from "./login"
+import Profile from "./profile"
 
 const Drawer = createDrawerNavigator();
 
@@ -24,6 +24,7 @@ export default function App() {
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="General Page" component={Generalpage} />
         <Drawer.Screen name="Entry Page Cash" component={Entrypage} />
+        <Drawer.Screen name="Profile" component={Profile} />
       </Drawer.Navigator>
   );
 }
