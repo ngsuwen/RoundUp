@@ -1,6 +1,7 @@
 // flexbox for pricing component 
 // category in accordion box? 
 // spacing for accordion with graph 
+// BE used to filter specific data 
 
 import React from 'react';
 import { useState,useEffect } from 'react'
@@ -78,7 +79,8 @@ function AccordionComponent() {
 const [fetchedEntries,setFetchedEntries] = useState([])
 
 const fetchExpenses = () => {
-  fetch(`https://roundup-api.herokuapp.com/data/expense`)
+  const userid = '61bd9a6c2fcd3b08f3365f75'
+  fetch(`https://roundup-api.herokuapp.com/data/expense/${userid}`)
   .then(data=>data.json())
   .then((parsedData)=>{
     // console.log('parseddata:',parsedData)

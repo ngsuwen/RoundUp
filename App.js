@@ -51,8 +51,8 @@ function App() {
     <NavigationContainer>
       <TokenContext.Provider value={[tokenData, setTokenData]}>
         <Stack.Navigator
-          // initialRouteName="Login"
-          initialRouteName="Drawer"
+          initialRouteName="Login"
+          // initialRouteName="Drawer"
           screenOptions={{
             headerShown: false,
           }}
