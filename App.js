@@ -38,10 +38,10 @@ function App() {
             refreshToken: "",
           })
         : setTokenData({
-            accessToken: accessToken,
-            refreshToken: refreshToken,
+            accessToken: isTokenValid.accessToken,
+            refreshToken: isTokenValid.refreshToken,
           });
-      console.log("tokens checked");
+      console.log(isTokenValid.accessToken,isTokenValid.refreshToken,"tokens checked");
     } catch (err) {
       console.log("error");
     }
@@ -51,8 +51,8 @@ function App() {
     <NavigationContainer>
       <TokenContext.Provider value={[tokenData, setTokenData]}>
         <Stack.Navigator
-          // initialRouteName="Login"
-          initialRouteName="Drawer"
+          initialRouteName="Login"
+          // initialRouteName="Drawer"
           screenOptions={{
             headerShown: false,
           }}
