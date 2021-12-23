@@ -1,13 +1,13 @@
 1. Import the following files (file locations might be different)
 ```
-import checkToken from "./Sessions/checkToken";
-import { TokenContext } from "../App";
+import checkToken from "./api/checkToken";
+import { UserContext } from "../App";
 import * as SecureStore from "expo-secure-store";
 ```
 
-2. Instantiate TokenContext
+2. Instantiate UserContext
 ```
-const [tokenData, setTokenData] = useContext(TokenContext);
+const [user, setUser] = useContext(UserContext);
 ```
 
 3. Use useEffect to check validity of tokens
@@ -18,10 +18,7 @@ useEffect(async () => {
     const refreshToken = await SecureStore.getItemAsync("refreshToken");
     const isTokenValid = await checkToken(accessToken, refreshToken);
     if (isTokenValid.error) {
-      setTokenData({
-        accessToken: "",
-        refreshToken: "",
-      });
+      setUser('');
       navigation.navigate("Login");
     } else {
       await SecureStore.setItemAsync("accessToken", isTokenValid.accessToken);
@@ -31,7 +28,7 @@ useEffect(async () => {
       );
     }
   } catch (err) {
-    setTokenData({ accessToken: "", refreshToken: "" });
+    setUser('');
     navigation.navigate("Login");
   }
 }, []);
