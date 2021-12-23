@@ -11,7 +11,7 @@ import ShowPage from "./components/Screens/showPage"
 import DrawerComponent from "./components/Screens/drawer";
 import checkToken from "./components/api/checkToken";
 import getUserId from "./components/api/getUserId";
-import * as SecureStore from "expo-secure-store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,10 +26,10 @@ function App() {
   useEffect(async () => {
     try {
       // get tokens from local storage
-      const accessToken = await SecureStore.getItemAsync("accessToken");
-      const refreshToken = await SecureStore.getItemAsync("refreshToken");
+      const accessToken = await AsyncStorage.getItem("accessToken");
+      const refreshToken = await AsyncStorage.getItem("refreshToken");
       // check if token is valid
-      const isTokenValid = await checkToken(123, 123);
+      const isTokenValid = await checkToken(accessToken, refreshToken);
       const userId = isTokenValid.error?'':await getUserId(isTokenValid.refreshToken)
       setUser(userId)
       console.log(userId,"tokens checked");

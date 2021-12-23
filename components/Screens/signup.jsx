@@ -15,7 +15,7 @@ import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import signUpApi from "../api/signUpApi";
 import loginAuth from "../api/loginAuth";
-import * as SecureStore from "expo-secure-store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserContext } from "../../App";
 import getUserId from "../api/getUserId";
 
@@ -61,11 +61,11 @@ export default function LoginPage({ navigation }) {
       try {
         const checkUserAuth = await loginAuth(username, password);
         // store tokens in FE
-        await SecureStore.setItemAsync(
+        await AsyncStorage.setItem(
           "accessToken",
           checkUserAuth.accessToken
         );
-        await SecureStore.setItemAsync(
+        await AsyncStorage.setItem(
           "refreshToken",
           checkUserAuth.refreshToken
         );

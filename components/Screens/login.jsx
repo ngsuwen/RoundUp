@@ -16,7 +16,7 @@ import { Entypo } from "@expo/vector-icons";
 import loginAuth from "../api/loginAuth";
 import getUserId from "../api/getUserId";
 import { UserContext } from "../../App";
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginPage({ navigation }) {
   // useState
@@ -43,8 +43,8 @@ export default function LoginPage({ navigation }) {
     );
     try {
       // store tokens in FE
-      await SecureStore.setItemAsync('accessToken',checkUserAuth.accessToken);
-      await SecureStore.setItemAsync('refreshToken',checkUserAuth.refreshToken);
+      await AsyncStorage.setItem('accessToken',checkUserAuth.accessToken);
+      await AsyncStorage.setItem('refreshToken',checkUserAuth.refreshToken);
       const userId = await getUserId(checkUserAuth.refreshToken)
       setUser(userId)
       console.log(userId)
