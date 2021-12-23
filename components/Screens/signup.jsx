@@ -16,11 +16,12 @@ import { Entypo } from "@expo/vector-icons";
 import signUpApi from "../api/signUpApi";
 import loginAuth from "../api/loginAuth";
 import * as SecureStore from "expo-secure-store";
-import { TokenContext } from "../../App";
+import { UserContext } from "../../App";
+import getUserId from "../api/getUserId";
 
 export default function LoginPage({ navigation }) {
-  // useContext TokenContext
-  const [tokenData, setTokenData]=useContext(TokenContext)
+  // useContext UserContext
+  const [user, setUser]=useContext(UserContext)
 
   // useState
   const [isSignUpValid, setIsSignUpValid] = useState("pass");
@@ -68,10 +69,9 @@ export default function LoginPage({ navigation }) {
           "refreshToken",
           checkUserAuth.refreshToken
         );
-        setTokenData({
-          accessToken: checkUserAuth.accessToken,
-          refreshToken: checkUserAuth.refreshToken,
-        });
+        const userId = await getUserId(checkUserAuth.refreshToken)
+        setUser(userId);
+        console.log(userId)
         // load drawer if login successful
         navigation.navigate("Drawer");
       } catch (err) {
