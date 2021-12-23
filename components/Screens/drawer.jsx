@@ -15,11 +15,16 @@ const Drawer = createDrawerNavigator();
 export default function App() {
 
   async function logoutHandler(){
-    const refreshToken = await AsyncStorage.getItem('refreshToken')
-    await logoutApi(refreshToken)
-    await AsyncStorage.removeItem('accessToken')
-    await AsyncStorage.removeItem('refreshToken')
-    return <Home/>
+    try {
+      const refreshToken = await AsyncStorage.getItem('refreshToken')
+      await logoutApi(refreshToken)
+      await AsyncStorage.removeItem('accessToken')
+      await AsyncStorage.removeItem('refreshToken')
+      console.log('cleared')
+    } catch (err) {
+      console.log('error')
+    }
+    return
   }
 
   return (
