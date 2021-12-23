@@ -7,14 +7,18 @@ import About from "./about";
 import Generalpage from "./generalPage";
 import Entrypage from "./entryPage"
 import Profile from "./profile"
-
+import logoutApi from "../api/logoutApi";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
-export default function App({navigation}) {
+export default function App() {
 
-  const logoutHandler=()=>{
-    console.log('here')
+  async function logoutHandler(){
+    const refreshToken = await AsyncStorage.getItem('refreshToken')
+    await logoutApi(refreshToken)
+    await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
     return <Home/>
   }
 
