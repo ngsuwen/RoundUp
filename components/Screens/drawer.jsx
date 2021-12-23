@@ -8,9 +8,16 @@ import Generalpage from "./generalPage";
 import Entrypage from "./entryPage"
 import Profile from "./profile"
 
+
 const Drawer = createDrawerNavigator();
 
-export default function App() {
+export default function App({navigation}) {
+
+  const logoutHandler=()=>{
+    console.log('here')
+    return <Home/>
+  }
+
   return (
       <Drawer.Navigator initialRouteName="Home" screenOptions={{
         headerShown:true, 
@@ -25,6 +32,7 @@ export default function App() {
         <Drawer.Screen name="General Page" component={Generalpage} />
         <Drawer.Screen name="Entry Page Cash" component={Entrypage} />
         <Drawer.Screen name="Profile" component={Profile} />
+        <Drawer.Screen name="Logout" component={logoutHandler} />
       </Drawer.Navigator>
   );
 }
