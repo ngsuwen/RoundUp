@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, View, Image, SafeAreaView, Dimensions, Button } from 'react-native';
-const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
+//const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
+
 
 const EntryExpensePage = () => {
 
@@ -10,11 +11,15 @@ const EntryExpensePage = () => {
       try{
 
         event.preventDefault();
-        const res = await fetch(`${BACKEND_BASE_URL}/data/expense`, {
+        const res = await fetch("https://roundup-api.herokuapp.com/data/expense", {
+         
           method: "POST",
           body: JSON.stringify(
             { 
-                    description: event.target.value
+              expensesentry:[
+                {  description: description  }
+                
+              ]      
             }
             ),
           headers: {
