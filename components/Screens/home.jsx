@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button } from 'react-native';
 import { NativeBaseProvider, Pressable } from 'native-base';
 import NetworthLineChartComponent from '../Charts/networthLineChart';
@@ -11,7 +11,8 @@ import HomePageCashCard from '../Cards/homepageCashCard'
 import HomePageExpenseCard from '../Cards/homepageExpenseCard'
 import HomePageInvestmentCard from '../Cards/homepageInvestmentCard'
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+
   const screenWidth = Dimensions.get('screen').width
   const screenHeight = Dimensions.get('screen').height
   const styles = StyleSheet.create({
@@ -69,8 +70,14 @@ export default function Home({ navigation }) {
         marginBottom: 3
       },
   });
-  
 
+  route?route.params?.post():''
+  
+  console.log('fire1')
+
+  React.useEffect(()=>{
+    console.log('fire2')
+  },[])
 
   return (
     <>
