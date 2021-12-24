@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./home";
 import About from "./about";
 import Generalpage from "./generalPage";
-import Entrypage from "./entryPage"
+import EntryExpensePage from "./entryExpensePage"
 import Profile from "./profile"
 import logoutApi from "../api/logoutApi";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -43,7 +43,7 @@ export default function App() {
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="General Page" component={Generalpage} />
-        <Drawer.Screen name="Entry Page Cash" component={Entrypage} />
+        <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Logout" component={Home} initialParams={{ post: logoutHandler }}/>
       </Drawer.Navigator>
