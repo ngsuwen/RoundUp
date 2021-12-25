@@ -5,6 +5,9 @@ import { StyleSheet, TextInput, Text, View, Image, SafeAreaView, Dimensions, But
 
 const EntryExpensePage = () => {
 
+
+   const [amount, setAmount] = useState();
+   const [category, setCategory] = useState("");
    const [description, setDescription] = useState("");
 
     const handleSubmit = async (event) => {
@@ -17,7 +20,9 @@ const EntryExpensePage = () => {
           body: JSON.stringify(
             { 
               expensesentry:[
-                {  description: description  }
+                { amount: amount,
+                  category: category,
+                  description: description  }
                 
               ]      
             }
@@ -35,16 +40,36 @@ const EntryExpensePage = () => {
         
       }
     return (
-        
+        // work on username ref and date
         <SafeAreaView style={styles.container} >
             <View>
+                {/* <TextInput
+                    type="submit" 
+                    name="date"
+                    placeholder="Enter Date"
+                    value={date}
+                    onChangeText={(text) => setDate(text)}
+                      />  */}
+                <TextInput
+                    type="submit" 
+                    name="amount"
+                    placeholder="Enter Amount"
+                    value={amount}
+                    onChangeText={(text) => setAmount(text)}
+                      />   
+                <TextInput
+                    type="submit" 
+                    name="category"
+                    placeholder="Enter Category"
+                    value={category}
+                    onChangeText={(text) => setCategory(text)}
+                      />   
                 <TextInput
                     type="submit" 
                     name="description"
                     placeholder="Enter Description"
                     value={description}
                     onChangeText={(text) => setDescription(text)}
-                    
                       />   
                 <Button title="Submit" onPress={handleSubmit} />
 
