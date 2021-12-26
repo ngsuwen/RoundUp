@@ -7,8 +7,8 @@ import DatePicker from "@react-native-community/datetimepicker"
 //const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
 
 const category = ["Shopping", "Food", "Health", "Transportation", "Household"]
-const EntryExpensePage = () => {
-
+const EntryExpensePage = ({navigation}) => {
+ 
    const [date, setDate] = useState(new Date())
    const [amount, setAmount] = useState();
    //const [category, setCategory] = useState("");
@@ -24,10 +24,6 @@ const EntryExpensePage = () => {
      const currentDate = selectedDate || date;
      setDate(currentDate)
    }
-
-
-  
-
 
     const handleSubmit = async (event) => {
       try{
@@ -60,7 +56,7 @@ const EntryExpensePage = () => {
       } catch(err){
         console.log(err)
       }
-        
+        navigation.navigate("Show Expense Page")
       }
     return (
         // work on username ref 
