@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {useContext} from "react"
+import {UserContext} from "../../App"
 import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
@@ -13,6 +15,10 @@ const EntryExpensePage = () => {
    const [selectedValue, setSelectedValue] = useState("Shopping")
    const [description, setDescription] = useState("");
 
+   // useContext
+   const [userId] = useContext(UserContext)
+ 
+
    // Date Picker
    const onChangeDate = (event, selectedDate) =>{
      const currentDate = selectedDate || date;
@@ -25,15 +31,17 @@ const EntryExpensePage = () => {
 
     const handleSubmit = async (event) => {
       try{
-
+        
         event.preventDefault();
         const res = await fetch("https://roundup-api.herokuapp.com/data/expense", {
          
           method: "POST",
           body: JSON.stringify(
             { 
+              username: userId,
               expensesentry:[
                 { 
+                  
                   date: date,
                   amount: amount,
                   category: selectedValue,
