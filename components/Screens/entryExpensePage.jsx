@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, View, Image, SafeAreaView, Dimensions, Button } from 'react-native';
+import DatePicker from "@react-native-community/datetimepicker"
 //const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
 
 
 const EntryExpensePage = () => {
 
-
+   const [date, setDate] = useState(new Date())
    const [amount, setAmount] = useState();
    const [category, setCategory] = useState("");
    const [description, setDescription] = useState("");
+
+   const onChangeDate = (event, selectedDate) =>{
+     const currentDate = selectedDate || date;
+     setDate(currentDate)
+   }
+
+
+
 
     const handleSubmit = async (event) => {
       try{
@@ -20,7 +29,9 @@ const EntryExpensePage = () => {
           body: JSON.stringify(
             { 
               expensesentry:[
-                { amount: amount,
+                { 
+                  date: date,
+                  amount: amount,
                   category: category,
                   description: description  }
                 
@@ -43,13 +54,10 @@ const EntryExpensePage = () => {
         // work on username ref and date
         <SafeAreaView style={styles.container} >
             <View>
-                {/* <TextInput
-                    type="submit" 
-                    name="date"
-                    placeholder="Enter Date"
-                    value={date}
-                    onChangeText={(text) => setDate(text)}
-                      />  */}
+                <DatePicker
+                  value={date}
+                  onChange={onChangeDate}
+                  />
                 <TextInput
                     type="submit" 
                     name="amount"
