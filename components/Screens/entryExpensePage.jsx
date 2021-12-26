@@ -55,10 +55,12 @@ const EntryExpensePage = () => {
         <SafeAreaView style={styles.container} >
             <View>
                 <DatePicker
+                  style={styles.datepicker}
                   value={date}
                   onChange={onChangeDate}
                   />
                 <TextInput
+                    style={styles.textinput}
                     type="submit" 
                     name="amount"
                     placeholder="Enter Amount"
@@ -66,6 +68,7 @@ const EntryExpensePage = () => {
                     onChangeText={(text) => setAmount(text)}
                       />   
                 <TextInput
+                    style={styles.textinput}
                     type="submit" 
                     name="category"
                     placeholder="Enter Category"
@@ -73,6 +76,7 @@ const EntryExpensePage = () => {
                     onChangeText={(text) => setCategory(text)}
                       />   
                 <TextInput
+                    style={styles.textinput}
                     type="submit" 
                     name="description"
                     placeholder="Enter Description"
@@ -82,11 +86,7 @@ const EntryExpensePage = () => {
                 <Button title="Submit" onPress={handleSubmit} />
 
 
-                {/* <TextInput type="text" placeholder='Date'  />   
-                <TextInput type="text" placeholder='Amount'  /> 
-                <TextInput type="text" placeholder='Category'  /> 
-                <TextInput type="text" placeholder='Description'  />  */}
-    
+                
             </View>
         </SafeAreaView>
             
@@ -103,5 +103,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    datepicker:{
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      borderColor: "gray",
+      borderWidth: 1,
+    },
+    textinput:{
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      borderColor: "gray",
+      borderWidth: 1,
     }
 })
