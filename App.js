@@ -17,9 +17,15 @@ const Stack = createNativeStackNavigator();
 // userContext
 export const UserContext = createContext();
 
+// entryContext
+export const EntryContext = createContext();
+
 function App() {
   // token state, to be provided at all pages to check for session
   const [user, setUser] = useState(null);
+
+  // useState for expense
+  const [allExpense, setAllExpense] = useState()
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -37,9 +43,31 @@ function App() {
     }
   }, []);
 
+
+    // route GET expense data // need this to render at UI side
+    const reloadExpense = async () => {
+      const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/`)
+      if (res.status !== 200) {
+        console.error('failed to fetch expense data')
+        setAllExpense([])
+        return
+      }
+      const data = await res.json();
+      setAllExpense(data)
+    }
+
+    useEffect(() => {
+      reloadExpense()
+      
+    }, [])
+
+
+
+
   return (
     <NavigationContainer>
       <UserContext.Provider value={[user, setUser]}>
+      <EntryContext.Provider value={[allExpense, reloadExpense]}>
         <Stack.Navigator
           initialRouteName="Login"
           // initialRouteName="Drawer"
@@ -62,6 +90,7 @@ function App() {
           <Stack.Screen name="Drawer" component={DrawerComponent} />
           
         </Stack.Navigator>
+        </EntryContext.Provider>
       </UserContext.Provider>
     </NavigationContainer>
   );

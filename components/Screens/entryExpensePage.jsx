@@ -4,6 +4,7 @@ import {UserContext} from "../../App"
 import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
+
 //const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
 
 const category = ["Shopping", "Food", "Health", "Transportation", "Household"]
@@ -17,6 +18,9 @@ const EntryExpensePage = ({navigation}) => {
 
    // useContext
    const [userId] = useContext(UserContext)
+
+   
+   
  
 
    // Date Picker
@@ -57,6 +61,7 @@ const EntryExpensePage = ({navigation}) => {
         console.log(err)
       }
         navigation.navigate("Show Expense Page")
+        
       }
     return (
         // work on username ref 

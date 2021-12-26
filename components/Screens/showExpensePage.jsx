@@ -1,35 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, TextInput, View, Image, SafeAreaView, Dimensions, Button } from 'react-native'
-
+import {useContext} from "react"
+import {EntryContext} from "../../App"
 
 
 const ShowExpensePage = () => {
   
-  const [allExpense, setAllExpense] = useState()
   const [expense, setExpense] = useState(null)
 
+   // useContext
+   const [allExpenses, reloadExpense] = useContext(EntryContext)
 
-    // route GET
-    const getExpense = async () => {
-      try{
 
-        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/`)
-        const data = await response.json()
-        setAllExpense(data)
-        console.log(data)
-      } catch(err){
-        return err.json()
-      }
-    }
+   useEffect(() => {
+      reloadExpense()
+   }, [allExpenses])
+
+
   
-
-    
+ 
 
     return (
         
         <SafeAreaView style={styles.container}>
             <View>
-             <Text>Hello</Text>
+             {allExpenses.map((ele,i)=>{
+               return(
+                 <Text key={ele._id}>{ele.expensesentry[0].amount}</Text>
+               )
+             })}
             </View>
 
           
