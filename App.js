@@ -41,7 +41,9 @@ function App() {
       const isTokenValid = await checkToken(accessToken, refreshToken);
       const userId = isTokenValid.error?'':await getUserId(isTokenValid.refreshToken)
       setUser(userId)
-      console.log(userId,"tokens checked");
+      isTokenValid.error?'':await AsyncStorage.setItem("accessToken", isTokenValid.accessToken);
+      isTokenValid.error?'':await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
+      console.log(userId, "tokens checked");
     } catch (err) {
       console.log("error");
     }
