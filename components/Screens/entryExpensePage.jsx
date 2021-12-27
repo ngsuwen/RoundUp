@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
+import {EntryContext} from "../../App"
 import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
 
-//const BACKEND_BASE_URL=process.env.REACT_APP_BACKEND_BASE_URL
 
-const category = ["Shopping", "Food", "Health", "Transportation", "Household"]
 const EntryExpensePage = ({navigation}) => {
  
    const [date, setDate] = useState(new Date())
@@ -18,10 +17,7 @@ const EntryExpensePage = ({navigation}) => {
 
    // useContext
    const [userId] = useContext(UserContext)
-
-   
-   
- 
+   //const [date,setDate,amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = useContext(EntryContext)
 
    // Date Picker
    const onChangeDate = (event, selectedDate) =>{
@@ -39,7 +35,7 @@ const EntryExpensePage = ({navigation}) => {
           body: JSON.stringify(
             { 
               username: userId,
-              expensesentry:[
+              expensesentry:
                 { 
                   
                   date: date,
@@ -47,7 +43,7 @@ const EntryExpensePage = ({navigation}) => {
                   category: selectedValue,
                   description: description  }
                 
-              ]      
+                 
             }
             ),
           headers: {

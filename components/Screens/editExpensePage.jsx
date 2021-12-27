@@ -1,23 +1,29 @@
 import React, {useState} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
+import {EntryContext} from "../../App"
 import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
 
 const EditExpensePage = ({navigation, route}) => {
 
+   
   const expense = route.params
   
- 
+
+   // useContext
+   const [userId] = useContext(UserContext)
+
+   // useState
    const [date, setDate] = useState(new Date())
    const [amount, setAmount] = useState();
    //const [category, setCategory] = useState("");
    const [selectedValue, setSelectedValue] = useState("Shopping")
    const [description, setDescription] = useState("");
 
-   // useContext
-   const [userId] = useContext(UserContext)
+
+ 
 
    // Date Picker
    const onChangeDate = (event, selectedDate) =>{
@@ -25,17 +31,17 @@ const EditExpensePage = ({navigation, route}) => {
      setDate(currentDate)
    }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (expense) => {
       try{
         
-        event.preventDefault();
+        // event.preventDefault();
         const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}`, {
          
           method: "PUT",
           body: JSON.stringify(
             { 
               username: userId,
-              expensesentry:[
+              expensesentry:
                 { 
                   
                   date: date,
@@ -43,7 +49,7 @@ const EditExpensePage = ({navigation, route}) => {
                   category: selectedValue,
                   description: description  }
                 
-              ]      
+                 
             }
             ),
           headers: {
@@ -51,14 +57,19 @@ const EditExpensePage = ({navigation, route}) => {
           },
         })
         if(res.status!==200){
-          console.error('create data expense failed')
+          console.error('edit data expense failed')
         }
       } catch(err){
         console.log(err)
       }
-        navigation.navigate("Show Expense Page")
+        navigation.navigate("Show Expense Page", expense)
         
       }
+
+
+
+
+
     return (
        
         <SafeAreaView style={styles.container} >
@@ -103,7 +114,7 @@ const EditExpensePage = ({navigation, route}) => {
                       /> 
                 
                 
-                <Button title="Submit" onPress={handleSubmit} />
+                <Button title="Submit" onPress={()=>handleSubmit(expense)} />
 
 
                 
