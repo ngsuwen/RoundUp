@@ -4,9 +4,10 @@ import {useContext} from "react"
 import {EntryContext} from "../../App"
 
 
-const ShowExpensePage = () => {
-  
-  const [expense, setExpense] = useState(null)
+const ShowExpensePage = ({navigation, route}) => {
+  // const exp = route.params
+  // console.log("exp:". exp)
+  const [expense, setExpense] = useState({})
 
    // useContext
    const [allExpenses, reloadExpense] = useContext(EntryContext)
@@ -17,7 +18,53 @@ const ShowExpensePage = () => {
    }, [allExpenses])
 
 
+   // to work on below
+  //  useEffect(() => {
+  //   if (!expense) {
+  //     return
+  //   }
+  //   const updated = allExpenses.find((_expense) => _expense._id === expense._id)
+  //   if (updated) {
+  //     setExpense(updated)
+      
+  //   } else {
+  //     setExpense({})
+  //   }
+
+  // }, [allExpenses])
   
+
+    // route show
+
+    // useEffect( async(id) => {
+   
+    //   try {
+    //     const res = await fetch(
+    //       `https://roundup-api.herokuapp.com/data/expense/${id}`);
+    //     const data = await res.json();
+    //     setExpense(data)
+    //   } catch (err) {
+    //     console.log(err)
+    //   }
+
+
+    // }, [])
+
+
+   
+
+
+
+    // const deleteHoliday = async (id) => {
+    //   const res = await fetch(`${BACKEND_BASE_URL}/holidays/${id}`, {
+    //     method: 'DELETE'
+    //   })
+    //   if (res.status !== 200) {
+    //     console.error('failed to delete holidays')
+    //     return
+    //   }
+    //   reloadHolidays();
+    // }
  
 
     return (
@@ -26,9 +73,10 @@ const ShowExpensePage = () => {
             <View>
              {allExpenses.map((ele,i)=>{
                return(
-                 <Text key={ele._id}>{ele.expensesentry[0].amount}</Text>
+                 <Text key={ele._id}>{ele._id}</Text>
                )
              })}
+             {/* <Text>id: </Text> */}
             </View>
 
           

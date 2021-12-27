@@ -46,9 +46,6 @@ export default function App() {
         <Drawer.Screen name="General Page" component={Generalpage} />
         <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
         <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} />
-
-       
-
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Logout" component={Home} initialParams={{ post: logoutHandler }}/>
       </Drawer.Navigator>
