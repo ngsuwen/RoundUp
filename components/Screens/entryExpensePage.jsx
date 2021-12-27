@@ -35,7 +35,7 @@ const EntryExpensePage = ({navigation}) => {
           body: JSON.stringify(
             { 
               username: userId,
-              expensesentry:[
+              expensesentry:
                 { 
                   
                   date: date,
@@ -43,7 +43,7 @@ const EntryExpensePage = ({navigation}) => {
                   category: selectedValue,
                   description: description  }
                 
-              ]      
+                 
             }
             ),
           headers: {

@@ -29,10 +29,10 @@ const ShowExpensePage = ({navigation, route }) => {
           <View>
             <Text>Id: {expense._id}</Text>
             <Text>Username: {expense.username}</Text>
-            <Text>Date: {expense.expensesentry[0].date}</Text>
-            <Text>Amount: $ {expense.expensesentry[0].amount}</Text>
-            <Text>Category: {expense.expensesentry[0].category}</Text>
-            <Text>Description: {expense.expensesentry[0].description}</Text>
+            <Text>Date: {expense.expensesentry.date}</Text>
+            <Text>Amount: $ {expense.expensesentry.amount}</Text>
+            <Text>Category: {expense.expensesentry.category}</Text>
+            <Text>Description: {expense.expensesentry.description}</Text>
             <View>
                <Button title="Delete" onPress={()=> deleteExpense(expense._id)}/>
                <Button title="Edit" onPress={()=>navigation.navigate("Edit Expense Page", expense)}/>
