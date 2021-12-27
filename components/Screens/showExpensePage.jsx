@@ -9,9 +9,6 @@ const ShowExpensePage = ({navigation, route }) => {
     const expense = route.params
     // console.log("expense", expense)
 
-    // useContext
-    const [reloadExpense] = useContext(EntryContext)
-
       // route DELETE
       const deleteExpense = async (id) => {
         const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${id}`, {

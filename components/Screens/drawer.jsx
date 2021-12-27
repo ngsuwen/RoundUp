@@ -8,6 +8,7 @@ import Generalpage from "./generalPage";
 import EntryExpensePage from "./entryExpensePage"
 import IndexExpensePage from "./indexExpensePage"
 import ShowExpensePage from "./showExpensePage"
+import EditExpensePage from "./editExpensePage";
 import Profile from "./profile"
 import logoutApi from "../api/logoutApi";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -48,6 +49,7 @@ export default function App() {
         <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
         <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} />
         <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} />
+        <Drawer.Screen name="Edit Expense Page" component={EditExpensePage} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Logout" component={Home} initialParams={{ post: logoutHandler }}/>
       </Drawer.Navigator>
