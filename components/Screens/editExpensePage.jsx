@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
-import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
 
-const EditExpensePage = ({navigation}) => {
+const EditExpensePage = ({navigation, route}) => {
+
+  const expense = route.params
+  
  
    const [date, setDate] = useState(new Date())
    const [amount, setAmount] = useState();
@@ -22,11 +25,11 @@ const EditExpensePage = ({navigation}) => {
      setDate(currentDate)
    }
 
-    const handleSubmit = async (event, id) => {
+    const handleSubmit = async (event) => {
       try{
         
         event.preventDefault();
-        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${id}`, {
+        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}`, {
          
           method: "PUT",
           body: JSON.stringify(
@@ -59,6 +62,7 @@ const EditExpensePage = ({navigation}) => {
     return (
        
         <SafeAreaView style={styles.container} >
+        <Text>Id: {expense._id}</Text>
             <View>
                 <DatePicker
                   style={styles.datepicker}

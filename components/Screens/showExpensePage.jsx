@@ -34,7 +34,7 @@ const ShowExpensePage = ({navigation, route }) => {
             <Text>Description: {expense.expensesentry[0].description}</Text>
             <View>
                <Button title="Delete" onPress={()=> deleteExpense(expense._id)}/>
-               <Button title="Edit"/>
+               <Button title="Edit" onPress={()=>navigation.navigate("Edit Expense Page", expense)}/>
             </View>
 
           </View>
