@@ -13,41 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 const _ = require('underscore')
 
-
-// const cashentry = [
-//     {
-//       date: '01/01/22',
-//       amount: 5.55,
-//       category: 'food',
-//       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-//     },
-//     {
-//       date: '01/01/22',
-//       amount: 10,
-//       category: 'food',
-//       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-//     },
-//     {
-//       date: '01/01/22',
-//       amount: 10,
-//       category: 'food',
-//       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-//     },
-//     {
-//       date: '02/01/22',
-//       amount: 6,
-//       category: 'food',
-//       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-//     },
-//     {
-//       date: '03/01/22',
-//       amount: 10,
-//       category: 'food',
-//       desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-//     },
-//   ]
-  
-
   const styles = StyleSheet.create({
     entryWrapper: {
         flex:1,
@@ -106,7 +71,7 @@ const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
   return formattedGroupedDate
 })
 
-console.log('entriesbyday:',entriesByDay)
+// console.log('entriesbyday:',entriesByDay)
 const allDates = Object.keys(entriesByDay)
 
 const entries = allDates.map((date,index)=>{
@@ -123,7 +88,6 @@ return(
     {date}
     {`$ ${totalAmount}`}
     {/* <Accordion.Icon />  */}
-    {/* replace icon with total amount  */}
     </Accordion.Summary>
     {entriesByDay[date].map((entry,index)=>{
     return(
