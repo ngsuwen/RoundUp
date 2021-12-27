@@ -7,7 +7,8 @@ import {EntryContext} from "../../App"
 const ShowExpensePage = ({navigation, route }) => {
 
     const expense = route.params
-    // console.log("expense", expense)
+
+    console.log("expense", expense)
 
       // route DELETE
       const deleteExpense = async (id) => {

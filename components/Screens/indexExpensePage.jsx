@@ -76,7 +76,7 @@ const IndexExpensePage = ({navigation }) => {
              {allExpenses.map((ele,i)=>{
                return(
                  <TouchableOpacity onPress={()=>navigation.navigate("Show Expense Page", ele)}>
-                 <View>
+                 <View >
                  <Text>Id: {ele._id}</Text>
                  <Text>Username: {ele.username}</Text>
                  <Text>Date: {ele.expensesentry[0].date}</Text>
@@ -87,7 +87,7 @@ const IndexExpensePage = ({navigation }) => {
                  </TouchableOpacity>
                )
              })}
-             {/* <Text>id: </Text> */}
+     
             </View>
 
           

@@ -26,6 +26,10 @@ function App() {
 
   // useState for expense
   const [allExpense, setAllExpense] = useState()
+  // const [date, setDate] = useState(new Date())
+  //  const [amount, setAmount] = useState();
+  //  const [selectedValue, setSelectedValue] = useState("Shopping")
+  //  const [description, setDescription] = useState("");
 
   // check storage for tokens upon opening app
   useEffect(async () => {
