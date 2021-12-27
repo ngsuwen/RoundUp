@@ -6,9 +6,16 @@ import {EntryContext} from "../../App"
 
 const ShowExpensePage = ({navigation, route }) => {
 
-    const expense = route.params
+   // useContext
+   const [allExpenses, reloadExpense] = useContext(EntryContext)
+   const expense = route.params
 
-    console.log("expense", expense)
+   const [singleExpense, setSingleExpense] = useState(expense._id)
+
+   useEffect(() => {
+     setSingleExpense(expense._id)
+   }, [])
+  
 
       // route DELETE
       const deleteExpense = async (id) => {
@@ -20,6 +27,7 @@ const ShowExpensePage = ({navigation, route }) => {
           return
         }
         
+        reloadExpense()
         navigation.navigate("Index Expense Page")
       }
 

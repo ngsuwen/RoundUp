@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
 import {EntryContext} from "../../App"
@@ -10,7 +10,6 @@ const EditExpensePage = ({navigation, route}) => {
 
    
   const expense = route.params
-  
 
    // useContext
    const [userId] = useContext(UserContext)
@@ -21,6 +20,7 @@ const EditExpensePage = ({navigation, route}) => {
    //const [category, setCategory] = useState("");
    const [selectedValue, setSelectedValue] = useState("Shopping")
    const [description, setDescription] = useState("");
+
 
 
  
@@ -62,6 +62,8 @@ const EditExpensePage = ({navigation, route}) => {
       } catch(err){
         console.log(err)
       }
+    
+        // need to work on back button to edited show page
         navigation.navigate("Show Expense Page", expense)
         
       }
