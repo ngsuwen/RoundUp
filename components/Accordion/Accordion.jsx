@@ -4,47 +4,14 @@
 // BE used to filter specific data 
 
 import React from 'react';
-import { useState,useEffect } from 'react'
+import { useState,useEffect, useContext } from 'react'
+import { DataContext } from '../../App'
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 const _ = require('underscore')
-
-
-const cashentry = [
-    {
-      date: '01/01/22',
-      amount: 5.55,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '01/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '01/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '02/01/22',
-      amount: 6,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-    {
-      date: '03/01/22',
-      amount: 10,
-      category: 'food',
-      desc:'A cup of coffee and a lot of christmas present and maybe for new year as well'
-    },
-  ]
-  
 
   const styles = StyleSheet.create({
     entryWrapper: {
@@ -72,36 +39,47 @@ const cashentry = [
 
 })
 
-// grouping logic
-const entriesByDay = _.groupBy(cashentry,'date')
-const allDates = Object.keys(entriesByDay)
 
 function AccordionComponent() {
 
-const [fetchedEntries,setFetchedEntries] = useState([])
+const {monthContext,expenseMonthContext} = useContext(DataContext);
+const [expenseMonth,setExpenseMonth] = monthContext
+const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 
 const fetchExpenses = () => {
-  const userid = '61bd9a6c2fcd3b08f3365f75'
-  fetch(`https://roundup-api.herokuapp.com/data/expense/user/${userid}`)
+  const userid = '61bd9a6c2fcd3b08f3365f75' // useContext to update this part
+  const monthOfExpense = moment(expenseMonth, moment.ISO_8601).format('YYYY-MM')
+  console.log('monthofexpense:',monthOfExpense)
+  fetch(`https://roundup-api.herokuapp.com/data/expense/user/${userid}/${monthOfExpense}`)
   .then(data=>data.json())
   .then((parsedData)=>{
-    console.log('parseddata:',parsedData)
-    setFetchedEntries(parsedData)})
+  console.log('parseddata:',parsedData)
+  setFetchedExpenseEntries(parsedData)})
   .catch((err)=>console.log(err))
   }
 
   useEffect(()=>{
-    // fetchExpenses()
-  },[])
+    fetchExpenses()
+  },[expenseMonth])
 
-const navigation = useNavigation();
+const navigation = useNavigation()
+
+// grouping logic
+const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
+  const groupedDate = element.expensesentry.date
+  const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
+  return formattedGroupedDate
+})
+
+// console.log('entriesbyday:',entriesByDay)
+const allDates = Object.keys(entriesByDay)
 
 const entries = allDates.map((date,index)=>{
 
 // method for calculating total amount for each day
 let totalAmount = 0
 entriesByDay[date].forEach((entry)=>{
-    totalAmount += entry.amount
+    totalAmount += entry.expensesentry.amount
 })
 
 return(
@@ -110,14 +88,13 @@ return(
     {date}
     {`$ ${totalAmount}`}
     {/* <Accordion.Icon />  */}
-    {/* replace icon with total amount  */}
     </Accordion.Summary>
     {entriesByDay[date].map((entry,index)=>{
     return(
     <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
     <Accordion.Details key={index}>
-        <Text style={styles.entryDesc}>{entry.desc}</Text>
-        <Text style={styles.entryPrice}>{`$ ${entry.amount}`}</Text>
+        <Text style={styles.entryDesc}>{entry.expensesentry.description}</Text>
+        <Text style={styles.entryPrice}>{`$ ${entry.expensesentry.amount}`}</Text>
     <Divider my={2} style={styles.divider}/>
     </Accordion.Details>
     </Pressable>

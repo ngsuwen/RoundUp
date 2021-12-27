@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { DataContext } from '../../App'
 import {
   View,
   Text,
@@ -60,14 +61,15 @@ const styles = StyleSheet.create({
 });
 
 export default function MonthPickerModal({ placeholder }) {
-  const [isOpen, toggleOpen] = useState(false);
-  const [value, onChange] = useState(null);
-
+  const {monthContext} = useContext(DataContext);
+  const [expenseMonth,setExpenseMonth] = monthContext
+  const [isOpen, toggleOpen] = useState(false)
+  console.log('expensemonth:',expenseMonth)
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => toggleOpen(true)} style={styles.input}>
         <Text style={styles.inputText}>
-          {value ? moment(value).format('MMM YYYY') : moment().format('MMM YYYY')}
+          {moment(expenseMonth).format('MMM YYYY')}
         </Text>
       </TouchableOpacity>
 
@@ -79,8 +81,8 @@ export default function MonthPickerModal({ placeholder }) {
         <View style={styles.contentContainer}>
           <View style={styles.content}>
             <MonthPicker
-              selectedDate={value || new Date()}
-              onMonthChange={onChange}
+              selectedDate={expenseMonth || new Date()}
+              onMonthChange={setExpenseMonth}
               selectedBackgroundColor='#B4AEE8'
               prevText='Prev'
               nextText='Next'

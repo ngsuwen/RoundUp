@@ -5,8 +5,7 @@ import {EntryContext} from "../../App"
 
 
 const IndexExpensePage = ({navigation }) => {
-  // const exp = route.params
-  // console.log("exp:". exp)
+
   const [expense, setExpense] = useState({})
 
    // useContext
