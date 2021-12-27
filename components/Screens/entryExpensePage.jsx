@@ -60,7 +60,7 @@ const EntryExpensePage = ({navigation}) => {
       } catch(err){
         console.log(err)
       }
-        navigation.navigate("Show Expense Page")
+        navigation.navigate("Index Expense Page")
         
       }
     return (

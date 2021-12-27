@@ -6,6 +6,7 @@ import Home from "./home";
 import About from "./about";
 import Generalpage from "./generalPage";
 import EntryExpensePage from "./entryExpensePage"
+import IndexExpensePage from "./indexExpensePage"
 import ShowExpensePage from "./showExpensePage"
 import Profile from "./profile"
 import logoutApi from "../api/logoutApi";
@@ -45,6 +46,7 @@ export default function App() {
         <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="General Page" component={Generalpage} />
         <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
+        <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} />
         <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Logout" component={Home} initialParams={{ post: logoutHandler }}/>
