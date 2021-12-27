@@ -56,11 +56,13 @@ const cashentry = [
     },
     entryDesc: {
         flex: 1,
+        color:'#424642',
         // backgroundColor:'green',
     },
     entryPrice: {
         flex: 1,
         textAlign:'right',
+        color:'#424642'
         // backgroundColor:'yellow'
     },
     divider:{
@@ -80,16 +82,16 @@ const [fetchedEntries,setFetchedEntries] = useState([])
 
 const fetchExpenses = () => {
   const userid = '61bd9a6c2fcd3b08f3365f75'
-  fetch(`https://roundup-api.herokuapp.com/data/expense/${userid}`)
+  fetch(`https://roundup-api.herokuapp.com/data/expense/user/${userid}`)
   .then(data=>data.json())
   .then((parsedData)=>{
-    // console.log('parseddata:',parsedData)
+    console.log('parseddata:',parsedData)
     setFetchedEntries(parsedData)})
   .catch((err)=>console.log(err))
   }
 
   useEffect(()=>{
-    fetchExpenses()
+    // fetchExpenses()
   },[])
 
 const navigation = useNavigation();

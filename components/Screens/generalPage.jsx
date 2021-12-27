@@ -4,15 +4,15 @@
 // link to edit/delete page for every entry 
 // show total expense/savings/investments for that month above graph 
 
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native'
 import { NativeBaseProvider, Box } from 'native-base'
-import Carousel from "pinar";
-import ExpenseLineChartComponent from '../Charts/expenseLineChart';
-import PieChartComponent from '../Charts/PieChart';
-import Entries from '../Entries/entries';
+import Carousel from "pinar"
+import ExpenseLineChartComponent from '../Charts/expenseLineChart'
+import PieChartComponent from '../Charts/PieChart'
 import AccordionList from '../Accordion/Accordion'
+import MonthSelector from '../Picker/monthPicker'
 
 export default function GeneralBreakdownPage() {
 
@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  monthSelector:{
+    flex:0.25,
+    borderRadius:10,
   },
   carousel:{
     flex:1,
@@ -70,6 +74,9 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <ExpenseLineChartComponent/>
       </Carousel>
+      <View style={styles.monthSelector}>
+        <MonthSelector/>
+      </View>
       <View style={styles.accordion}>
       <AccordionList/>
       </View>
