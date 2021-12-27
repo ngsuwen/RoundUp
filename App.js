@@ -11,6 +11,7 @@ import DrawerComponent from "./components/Screens/drawer";
 import checkToken from "./components/api/checkToken";
 import getUserId from "./components/api/getUserId";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,12 +21,21 @@ export const UserContext = createContext();
 // entryContext
 export const EntryContext = createContext();
 
+// dataContext
+export const DataContext = createContext();
+
 function App() {
   // token state, to be provided at all pages to check for session
   const [user, setUser] = useState(null);
 
   // useState for expense
   const [allExpense, setAllExpense] = useState()
+
+  // useState for expense month selector
+  const [expenseMonth,setExpenseMonth] = useState(moment().format('YYYY-MM'))
+
+  // useState for expense fetched entries (month)
+  const [fetchedExpenseEntries,setFetchedExpenseEntries] = useState([])
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -68,6 +78,7 @@ function App() {
     <NavigationContainer>
       <UserContext.Provider value={[user, setUser]}>
       <EntryContext.Provider value={[allExpense, reloadExpense]}>
+      <DataContext.Provider value={{monthContext:[expenseMonth,setExpenseMonth],expenseMonthContext:[fetchedExpenseEntries,setFetchedExpenseEntries]}}>
         <Stack.Navigator
           initialRouteName="Login"
           // initialRouteName="Drawer"
@@ -90,6 +101,7 @@ function App() {
           <Stack.Screen name="Drawer" component={DrawerComponent} />
           
         </Stack.Navigator>
+        </DataContext.Provider>
         </EntryContext.Provider>
       </UserContext.Provider>
     </NavigationContainer>
