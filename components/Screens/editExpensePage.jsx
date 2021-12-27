@@ -31,11 +31,11 @@ const EditExpensePage = ({navigation, route}) => {
      setDate(currentDate)
    }
 
-    const handleSubmit = async (id) => {
+    const handleSubmit = async (expense) => {
       try{
         
         // event.preventDefault();
-        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${id}`, {
+        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}`, {
          
           method: "PUT",
           body: JSON.stringify(
@@ -62,7 +62,7 @@ const EditExpensePage = ({navigation, route}) => {
       } catch(err){
         console.log(err)
       }
-        navigation.navigate("Index Expense Page")
+        navigation.navigate("Show Expense Page", expense)
         
       }
 
