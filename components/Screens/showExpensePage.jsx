@@ -7,7 +7,23 @@ import {EntryContext} from "../../App"
 const ShowExpensePage = ({navigation, route }) => {
 
     const expense = route.params
-    console.log("expense", expense)
+    // console.log("expense", expense)
+
+    // useContext
+    const [reloadExpense] = useContext(EntryContext)
+
+      // route DELETE
+      const deleteExpense = async (id) => {
+        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${id}`, {
+          method: 'DELETE'
+        })
+        if (res.status !== 200) {
+          console.error('failed to delete expense')
+          return
+        }
+        
+        navigation.navigate("Index Expense Page")
+      }
 
     return (
         
@@ -19,6 +35,10 @@ const ShowExpensePage = ({navigation, route }) => {
             <Text>Amount: $ {expense.expensesentry[0].amount}</Text>
             <Text>Category: {expense.expensesentry[0].category}</Text>
             <Text>Description: {expense.expensesentry[0].description}</Text>
+            <View>
+               <Button title="Delete" onPress={()=> deleteExpense(expense._id)}/>
+               <Button title="Edit"/>
+            </View>
 
           </View>
         </SafeAreaView>
