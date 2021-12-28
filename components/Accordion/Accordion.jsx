@@ -46,14 +46,15 @@ const {monthContext,expenseMonthContext} = useContext(DataContext);
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 
+
 const fetchExpenses = () => {
   const userid = '61bd9a6c2fcd3b08f3365f75' // useContext to update this part
   const monthOfExpense = moment(expenseMonth, moment.ISO_8601).format('YYYY-MM')
-  console.log('monthofexpense:',monthOfExpense)
+  // console.log('monthofexpense:',monthOfExpense)
   fetch(`https://roundup-api.herokuapp.com/data/expense/user/${userid}/${monthOfExpense}`)
   .then(data=>data.json())
   .then((parsedData)=>{
-  console.log('parseddata:',parsedData)
+  // console.log('parseddata:',parsedData)
   setFetchedExpenseEntries(parsedData)})
   .catch((err)=>console.log(err))
   }

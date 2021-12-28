@@ -18,10 +18,10 @@ function App() {
   const [selectedValue, setSelectedValue] = useState("");
   const [description, setDescription] = useState("");
 
-  // useState for expense month selector
+  // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
 
-  // useState for expense fetched entries (month)
+  // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
   // check storage for tokens upon opening app
