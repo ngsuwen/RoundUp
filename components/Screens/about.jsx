@@ -2,10 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button} from 'react-native';
 import { NativeBaseProvider, Box } from 'native-base';
-import { useNavigationState } from '@react-navigation/native';
 
 export default function About({ navigation }) {
-  useNavigationState(state => state.index);
 
   return (
     <SafeAreaView style={styles.container}>

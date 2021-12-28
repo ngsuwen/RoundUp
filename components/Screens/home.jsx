@@ -10,10 +10,8 @@ import Carousel from "pinar";
 import HomePageCashCard from '../Cards/homepageCashCard'
 import HomePageExpenseCard from '../Cards/homepageExpenseCard'
 import HomePageInvestmentCard from '../Cards/homepageInvestmentCard'
-import { useNavigationState } from '@react-navigation/native';
 
 export default function Home({ navigation }) {
-  useNavigationState(state => state.index);
 
   const screenWidth = Dimensions.get('screen').width
   const screenHeight = Dimensions.get('screen').height
