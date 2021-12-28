@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import * as React from 'react';
 import DataContext from '../../context/DataContext';
 import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
@@ -10,10 +10,10 @@ const EditExpensePage = ({navigation, route}) => {
   const expense = route.params
 
    // useContext
-   const { userContext } = useContext(DataContext)
+   const { userContext } = React.useContext(DataContext)
    const [userId, setUserId]=userContext
 
-  const {expenseEntryContext} = useContext(DataContext)
+  const {expenseEntryContext} = React.useContext(DataContext)
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
 
