@@ -53,6 +53,11 @@ export default function LoginPage({ navigation }) {
     }
   }
 
+  // delete user
+  async function deleteHandler() {
+    alert('Are you sure?')
+  }
+
   // getUser
   async function getUserInfo() {
     try {
@@ -122,8 +127,11 @@ export default function LoginPage({ navigation }) {
               onChangeText={(text) => setReferral(text)}
             />
           </FormControl>
-          <Button onPress={updateHandler} small primary>
+          <Button onPress={updateHandler} colorScheme="primary">
             <Text>Update Profile</Text>
+          </Button>
+          <Button onPress={deleteHandler} colorScheme="danger">
+            <Text>Delete Profile</Text>
           </Button>
         </Stack>
       </Center>
