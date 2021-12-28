@@ -10,10 +10,14 @@ import {
   Pressable,
   Icon,
 } from "native-base";
+import { Alert } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import DataContext from "../../context/DataContext";
 import getUser from "../api/getUser";
 import updateUser from "../api/updateUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import deleteUser from "../api/deleteUser";
+import logoutApi from "../api/logoutApi";
 
 export default function LoginPage({ navigation }) {
   // useContext UserContext
@@ -54,8 +58,34 @@ export default function LoginPage({ navigation }) {
   }
 
   // delete user
+  async function deleteUserApi(){
+    try {
+      await deleteUser(user);
+      const refreshToken = await AsyncStorage.getItem("refreshToken");
+      await logoutApi(refreshToken);
+      await AsyncStorage.removeItem("accessToken");
+      await AsyncStorage.removeItem("refreshToken");
+      setUser("");
+      console.log('deleted')
+      navigation.navigate('Login')
+    } catch(err){
+      console.log(err)
+    }
+  }
+
   async function deleteHandler() {
-    alert('Are you sure?')
+    Alert.alert(
+      "",
+      "Are you sure? Deleted accounts cannot be recovered.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: deleteUserApi }
+      ]
+    );
   }
 
   // getUser
