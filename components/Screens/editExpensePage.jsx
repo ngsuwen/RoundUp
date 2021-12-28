@@ -7,7 +7,7 @@ import DatePicker from "@react-native-community/datetimepicker"
 const EditExpensePage = ({navigation, route}) => {
 
    
-  const expense = route.params
+  const {ele} = route.params
 
    // useContext
    const { userContext } = React.useContext(DataContext)
@@ -45,14 +45,14 @@ const EditExpensePage = ({navigation, route}) => {
         if(res.status!==200){
           console.error('edit data expense failed')
         }
+        // pass the data into params ele so that showpage will show latest updated data
+        const data = await res.json()
+        navigation.navigate("Show Expense Page", {ele: data})
+
       } catch(err){
         console.log(err)
       }
     
-        // need to work on back button to edited show page
-        // needs to reload singleExpense
-       
-        navigation.navigate("Show Expense Page", expense)
         
       }
 
@@ -60,7 +60,7 @@ const EditExpensePage = ({navigation, route}) => {
     return (
        
         <SafeAreaView style={styles.container} >
-        <Text>Id: {expense._id}</Text>
+        <Text>Id: {ele._id}</Text>
             <View>
                 <DatePicker
                   style={styles.datepicker}
@@ -101,7 +101,7 @@ const EditExpensePage = ({navigation, route}) => {
                       /> 
                 
                 
-                <Button title="Submit" onPress={()=>handleSubmit(expense)} />
+                <Button title="Submit" onPress={()=>handleSubmit(ele)} />
 
 
                 

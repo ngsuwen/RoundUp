@@ -33,7 +33,7 @@ const IndexExpensePage = ({ navigation }) => {
             return (
               <TouchableOpacity
                 key={i}
-                onPress={() => navigation.navigate("Show Expense Page", ele)}
+                onPress={() => navigation.navigate("Show Expense Page", {ele})}
               >
                 <View>
                   <Text>Id: {ele._id}</Text>
