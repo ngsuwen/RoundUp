@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
-import { DataContext } from '../../App'
+import DataContext from '../../context/DataContext';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';

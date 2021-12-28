@@ -16,12 +16,15 @@ import { Entypo } from "@expo/vector-icons";
 import signUpApi from "../api/signUpApi";
 import loginAuth from "../api/loginAuth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserContext } from "../../App";
+import DataContext from "../../context/DataContext";
 import getUserId from "../api/getUserId";
 
 export default function LoginPage({ navigation }) {
-  // useContext UserContext
-  const [user, setUser]=useContext(UserContext)
+  // useContext
+  const { userContext } = useContext(DataContext)
+  const [user, setUser]=userContext
+
+  console.log(user)
 
   // useState
   const [isSignUpValid, setIsSignUpValid] = useState("pass");

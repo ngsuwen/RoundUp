@@ -1,10 +1,12 @@
 import * as React from "react";
 import checkToken from "./checkToken";
-import { UserContext } from "../../App";
+import DataContext from "../../context/DataContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function checkTokenNavigation() {
-  const [user, setUser] = React.useContext(UserContext);
+  const { userContext } = React.useContext(DataContext)
+  const [user, setUser]=userContext
+
   try {
     const accessToken = await AsyncStorage.getItem("accessToken");
     const refreshToken = await AsyncStorage.getItem("refreshToken");

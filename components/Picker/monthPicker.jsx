@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { DataContext } from '../../App'
+import DataContext from '../../context/DataContext';
 import {
   View,
   Text,

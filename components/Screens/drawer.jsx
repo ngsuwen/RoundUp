@@ -15,7 +15,7 @@ import EditExpensePage from "./editExpensePage";
 import Profile from "./profile";
 import logoutApi from "../api/logoutApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UserContext } from "../../App";
+import DataContext from "../../context/DataContext";
 import { useNavigationState } from "@react-navigation/native";
 import checkTokenNavigation from "../api/checkTokenNavigation";
 
@@ -25,7 +25,8 @@ export default function App({ navigation }) {
   useNavigationState(state => state.index);
   checkTokenNavigation()
 
-  const [user, setUser] = React.useContext(UserContext);
+  const { userContext } = React.useContext(DataContext)
+  const [user, setUser]=userContext
 
   async function logoutHandler() {
     try {

@@ -15,7 +15,7 @@ import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import loginAuth from "../api/loginAuth";
 import getUserId from "../api/getUserId";
-import { UserContext } from "../../App";
+import DataContext from "../../context/DataContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginPage({ navigation }) {
@@ -25,7 +25,8 @@ export default function LoginPage({ navigation }) {
   const [username, setUsername] = useState("");
 
   // useContext
-  const [user, setUser] = useContext(UserContext)
+  const { userContext } = useContext(DataContext)
+  const [user, setUser]=userContext
 
   // password state
   const [show, setShow] = useState(false);

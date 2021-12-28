@@ -11,12 +11,13 @@ import {
   Icon,
 } from "native-base";
 import { Entypo } from "@expo/vector-icons";
-import { UserContext } from "../../App";
+import DataContext from "../../context/DataContext";
 import getUser from "../api/getUser";
 
 export default function LoginPage({ navigation }) {
   // useContext UserContext
-  const [user, setUser] = useContext(UserContext);
+  const { userContext } = useContext(DataContext)
+  const [user, setUser]=userContext
 
   // useState
   const [isUpdateValid, setIsUpdateValid] = useState("pass");
