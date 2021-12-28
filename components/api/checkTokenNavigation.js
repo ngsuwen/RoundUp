@@ -2,6 +2,7 @@ import * as React from "react";
 import checkToken from "./checkToken";
 import DataContext from "../../context/DataContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import logoutApi from "./logoutApi";
 
 export default async function checkTokenNavigation() {
   const { userContext } = React.useContext(DataContext)
@@ -22,12 +23,12 @@ export default async function checkTokenNavigation() {
       await AsyncStorage.setItem("accessToken", isTokenValid.accessToken);
       await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
     }
-    // console.log('token check pass')
+    console.log('token check pass')
   } catch (err) {
-    console.log('token check failed, bringing back to login')
+    console.log("unexpected error")
     await AsyncStorage.removeItem("accessToken");
     await AsyncStorage.removeItem("refreshToken");
     setUser("");
-    navigation.navigate("Login");
+    //navigation.navigate("Login");
   }
 }

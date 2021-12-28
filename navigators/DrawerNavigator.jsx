@@ -22,8 +22,12 @@ import checkTokenNavigation from "../components/api/checkTokenNavigation";
 const Drawer = createDrawerNavigator();
 
 export default function App({ navigation }) {
-  useNavigationState(state => state.index);
-  checkTokenNavigation()
+  try{
+    useNavigationState(state => state.index);
+    checkTokenNavigation()
+  } catch(err){
+    console.log('error')
+  }
 
   const { userContext } = React.useContext(DataContext)
   const [user, setUser]=userContext
