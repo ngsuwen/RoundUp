@@ -57,7 +57,6 @@ totalAmount += entry.expensesentry.amount
 return totalAmount
 })
 
-console.log('totalamountarr:',totalAmountArr)
 
 // this condition is required because if array is empty, react-chart-kit will return invalid number error
 if(totalAmountArr.length>0){
