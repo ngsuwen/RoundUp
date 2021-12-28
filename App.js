@@ -1,17 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./components/Screens/login";
-import Loading from "./components/Screens/loading";
-import Signup from "./components/Screens/signup";
-import DrawerComponent from "./components/Screens/drawer";
 import checkToken from "./components/api/checkToken";
 import getUserId from "./components/api/getUserId";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import DataContext from "./context/DataContext";
-
-const Stack = createNativeStackNavigator();
+import StackNavigator from "./navigators/StackNavigator";
 
 function App() {
   // token state, to be provided at all pages to check for session
@@ -100,21 +94,7 @@ function App() {
           entryContext: [allExpense, reloadExpense],
         }}
       >
-        <Stack.Navigator
-          initialRouteName="Login"
-          // initialRouteName="Drawer"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          {/* if user is logged in, load drawer instead */}
-          <Stack.Screen
-            name="Login"
-            component={user === "" ? Login : user ? DrawerComponent : Loading}
-          />
-          <Stack.Screen name="Sign Up" component={Signup} />
-          <Stack.Screen name="Drawer" component={DrawerComponent} />
-        </Stack.Navigator>
+        <StackNavigator />
       </DataContext.Provider>
     </NavigationContainer>
   );
