@@ -6,82 +6,36 @@ import {EntryContext} from "../../App"
 
 const IndexExpensePage = ({navigation }) => {
 
-  const [expense, setExpense] = useState({})
+  
 
    // useContext
-   const [allExpenses, reloadExpense] = useContext(EntryContext)
+   const [allExpense, reloadExpense] = useContext(EntryContext)
+   
 
+   
 
    useEffect(() => {
       reloadExpense()
-   }, [allExpenses])
+   }, [allExpense])
 
 
-   // to work on below
-  //  useEffect(() => {
-  //   if (!expense) {
-  //     return
-  //   }
-  //   const updated = allExpenses.find((_expense) => _expense._id === expense._id)
-  //   if (updated) {
-  //     setExpense(updated)
-      
-  //   } else {
-  //     setExpense({})
-  //   }
-
-  // }, [allExpenses])
   
-
-    // route show
-
-    // useEffect( async(id) => {
-   
-    //   try {
-    //     const res = await fetch(
-    //       `https://roundup-api.herokuapp.com/data/expense/${id}`);
-    //     const data = await res.json();
-    //     setExpense(data)
-    //   } catch (err) {
-    //     console.log(err)
-    //   }
-
-
-    // }, [])
-
-
-   
-
-
-
-    // const deleteHoliday = async (id) => {
-    //   const res = await fetch(`${BACKEND_BASE_URL}/holidays/${id}`, {
-    //     method: 'DELETE'
-    //   })
-    //   if (res.status !== 200) {
-    //     console.error('failed to delete holidays')
-    //     return
-    //   }
-    //   reloadHolidays();
-    // }
- 
-
     return (
         
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <View>
             <Text>Expense Summary</Text>
-             {allExpenses.map((ele,i)=>{
+             {allExpense.map((ele,i)=>{
                return(
-                 <TouchableOpacity onPress={()=>navigation.navigate("Show Expense Page", ele)}>
+                 <TouchableOpacity key={i} onPress={()=>navigation.navigate("Show Expense Page", ele)}>
                  <View >
-                 <Text>Id: {ele._id}</Text>
-                 <Text>Username: {ele.username}</Text>
-                 <Text>Date: {ele.expensesentry.date}</Text>
-                 <Text >Amount: $ {ele.expensesentry.amount}</Text>
-                 <Text >Category: {ele.expensesentry.category}</Text>
-                 <Text >Description: {ele.expensesentry.description}</Text>
+                    <Text>Id: {ele._id}</Text>
+                    <Text>Username: {ele.username}</Text>
+                    <Text>Date: {ele.expensesentry.date}</Text>
+                    <Text >Amount: $ {ele.expensesentry.amount}</Text>
+                    <Text >Category: {ele.expensesentry.category}</Text>
+                    <Text >Description: {ele.expensesentry.description}</Text>
                  </View>
                  </TouchableOpacity>
                )

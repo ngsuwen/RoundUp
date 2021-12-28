@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
-import {EntryContext} from "../../App"
+import {DataContext} from "../../App"
 import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
@@ -9,21 +9,13 @@ import DatePicker from "@react-native-community/datetimepicker"
 
 const EntryExpensePage = ({navigation}) => {
  
-   const [date, setDate] = useState(new Date())
-   const [amount, setAmount] = useState();
-   //const [category, setCategory] = useState("");
-   const [selectedValue, setSelectedValue] = useState("Shopping")
-   const [description, setDescription] = useState("");
 
    // useContext
    const [userId] = useContext(UserContext)
-   //const [date,setDate,amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = useContext(EntryContext)
-
-   // Date Picker
-   const onChangeDate = (event, selectedDate) =>{
-     const currentDate = selectedDate || date;
-     setDate(currentDate)
-   }
+   const {expenseEntryContext} = useContext(DataContext)
+   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+ 
+  
 
     const handleSubmit = async (event) => {
       try{

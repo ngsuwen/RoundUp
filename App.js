@@ -29,11 +29,11 @@ function App() {
   const [user, setUser] = useState(null);
 
   // useState for expense
-  const [allExpense, setAllExpense] = useState()
-  // const [date, setDate] = useState(new Date())
-  //  const [amount, setAmount] = useState();
-  //  const [selectedValue, setSelectedValue] = useState("Shopping")
-  //  const [description, setDescription] = useState("");
+  const [allExpense, setAllExpense] = useState([])
+  const [date, setDate] = useState(new Date())
+  const [amount, setAmount] = useState();
+  const [selectedValue, setSelectedValue] = useState("")
+  const [description, setDescription] = useState("");
 
   // useState for expense month selector
   const [expenseMonth,setExpenseMonth] = useState(moment().format('YYYY-MM'))
@@ -78,13 +78,31 @@ function App() {
     }, [])
 
 
+    // Date Picker
+    const onChangeDate = (event, selectedDate) =>{
+    const currentDate = selectedDate || date;
+    setDate(currentDate)
+  }
+
+
 
 
   return (
     <NavigationContainer>
       <UserContext.Provider value={[user, setUser]}>
       <EntryContext.Provider value={[allExpense, reloadExpense]}>
-      <DataContext.Provider value={{monthContext:[expenseMonth,setExpenseMonth],expenseMonthContext:[fetchedExpenseEntries,setFetchedExpenseEntries]}}>
+      <DataContext.Provider value={
+        {
+          monthContext:[expenseMonth,setExpenseMonth],
+          expenseMonthContext:[fetchedExpenseEntries,setFetchedExpenseEntries],
+          expenseEntryContext:[date,setDate,onChangeDate, 
+                               amount,setAmount,
+                               selectedValue, setSelectedValue,
+                               description, setDescription
+                                ]
+        
+        }
+        }>
         <Stack.Navigator
           initialRouteName="Login"
           // initialRouteName="Drawer"
@@ -108,7 +126,7 @@ function App() {
           
         </Stack.Navigator>
         </DataContext.Provider>
-        </EntryContext.Provider>
+        </EntryContext.Provider> 
       </UserContext.Provider>
     </NavigationContainer>
   );

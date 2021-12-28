@@ -7,15 +7,52 @@ import {EntryContext} from "../../App"
 const ShowExpensePage = ({navigation, route }) => {
 
    // useContext
-   const [allExpenses, reloadExpense] = useContext(EntryContext)
-   const expense = route.params
-
-   const [singleExpense, setSingleExpense] = useState(expense._id)
-
-   useEffect(() => {
-     setSingleExpense(expense._id)
-   }, [])
   
+   const [allExpense, reloadExpense] = useContext(EntryContext)
+
+  
+
+   const expense = route.params
+   //const [singleExpense, setSingleExpense] = useState(expense)
+   
+
+  //  useEffect(() => {
+  //   if (!singleExpense) {
+  //     return
+  //   }
+  //   const updated = allExpenses.find((_expense) => _expense._id === singleExpense._id)
+  //   if (updated) {
+  //     setSingleExpense(updated)
+      
+  //   } else {
+  //     setSingleExpense(null)
+  //   }
+
+  // }, [allExpenses])
+
+
+   
+   
+   
+  
+      // // route GET edit expense data // need this to render at UI side
+      // const reloadSingleExpense = async (expense) => {
+      //   const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}/edit`)
+      //   if (res.status !== 200) {
+      //     console.error('failed to fetch expense data')
+      //     setSingleExpense([])
+      //     return
+      //   }
+      //   const data = await res.json();
+      //   setSingleExpense(data)
+      //   console.log("singleExpense", singleExpense)
+      // }
+  
+      // useEffect(() => {
+      //   // setSingleExpense(expense)
+      //   reloadSingleExpense(expense)
+      // }, [])
+
 
       // route DELETE
       const deleteExpense = async (id) => {

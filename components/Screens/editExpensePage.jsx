@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import {UserContext} from "../../App"
-import {EntryContext} from "../../App"
+import {DataContext} from "../../App"
 import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
@@ -12,30 +12,17 @@ const EditExpensePage = ({navigation, route}) => {
   const expense = route.params
 
    // useContext
-   const [userId] = useContext(UserContext)
+  const [userId] = useContext(UserContext)
 
-   // useState
-   const [date, setDate] = useState(new Date())
-   const [amount, setAmount] = useState();
-   //const [category, setCategory] = useState("");
-   const [selectedValue, setSelectedValue] = useState("Shopping")
-   const [description, setDescription] = useState("");
+  const {expenseEntryContext} = useContext(DataContext)
+  const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
-
-
- 
-
-   // Date Picker
-   const onChangeDate = (event, selectedDate) =>{
-     const currentDate = selectedDate || date;
-     setDate(currentDate)
-   }
 
     const handleSubmit = async (expense) => {
       try{
         
         // event.preventDefault();
-        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}`, {
+        const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}/edit`, {
          
           method: "PUT",
           body: JSON.stringify(
@@ -64,12 +51,11 @@ const EditExpensePage = ({navigation, route}) => {
       }
     
         // need to work on back button to edited show page
+        // needs to reload singleExpense
+       
         navigation.navigate("Show Expense Page", expense)
         
       }
-
-
-
 
 
     return (
