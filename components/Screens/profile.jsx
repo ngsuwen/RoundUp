@@ -12,6 +12,7 @@ import {
 } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../../App";
+import getUser from "../api/getUser";
 
 export default function LoginPage({ navigation }) {
   // useContext UserContext
@@ -21,6 +22,7 @@ export default function LoginPage({ navigation }) {
   const [isUpdateValid, setIsUpdateValid] = useState("pass");
   const [password, setPassword] = useState("");
   const [referral, setReferral] = useState("");
+  const [username, setUsername] = useState("");
 
   // password state
   const [show, setShow] = useState(false);
@@ -30,6 +32,18 @@ export default function LoginPage({ navigation }) {
   async function updateHandler() {
     console.log("updated");
   }
+
+  // getUser
+  async function getUserInfo(){
+    try {
+      const data = await getUser(user)
+      setUsername(data.username)
+    } catch (err) {
+      console.log('error', err)
+    }
+  }
+
+  getUserInfo()
 
   return (
     <NativeBaseProvider>
@@ -42,8 +56,8 @@ export default function LoginPage({ navigation }) {
           }}
         >
           <Center>
-            <Text mb={"5%"} fontWeight={"bold"}>
-              {user}
+            <Text fontSize={'xl'}>
+              {username}
             </Text>
             <Text mb={"1%"} color={"red.600"}>
               {isUpdateValid == "pass" ? "" : "wrong password"}
