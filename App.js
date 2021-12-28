@@ -60,9 +60,9 @@ function App() {
     setAllExpense(data);
   };
 
-  useEffect(() => {
-    reloadExpense();
-  }, []);
+  // useEffect(() => {
+  //   reloadExpense();
+  // }, []);
 
   // Date Picker
   const onChangeDate = (event, selectedDate) => {
@@ -91,7 +91,7 @@ function App() {
             setDescription,
           ],
           userContext: [user, setUser],
-          entryContext: [allExpense, reloadExpense],
+          expenseContext: [allExpense, reloadExpense],
         }}
       >
         <StackNavigator />

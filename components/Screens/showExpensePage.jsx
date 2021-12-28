@@ -16,10 +16,18 @@ import DataContext from "../../context/DataContext";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
-  const { entryContext } = useContext(DataContext);
-  const [allExpense, reloadExpense] = entryContext;
+  const { expenseContext } = useContext(DataContext);
+  const [allExpense, reloadExpense] = expenseContext;
+
+
 
   const expense = route.params;
+
+  useEffect(() => {
+    reloadExpense();
+  }, [expense]); // add allExpense??
+
+
   //const [singleExpense, setSingleExpense] = useState(expense)
 
   //  useEffect(() => {
