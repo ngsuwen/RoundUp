@@ -16,12 +16,13 @@ import DataContext from "../../context/DataContext";
 
 const IndexExpensePage = ({ navigation }) => {
   // useContext
-  const { entryContext } = useContext(DataContext);
-  const [allExpense, reloadExpense] = entryContext;
+  const { expenseContext } = useContext(DataContext);
+  const [allExpense, reloadExpense] = expenseContext;
+
 
   useEffect(() => {
     reloadExpense();
-  }, [allExpense]);
+  }, [allExpense]);  //previous have allExpense
 
   return (
     <SafeAreaView style={styles.container}>
