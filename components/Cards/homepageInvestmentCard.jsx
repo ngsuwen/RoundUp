@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
 
-export default function homepageCashCard() {
+export default function homepageInvestmentCard() {
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height

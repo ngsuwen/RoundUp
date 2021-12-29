@@ -10,9 +10,8 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Scroll
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
 import ExpenseLineChartComponent from '../Charts/expenseLineChart'
-import PieChartComponent from '../Charts/PieChart'
-import AccordionList from '../Accordion/Accordion'
-import MonthSelector from '../Picker/monthPicker'
+import PieChartComponent from '../Charts/expensePieChart'
+import InvestmentTickerCards from '../Cards/investmentTickerCards'
 
 export default function GeneralBreakdownPage() {
 
@@ -26,18 +25,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height:screenHeight,
   },
-  accordion:{
-    flex: 2,
+  cardContainer: {
+    flex:2,
     flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'center',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft:10,
-    marginRight:10,
-  },
-  monthSelector:{
-    flex:0.25,
-    borderRadius:10,
   },
   carousel:{
     flex:1,
@@ -76,13 +69,11 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <ExpenseLineChartComponent/>
       </Carousel>
-      <View style={styles.monthSelector}>
-        <MonthSelector/>
+      <View style={styles.cardContainer}>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+        <InvestmentTickerCards/>
+      </ScrollView>
       </View>
-      <View style={styles.accordion}>
-      <AccordionList/>
-      </View>
-      {/* <Entries/> */}
     </View>
   )
 }

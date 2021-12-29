@@ -7,7 +7,8 @@ import {
 } from "@react-navigation/drawer";
 import Home from "../components/Screens/home";
 import About from "../components/Screens/about";
-import Generalpage from "../components/Screens/generalPage";
+import expenseGeneralPage from "../components/Screens/expenseGeneralPage";
+import investmentGeneralPage from "../components/Screens/investmentGeneralPage";
 import EntryExpensePage from "../components/Screens/entryExpensePage";
 import IndexExpensePage from "../components/Screens/indexExpensePage";
 import ShowExpensePage from "../components/Screens/showExpensePage";
@@ -71,7 +72,8 @@ export default function App({ navigation }) {
     >
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="About" component={About} />
-      <Drawer.Screen name="General Page" component={Generalpage} />
+      <Drawer.Screen name="Expense GP" component={expenseGeneralPage} />
+      <Drawer.Screen name="Investment GP" component={investmentGeneralPage} />
       <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
       <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} />
       <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} 

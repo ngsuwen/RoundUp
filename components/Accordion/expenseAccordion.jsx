@@ -2,6 +2,7 @@
 // category in accordion box? 
 // spacing for accordion with graph 
 // BE used to filter specific data 
+// width to stretch even with short desc
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
