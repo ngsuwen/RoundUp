@@ -49,6 +49,7 @@ const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
 
 
+
 const fetchExpenses = () => {
   const userid = user
   const monthOfExpense = moment(expenseMonth, moment.ISO_8601).format('YYYY-MM')
@@ -94,7 +95,7 @@ return(
     </Accordion.Summary>
     {entriesByDay[date].map((entry,index)=>{
     return(
-    <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
+    <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Expense Page', {entry})}>
     <Accordion.Details key={index}>
         <Text style={styles.entryDesc}>{entry.expensesentry.description}</Text>
         <Text style={styles.entryPrice}>{`$ ${entry.expensesentry.amount}`}</Text>

@@ -16,7 +16,16 @@ const EntryExpensePage = ({navigation}) => {
    const {expenseEntryContext} = useContext(DataContext)
    const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
  
-  
+   //work in progress
+   const categories = ["Shopping", "Food", "Health", "Transportation", "Household"]
+   const CategoryList = () =>{
+     return <View style={styles.categoryContainer}>
+       {categories.map((item, index)=>(
+         <Text key={index} style={[styles.categoryText]}>{item}</Text>
+       ))}
+     </View>
+   }
+  ///////////////////////
 
     const handleSubmit = async (event) => {
       try{
@@ -95,6 +104,8 @@ const EntryExpensePage = ({navigation}) => {
                   <Picker.Item label="Household" value="Household" />
 
                 </Picker>
+            
+                
                 
 
                 <TextInput
@@ -131,6 +142,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         
+    },  
+    categoryContainer:{
+      flexDirection: "row",
+      marginTop: 30,
+      marginBottom: 20,
+      justifyContent: "space-between"
+    },
+    categoryText:{
+      fontSize: 16,
+      color: "grey",
+      fontWeight: "bold"
+  
     },
     datepicker:{
       paddingVertical: 10,

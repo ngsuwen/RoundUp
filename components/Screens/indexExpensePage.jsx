@@ -16,19 +16,25 @@ import DataContext from "../../context/DataContext";
 
 const IndexExpensePage = ({ navigation }) => {
   // useContext
-  const { expenseContext } = useContext(DataContext);
-  const [allExpense, reloadExpense] = expenseContext;
+  const { expenseContext  } = useContext(DataContext);
+  const [allExpense, reloadExpense, totalExpense] = expenseContext;
+  
+
+  
 
 
   useEffect(() => {
     reloadExpense();
   }, [allExpense]);  
 
+  
+
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View>
-         
+            {/* <Text>Total Expense: {totalExpense}</Text> */}
           {allExpense.map((ele, i) => {
             return (
               
@@ -36,7 +42,9 @@ const IndexExpensePage = ({ navigation }) => {
                 key={i}
                 onPress={() => navigation.navigate("Show Expense Page", {ele})}
               >
+              
                 <View style={styles.entry}>
+                  
                   <Text>Id: {ele._id}</Text>
                   <Text>Username: {ele.username}</Text>
                   <Text>Date: {ele.expensesentry.date}</Text>
@@ -69,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   scrollView: {
     marginHorizontal: 20,
   },

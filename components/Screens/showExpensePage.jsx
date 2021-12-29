@@ -19,7 +19,7 @@ const ShowExpensePage = ({ navigation, route }) => {
   const { expenseContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
 
-  const {ele} = route.params;
+  const {entry} = route.params;
 
 
   // route DELETE
@@ -36,27 +36,27 @@ const ShowExpensePage = ({ navigation, route }) => {
     }
 
     reloadExpense();
-    navigation.navigate("Index Expense Page");
+    navigation.navigate("Expense GP");
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Id: {ele._id}</Text>
-        <Text>Username: {ele.username}</Text>
-        <Text>Date: {ele.expensesentry.date}</Text>
-        <Text>Amount: $ {ele.expensesentry.amount}</Text>
-        <Text>Category: {ele.expensesentry.category}</Text>
-        <Text>Description: {ele.expensesentry.description}</Text>
+        <Text>Id: {entry._id}</Text>
+        <Text>Username: {entry.username}</Text>
+        <Text>Date: {entry.expensesentry.date}</Text>
+        <Text>Amount: $ {entry.expensesentry.amount}</Text>
+        <Text>Category: {entry.expensesentry.category}</Text>
+        <Text>Description: {entry.expensesentry.description}</Text>
         <View style={styles.button}>
-          <Button title="Delete" onPress={() => deleteExpense(ele._id)} />
+          <Button title="Delete" onPress={() => deleteExpense(entry._id)} />
           <Button
             title="Edit"
-            onPress={() => navigation.navigate("Edit Expense Page", {ele})}
+            onPress={() => navigation.navigate("Edit Expense Page", {entry})}
           />
           <Button
             title="Back"
-            onPress={() => navigation.navigate("Index Expense Page")}
+            onPress={() => navigation.navigate("Expense GP")}
           />
         </View>
       </View>

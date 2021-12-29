@@ -7,7 +7,7 @@ import DatePicker from "@react-native-community/datetimepicker"
 const EditExpensePage = ({navigation, route}) => {
 
    
-  const {ele} = route.params
+  const {entry} = route.params
 
    // useContext
    const { userContext } = React.useContext(DataContext)
@@ -47,7 +47,7 @@ const EditExpensePage = ({navigation, route}) => {
         }
         // pass the data into params ele so that showpage will show latest updated data
         const data = await res.json()
-        navigation.navigate("Show Expense Page", {ele: data})
+        navigation.navigate("Show Expense Page", {entry: data})
 
       } catch(err){
         console.log(err)
@@ -60,7 +60,7 @@ const EditExpensePage = ({navigation, route}) => {
     return (
        
         <SafeAreaView style={styles.container} >
-        <Text>Id: {ele._id}</Text>
+        <Text>Id: {entry._id}</Text>
             <View>
                 <DatePicker
                   style={styles.datepicker}
@@ -101,8 +101,8 @@ const EditExpensePage = ({navigation, route}) => {
                       /> 
                 
                 <View style={styles.button}>
-                  <Button title="Update" onPress={()=>handleSubmit(ele)} />
-                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {ele})} />
+                  <Button title="Update" onPress={()=>handleSubmit(entry)} />
+                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
                 </View>
 
                 
