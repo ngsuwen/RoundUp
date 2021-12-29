@@ -2,11 +2,13 @@ import { InfoIcon } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
 
+
 // comma and dp for stock and crypto prices, if not formatted from api 
 // all currency in usd
 // need to check api data if percentage change will be negative value
 
 export default function investmentTickerCard() {
+
 
     const stockData = [
         {

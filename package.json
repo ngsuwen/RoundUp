@@ -28,6 +28,7 @@
     "react-month-picker": "^2.2.1",
     "react-native": "0.64.3",
     "react-native-chart-kit": "^6.11.0",
+    "react-native-dotenv": "^3.3.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-month-picker": "^1.0.1",
