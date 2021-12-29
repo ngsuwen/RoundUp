@@ -3,6 +3,7 @@
 // spacing for accordion with graph 
 // BE used to filter specific data 
 // width to stretch even with short desc
+// new entry not sorted to the top
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
@@ -65,20 +66,24 @@ const fetchExpenses = () => {
 
   useEffect(()=>{
     fetchExpenses()
-    console.log('expense gp loaded')
+    // console.log('expense gp loaded')
   },[expenseMonth,forceRender])
 
 const navigation = useNavigation()
 
 // grouping logic
+console.log('fetchedexpensesentries:',fetchedExpenseEntries)
 const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
   const groupedDate = element.expensesentry.date
   const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
   return formattedGroupedDate
 })
 
-// console.log('entriesbyday:',entriesByDay)
+console.log('entriesbyday:',entriesByDay)
 const allDates = Object.keys(entriesByDay)
+const allDatesAscending = Object.keys(entriesByDay).sort()
+const allDates = allDatesAscending.reverse()
+// console.log('alldates:',allDates)
 
 const entries = allDates.map((date,index)=>{
 
