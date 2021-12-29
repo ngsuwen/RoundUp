@@ -48,44 +48,46 @@ export default function LoginPage({ navigation }) {
         return;
       }
       // go to home page if successful
-      navigation.navigate('Home')
+      navigation.navigate("Home");
     } catch (err) {
       console.log(err);
-      setIsUpdateValid("error")
+      setIsUpdateValid("error");
       // go back profile page if unexpected error
       navigation.navigate("Profile");
     }
   }
 
   // delete user
-  async function deleteUserApi(){
+  async function deleteUserApi() {
     try {
-      await deleteUser(user);
+      const removeUser = await deleteUser(user, password);
+      setIsUpdateValid(removeUser.error ? "password" : "pass");
+      // go back profile page if got error
+      if (removeUser.error) {
+        navigation.navigate("Profile");
+        return;
+      }
       const refreshToken = await AsyncStorage.getItem("refreshToken");
       await logoutApi(refreshToken);
       await AsyncStorage.removeItem("accessToken");
       await AsyncStorage.removeItem("refreshToken");
       setUser("");
-      console.log('deleted')
-      navigation.navigate('Login')
-    } catch(err){
-      console.log(err)
+      console.log("deleted");
+      navigation.navigate("Login");
+    } catch (err) {
+      console.log(err);
     }
   }
 
   async function deleteHandler() {
-    Alert.alert(
-      "",
-      "Are you sure? Deleted accounts cannot be recovered.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: deleteUserApi }
-      ]
-    );
+    Alert.alert("", "Are you sure? Deleted accounts cannot be recovered.", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: deleteUserApi },
+    ]);
   }
 
   // getUser
@@ -113,7 +115,11 @@ export default function LoginPage({ navigation }) {
           <Center>
             <Text fontSize={"xl"}>{username}</Text>
             <Text mb={"1%"} color={"red.600"}>
-              {isUpdateValid == "pass" ? "" : isUpdateValid == "password" ? "Incorrect password":"Error. Please try again."}
+              {isUpdateValid == "pass"
+                ? ""
+                : isUpdateValid == "password"
+                ? "Incorrect password"
+                : "Error. Please try again."}
             </Text>
           </Center>
           <FormControl>
