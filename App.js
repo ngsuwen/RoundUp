@@ -20,16 +20,18 @@ function App() {
 
   // forcerender for update routes
   const [forceRender,setForceRender] = useState(false)
+
+
   
    //work in progress
   const [totalExpense, setTotalExpense] = useState(0)
-  useEffect(() => {
-    let temp = 0
-    for (let i = 0; i < amount.length; i++ ){
-      temp += parseInt(amount[i])
-    }
-    setTotalExpense(temp)
-  }, [amount])
+  // useEffect(() => {
+  //   let temp = 0
+  //   for (let i = 0; i < amount.length; i++ ){
+  //     temp += parseInt(amount[i])
+  //   }
+  //   setTotalExpense(temp)
+  // }, [amount])
   /////////////////////////
 
   // useState for expense month selector (KSZ)
