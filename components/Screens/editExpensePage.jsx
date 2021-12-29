@@ -100,10 +100,10 @@ const EditExpensePage = ({navigation, route}) => {
                     onChangeText={(text) => setDescription(text)}
                       /> 
                 
-                
-                <Button title="Submit" onPress={()=>handleSubmit(ele)} />
-                <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {ele})} />
-
+                <View style={styles.button}>
+                  <Button title="Update" onPress={()=>handleSubmit(ele)} />
+                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {ele})} />
+                </View>
 
                 
             </View>
@@ -143,8 +143,9 @@ const styles = StyleSheet.create({
     picker:{
       justifyContent: "center",
       // left: 60,
-   
-
-      
+    },
+    button:{
+      flexDirection: "row",
+      alignSelf: "center"
     }
 })
