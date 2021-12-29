@@ -22,20 +22,21 @@ const IndexExpensePage = ({ navigation }) => {
 
   useEffect(() => {
     reloadExpense();
-  }, [allExpense]);  //previous have allExpense
+  }, [allExpense]);  
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View>
-          <Text>Expense Summary</Text>
+         
           {allExpense.map((ele, i) => {
             return (
+              
               <TouchableOpacity
                 key={i}
                 onPress={() => navigation.navigate("Show Expense Page", {ele})}
               >
-                <View>
+                <View style={styles.entry}>
                   <Text>Id: {ele._id}</Text>
                   <Text>Username: {ele.username}</Text>
                   <Text>Date: {ele.expensesentry.date}</Text>
@@ -44,9 +45,15 @@ const IndexExpensePage = ({ navigation }) => {
                   <Text>Description: {ele.expensesentry.description}</Text>
                 </View>
               </TouchableOpacity>
+             
+     
             );
           })}
         </View>
+        <Button
+                  title="Back"
+                  onPress={() => navigation.navigate("Home")}
+                />
       </ScrollView>
     </SafeAreaView>
   );
@@ -65,4 +72,8 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 20,
   },
+  entry:{
+    paddingBottom: 10,
+    paddingTop: 10
+  }
 });

@@ -74,8 +74,10 @@ export default function App({ navigation }) {
       <Drawer.Screen name="General Page" component={Generalpage} />
       <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
       <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} />
-      <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} />
-      <Drawer.Screen name="Edit Expense Page" component={EditExpensePage} />
+      <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} 
+        options={{drawerItemStyle: {height: 0}}} /> 
+      <Drawer.Screen name="Edit Expense Page" component={EditExpensePage}
+        options={{drawerItemStyle: {height: 0}}} />
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );

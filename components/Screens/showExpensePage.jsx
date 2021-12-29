@@ -21,6 +21,7 @@ const ShowExpensePage = ({ navigation, route }) => {
 
   const {ele} = route.params;
 
+
   // route DELETE
   const deleteExpense = async (id) => {
     const res = await fetch(
@@ -47,11 +48,15 @@ const ShowExpensePage = ({ navigation, route }) => {
         <Text>Amount: $ {ele.expensesentry.amount}</Text>
         <Text>Category: {ele.expensesentry.category}</Text>
         <Text>Description: {ele.expensesentry.description}</Text>
-        <View>
+        <View style={styles.button}>
           <Button title="Delete" onPress={() => deleteExpense(ele._id)} />
           <Button
             title="Edit"
             onPress={() => navigation.navigate("Edit Expense Page", {ele})}
+          />
+          <Button
+            title="Back"
+            onPress={() => navigation.navigate("Index Expense Page")}
           />
         </View>
       </View>
@@ -72,45 +77,10 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 20,
   },
+  button:{
+    flexDirection: "row",
+  alignSelf: "center"  }
 });
 
 
-  // useEffect(() => {
-  //   reloadExpense();
-  // }, [expense]); 
-
-
-
-  //const [singleExpense, setSingleExpense] = useState(expense)
-
-  //  useEffect(() => {
-  //   if (!singleExpense) {
-  //     return
-  //   }
-  //   const updated = allExpenses.find((_expense) => _expense._id === singleExpense._id)
-  //   if (updated) {
-  //     setSingleExpense(updated)
-
-  //   } else {
-  //     setSingleExpense(null)
-  //   }
-
-  // }, [allExpenses])
-
-  // // route GET edit expense data // need this to render at UI side
-  // const reloadSingleExpense = async (expense) => {
-  //   const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/${expense._id}/edit`)
-  //   if (res.status !== 200) {
-  //     console.error('failed to fetch expense data')
-  //     setSingleExpense([])
-  //     return
-  //   }
-  //   const data = await res.json();
-  //   setSingleExpense(data)
-  //   console.log("singleExpense", singleExpense)
-  // }
-
-  // useEffect(() => {
-  //   // setSingleExpense(expense)
-  //   reloadSingleExpense(expense)
-  // }, [])
+  

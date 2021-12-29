@@ -102,6 +102,7 @@ const EditExpensePage = ({navigation, route}) => {
                 
                 
                 <Button title="Submit" onPress={()=>handleSubmit(ele)} />
+                <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {ele})} />
 
 
                 

@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {useContext} from "react"
 import DataContext from '../../context/DataContext';
-import { StyleSheet, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
+import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
 
 
 const EntryExpensePage = ({navigation}) => {
  
+  
 
    // useContext
    const { userContext } = useContext(DataContext)
@@ -45,6 +46,8 @@ const EntryExpensePage = ({navigation}) => {
         if(res.status!==200){
           console.error('create data expense failed')
         }
+
+
       } catch(err){
         console.log(err)
       }
@@ -52,8 +55,9 @@ const EntryExpensePage = ({navigation}) => {
         
       }
     return (
-        // work on username ref 
+        
         <SafeAreaView style={styles.container} >
+          <Text>Username: {userId}</Text>
             <View>
                 <DatePicker
                   style={styles.datepicker}
@@ -102,10 +106,13 @@ const EntryExpensePage = ({navigation}) => {
                     onChangeText={(text) => setDescription(text)}
                       /> 
                 
-                
-                <Button title="Submit" onPress={handleSubmit} />
-
-
+                <View style={styles.button}>
+                    <Button title="Submit" onPress={handleSubmit} />
+                    <Button
+                      title="Back"
+                      onPress={() => navigation.navigate("Home")}
+                    />
+                </View>
                 
             </View>
         </SafeAreaView>
@@ -144,8 +151,9 @@ const styles = StyleSheet.create({
     picker:{
       justifyContent: "center",
       // left: 60,
-   
-
-      
+    },
+    button:{
+      flexDirection: "row",
+      alignSelf: "center"
     }
 })
