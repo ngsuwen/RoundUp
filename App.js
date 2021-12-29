@@ -58,7 +58,8 @@ function App() {
         : await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
       console.log(userId, "tokens checked");
     } catch (err) {
-      console.log("error");
+      setUser("")
+      console.log("App useEffect checkToken error");
     }
   }, []);
 
