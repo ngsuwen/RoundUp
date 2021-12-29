@@ -17,8 +17,10 @@ function App() {
   const [amount, setAmount] = useState([]);
   const [selectedValue, setSelectedValue] = useState("Shopping");
   const [description, setDescription] = useState("");
-  
 
+  // forcerender for update routes
+  const [forceRender,setForceRender] = useState(false)
+  
    //work in progress
   const [totalExpense, setTotalExpense] = useState(0)
   useEffect(() => {
@@ -105,6 +107,7 @@ function App() {
           ],
           userContext: [user, setUser],
           expenseContext: [allExpense, reloadExpense, totalExpense],
+          forceRenderContext: [forceRender,setForceRender]
         }}
       >
         <StackNavigator />

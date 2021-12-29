@@ -43,10 +43,11 @@ const _ = require('underscore')
 
 function AccordionComponent() {
 
-const {monthContext,expenseMonthContext,userContext} = useContext(DataContext);
+const {monthContext,expenseMonthContext,userContext,forceRenderContext} = useContext(DataContext);
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
+const [forceRender,setForceRender] = forceRenderContext
 
 
 
@@ -64,7 +65,8 @@ const fetchExpenses = () => {
 
   useEffect(()=>{
     fetchExpenses()
-  },[expenseMonth])
+    console.log('expense gp loaded')
+  },[expenseMonth,forceRender])
 
 const navigation = useNavigation()
 
