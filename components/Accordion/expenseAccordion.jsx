@@ -80,7 +80,7 @@ const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
 })
 
 console.log('entriesbyday:',entriesByDay)
-const allDates = Object.keys(entriesByDay)
+// const allDates = Object.keys(entriesByDay)
 const allDatesAscending = Object.keys(entriesByDay).sort()
 const allDates = allDatesAscending.reverse()
 // console.log('alldates:',allDates)
