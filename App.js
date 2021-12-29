@@ -48,6 +48,7 @@ function App() {
       const refreshToken = await AsyncStorage.getItem("refreshToken");
       // check if token is valid
       const isTokenValid = await checkToken(accessToken, refreshToken);
+      console.log('checktokenpage triggered')
       const userId = isTokenValid.error
         ? ""
         : await getUserId(isTokenValid.refreshToken);

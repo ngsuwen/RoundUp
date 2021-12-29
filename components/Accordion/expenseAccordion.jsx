@@ -8,12 +8,15 @@
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 const _ = require('underscore')
+
+const screenWidth = Dimensions.get('screen').width
+const screenHeight = Dimensions.get('screen').height
 
   const styles = StyleSheet.create({
     entryWrapper: {
@@ -26,6 +29,7 @@ const _ = require('underscore')
     entryDesc: {
         flex: 1,
         color:'#424642',
+        width:screenWidth*0.8,
         // backgroundColor:'green',
     },
     entryPrice: {
@@ -66,7 +70,7 @@ const fetchExpenses = () => {
 
   useEffect(()=>{
     fetchExpenses()
-    // console.log('expense gp loaded')
+    console.log('expense gp loaded')
   },[expenseMonth,forceRender])
 
 const navigation = useNavigation()
@@ -79,7 +83,7 @@ const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
   return formattedGroupedDate
 })
 
-console.log('entriesbyday:',entriesByDay)
+// console.log('entriesbyday:',entriesByDay)
 // const allDates = Object.keys(entriesByDay)
 const allDatesAscending = Object.keys(entriesByDay).sort()
 const allDates = allDatesAscending.reverse()
