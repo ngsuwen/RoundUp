@@ -16,8 +16,9 @@ import DataContext from "../../context/DataContext";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
-  const { expenseContext, expenseEntryContext } = useContext(DataContext);
+  const { expenseContext, expenseForceRenderContext , expenseEntryContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
+  const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
@@ -39,6 +40,7 @@ const ShowExpensePage = ({ navigation, route }) => {
     }
 
     reloadExpense();
+    setExpenseForceRender(!expenseForceRender)
     navigation.navigate("Expense GP");
   };
 
@@ -63,7 +65,7 @@ const ShowExpensePage = ({ navigation, route }) => {
               // const newConvDate = date.toString()
               // console.log("newConvDate", typeof newConvDate)
               
-              setDate(entry.expensesentry.date) //convDate already a string
+              //setDate(entry.expensesentry.date) //convDate already a string
 
               // need to convert amount to string to render on amount field in edit expense page
               // below codes needed to auto populate the fields in edit page

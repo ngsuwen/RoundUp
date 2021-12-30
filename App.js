@@ -19,12 +19,29 @@ function App() {
   const [description, setDescription] = useState("")
 
 
+  //work in progress
+  const [totalExpense, setTotalExpense] = useState(0)
+  // useEffect(() => {
+  //   let temp = 0
+  //   for (let i = 0; i < amount.length; i++ ){
+  //     temp += parseInt(amount[i])
+  //   }
+  //   setTotalExpense(temp)
+  // }, [amount])
+  ///////////////////////
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
 
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
+
+  // useState for investment 
+  const [fetchedInvestmentEntries,setInvestmentEntries] = useState([])
+  const [distinctStockList,setDistinctStockList] = useState([])
+
+  // forcerender for update routes
+  const [expenseForceRender,setExpenseForceRender] = useState(false)
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -83,6 +100,7 @@ function App() {
             fetchedExpenseEntries,
             setFetchedExpenseEntries,
           ],
+          expenseForceRenderContext: [expenseForceRender,setExpenseForceRender],
           expenseEntryContext: [
             date,
             setDate,
@@ -96,7 +114,9 @@ function App() {
             
           ],
           userContext: [user, setUser],
-          expenseContext: [allExpense, reloadExpense]
+          expenseContext: [allExpense, reloadExpense, totalExpense],
+          investmentContext:[fetchedInvestmentEntries,setInvestmentEntries],
+          stockListDistinctContext: [distinctStockList,setDistinctStockList],
         }}
       >
         <StackNavigator />

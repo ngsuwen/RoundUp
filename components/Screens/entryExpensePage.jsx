@@ -14,16 +14,19 @@ const EntryExpensePage = ({navigation}) => {
    const [userId, setUserId]=userContext
    const {expenseEntryContext} = useContext(DataContext)
    const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+   const {expenseForceRenderContext} = useContext(DataContext)
+   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // clear states onload at entryexpense page
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
+      setDate(new Date())
       setAmount(null)
       setSelectedValue(null)
       setDescription("")
     })
     return resetPage
-  }, [navigation])
+  }, [expenseForceRender])
   
 
    //work in progress
@@ -66,7 +69,7 @@ const EntryExpensePage = ({navigation}) => {
           console.error('create data expense failed')
         }
         
- 
+      setExpenseForceRender(!expenseForceRender)
 
       } catch(err){
         console.log(err)

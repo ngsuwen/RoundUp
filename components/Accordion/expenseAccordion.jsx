@@ -44,10 +44,11 @@ const screenHeight = Dimensions.get('screen').height
 
 function AccordionComponent() {
 
-const {monthContext,expenseMonthContext,userContext,forceRenderContext} = useContext(DataContext);
+const {monthContext,expenseMonthContext,userContext,expenseForceRenderContext } = useContext(DataContext);
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
+const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
 
 
@@ -64,12 +65,9 @@ const fetchExpenses = () => {
   }
 
   useEffect(()=>{
-    const resetPage = navigation.addListener("focus",()=>{
-      fetchExpenses()
-      console.log('expense gp loaded')
-      // pass date of latest created post to state, crawl thru entries to determine index of date and render to open
-    })
-  },[expenseMonth])
+    fetchExpenses()
+    console.log('expense gp loaded')
+  },[expenseMonth,expenseForceRender])
 
 const navigation = useNavigation()
 

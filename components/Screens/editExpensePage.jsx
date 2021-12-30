@@ -11,11 +11,11 @@ const EditExpensePage = ({navigation, route}) => {
   const {entry} = route.params
 
    // useContext
-   const { userContext, expenseEntryContext } = React.useContext(DataContext)
+   const { userContext, expenseEntryContext, expenseForceRenderContext } = React.useContext(DataContext)
    const [userId, setUserId]=userContext
 
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
-
+  const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
     const handleSubmit = async (expense) => {
       try{
@@ -68,7 +68,6 @@ const EditExpensePage = ({navigation, route}) => {
                   style={styles.datepicker}
                   value={date}
                   onChange={onChangeDate}
-                  //onChangeDate={(date)=> setDate(date)}
                   /> 
                 <TextInput
                     style={styles.textinput}
@@ -105,9 +104,11 @@ const EditExpensePage = ({navigation, route}) => {
                 
                 <View style={styles.button}>
                   <Button title="Update" onPress={()=>{
-                    handleSubmit(entry)}} />
-                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})
-                  } />
+                    handleSubmit(entry)
+                    // this is needed to force showpage to re-render as it will not mount again
+                    setExpenseForceRender(!expenseForceRender)
+                    }} />
+                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
                 </View>
 
                 
