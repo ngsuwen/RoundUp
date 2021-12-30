@@ -22,10 +22,10 @@ const IndexExpensePage = ({ navigation }) => {
 
   
 
-// will cause looping
-  // useEffect(() => {
-  //   reloadExpense();
-  // }, [allExpense]);  
+// might cause looping
+  useEffect(() => {
+    reloadExpense();
+  }, [allExpense]);  
 
   
 

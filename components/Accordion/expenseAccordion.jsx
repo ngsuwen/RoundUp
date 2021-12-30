@@ -76,7 +76,7 @@ const fetchExpenses = () => {
 const navigation = useNavigation()
 
 // grouping logic
-console.log('fetchedexpensesentries:',fetchedExpenseEntries)
+// console.log('fetchedexpensesentries:',fetchedExpenseEntries)
 const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
   const groupedDate = element.expensesentry.date
   const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')

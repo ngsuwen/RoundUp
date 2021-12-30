@@ -32,7 +32,7 @@ function App() {
   //   }
   //   setTotalExpense(temp)
   // }, [amount])
-  /////////////////////////
+  ///////////////////////
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
