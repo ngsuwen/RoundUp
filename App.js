@@ -19,17 +19,6 @@ function App() {
   const [description, setDescription] = useState("")
 
 
-  
-   //work in progress
-  const [totalExpense, setTotalExpense] = useState(0)
-  // useEffect(() => {
-  //   let temp = 0
-  //   for (let i = 0; i < amount.length; i++ ){
-  //     temp += parseInt(amount[i])
-  //   }
-  //   setTotalExpense(temp)
-  // }, [amount])
-  ///////////////////////
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -107,7 +96,7 @@ function App() {
             
           ],
           userContext: [user, setUser],
-          expenseContext: [allExpense, reloadExpense, totalExpense]
+          expenseContext: [allExpense, reloadExpense]
         }}
       >
         <StackNavigator />

@@ -21,6 +21,9 @@ const ShowExpensePage = ({ navigation, route }) => {
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
+  // console.log("orgdate", typeof date)
+
+
 
   // route DELETE
   const deleteExpense = async (id) => {
@@ -55,11 +58,16 @@ const ShowExpensePage = ({ navigation, route }) => {
             onPress={() => {navigation.navigate("Edit Expense Page", {entry})
             
               //need to figure out how to update date to edit page
-              //const convDate = entry.expensesentry.date.toString()
-              //setDate(convDate)
+              // const date = entry.expensesentry.date
+              //console.log("date", typeof date)
+              // const newConvDate = date.toString()
+              // console.log("newConvDate", typeof newConvDate)
+              
+              setDate(entry.expensesentry.date) //convDate already a string
+
               // need to convert amount to string to render on amount field in edit expense page
               // below codes needed to auto populate the fields in edit page
-              const convAmount = JSON.stringify(entry.expensesentry.amount)
+              const convAmount = JSON.stringify(entry.expensesentry.amount)   
               setAmount(convAmount)
               setSelectedValue(entry.expensesentry.category)
               setDescription(entry.expensesentry.description)

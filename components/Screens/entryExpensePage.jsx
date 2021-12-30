@@ -22,6 +22,7 @@ const EntryExpensePage = ({navigation}) => {
       setSelectedValue(null)
       setDescription("")
     })
+    return resetPage
   }, [navigation])
   
 
@@ -83,6 +84,7 @@ const EntryExpensePage = ({navigation}) => {
                   style={styles.datepicker}
                   value={date}
                   onChange={onChangeDate}
+                  // onChangeDate={(date)=> setDate(date)}
                   />
                 <TextInput
                     style={styles.textinput}

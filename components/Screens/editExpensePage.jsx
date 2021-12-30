@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 
 import DatePicker from "@react-native-community/datetimepicker"
 
 
+
 const EditExpensePage = ({navigation, route}) => {
 
    
@@ -62,11 +63,13 @@ const EditExpensePage = ({navigation, route}) => {
         <SafeAreaView style={styles.container} >
         <Text>Id: {entry._id}</Text>
             <View>
-                <DatePicker
+          
+                 <DatePicker
                   style={styles.datepicker}
                   value={date}
                   onChange={onChangeDate}
-                  />
+                  //onChangeDate={(date)=> setDate(date)}
+                  /> 
                 <TextInput
                     style={styles.textinput}
                     type="submit" 
@@ -103,7 +106,8 @@ const EditExpensePage = ({navigation, route}) => {
                 <View style={styles.button}>
                   <Button title="Update" onPress={()=>{
                     handleSubmit(entry)}} />
-                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
+                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})
+                  } />
                 </View>
 
                 
@@ -128,10 +132,11 @@ const styles = StyleSheet.create({
     },
     datepicker:{
       paddingVertical: 10,
-      paddingHorizontal: 10,
+      paddingHorizontal: 1,
       // borderColor: "gray",
       // borderWidth: 1,
-      right: 100,
+      // right: 100,
+      justifyContent: "center"
       
     },
     textinput:{

@@ -17,7 +17,7 @@
 // const IndexExpensePage = ({ navigation }) => {
 //   // useContext
 //   const { expenseContext  } = useContext(DataContext);
-//   const [allExpense, reloadExpense, totalExpense] = expenseContext;
+//   const [allExpense, reloadExpense] = expenseContext;
   
 
   
@@ -34,7 +34,7 @@
 //     <SafeAreaView style={styles.container}>
 //       <ScrollView style={styles.scrollView}>
 //         <View>
-//             {/* <Text>Total Expense: {totalExpense}</Text> */}
+//             
 //           {allExpense.map((ele, i) => {
 //             return (
               
