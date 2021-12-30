@@ -11,16 +11,15 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressa
 
 export default function investmentTickerCard() {
 
-    const navigation = useNavigation()
+const navigation = useNavigation()
 
-    const { investmentContext, userContext } = useContext(DataContext)
-    const [fetchedInvestmentEntries,setInvestmentEntries] = investmentContext
-    const [user, setUser] = userContext
+const { investmentContext, userContext } = useContext(DataContext)
+const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
+const [user, setUser] = userContext
 
 
     useEffect(()=>{
-        const resetPage = navigation.addListener("focus",()=>{
-            fetchInvestments()})
+        fetchInvestments()
     },[])
 
     const fetchInvestments = () => {
@@ -29,26 +28,34 @@ export default function investmentTickerCard() {
         .then(data=>data.json())
         .then((parsedData)=>{
         console.log('parseddata:',parsedData)
-        setFetchedInvestmentEntries(parsedData)})
+        const stockList = parsedData.map((stock)=>{
+            return stock.investmentsentry.ticker
+        })
+        const distinctStockList = [...new Set(stockList)].sort()
+        console.log('distinct:',distinctStockList)
+        // set unique stock list 
+        setFetchedInvestmentEntries(distinctStockList)})
         .catch((err)=>console.log(err))
         }
 
-    const stockData = [
-        {
-            ticker:'TSLA',
-            name:'Tesla Inc',
-            price:1100,
-            percentagechange:5,
-            pricechange:30
-        },
-        {
-            ticker:'AAPL',
-            name:'Apple Inc',
-            price:160,
-            percentagechange:3.5,
-            pricechange:30
-        }
-    ]
+
+
+    // const stockData = [
+    //     {
+    //         ticker:'TSLA',
+    //         name:'Tesla Inc',
+    //         price:1100,
+    //         percentagechange:5,
+    //         pricechange:30
+    //     },
+    //     {
+    //         ticker:'AAPL',
+    //         name:'Apple Inc',
+    //         price:160,
+    //         percentagechange:3.5,
+    //         pricechange:30
+    //     }
+    // ]
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -114,27 +121,27 @@ export default function investmentTickerCard() {
     },
     })
 
-    console.log('investmentcontext:',investmentContext)
+    console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
 
-    const stockCards = stockData.map((stock,index)=>{
+    const stockCards = fetchedInvestmentEntries.map((stock,index)=>{
         return (
         <View style={styles.wrapper}>
             <Pressable onPress={() => navigation.navigate('About')}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
-                        <Text style={styles.ticker}>{stock.ticker}</Text>
-                        <Text style={styles.name}>{stock.name}</Text>
+                        <Text style={styles.ticker}>{stock}</Text>
+                        {/* <Text style={styles.name}>{stock.name}</Text> */}
                     </View>
                     <View>
-                         <Text>${stock.price}</Text>
+                         <Text>$stock price</Text>
                     </View>
                     <View>
                         {/* need to check api data if percentage change will be negative value */}
-                        <Text style={{color:stock.percentagechange>=0?'green':'red'}}>{stock.percentagechange}%</Text>
+                        {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>{stock.percentagechange}%</Text> */}
                     </View>
                     <View>
                     {/* using percentage change for color as price change may not be a negative number depending on api data */}
-                    <Text style={{color:stock.percentagechange>=0?'green':'red'}}>${stock.pricechange}</Text>
+                    {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>${stock.pricechange}</Text> */}
                     </View>
                 </View>
             </Pressable>
