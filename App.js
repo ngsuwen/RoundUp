@@ -37,6 +37,9 @@ function App() {
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
+  // useState for investment 
+  const [fetchedInvestmentEntries,setInvestmentEntries] = useState([])
+
   // check storage for tokens upon opening app
   useEffect(async () => {
     try {
@@ -107,7 +110,8 @@ function App() {
             
           ],
           userContext: [user, setUser],
-          expenseContext: [allExpense, reloadExpense, totalExpense]
+          expenseContext: [allExpense, reloadExpense, totalExpense],
+          investmentContext:[fetchedInvestmentEntries,setInvestmentEntries],
         }}
       >
         <StackNavigator />

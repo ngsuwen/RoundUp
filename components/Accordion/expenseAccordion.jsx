@@ -44,7 +44,7 @@ const screenHeight = Dimensions.get('screen').height
 
 function AccordionComponent() {
 
-const {monthContext,expenseMonthContext,userContext,forceRenderContext} = useContext(DataContext);
+const {monthContext,expenseMonthContext,userContext } = useContext(DataContext);
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext

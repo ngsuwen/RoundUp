@@ -1,5 +1,7 @@
 import { InfoIcon } from 'native-base';
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import DataContext from '../../context/DataContext';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
 
 
@@ -9,6 +11,27 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressa
 
 export default function investmentTickerCard() {
 
+    const navigation = useNavigation()
+
+    const { investmentContext, userContext } = useContext(DataContext)
+    const [fetchedInvestmentEntries,setInvestmentEntries] = investmentContext
+    const [user, setUser] = userContext
+
+
+    useEffect(()=>{
+        const resetPage = navigation.addListener("focus",()=>{
+            fetchInvestments()})
+    },[])
+
+    const fetchInvestments = () => {
+        const userid = user
+        fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
+        .then(data=>data.json())
+        .then((parsedData)=>{
+        console.log('parseddata:',parsedData)
+        setFetchedInvestmentEntries(parsedData)})
+        .catch((err)=>console.log(err))
+        }
 
     const stockData = [
         {
@@ -90,6 +113,8 @@ export default function investmentTickerCard() {
     marginRight: '2%',
     },
     })
+
+    console.log('investmentcontext:',investmentContext)
 
     const stockCards = stockData.map((stock,index)=>{
         return (
