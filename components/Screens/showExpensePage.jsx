@@ -16,9 +16,8 @@ import DataContext from "../../context/DataContext";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
-  const { expenseContext, forceRenderContext, expenseEntryContext } = useContext(DataContext);
+  const { expenseContext, expenseEntryContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
-  const [forceRender,setForceRender] = forceRenderContext
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
@@ -37,7 +36,6 @@ const ShowExpensePage = ({ navigation, route }) => {
     }
 
     reloadExpense();
-    setForceRender(!forceRender)
     navigation.navigate("Expense GP");
   };
 
