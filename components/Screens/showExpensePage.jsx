@@ -60,6 +60,7 @@ const ShowExpensePage = ({ navigation, route }) => {
               //const convDate = entry.expensesentry.date.toString()
               //setDate(convDate)
               // need to convert amount to string to render on amount field in edit expense page
+              // below codes needed to auto populate the fields in edit page
               const convAmount = JSON.stringify(entry.expensesentry.amount)
               setAmount(convAmount)
               setSelectedValue(entry.expensesentry.category)

@@ -47,8 +47,7 @@ const EditExpensePage = ({navigation, route}) => {
         }
         // pass the data into params ele so that showpage will show latest updated data
         const data = await res.json()
-
-        
+       
         navigation.navigate("Show Expense Page", {entry: data})
 
       } catch(err){

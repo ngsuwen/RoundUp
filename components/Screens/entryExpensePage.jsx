@@ -9,9 +9,6 @@ import DatePicker from "@react-native-community/datetimepicker"
 const EntryExpensePage = ({navigation}) => {
  
 
-
-  
-
    // useContext
    const { userContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
@@ -21,11 +18,14 @@ const EntryExpensePage = ({navigation}) => {
    const {forceRenderContext} = useContext(DataContext)
    const [forceRender,setForceRender] = forceRenderContext
 
-   useEffect(() => {
-    setAmount(null)
-    setSelectedValue(null)
-    setDescription("")
-  }, [])
+   // clear states onload at entryexpense page
+  useEffect(()=>{
+    const resetPage = navigation.addListener("focus", ()=>{
+      setAmount(null)
+      setSelectedValue(null)
+      setDescription("")
+    })
+  }, [navigation])
   
 
    //work in progress
@@ -41,10 +41,7 @@ const EntryExpensePage = ({navigation}) => {
 
     const handleSubmit = async (event) => {
       try{
-        setAmount(null)
-        setSelectedValue(null)
-        setDescription("")
-        
+
         event.preventDefault();
         const res = await fetch("https://roundup-api.herokuapp.com/data/expense", {
          
@@ -70,7 +67,7 @@ const EntryExpensePage = ({navigation}) => {
         if(res.status!==200){
           console.error('create data expense failed')
         }
-
+        setForceRender(!forceRender)
         
  
 
@@ -136,11 +133,11 @@ const EntryExpensePage = ({navigation}) => {
                       /> 
                 
                 <View style={styles.button}>
-                    <Button title="Submit" onPress={handleSubmit} />
+                    <Button title="Submit" onPress={handleSubmit } />
                     <Button
                       title="Back"
-                      onPress={() => {navigation.navigate("Home")
-                      setForceRender(!forceRender)    }}
+                      onPress={() => navigation.navigate("Home")
+                         }
                     />
                 </View>
                 

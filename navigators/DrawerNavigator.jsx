@@ -20,9 +20,12 @@ import DataContext from "../context/DataContext";
 import { useNavigationState } from "@react-navigation/native";
 import checkTokenNavigation from "../components/api/checkTokenNavigation";
 
+
+
 const Drawer = createDrawerNavigator();
 
 export default function App({ navigation }) {
+
   try{
     useNavigationState(state => state.index);
     checkTokenNavigation()
@@ -75,7 +78,7 @@ export default function App({ navigation }) {
       <Drawer.Screen name="Expense GP" component={expenseGeneralPage} />
       <Drawer.Screen name="Investment GP" component={investmentGeneralPage} />
       <Drawer.Screen name="Entry Expense Page" component={EntryExpensePage} />
-      <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} />
+      {/* <Drawer.Screen name="Index Expense Page" component={IndexExpensePage} /> */}
       <Drawer.Screen name="Show Expense Page" component={ShowExpensePage} 
         options={{drawerItemStyle: {height: 0}}} /> 
       <Drawer.Screen name="Edit Expense Page" component={EditExpensePage}
