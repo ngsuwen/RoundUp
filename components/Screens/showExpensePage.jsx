@@ -16,12 +16,11 @@ import DataContext from "../../context/DataContext";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
-  const { expenseContext, forceRenderContext } = useContext(DataContext);
+  const { expenseContext, expenseEntryContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
-  const [forceRender,setForceRender] = forceRenderContext
+  const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
-
 
   // route DELETE
   const deleteExpense = async (id) => {
@@ -37,7 +36,6 @@ const ShowExpensePage = ({ navigation, route }) => {
     }
 
     reloadExpense();
-    setForceRender(!forceRender)
     navigation.navigate("Expense GP");
   };
 
@@ -54,7 +52,20 @@ const ShowExpensePage = ({ navigation, route }) => {
           <Button title="Delete" onPress={() => deleteExpense(entry._id)} />
           <Button
             title="Edit"
-            onPress={() => navigation.navigate("Edit Expense Page", {entry})}
+            onPress={() => {navigation.navigate("Edit Expense Page", {entry})
+            
+              //need to figure out how to update date to edit page
+              //const convDate = entry.expensesentry.date.toString()
+              //setDate(convDate)
+              // need to convert amount to string to render on amount field in edit expense page
+              // below codes needed to auto populate the fields in edit page
+              const convAmount = JSON.stringify(entry.expensesentry.amount)
+              setAmount(convAmount)
+              setSelectedValue(entry.expensesentry.category)
+              setDescription(entry.expensesentry.description)
+              
+            }
+            }
           />
           <Button
             title="Back"

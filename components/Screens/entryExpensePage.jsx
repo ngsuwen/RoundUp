@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import DataContext from '../../context/DataContext';
 import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
@@ -8,28 +8,37 @@ import DatePicker from "@react-native-community/datetimepicker"
 
 const EntryExpensePage = ({navigation}) => {
  
-  
 
    // useContext
    const { userContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
    const {expenseEntryContext} = useContext(DataContext)
    const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
- 
+
+   // clear states onload at entryexpense page
+  useEffect(()=>{
+    const resetPage = navigation.addListener("focus", ()=>{
+      setAmount(null)
+      setSelectedValue(null)
+      setDescription("")
+    })
+  }, [navigation])
+  
+
    //work in progress
-   const categories = ["Shopping", "Food", "Health", "Transportation", "Household"]
-   const CategoryList = () =>{
-     return <View style={styles.categoryContainer}>
-       {categories.map((item, index)=>(
-         <Text key={index} style={[styles.categoryText]}>{item}</Text>
-       ))}
-     </View>
-   }
+  //  const categories = ["Shopping", "Food", "Health", "Transportation", "Household"]
+  //  const CategoryList = () =>{
+  //    return <View style={styles.categoryContainer}>
+  //      {categories.map((item, index)=>(
+  //        <Text key={index} style={[styles.categoryText]}>{item}</Text>
+  //      ))}
+  //    </View>
+  //  }
   ///////////////////////
 
     const handleSubmit = async (event) => {
       try{
-        
+
         event.preventDefault();
         const res = await fetch("https://roundup-api.herokuapp.com/data/expense", {
          
@@ -55,12 +64,14 @@ const EntryExpensePage = ({navigation}) => {
         if(res.status!==200){
           console.error('create data expense failed')
         }
-
+        
+ 
 
       } catch(err){
         console.log(err)
       }
-        navigation.navigate("Index Expense Page")
+        
+        navigation.navigate("Expense GP")
         
       }
     return (
@@ -118,10 +129,11 @@ const EntryExpensePage = ({navigation}) => {
                       /> 
                 
                 <View style={styles.button}>
-                    <Button title="Submit" onPress={handleSubmit} />
+                    <Button title="Submit" onPress={handleSubmit } />
                     <Button
                       title="Back"
-                      onPress={() => navigation.navigate("Home")}
+                      onPress={() => navigation.navigate("Home")
+                         }
                     />
                 </View>
                 

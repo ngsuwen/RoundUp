@@ -15,22 +15,21 @@ function App() {
   const [allExpense, setAllExpense] = useState([]);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("Shopping");
-  const [description, setDescription] = useState("");
+  const [selectedValue, setSelectedValue] = useState("Shopping")
+  const [description, setDescription] = useState("")
 
-  // forcerender for update routes
-  const [forceRender,setForceRender] = useState(false)
+
   
    //work in progress
   const [totalExpense, setTotalExpense] = useState(0)
-  useEffect(() => {
-    let temp = 0
-    for (let i = 0; i < amount.length; i++ ){
-      temp += parseInt(amount[i])
-    }
-    setTotalExpense(temp)
-  }, [amount])
-  /////////////////////////
+  // useEffect(() => {
+  //   let temp = 0
+  //   for (let i = 0; i < amount.length; i++ ){
+  //     temp += parseInt(amount[i])
+  //   }
+  //   setTotalExpense(temp)
+  // }, [amount])
+  ///////////////////////
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -46,6 +45,7 @@ function App() {
       const refreshToken = await AsyncStorage.getItem("refreshToken");
       // check if token is valid
       const isTokenValid = await checkToken(accessToken, refreshToken);
+      console.log('checktokenpage triggered')
       const userId = isTokenValid.error
         ? ""
         : await getUserId(isTokenValid.refreshToken);
@@ -107,8 +107,7 @@ function App() {
             
           ],
           userContext: [user, setUser],
-          expenseContext: [allExpense, reloadExpense, totalExpense],
-          forceRenderContext: [forceRender,setForceRender]
+          expenseContext: [allExpense, reloadExpense, totalExpense]
         }}
       >
         <StackNavigator />

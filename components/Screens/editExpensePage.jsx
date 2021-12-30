@@ -10,12 +10,10 @@ const EditExpensePage = ({navigation, route}) => {
   const {entry} = route.params
 
    // useContext
-   const { userContext } = React.useContext(DataContext)
+   const { userContext, expenseEntryContext } = React.useContext(DataContext)
    const [userId, setUserId]=userContext
 
-  const {expenseEntryContext,forceRenderContext} = React.useContext(DataContext)
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
-  const [forceRender,setForceRender] = forceRenderContext
 
 
     const handleSubmit = async (expense) => {
@@ -48,6 +46,7 @@ const EditExpensePage = ({navigation, route}) => {
         }
         // pass the data into params ele so that showpage will show latest updated data
         const data = await res.json()
+       
         navigation.navigate("Show Expense Page", {entry: data})
 
       } catch(err){
@@ -103,9 +102,7 @@ const EditExpensePage = ({navigation, route}) => {
                 
                 <View style={styles.button}>
                   <Button title="Update" onPress={()=>{
-                    handleSubmit(entry)
-                    // this is needed to force showpage to re-render as it will not mount again
-                    setForceRender(!forceRender)}} />
+                    handleSubmit(entry)}} />
                   <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
                 </View>
 
@@ -127,6 +124,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         
+        
     },
     datepicker:{
       paddingVertical: 10,
@@ -137,12 +135,14 @@ const styles = StyleSheet.create({
       
     },
     textinput:{
+      
       paddingVertical: 20,
       paddingHorizontal: 100,
       marginTop: 10,
       marginBottom: 10,
       borderColor: "gray",
       borderWidth: 1,
+      
     },
     picker:{
       justifyContent: "center",

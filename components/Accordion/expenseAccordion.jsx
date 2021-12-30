@@ -1,19 +1,18 @@
-// flexbox for pricing component 
 // category in accordion box? 
-// spacing for accordion with graph 
-// BE used to filter specific data 
-// width to stretch even with short desc
-// new entry not sorted to the top
+// new entry not opened up after creation (bonus)
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 const _ = require('underscore')
+
+const screenWidth = Dimensions.get('screen').width
+const screenHeight = Dimensions.get('screen').height
 
   const styles = StyleSheet.create({
     entryWrapper: {
@@ -26,6 +25,7 @@ const _ = require('underscore')
     entryDesc: {
         flex: 1,
         color:'#424642',
+        width:screenWidth*0.8,
         // backgroundColor:'green',
     },
     entryPrice: {
@@ -48,7 +48,6 @@ const {monthContext,expenseMonthContext,userContext,forceRenderContext} = useCon
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
-const [forceRender,setForceRender] = forceRenderContext
 
 
 
@@ -65,21 +64,24 @@ const fetchExpenses = () => {
   }
 
   useEffect(()=>{
-    fetchExpenses()
-    // console.log('expense gp loaded')
-  },[expenseMonth,forceRender])
+    const resetPage = navigation.addListener("focus",()=>{
+      fetchExpenses()
+      console.log('expense gp loaded')
+      // pass date of latest created post to state, crawl thru entries to determine index of date and render to open
+    })
+  },[expenseMonth])
 
 const navigation = useNavigation()
 
 // grouping logic
-console.log('fetchedexpensesentries:',fetchedExpenseEntries)
+// console.log('fetchedexpensesentries:',fetchedExpenseEntries)
 const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{
   const groupedDate = element.expensesentry.date
   const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
   return formattedGroupedDate
 })
 
-console.log('entriesbyday:',entriesByDay)
+// console.log('entriesbyday:',entriesByDay)
 // const allDates = Object.keys(entriesByDay)
 const allDatesAscending = Object.keys(entriesByDay).sort()
 const allDates = allDatesAscending.reverse()
