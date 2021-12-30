@@ -14,6 +14,8 @@ const EntryExpensePage = ({navigation}) => {
    const [userId, setUserId]=userContext
    const {expenseEntryContext} = useContext(DataContext)
    const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+   const {forceRenderContext} = useContext(DataContext)
+   const [forceRender,setForceRender] = forceRenderContext
 
    // clear states onload at entryexpense page
   useEffect(()=>{
@@ -65,7 +67,7 @@ const EntryExpensePage = ({navigation}) => {
           console.error('create data expense failed')
         }
         
- 
+      setForceRender(!forceRender)
 
       } catch(err){
         console.log(err)
