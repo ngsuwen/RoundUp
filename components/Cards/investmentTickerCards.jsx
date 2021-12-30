@@ -47,12 +47,12 @@ const [user, setUser] = userContext
 
     // WIP
     // try to see if you can query distinct data based on ticker so you don't have to handle on frontend side  
-    const getStockPrices = () => {
-        // for ticker in distinctstocklist, run it thru fetchedinvestmententries to check for category (stock/crypto), fetch the current price and push as object into distinct stock list to be rerendered in cards. 
-    const updateCategoryOfStock = distinctStockList.map((stock)=>{
-    fetchedInvestmentEntries.
-    })
-    }
+    // const getStockPrices = () => {
+    //     // for ticker in distinctstocklist, run it thru fetchedinvestmententries to check for category (stock/crypto), fetch the current price and push as object into distinct stock list to be rerendered in cards. 
+    // const updateCategoryOfStock = distinctStockList.map((stock)=>{
+    // fetchedInvestmentEntries.
+    // })
+    // }
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -79,7 +79,7 @@ const [user, setUser] = userContext
     infoWrapper:{
     flex:1,
     flexDirection:'row',
-    backgroundColor:'yellow',
+    // backgroundColor:'yellow',
     width:screenWidth*0.7,
     justifyContent:'space-between',
     alignItems:'center',
