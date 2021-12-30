@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressa
 
 
 // comma and dp for stock and crypto prices, if not formatted from api 
-// all currency in usd
+// all currency in sgd
 // need to check api data if percentage change will be negative value
 
 export default function investmentTickerCard() {
@@ -45,10 +45,14 @@ const [user, setUser] = userContext
         .catch((err)=>console.log(err))
         }
 
-    // WIP 
-    // const getStockPrices = () => {
-    //     // for ticker in distinctstocklist, run it thru fetchedinvestmententries to check for category (stock/crypto), fetch the current price and push as object into distinct stock list to be rerendered in cards. 
-    // }
+    // WIP
+    // try to see if you can query distinct data based on ticker so you don't have to handle on frontend side  
+    const getStockPrices = () => {
+        // for ticker in distinctstocklist, run it thru fetchedinvestmententries to check for category (stock/crypto), fetch the current price and push as object into distinct stock list to be rerendered in cards. 
+    const updateCategoryOfStock = distinctStockList.map((stock)=>{
+    fetchedInvestmentEntries.
+    })
+    }
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
