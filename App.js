@@ -39,6 +39,7 @@ function App() {
 
   // useState for investment 
   const [fetchedInvestmentEntries,setInvestmentEntries] = useState([])
+  const [distinctStockList,setDistinctStockList] = useState([])
 
   // forcerender for update routes
   const [expenseForceRender,setExpenseForceRender] = useState(false)
@@ -116,6 +117,7 @@ function App() {
           userContext: [user, setUser],
           expenseContext: [allExpense, reloadExpense, totalExpense],
           investmentContext:[fetchedInvestmentEntries,setInvestmentEntries],
+          stockListDistinctContext: [distinctStockList,setDistinctStockList],
         }}
       >
         <StackNavigator />
