@@ -25,7 +25,7 @@ const EntryExpensePage = ({navigation}) => {
       setSelectedValue("Shopping")
       setDescription("")
     })
-    // return resetPage
+     return resetPage
   }, [expenseForceRender])
   
 
