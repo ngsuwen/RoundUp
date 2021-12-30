@@ -1,9 +1,5 @@
-// flexbox for pricing component 
 // category in accordion box? 
-// spacing for accordion with graph 
-// BE used to filter specific data 
-// width to stretch even with short desc
-// new entry not sorted to the top
+// new entry not opened up after creation (bonus)
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
@@ -71,6 +67,7 @@ const fetchExpenses = () => {
     const resetPage = navigation.addListener("focus",()=>{
       fetchExpenses()
       console.log('expense gp loaded')
+      // pass date of latest created post to state, crawl thru entries to determine index of date and render to open
     })
   },[expenseMonth])
 
