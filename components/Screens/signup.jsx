@@ -32,6 +32,7 @@ export default function LoginPage({ navigation }) {
   const [password2, setPassword2] = useState("");
   const [username, setUsername] = useState("");
   const [referral, setReferral] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   // password state
   const [show, setShow] = useState(false);
@@ -41,6 +42,7 @@ export default function LoginPage({ navigation }) {
 
   // check signup
   async function signUpHandler() {
+    setClicked(true)
     try {
       const checkSignUp = await signUpApi(
         username,
@@ -58,6 +60,7 @@ export default function LoginPage({ navigation }) {
       // go back sign up page if got error
       if (checkSignUp.error) {
         navigation.navigate("Sign Up");
+        setClicked(false)
         return;
       }
       //try to login if signup is successful
@@ -87,6 +90,7 @@ export default function LoginPage({ navigation }) {
       // go back sign up page if unexpected error
       navigation.navigate("Sign Up");
     }
+    setClicked(false)
   }
 
   return (
@@ -156,7 +160,7 @@ export default function LoginPage({ navigation }) {
               onChangeText={(text) => setReferral(text)}
             />
           </FormControl>
-          <Button onPress={signUpHandler} small primary>
+          <Button onPress={signUpHandler} small primary isLoading={clicked?true:false}>
             <Text>Sign Up</Text>
           </Button>
           <Center>

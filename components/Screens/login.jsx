@@ -24,6 +24,7 @@ export default function LoginPage({ navigation }) {
   const [isLoginValid, setIsLoginValid] = useState("pass");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   // useContext
   const { userContext } = useContext(DataContext);
@@ -35,6 +36,7 @@ export default function LoginPage({ navigation }) {
 
   //check login
   async function loginHandler() {
+    setClicked(true)
     const checkUserAuth = await loginAuth(username, password);
     setIsLoginValid(
       checkUserAuth.error
@@ -52,9 +54,10 @@ export default function LoginPage({ navigation }) {
       console.log(userId);
       navigation.navigate("Drawer");
     } catch (err) {
-      console.log(err);
+      console.log("Login error", err);
       navigation.navigate("Login");
     }
+    setClicked(false)
   }
 
   return (
@@ -109,7 +112,7 @@ export default function LoginPage({ navigation }) {
                 placeholder="password"
               />
             </FormControl>
-            <Button onPress={loginHandler} small primary>
+            <Button onPress={loginHandler} small primary isLoading={clicked?true:false}>
               <Text>Log In</Text>
             </Button>
             <Center>
