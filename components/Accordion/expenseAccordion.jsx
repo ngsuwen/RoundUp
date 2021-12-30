@@ -51,7 +51,6 @@ const [user, setUser] = userContext
 const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
 
-
 const fetchExpenses = () => {
   const userid = user
   const monthOfExpense = moment(expenseMonth, moment.ISO_8601).format('YYYY-MM')
@@ -63,6 +62,7 @@ const fetchExpenses = () => {
   setFetchedExpenseEntries(parsedData)})
   .catch((err)=>console.log(err))
   }
+
 
   useEffect(()=>{
     fetchExpenses()
