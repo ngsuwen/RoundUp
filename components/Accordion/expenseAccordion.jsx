@@ -44,11 +44,11 @@ const screenHeight = Dimensions.get('screen').height
 
 function AccordionComponent() {
 
-const {monthContext,expenseMonthContext,userContext,forceRenderContext } = useContext(DataContext);
+const {monthContext,expenseMonthContext,userContext,expenseForceRenderContext } = useContext(DataContext);
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
-const [forceRender,setForceRender] = forceRenderContext
+const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
 
 
@@ -67,7 +67,7 @@ const fetchExpenses = () => {
   useEffect(()=>{
     fetchExpenses()
     console.log('expense gp loaded')
-  },[expenseMonth,forceRender])
+  },[expenseMonth,expenseForceRender])
 
 const navigation = useNavigation()
 

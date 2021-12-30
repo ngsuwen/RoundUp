@@ -41,7 +41,7 @@ function App() {
   const [fetchedInvestmentEntries,setInvestmentEntries] = useState([])
 
   // forcerender for update routes
-  const [forceRender,setForceRender] = useState(false)
+  const [expenseForceRender,setExpenseForceRender] = useState(false)
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -100,7 +100,7 @@ function App() {
             fetchedExpenseEntries,
             setFetchedExpenseEntries,
           ],
-          forceRenderContext: [forceRender,setForceRender],
+          expenseForceRenderContext: [expenseForceRender,setExpenseForceRender],
           expenseEntryContext: [
             date,
             setDate,
