@@ -21,11 +21,11 @@ const EntryExpensePage = ({navigation}) => {
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
       setDate(new Date())
-      setAmount(null)
-      setSelectedValue(null)
+      setAmount([])
+      setSelectedValue("Shopping")
       setDescription("")
     })
-    return resetPage
+    // return resetPage
   }, [expenseForceRender])
   
 
