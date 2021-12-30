@@ -15,11 +15,8 @@ function App() {
   const [allExpense, setAllExpense] = useState([]);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("Shopping");
-  const [description, setDescription] = useState("");
-
-  // forcerender for update routes
-  const [forceRender,setForceRender] = useState(false)
+  const [selectedValue, setSelectedValue] = useState("Shopping")
+  const [description, setDescription] = useState("")
 
 
   
@@ -110,8 +107,7 @@ function App() {
             
           ],
           userContext: [user, setUser],
-          expenseContext: [allExpense, reloadExpense, totalExpense],
-          forceRenderContext: [forceRender,setForceRender]
+          expenseContext: [allExpense, reloadExpense, totalExpense]
         }}
       >
         <StackNavigator />

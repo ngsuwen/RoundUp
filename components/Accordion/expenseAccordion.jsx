@@ -52,7 +52,6 @@ const {monthContext,expenseMonthContext,userContext,forceRenderContext} = useCon
 const [expenseMonth,setExpenseMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
-const [forceRender,setForceRender] = forceRenderContext
 
 
 
@@ -69,9 +68,11 @@ const fetchExpenses = () => {
   }
 
   useEffect(()=>{
-    fetchExpenses()
-    console.log('expense gp loaded')
-  },[expenseMonth,forceRender])
+    const resetPage = navigation.addListener("focus",()=>{
+      fetchExpenses()
+      console.log('expense gp loaded')
+    })
+  },[expenseMonth])
 
 const navigation = useNavigation()
 
