@@ -43,6 +43,14 @@ const ShowExpensePage = ({ navigation, route }) => {
     navigation.navigate("Expense GP");
   };
 
+  const editHandler=()=>{
+    setAmount(entry.expensesentry.amount)
+    setDescription(entry.expensesentry.description)
+    setDate(entry.expensesentry.date)
+    setSelectedValue(entry.expensesentry.category)
+    navigation.navigate("Edit Expense Page", {entry: entry})
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -56,27 +64,7 @@ const ShowExpensePage = ({ navigation, route }) => {
           <Button title="Delete" onPress={() => deleteExpense(entry._id)} />
           <Button
             title="Edit"
-            onPress={() => {navigation.navigate("Edit Expense Page", {entry})
-            
-              
-              //need to figure out how to update date to edit page
-              const date = entry.expensesentry.date
-              //console.log("date", typeof date)
-              const newConvDate = date.toString()
-              // console.log("newConvDate", typeof newConvDate)
-            
-              setDate(date) //convDate already a string
-
-        
-              // need to convert amount to string to render on amount field in edit expense page
-              // below codes needed to auto populate the fields in edit page
-              const convAmount = JSON.stringify(entry.expensesentry.amount)   
-              setAmount(convAmount)
-              setSelectedValue(entry.expensesentry.category)
-              setDescription(entry.expensesentry.description)
-              
-            }
-            }
+            onPress={editHandler}
           />
           <Button
             title="Back"

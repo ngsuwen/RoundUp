@@ -23,7 +23,7 @@ export default async function checkTokenNavigation() {
       await AsyncStorage.setItem("accessToken", isTokenValid.accessToken);
       await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
     }
-    console.log('token check pass')
+    //console.log('token check pass')
   } catch (err) {
     console.log("unexpected error")
     await AsyncStorage.removeItem("accessToken");
