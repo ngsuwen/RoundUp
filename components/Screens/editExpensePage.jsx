@@ -84,11 +84,8 @@ const EditExpensePage = ({navigation, route}) => {
                  <DatePicker
                   style={styles.datepicker}
                   value={date}
-                  mode={"date"}
-               
-                  onChange={(e, d) => setDate(d)}
 
-                  // onChange={onChangeDate}
+                  onChange={onChangeDate}
               
                   /> 
                 <TextInput
