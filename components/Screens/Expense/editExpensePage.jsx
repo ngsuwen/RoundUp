@@ -60,9 +60,9 @@ const EditExpensePage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data expense failed");
       }
-      // pass the data into params ele so that showpage will show latest updated data
+      
       const data = await res.json();
-
+      // pass the data into params entry so that showpage will show latest updated data
       navigation.navigate("Show Expense Page", { entry: data });
     } catch (err) {
       console.log(err);
