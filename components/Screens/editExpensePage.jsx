@@ -87,25 +87,26 @@ const EditExpensePage = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
           <View style={styles.inner}>
             <Text>Id: {entry._id}</Text>
-            {/* <DateTimePicker
+            <DateTimePicker
               style={styles.datepicker}
               value={new Date(date)}
               onChange={onChangeDate}
-            /> */}
-            <View>
+            />
+            {/* <View>
               <Button
                 onPress={showDatepicker}
                 title={new Date(date).toString().substr(0,15)}
               />
-            </View>
-            {show && (
+            </View> */}
+            {/* {show && (
               <DateTimePicker
-                value={new Date(date)}
+                value={date}
+                // value={new Date(date)}
                 mode="date"
                 display="default"
                 onChange={onChangeDate}
               />
-            )}
+            )} */}
             <TextInput
               style={styles.textinput}
               name="amount"

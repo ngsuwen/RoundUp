@@ -106,7 +106,7 @@ const EntryExpensePage = ({navigation}) => {
                   style={styles.datepicker}
                   value={new Date(date)}
                   onChange={onChangeDate}
-                  // onChangeDate={(date)=> setDate(date)}
+                  
                   />
                 <TextInput
                     style={styles.textinput}
