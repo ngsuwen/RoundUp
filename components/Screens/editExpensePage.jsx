@@ -70,9 +70,9 @@ const EditExpensePage = ({ navigation, route }) => {
   };
 
 
-  const showDatepicker = () => {
-    setShow(true);
-  };
+  // const showDatepicker = () => {
+  //   setShow(true);
+  // };
 
   return (
     <NativeBaseProvider>

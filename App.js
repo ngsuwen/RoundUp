@@ -76,9 +76,9 @@ function App() {
 
   // Date Picker
   const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || new Date(date);
     setDate(currentDate);
-    setShow(false)
+    //setShow(false)
   };
 
   return (
