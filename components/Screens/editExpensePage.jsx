@@ -70,7 +70,7 @@ const EditExpensePage = ({navigation, route}) => {
           
             
                 h={{
-                  base: "200%",
+                  base: "100%",
                   lg: "auto",
                 }}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
