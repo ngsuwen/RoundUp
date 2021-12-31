@@ -4,6 +4,10 @@ import DataContext from '../../context/DataContext';
 import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
+import {
+  NativeBaseProvider,
+  KeyboardAvoidingView,
+} from "native-base";
 
 
 const EntryExpensePage = ({navigation}) => {
@@ -79,10 +83,25 @@ const EntryExpensePage = ({navigation}) => {
         
       }
     return (
+      <NativeBaseProvider>
+          <KeyboardAvoidingView
+          
+            
+                h={{
+                  base: "200%",
+                  lg: "auto",
+                }}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{flex: 1}}
+      >
         
-        <SafeAreaView style={styles.container} >
+        
+          
+            
+      <SafeAreaView style={styles.container} >
+        <View style={styles.inner}>
           <Text>Username: {userId}</Text>
-            <View>
+            
                 <DatePicker
                   style={styles.datepicker}
                   value={date}
@@ -143,7 +162,11 @@ const EntryExpensePage = ({navigation}) => {
                 </View>
                 
             </View>
+                  
+               
         </SafeAreaView>
+        </KeyboardAvoidingView>
+    </NativeBaseProvider>
             
         
     )
@@ -181,7 +204,7 @@ const styles = StyleSheet.create({
       
     },
     textinput:{
-      paddingVertical: 20,
+      paddingVertical: 15,
       paddingHorizontal: 100,
       marginTop: 10,
       marginBottom: 10,
@@ -195,5 +218,11 @@ const styles = StyleSheet.create({
     button:{
       flexDirection: "row",
       alignSelf: "center"
+    },
+    inner: {
+      padding: 20,
+      flex: 1,
+      justifyContent: "flex-end",
     }
+ 
 })

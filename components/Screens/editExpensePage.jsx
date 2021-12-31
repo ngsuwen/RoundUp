@@ -10,6 +10,8 @@ const EditExpensePage = ({navigation, route}) => {
    
   const {entry} = route.params
 
+  
+
    // useContext
    const { userContext, expenseEntryContext, expenseForceRenderContext } = React.useContext(DataContext)
    const [userId, setUserId]=userContext
@@ -67,7 +69,12 @@ const EditExpensePage = ({navigation, route}) => {
                  <DatePicker
                   style={styles.datepicker}
                   value={date}
-                  onChange={onChangeDate}
+                  mode={"date"}
+               
+                  onChange={(e, d) => setDate(d)}
+
+                  // onChange={onChangeDate}
+              
                   /> 
                 <TextInput
                     style={styles.textinput}
@@ -106,7 +113,7 @@ const EditExpensePage = ({navigation, route}) => {
                   <Button title="Update" onPress={()=>{
                     handleSubmit(entry)
                     // this is needed to force showpage to re-render as it will not mount again
-                    setExpenseForceRender(!expenseForceRender)
+                    //setExpenseForceRender(!expenseForceRender) //not needed
                     }} />
                   <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
                 </View>
@@ -132,12 +139,12 @@ const styles = StyleSheet.create({
         
     },
     datepicker:{
-      paddingVertical: 10,
-      paddingHorizontal: 1,
+      // paddingVertical: 10,
+      // paddingHorizontal: 10,
       // borderColor: "gray",
       // borderWidth: 1,
-      // right: 100,
-      justifyContent: "center"
+      width: 150,
+      alignSelf: "center"
       
     },
     textinput:{

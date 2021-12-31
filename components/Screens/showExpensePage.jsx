@@ -60,12 +60,12 @@ const ShowExpensePage = ({ navigation, route }) => {
             
               
               //need to figure out how to update date to edit page
-              // const date = entry.expensesentry.date
+              //const date = entry.expensesentry.date
               //console.log("date", typeof date)
-              // const newConvDate = date.toString()
+              //const newConvDate = date.toString()
               // console.log("newConvDate", typeof newConvDate)
             
-                setDate(entry.expensesentry.date) //convDate already a string
+              //setDate(newConvDate) //convDate already a string
 
         
               // need to convert amount to string to render on amount field in edit expense page
