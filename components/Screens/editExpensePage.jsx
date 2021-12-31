@@ -2,7 +2,10 @@ import * as React from 'react';
 import DataContext from '../../context/DataContext';
 import { StyleSheet, TextInput, Text, View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
-
+import {
+  NativeBaseProvider,
+  KeyboardAvoidingView,
+} from "native-base";
 
 
 const EditExpensePage = ({navigation, route}) => {
@@ -61,11 +64,23 @@ const EditExpensePage = ({navigation, route}) => {
 
 
     return (
+
+      <NativeBaseProvider>
+          <KeyboardAvoidingView
+          
+            
+                h={{
+                  base: "200%",
+                  lg: "auto",
+                }}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{flex: 1}}
+      >
        
         <SafeAreaView style={styles.container} >
-        <Text>Id: {entry._id}</Text>
-            <View>
-          
+        
+            <View style={styles.inner}>
+            <Text>Id: {entry._id}</Text>
                  <DatePicker
                   style={styles.datepicker}
                   value={date}
@@ -121,8 +136,8 @@ const EditExpensePage = ({navigation, route}) => {
                 
             </View>
         </SafeAreaView>
-            
-        
+        </KeyboardAvoidingView>
+        </NativeBaseProvider>
     )
 }
 
@@ -139,17 +154,17 @@ const styles = StyleSheet.create({
         
     },
     datepicker:{
-      // paddingVertical: 10,
-      // paddingHorizontal: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 10,
       // borderColor: "gray",
       // borderWidth: 1,
-      width: 150,
-      alignSelf: "center"
+      right: 100,
+      
       
     },
     textinput:{
       
-      paddingVertical: 20,
+      paddingVertical: 15,
       paddingHorizontal: 100,
       marginTop: 10,
       marginBottom: 10,
@@ -164,5 +179,10 @@ const styles = StyleSheet.create({
     button:{
       flexDirection: "row",
       alignSelf: "center"
+    },
+    inner: {
+      padding: 20,
+      flex: 1,
+      justifyContent: "flex-end",
     }
 })
