@@ -1,5 +1,5 @@
 import * as React from "react";
-import DataContext from "../../context/DataContext";
+import DataContext from "../../../context/DataContext";
 import {
   StyleSheet,
   TextInput,
@@ -17,7 +17,7 @@ const EditExpensePage = ({ navigation, route }) => {
 
   // useContext
   const { userContext, expenseEntryContext, expenseForceRenderContext } =
-    React.useContext(DataContext);
+  React.useContext(DataContext);
   const [userId, setUserId] = userContext;
   
 

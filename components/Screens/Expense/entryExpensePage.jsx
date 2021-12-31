@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
-import DataContext from '../../context/DataContext';
+import DataContext from '../../../context/DataContext';
 import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
@@ -14,11 +14,9 @@ const EntryExpensePage = ({navigation}) => {
  
 
    // useContext
-   const { userContext } = useContext(DataContext)
+   const { userContext, expenseEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
-   const {expenseEntryContext} = useContext(DataContext)
    const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
-   const {expenseForceRenderContext} = useContext(DataContext)
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // clear states onload at entryexpense page
