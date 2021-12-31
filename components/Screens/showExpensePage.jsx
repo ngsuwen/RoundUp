@@ -22,7 +22,15 @@ const ShowExpensePage = ({ navigation, route }) => {
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
-  // console.log("orgdate", typeof date)
+  
+
+// parse a date in yyyy-mm-dd format
+const parseDate = (input) =>{
+  var parts = input.match(/(\d+)/g);
+  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[0], parts[1]-1, parts[2]) ; // months are 0-based
+}
+
 
 
   // route DELETE
@@ -60,13 +68,14 @@ const ShowExpensePage = ({ navigation, route }) => {
             
               
               //need to figure out how to update date to edit page
-              const date = entry.expensesentry.date
+              //const date = entry.expensesentry.date
               //console.log("date", typeof date)
-              const newConvDate = date.toString()
+              //const newConvDate = date.toString()
               // console.log("newConvDate", typeof newConvDate)
             
-              setDate(date) //convDate already a string
-
+              
+              setDate(parseDate(entry.expensesentry.date)) 
+              console.log("dateconv", date, typeof date)
         
               // need to convert amount to string to render on amount field in edit expense page
               // below codes needed to auto populate the fields in edit page

@@ -12,6 +12,7 @@ const EditExpensePage = ({navigation, route}) => {
 
    
   const {entry} = route.params
+  
 
   
 
@@ -21,6 +22,8 @@ const EditExpensePage = ({navigation, route}) => {
 
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+
+ 
 
     const handleSubmit = async (expense) => {
       try{
@@ -50,6 +53,7 @@ const EditExpensePage = ({navigation, route}) => {
         if(res.status!==200){
           console.error('edit data expense failed')
         }
+        setExpenseForceRender(!expenseForceRender)
         // pass the data into params ele so that showpage will show latest updated data
         const data = await res.json()
        
@@ -127,7 +131,9 @@ const EditExpensePage = ({navigation, route}) => {
                     // this is needed to force showpage to re-render as it will not mount again
                     //setExpenseForceRender(!expenseForceRender) //not needed
                     }} />
-                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})} />
+                  <Button title="Back" onPress={()=>navigation.navigate("Show Expense Page", {entry})
+                          
+                         } />
                 </View>
 
                 
