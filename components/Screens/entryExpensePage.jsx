@@ -104,7 +104,7 @@ const EntryExpensePage = ({navigation}) => {
             
                 <DatePicker
                   style={styles.datepicker}
-                  value={date}
+                  value={new Date(date)}
                   onChange={onChangeDate}
                   // onChangeDate={(date)=> setDate(date)}
                   />
@@ -116,14 +116,7 @@ const EntryExpensePage = ({navigation}) => {
                     value={amount}
                     onChangeText={(text) => setAmount(text)}
                       />   
-                {/* <TextInput
-                    style={styles.textinput}
-                    type="submit" 
-                    name="category"
-                    placeholder="Enter Category"
-                    value={category}
-                    onChangeText={(text) => setCategory(text)}
-                      />    */}
+            
         
                 
                 <Picker

@@ -71,6 +71,7 @@ const fetchExpenses = () => {
 
 const navigation = useNavigation()
 
+
 // grouping logic
 // console.log('fetchedexpensesentries:',fetchedExpenseEntries)
 const entriesByDay = _(fetchedExpenseEntries).groupBy((element)=>{

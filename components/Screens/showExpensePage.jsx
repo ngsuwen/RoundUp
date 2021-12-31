@@ -76,7 +76,8 @@ const parseDate = (input) =>{
           />
           <Button
             title="Back"
-            onPress={() => navigation.navigate("Expense GP")}
+            onPress={() => {navigation.navigate("Expense GP")
+            setExpenseForceRender(!expenseForceRender)}}
           />
         </View>
       </View>
