@@ -111,7 +111,7 @@ const EditExpensePage = ({ navigation, route }) => {
               style={styles.textinput}
               name="amount"
               placeholder="Enter Amount"
-              value={'$'+JSON.stringify(amount)}
+              value={'$ '+JSON.stringify(amount)}
               onChangeText={(text) => setAmount(text)}
             />
 

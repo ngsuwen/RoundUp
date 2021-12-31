@@ -113,7 +113,7 @@ const EntryExpensePage = ({navigation}) => {
                     type="submit" 
                     name="amount"
                     placeholder="Enter Amount"
-                    value={amount}
+                    value={amount.toString()}
                     onChangeText={(text) => setAmount(text)}
                       />   
             
