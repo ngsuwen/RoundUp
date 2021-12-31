@@ -19,7 +19,7 @@ const EditExpensePage = ({ navigation, route }) => {
   const { userContext, expenseEntryContext, expenseForceRenderContext } =
     React.useContext(DataContext);
   const [userId, setUserId] = userContext;
-  
+  const [show, setShow] = React.useState(false);
 
   const [
     date,
@@ -31,8 +31,6 @@ const EditExpensePage = ({ navigation, route }) => {
     setSelectedValue,
     description,
     setDescription,
-    show, 
-    setShow
   ] = expenseEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
@@ -69,6 +67,12 @@ const EditExpensePage = ({ navigation, route }) => {
     }
   };
 
+  // date controllers
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || new Date(date);
+    setDate(currentDate);
+    setShow(false)
+  };
 
   const showDatepicker = () => {
     setShow(true);
@@ -87,9 +91,9 @@ const EditExpensePage = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
           <View style={styles.inner}>
             <Text>Id: {entry._id}</Text>
-            {/* <DateTimePicker
+            {/* <DatePicker
               style={styles.datepicker}
-              value={new Date(date)}
+              value={date}
               onChange={onChangeDate}
             /> */}
             <View>
@@ -103,7 +107,7 @@ const EditExpensePage = ({ navigation, route }) => {
                 value={new Date(date)}
                 mode="date"
                 display="default"
-                onChange={onChangeDate}
+                onChange={onChange}
               />
             )}
             <TextInput

@@ -17,6 +17,7 @@ function App() {
   const [amount, setAmount] = useState([]);
   const [selectedValue, setSelectedValue] = useState("Shopping")
   const [description, setDescription] = useState("")
+  const [show, setShow] = React.useState(false);
 
 
 
@@ -71,14 +72,13 @@ function App() {
     setAllExpense(data);
   };
 
-  // useEffect(() => {
-  //   reloadExpense();
-  // }, []);
+
 
   // Date Picker
   const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || new Date(date);
     setDate(currentDate);
+    setShow(false)
   };
 
   return (
@@ -101,6 +101,8 @@ function App() {
             setSelectedValue,
             description,
             setDescription,
+            show, 
+            setShow
             
           ],
           userContext: [user, setUser],

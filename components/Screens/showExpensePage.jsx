@@ -51,6 +51,7 @@ const parseDate = (input) =>{
     navigation.navigate("Expense GP");
   };
 
+  //need this to populate editexpensepage with specified fields
   const editHandler=()=>{
     setAmount(entry.expensesentry.amount)
     setDescription(entry.expensesentry.description)
