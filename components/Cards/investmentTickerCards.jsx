@@ -3,6 +3,7 @@ import React, { useEffect, useContext } from 'react';
 import DataContext from '../../context/DataContext';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
+const _ = require('underscore')
 
 
 // comma and dp for stock and crypto prices, if not formatted from api 
@@ -28,31 +29,24 @@ const [user, setUser] = userContext
         fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
         .then(data=>data.json())
         .then((parsedData)=>{
-        console.log('parseddata:',parsedData)
-        const stockList = parsedData.map((stock)=>{
-            return (
-                {
-                    'name': stock.investmentsentry.ticker,
-                    'category':stock.investmentsentry.category
-                }
-            )
+        // grouping fetched data by ticker symbol
+        const entriesByTicker = _(parsedData).groupBy((element)=>{
+            const groupedTicker = element.investmentsentry.ticker
+            return groupedTicker
         })
-        setFetchedInvestmentEntries(stockList)
-        // extracting unique list of stocks/crypto
-        const uniqueList = parsedData.map(stock=>stock.investmentsentry.ticker)
-        setDistinctStockList([...new Set(uniqueList)].sort())
+        // console.log('entriesByTicker:',entriesByTicker)
+        const tickerList = Object.keys(entriesByTicker).sort()
+        
+        const entriesByTickerArr = []
+
+        for(let i = 0;i<tickerList.length;i++){
+            entriesByTickerArr.push(entriesByTicker[tickerList[i]])
+        }
+        console.log('entriesbytickerarr:',entriesByTickerArr)
+        // setFetchedInvestmentEntries(entriesByTicker)
        })
         .catch((err)=>console.log(err))
         }
-
-    // WIP
-    // try to see if you can query distinct data based on ticker so you don't have to handle on frontend side  
-    // const getStockPrices = () => {
-    //     // for ticker in distinctstocklist, run it thru fetchedinvestmententries to check for category (stock/crypto), fetch the current price and push as object into distinct stock list to be rerendered in cards. 
-    // const updateCategoryOfStock = distinctStockList.map((stock)=>{
-    // fetchedInvestmentEntries.
-    // })
-    // }
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -118,10 +112,9 @@ const [user, setUser] = userContext
     },
     })
 
-    console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
-    console.log('distinctstocklist:',distinctStockList)
+    // console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
 
-    const stockCards = distinctStockList.map((stock,index)=>{
+    const stockCards = fetchedInvestmentEntries.map((stock,index)=>{
         return (
         <View style={styles.wrapper}>
             <Pressable onPress={() => navigation.navigate('About')}>
