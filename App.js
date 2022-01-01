@@ -15,9 +15,8 @@ function App() {
   const [allExpense, setAllExpense] = useState([]);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("Shopping")
-  const [description, setDescription] = useState("")
-  
+  const [selectedValue, setSelectedValue] = useState("Shopping");
+  const [description, setDescription] = useState("");
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -25,12 +24,12 @@ function App() {
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
-  // useState for investment 
-  const [fetchedInvestmentEntries,setInvestmentEntries] = useState([])
-  const [distinctStockList,setDistinctStockList] = useState([])
+  // useState for investment
+  const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
+  const [distinctStockList, setDistinctStockList] = useState([]);
 
   // forcerender for update routes
-  const [expenseForceRender,setExpenseForceRender] = useState(false)
+  const [expenseForceRender, setExpenseForceRender] = useState(false);
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -40,7 +39,7 @@ function App() {
       const refreshToken = await AsyncStorage.getItem("refreshToken");
       // check if token is valid
       const isTokenValid = await checkToken(accessToken, refreshToken);
-      console.log('checktokenpage triggered')
+      console.log("checktokenpage triggered");
       const userId = isTokenValid.error
         ? ""
         : await getUserId(isTokenValid.refreshToken);
@@ -51,9 +50,11 @@ function App() {
       isTokenValid.error
         ? ""
         : await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
-      console.log(userId, "tokens checked");
+      console.log(userId);
+      console.log(accessToken, isTokenValid.accessToken);
+      console.log(refreshToken, isTokenValid.refreshToken);
     } catch (err) {
-      setUser("")
+      setUser("");
       console.log("App useEffect checkToken error");
     }
   }, []);
@@ -70,8 +71,6 @@ function App() {
     setAllExpense(data);
   };
 
-
-
   return (
     <NavigationContainer>
       <DataContext.Provider
@@ -81,7 +80,10 @@ function App() {
             fetchedExpenseEntries,
             setFetchedExpenseEntries,
           ],
-          expenseForceRenderContext: [expenseForceRender,setExpenseForceRender],
+          expenseForceRenderContext: [
+            expenseForceRender,
+            setExpenseForceRender,
+          ],
           expenseEntryContext: [
             date,
             setDate,
@@ -92,12 +94,11 @@ function App() {
             setSelectedValue,
             description,
             setDescription,
-            
           ],
           userContext: [user, setUser],
           expenseContext: [allExpense, reloadExpense],
-          investmentContext:[fetchedInvestmentEntries,setInvestmentEntries],
-          stockListDistinctContext: [distinctStockList,setDistinctStockList],
+          investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
+          stockListDistinctContext: [distinctStockList, setDistinctStockList],
         }}
       >
         <StackNavigator />
