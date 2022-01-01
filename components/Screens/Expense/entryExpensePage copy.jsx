@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions } from 'react-native';
+import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button, Alert } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
-import { ModalPicker } from './modalExpensePicker';
 
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
 } from "native-base";
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
 
 
 const EntryExpensePage = ({navigation}) => {
@@ -24,26 +21,13 @@ const EntryExpensePage = ({navigation}) => {
 
    // useState
    const [show, setShow] = useState(false);
-   const [chooseData, setChooseData] = useState("Select Category...")
-   const [isModalVisible, setIsModalVisible] = useState(false)
-
-   const changeModalVisibility = (bool) =>{
-    setIsModalVisible(bool)
-   }
-
-   const setData = (option) =>{
-     setChooseData(option)
-   }
- 
-
 
    // clear states onload at entryexpense page
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
       setDate(new Date())
       setAmount([])
-      // setSelectedValue("Shopping")
-      setChooseData("Select Category...")
+      setSelectedValue("Shopping")
       setDescription("")
     })
      return resetPage
@@ -86,7 +70,7 @@ const EntryExpensePage = ({navigation}) => {
                   
                   date: date,
                   amount: amount,
-                  category: chooseData,
+                  category: selectedValue,
                   description: description  }
                 
                  
@@ -141,7 +125,7 @@ const EntryExpensePage = ({navigation}) => {
             
         
                 
-                {/* <Picker
+                <Picker
                   selectedValue={selectedValue}
                   style={styles.picker}
                   onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
@@ -153,28 +137,9 @@ const EntryExpensePage = ({navigation}) => {
                   <Picker.Item label="Transportation" value="Transportation" />
                   <Picker.Item label="Household" value="Household" />
 
-                </Picker> */}
+                </Picker>
                 
-               <TouchableOpacity 
-                  style={styles.touchableOpacity}
-                  onPress={()=> changeModalVisibility(true)}
-                  >
-                  <Text style={styles.text}>{chooseData}</Text>
-
-               </TouchableOpacity>
-               <Modal
-                  transparent={true}
-                  animationType='fade'
-                  visible={isModalVisible}
-                  nRequestClose={()=> changeModalVisibility(false)}
-
-               >
-                  <ModalPicker 
-                    changeModalVisibility={changeModalVisibility}
-                    setData={setData}
-                  />
-                  
-               </Modal>
+               
              
 
 
@@ -200,8 +165,8 @@ const EntryExpensePage = ({navigation}) => {
                   
                
         </SafeAreaView>
-         </KeyboardAvoidingView>
-     </NativeBaseProvider>
+        </KeyboardAvoidingView>
+    </NativeBaseProvider>
             
         
     )
@@ -214,9 +179,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection:'column',
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // marginTop: 100
+        alignItems: 'center',
+        justifyContent: 'center',
         
     },  
     categoryContainer:{
@@ -259,16 +223,6 @@ const styles = StyleSheet.create({
       padding: 20,
       flex: 1,
       // justifyContent: "flex-end",
-    },
-    text: {
-      marginVertical: 20,
-      fontSize: 25
-    },
-    touchableOpacity:{
-      backgroundColor: "orange",
-      alignSelf: "stretch",
-      paddingHorizontal: 20,
-      marginHorizontal: 20
     }
  
 })
