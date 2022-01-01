@@ -29,6 +29,7 @@ function App() {
   const [tickerAndPrice,setTickerAndPrice] = useState([])
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
+  const [investmentgpForceRender,setInvestmentgpForceRender] = useState(false)
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -97,6 +98,7 @@ function App() {
           expenseContext: [allExpense, reloadExpense],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
+          investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
         }}
       >
         <StackNavigator />

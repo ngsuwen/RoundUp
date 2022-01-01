@@ -13,15 +13,15 @@ export default function investmentTickerCard() {
 
 const navigation = useNavigation()
 
-const { investmentContext, stockListDistinctContext, userContext, tickerAndPriceContext } = useContext(DataContext)
+const { investmentContext, stockListDistinctContext, userContext, tickerAndPriceContext,investmentGPContext } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
+const [investmentgpForceRender,setInvestmentgpForceRender] = investmentGPContext
 const [user, setUser] = userContext
 
 
     useEffect(()=>{
-        console.log('-----------------')
-        fetchInvestments()
+    fetchInvestments()
     },[])
 
     const fetchInvestments = () => {
@@ -59,32 +59,41 @@ const [user, setUser] = userContext
 
         const priceFetcher = async () => {
             if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='US stocks'){
-                fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
-                .then(data=>data.json())
-                .then((currentStockPrice)=>{
-                // adding ticker symbol to obj containing ticker current price
-                currentStockPrice['ticker']=ticker
-                // console.log('currentstockprice:',currentStockPrice)
-                return currentStockPrice})
-                .catch((err)=>console.log(err))}
+                const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
+                const parsedStockPriceObj = await stockprice.json()
+                parsedStockPriceObj['ticker']=ticker
+                // return addedTickerName
+                // .then((currentStockPrice)=>{
+                // // adding ticker symbol to obj containing ticker current price
+
+                // // console.log('currentstockprice:',currentStockPrice)
+                // return currentStockPrice})
+                // .catch((err)=>console.log(err))}
+                return parsedStockPriceObj
+            }
             
             if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='Crypto'){
-                fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
-                .then(data=>data.json())
-                .then((currentCryptoPrice)=>{
-                currentCryptoPrice['ticker']=ticker
-                // console.log('currentcryptoprice:',currentCryptoPrice)
-                return currentCryptoPrice})
-                .catch((err)=>console.log(err))}
+                const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
+                const parsedCryptoPriceObj = await cryptoprice.json()
+                parsedCryptoPriceObj['ticker']=ticker
+                // return addedTickerName
+                // .then((currentStockPrice)=>{
+                // // adding ticker symbol to obj containing ticker current price
+
+                // // console.log('currentstockprice:',currentStockPrice)
+                // return currentStockPrice})
+                // .catch((err)=>console.log(err))}
+                return parsedCryptoPriceObj
+            }
         }
-        
+
         const fetchedPrice = await priceFetcher()
-        console.log('fetchedPrice:',fetchedPrice)
         tickerAndPriceArr.push(fetchedPrice)
        
         }
 
-    console.log('tickerandpricearr:',tickerAndPriceArr)
+    setTickerAndPrice(tickerAndPriceArr)
+    // setInvestmentgpForceRender(!investmentgpForceRender)
     }
 
 
@@ -127,6 +136,7 @@ const [user, setUser] = userContext
 
     // }
 
+    console.log('tickerandpricestate:',tickerAndPrice)
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -203,36 +213,35 @@ const [user, setUser] = userContext
     // })
 
 
-    // console.log('tickerandpricearr:',tickerAndPriceArr)
-    // const stockCards = tickerAndPriceArr.map((stock,index)=>{
-    //     return (
-    //     <View style={styles.wrapper}>
-    //         <Pressable onPress={() => navigation.navigate('About')}>
-    //             <View style={styles.infoWrapper}>
-    //                 <View style={styles.tickernamewrapper}>
-    //                     <Text style={styles.ticker}>{stock.ticker}</Text>
-    //                     {/* <Text style={styles.name}>{stock.name}</Text> */}
-    //                 </View>
-    //                 <View>
-    //                      <Text>{stock.value}</Text>
-    //                 </View>
-    //                 <View>
-    //                     {/* need to check api data if percentage change will be negative value */}
-    //                     {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>{stock.percentagechange}%</Text> */}
-    //                 </View>
-    //                 <View>
-    //                 {/* using percentage change for color as price change may not be a negative number depending on api data */}
-    //                 {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>${stock.pricechange}</Text> */}
-    //                 </View>
-    //             </View>
-    //         </Pressable>
-    //     </View>
-    //     )
-    // })
+    const stockCards = tickerAndPrice.map((stock,index)=>{
+        return (
+        <View style={styles.wrapper}>
+            <Pressable onPress={() => navigation.navigate('About')}>
+                <View style={styles.infoWrapper}>
+                    <View style={styles.tickernamewrapper}>
+                        <Text style={styles.ticker}>{stock.ticker}</Text>
+                        {/* <Text style={styles.name}>{stock.name}</Text> */}
+                    </View>
+                    <View>
+                         <Text>{stock.value}</Text>
+                    </View>
+                    <View>
+                        {/* need to check api data if percentage change will be negative value */}
+                        {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>{stock.percentagechange}%</Text> */}
+                    </View>
+                    <View>
+                    {/* using percentage change for color as price change may not be a negative number depending on api data */}
+                    {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>${stock.pricechange}</Text> */}
+                    </View>
+                </View>
+            </Pressable>
+        </View>
+        )
+    })
     
     return (
     <>
-      {/* {stockCards} */}
+      {stockCards}
     </>
     )
   }
