@@ -3,7 +3,7 @@ import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, ScrollView, Butt
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const OPTIONS = ["Shopping", "Food", "Health", "Transportation", "Household"]
+const OPTIONS = ["Shopping", "Food", "Health", "Transportation", "Household", "Others"]
 const WIDTH = Dimensions.get("screen").width
 const HEIGHT = Dimensions.get("screen").height
 
@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: 300
+        paddingTop: 420
 
     },
     modal:{
         backgroundColor: "gray",
-        borderRadius: 10
+        borderRadius: 10,
+     
 
     },
     option:{

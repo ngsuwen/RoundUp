@@ -236,6 +236,8 @@ const styles = StyleSheet.create({
     datepicker:{
       paddingVertical: 10,
       paddingHorizontal: 10,
+      
+      width: "100%",
       // borderColor: "gray",
       // borderWidth: 1,
       right: 100,
