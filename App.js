@@ -17,7 +17,7 @@ function App() {
   const [amount, setAmount] = useState([]);
   const [selectedValue, setSelectedValue] = useState("Shopping")
   const [description, setDescription] = useState("")
-  const [show, setShow] = React.useState(false);
+  // const [show, setShow] = React.useState(false);
 
 
 
@@ -73,12 +73,12 @@ function App() {
   };
 
 
-  // Date Picker
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || new Date(date);
-    setDate(currentDate);
-    //setShow(false)
-  };
+  // // Date Picker
+  // const onChangeDate = (event, selectedDate) => {
+  //   const currentDate = selectedDate || new Date(date);
+  //   setDate(currentDate);
+  //   //setShow(false)
+  // };
 
   return (
     <NavigationContainer>
@@ -93,15 +93,15 @@ function App() {
           expenseEntryContext: [
             date,
             setDate,
-            onChangeDate,
+            // onChangeDate,
             amount,
             setAmount,
             selectedValue,
             setSelectedValue,
             description,
             setDescription,
-            show, 
-            setShow
+            // show, 
+            // setShow
             
           ],
           userContext: [user, setUser],

@@ -16,8 +16,13 @@ const EntryExpensePage = ({navigation}) => {
    // useContext
    const { userContext, expenseEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
-   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+   const [date,setDate, 
+    // onChangeDate, 
+    amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+
+   // useState
+   const [show, setShow] = React.useState(false);
 
    // clear states onload at entryexpense page
   useEffect(()=>{
@@ -29,6 +34,14 @@ const EntryExpensePage = ({navigation}) => {
     })
      return resetPage
   }, [expenseForceRender])
+
+
+    // Date Picker
+    const onChangeDate = (event, selectedDate) => {
+      const currentDate = selectedDate || new Date(date);
+      setDate(currentDate);
+      //setShow(false)
+    };
   
 
    //work in progress
@@ -83,8 +96,7 @@ const EntryExpensePage = ({navigation}) => {
     return (
       <NativeBaseProvider>
           <KeyboardAvoidingView
-          
-            
+
                 h={{
                   base: "100%",
                   lg: "auto",
@@ -92,10 +104,7 @@ const EntryExpensePage = ({navigation}) => {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{flex: 1}}
       >
-        
-        
-          
-            
+ 
       <SafeAreaView style={styles.container} >
         <View style={styles.inner}>
           <Text>Username: {userId}</Text>

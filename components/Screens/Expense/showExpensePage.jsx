@@ -21,7 +21,9 @@ const ShowExpensePage = ({ navigation, route }) => {
   const { expenseContext, expenseForceRenderContext , expenseEntryContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
-  const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+  const [date,setDate, 
+    // onChangeDate, 
+    amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
 

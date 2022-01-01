@@ -20,19 +20,21 @@ const EditExpensePage = ({ navigation, route }) => {
   React.useContext(DataContext);
   const [userId, setUserId] = userContext;
   
+  // useState
+  const [show, setShow] = React.useState(false);
 
   const [
     date,
     setDate,
-    onChangeDate,
+    // onChangeDate,
     amount,
     setAmount,
     selectedValue,
     setSelectedValue,
     description,
     setDescription,
-    show, 
-    setShow
+    // show, 
+    // setShow
   ] = expenseEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
@@ -68,6 +70,13 @@ const EditExpensePage = ({ navigation, route }) => {
       console.log(err);
     }
   };
+
+    // Date Picker
+    const onChangeDate = (event, selectedDate) => {
+      const currentDate = selectedDate || new Date(date);
+      setDate(currentDate);
+      //setShow(false)
+    };
 
 
   // const showDatepicker = () => {
