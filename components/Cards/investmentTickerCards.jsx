@@ -22,7 +22,6 @@ const [user, setUser] = userContext
 
     useEffect(()=>{
         fetchInvestments()
-        fetchCurrentStockPrice(tickerList)
     },[])
 
     const fetchInvestments = () => {
@@ -40,20 +39,42 @@ const [user, setUser] = userContext
         // object of tickers who contains array of obj of entries
         // console.log('entriesByTicker:',entriesByTicker)
         setFetchedInvestmentEntries(entriesByTicker)
-        console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
         // const tickerList = Object.keys(entriesByTicker).sort()
 
  
        })
         .catch((err)=>console.log(err))
-        }
+    }
+
+    const tickerList = Object.keys(fetchedInvestmentEntries).sort()
 
     const fetchCurrentStockPrice = (tickerList) => {
         tickerList.forEach((ticker,index)=>{
             // need to check category before fetching current price
-            console.log('category:',fetchedInvestmentEntries[ticker][0]['investmentsentry']['category'])
+            // if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='US stocks'){
+            // fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
+            // .then(data=>data.json())
+            // .then((currentStockPrice)=>{
+            // console.log(`${ticker} price:`,currentStockPrice)})
+            // // setFetchedExpenseEntries(parsedData)})
+            // .catch((err)=>console.log(err))
+            // }
+
+            if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='Crypto'){
+            console.log('cryptoticker:',ticker)
+            fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
+            .then(data=>data.json())
+            .then((currentCryptoPrice)=>{
+            console.log(`${ticker} price:`,currentCryptoPrice)})
+            // setFetchedExpenseEntries(parsedData)})
+            .catch((err)=>console.log(err))
+            }
         })
+
     }
+
+    fetchCurrentStockPrice(tickerList)
+
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -129,7 +150,6 @@ const [user, setUser] = userContext
     //     })
     // })
 
-    const tickerList = Object.keys(fetchedInvestmentEntries).sort()
     const stockCards = tickerList.map((stock,index)=>{
         return (
         <View style={styles.wrapper}>
