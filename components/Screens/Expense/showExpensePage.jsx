@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from 'moment';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import {
   Dimensions,
   Button,
   ScrollView,
+  FlatList
 } from "react-native";
 import { useContext } from "react";
 import DataContext from "../../../context/DataContext";
@@ -22,8 +24,11 @@ const ShowExpensePage = ({ navigation, route }) => {
   const [date,setDate, onChangeDate, amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
-  
 
+  // format date to "YYYY-MM-DD"
+  const actualDate = entry.expensesentry.date
+  const formattedDate = moment(actualDate, moment.ISO_8601).format('YYYY-MM-DD')
+  
   // route DELETE
   const deleteExpense = async (id) => {
     const res = await fetch(
@@ -37,7 +42,7 @@ const ShowExpensePage = ({ navigation, route }) => {
       return;
     }
 
-    reloadExpense();
+    //reloadExpense();
     setExpenseForceRender(!expenseForceRender)
     navigation.navigate("Expense GP");
   };
@@ -51,15 +56,17 @@ const ShowExpensePage = ({ navigation, route }) => {
     navigation.navigate("Edit Expense Page", {entry: entry})
   }
 
+
+
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text>Id: {entry._id}</Text>
-        <Text>Username: {entry.username}</Text>
-        <Text>Date: {entry.expensesentry.date}</Text>
-        <Text>Amount: $ {entry.expensesentry.amount}</Text>
-        <Text>Category: {entry.expensesentry.category}</Text>
-        <Text>Description: {entry.expensesentry.description}</Text>
+      
+      <View >
+   
+        <Text style={styles.wrapper}>Date: {formattedDate}</Text>
+        <Text style={styles.wrapper}>Amount: $ {entry.expensesentry.amount}</Text>
+        <Text style={styles.wrapper}>Category: {entry.expensesentry.category}</Text>
+        <Text style={styles.wrapper}>Description: {entry.expensesentry.description}</Text>
         <View style={styles.button}>
           <Button title="Delete" onPress={() => deleteExpense(entry._id)} />
           <Button
@@ -73,11 +80,15 @@ const ShowExpensePage = ({ navigation, route }) => {
           />
         </View>
       </View>
+
     </SafeAreaView>
   );
 };
 
 export default ShowExpensePage;
+
+const screenWidth = Dimensions.get('screen').width
+const screenHeight = Dimensions.get('screen').height
 
 const styles = StyleSheet.create({
   container: {
@@ -86,13 +97,37 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#d5f4e6",
   },
   scrollView: {
     marginHorizontal: 20,
   },
   button:{
     flexDirection: "row",
-  alignSelf: "center"  }
+    alignSelf: "center"  
+  },
+  wrapper: {
+    
+    fontSize: 20,
+    flex: 0.2,
+    textAlign: "center",
+    flexDirection:'column',
+    width: screenWidth*0.9,
+    backgroundColor: '#fefbd8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    paddingTop: 45,
+    margin: '2%',
+    shadowColor: "#000",
+    shadowOffset: {
+    width: 2,
+    height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: .22,
+    elevation: 3,
+    },
 });
 
 
