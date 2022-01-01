@@ -16,13 +16,11 @@ const EntryExpensePage = ({navigation}) => {
    // useContext
    const { userContext, expenseEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
-   const [date,setDate, 
-    // onChangeDate, 
-    amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+   const [date,setDate,amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // useState
-   const [show, setShow] = React.useState(false);
+   const [show, setShow] = useState(false);
 
    // clear states onload at entryexpense page
   useEffect(()=>{
@@ -140,9 +138,6 @@ const EntryExpensePage = ({navigation}) => {
 
                 </Picker>
             
-                
-                
-
                 <TextInput
                     style={styles.textinput}
                     type="submit" 

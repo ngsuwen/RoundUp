@@ -17,9 +17,7 @@ function App() {
   const [amount, setAmount] = useState([]);
   const [selectedValue, setSelectedValue] = useState("Shopping")
   const [description, setDescription] = useState("")
-  // const [show, setShow] = React.useState(false);
-
-
+  
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -73,12 +71,6 @@ function App() {
   };
 
 
-  // // Date Picker
-  // const onChangeDate = (event, selectedDate) => {
-  //   const currentDate = selectedDate || new Date(date);
-  //   setDate(currentDate);
-  //   //setShow(false)
-  // };
 
   return (
     <NavigationContainer>
@@ -100,8 +92,6 @@ function App() {
             setSelectedValue,
             description,
             setDescription,
-            // show, 
-            // setShow
             
           ],
           userContext: [user, setUser],
