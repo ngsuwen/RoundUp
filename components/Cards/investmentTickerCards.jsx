@@ -22,6 +22,7 @@ const [user, setUser] = userContext
 
     useEffect(()=>{
         fetchInvestments()
+        fetchCurrentStockPrice(tickerList)
     },[])
 
     const fetchInvestments = () => {
@@ -29,24 +30,30 @@ const [user, setUser] = userContext
         fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
         .then(data=>data.json())
         .then((parsedData)=>{
-        // grouping fetched data by ticker symbol
+        // array of object
+
+        // grouping fetched data by ticker symbol 
         const entriesByTicker = _(parsedData).groupBy((element)=>{
             const groupedTicker = element.investmentsentry.ticker
             return groupedTicker
         })
+        // object of tickers who contains array of obj of entries
         // console.log('entriesByTicker:',entriesByTicker)
-        const tickerList = Object.keys(entriesByTicker).sort()
-        
-        const entriesByTickerArr = []
+        setFetchedInvestmentEntries(entriesByTicker)
+        console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
+        // const tickerList = Object.keys(entriesByTicker).sort()
 
-        for(let i = 0;i<tickerList.length;i++){
-            entriesByTickerArr.push(entriesByTicker[tickerList[i]])
-        }
-        console.log('entriesbytickerarr:',entriesByTickerArr)
-        // setFetchedInvestmentEntries(entriesByTicker)
+ 
        })
         .catch((err)=>console.log(err))
         }
+
+    const fetchCurrentStockPrice = (tickerList) => {
+        tickerList.forEach((ticker,index)=>{
+            // need to check category before fetching current price
+            console.log('category:',fetchedInvestmentEntries[ticker][0]['investmentsentry']['category'])
+        })
+    }
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -112,9 +119,18 @@ const [user, setUser] = userContext
     },
     })
 
-    // console.log('fetchedinvestmententries:',fetchedInvestmentEntries)
+    ////// TO ACCESS EACH TRANSACTION OF EACH TICKER //////
+    // const tickerList = Object.keys(fetchedInvestmentEntries).sort()
+    // console.log('tickerlist:',tickerList)
+    // tickerList.forEach((element,index)=>{
+    //     // accessing object with its element (ticker symbol) which contains an array (use forEach to lopo thru) which contains all transactions for that ticker
+    //     fetchedInvestmentEntries[element].forEach((element2,index)=>{
+    //         return console.log('entry for each ticker:',element2)
+    //     })
+    // })
 
-    const stockCards = fetchedInvestmentEntries.map((stock,index)=>{
+    const tickerList = Object.keys(fetchedInvestmentEntries).sort()
+    const stockCards = tickerList.map((stock,index)=>{
         return (
         <View style={styles.wrapper}>
             <Pressable onPress={() => navigation.navigate('About')}>
