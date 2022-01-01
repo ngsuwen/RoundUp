@@ -15,7 +15,7 @@ function App() {
   const [allExpense, setAllExpense] = useState([]);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("Shopping");
+  const [category, setCategory] = useState("Shopping");
   const [description, setDescription] = useState("");
 
   // useState for expense month selector (KSZ)
@@ -87,11 +87,10 @@ function App() {
           expenseEntryContext: [
             date,
             setDate,
-            // onChangeDate,
             amount,
             setAmount,
-            selectedValue,
-            setSelectedValue,
+            category,
+            setCategory,
             description,
             setDescription,
           ],

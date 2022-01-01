@@ -27,8 +27,8 @@ const EditExpensePage = ({ navigation, route }) => {
     setDate,
     amount,
     setAmount,
-    selectedValue,
-    setSelectedValue,
+    category,
+    setCategory,
     description,
     setDescription,
   ] = expenseEntryContext;
@@ -46,7 +46,7 @@ const EditExpensePage = ({ navigation, route }) => {
             expensesentry: {
               date: date,
               amount: amount,
-              category: selectedValue,
+              category: category,
               description: description,
             },
           }),
@@ -121,10 +121,10 @@ const EditExpensePage = ({ navigation, route }) => {
             />
 
             <Picker
-              selectedValue={selectedValue}
+              selectedValue={category}
               style={styles.picker}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
+                setCategory(itemValue)
               }
             >
               <Picker.Item label="Shopping" value="Shopping" />

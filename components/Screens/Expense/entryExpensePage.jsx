@@ -19,12 +19,11 @@ const EntryExpensePage = ({navigation}) => {
    // useContext
    const { userContext, expenseEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
-   const [date,setDate,amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+   const [date,setDate,amount,setAmount,category,setCategory,description,setDescription] = expenseEntryContext
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // useState
    const [show, setShow] = useState(false);
-   const [chooseData, setChooseData] = useState("Select Category...")
    const [isModalVisible, setIsModalVisible] = useState(false)
 
    const changeModalVisibility = (bool) =>{
@@ -32,7 +31,7 @@ const EntryExpensePage = ({navigation}) => {
    }
 
    const setData = (option) =>{
-     setChooseData(option)
+     setCategory(option)
    }
  
 
@@ -42,8 +41,7 @@ const EntryExpensePage = ({navigation}) => {
     const resetPage = navigation.addListener("focus", ()=>{
       setDate(new Date())
       setAmount([])
-      // setSelectedValue("Shopping")
-      setChooseData("Select Category...")
+      setCategory("Select Category...")
       setDescription("")
     })
      return resetPage
@@ -86,7 +84,7 @@ const EntryExpensePage = ({navigation}) => {
                   
                   date: date,
                   amount: amount,
-                  category: chooseData,
+                  category: category,
                   description: description  }
                 
                  
@@ -142,9 +140,9 @@ const EntryExpensePage = ({navigation}) => {
         
                 
                 {/* <Picker
-                  selectedValue={selectedValue}
+                  selectedValue={category}
                   style={styles.picker}
-                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                  onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
                 >
                 
                   <Picker.Item label="Shopping" value="Shopping" />
@@ -154,12 +152,15 @@ const EntryExpensePage = ({navigation}) => {
                   <Picker.Item label="Household" value="Household" />
 
                 </Picker> */}
+
+
+              
                 
                <TouchableOpacity 
                   style={styles.touchableOpacity}
                   onPress={()=> changeModalVisibility(true)}
                   >
-                  <Text style={styles.text}>{chooseData}</Text>
+                  <Text style={styles.text}>{category}</Text>
 
                </TouchableOpacity>
                <Modal
@@ -177,8 +178,7 @@ const EntryExpensePage = ({navigation}) => {
                </Modal>
              
 
-
-                <TextInput
+               <TextInput
                     style={styles.textinput}
                     type="submit" 
                     name="description"
@@ -186,6 +186,8 @@ const EntryExpensePage = ({navigation}) => {
                     value={description}
                     onChangeText={(text) => setDescription(text)}
                       /> 
+
+               
                 
                 <View style={styles.button}>
                     <Button title="Submit" onPress={handleSubmit } />

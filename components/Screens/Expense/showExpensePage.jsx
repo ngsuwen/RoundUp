@@ -21,7 +21,7 @@ const ShowExpensePage = ({ navigation, route }) => {
   const { expenseContext, expenseForceRenderContext , expenseEntryContext } = useContext(DataContext);
   const [allExpense, reloadExpense] = expenseContext;
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
-  const [date,setDate,amount,setAmount,selectedValue,setSelectedValue,description,setDescription] = expenseEntryContext
+  const [date,setDate,amount,setAmount,category,setCategory,description,setDescription] = expenseEntryContext
 
   const {entry} = route.params;
 
@@ -52,7 +52,7 @@ const ShowExpensePage = ({ navigation, route }) => {
     setAmount(entry.expensesentry.amount)
     setDescription(entry.expensesentry.description)
     setDate(entry.expensesentry.date)
-    setSelectedValue(entry.expensesentry.category)
+    setCategory(entry.expensesentry.category)
     navigation.navigate("Edit Expense Page", {entry: entry})
   }
 
