@@ -8,13 +8,9 @@ import {
   Picker,
   SafeAreaView,
   Button,
-  Pressable,
-  Modal,
-  Dimensions
 } from "react-native";
-import DatePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { NativeBaseProvider, KeyboardAvoidingView } from "native-base";
-import { ModalPicker } from './modalExpensePicker';
 
 const EditExpensePage = ({ navigation, route }) => {
   const { entry } = route.params;
@@ -23,6 +19,9 @@ const EditExpensePage = ({ navigation, route }) => {
   const { userContext, expenseEntryContext, expenseForceRenderContext } = React.useContext(DataContext);
   const [userId, setUserId] = userContext;
   
+  // useState
+  const [show, setShow] = React.useState(false);
+
   const [
     date,
     setDate,
@@ -34,22 +33,6 @@ const EditExpensePage = ({ navigation, route }) => {
     setDescription,
   ] = expenseEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
-
-
-   // useState
-   const [show, setShow] = React.useState(false);
-   // Modal for category
-   const [isModalVisible, setIsModalVisible] = React.useState(false)
-
-   const changeModalVisibility = (bool) =>{
-    setIsModalVisible(bool)
-   }
-
-   const setData = (option) =>{
-     setCategory(option)
-   }
-
-
 
   const handleSubmit = async (expense) => {
     try {
@@ -109,15 +92,26 @@ const EditExpensePage = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
           <View style={styles.inner}>
             
-            <View style={styles.wrapper} >
-            <DatePicker
+            <DateTimePicker
               style={styles.datepicker}
               value={new Date(date)}
               onChange={onChangeDate}
             />
-            </View>
-            
-            <View style={styles.wrapper}>
+            {/* <View>
+              <Button
+                onPress={showDatepicker}
+                title={new Date(date).toString().substr(0,15)}
+              />
+            </View> */}
+            {/* {show && (
+              <DateTimePicker
+                value={date}
+                // value={new Date(date)}
+                mode="date"
+                display="default"
+                onChange={onChangeDate}
+              />
+            )} */}
             <TextInput
               style={styles.textinput}
               name="amount"
@@ -125,37 +119,21 @@ const EditExpensePage = ({ navigation, route }) => {
               value={amount.toString()}
               onChangeText={(text) => setAmount(text)}
             />
-             <Button
-                  title="Clear"
-                  onPress={()=>setAmount([])}
-                        />
-            </View>
 
-           <View style={styles.wrapper}>
-            <Pressable 
-                  style={styles.pressable}
-                  onPress={()=> changeModalVisibility(true)}
-                  >
-                  <Text style={styles.catText}>{category}</Text>
+            <Picker
+              selectedValue={category}
+              style={styles.picker}
+              onValueChange={(itemValue, itemIndex) =>
+                setCategory(itemValue)
+              }
+            >
+              <Picker.Item label="Shopping" value="Shopping" />
+              <Picker.Item label="Food" value="Food" />
+              <Picker.Item label="Health" value="Health" />
+              <Picker.Item label="Transportation" value="Transportation" />
+              <Picker.Item label="Household" value="Household" />
+            </Picker>
 
-               </Pressable>
-               <Modal
-                  transparent={true}
-                  animationType='fade'
-                  visible={isModalVisible}
-                  onRequestClose={()=> changeModalVisibility(false)}
-
-               >
-                  <ModalPicker 
-                    changeModalVisibility={changeModalVisibility}
-                    setData={setData}
-                  />
-                  
-               </Modal>
-              </View>
-
-
-            <View style={styles.wrapper} >
             <TextInput
               style={styles.textinput}
               type="text"
@@ -164,11 +142,6 @@ const EditExpensePage = ({ navigation, route }) => {
               value={description}
               onChangeText={(text) => setDescription(text)}
             />
-            <Button
-                title="Clear"
-                onPress={()=>setDescription("")}
-                        />
-            </View>
 
             <View style={styles.button}>
               <Button
@@ -195,31 +168,28 @@ const EditExpensePage = ({ navigation, route }) => {
 
 export default EditExpensePage;
 
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#e3eaa7",
-    // alignItems: "center",
-    // justifyContent: "center",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   datepicker: {
-    paddingVertical: 100,
+    paddingVertical: 10,
     paddingHorizontal: 10,
-    width: "100%",
     // borderColor: "gray",
     // borderWidth: 1,
     right: 100,
   },
   textinput: {
-    paddingVertical: 1,
-    paddingHorizontal: 1,
+    paddingVertical: 15,
+    paddingHorizontal: 100,
     marginTop: 10,
     marginBottom: 10,
-
+    borderColor: "gray",
+    borderWidth: 1,
   },
   picker: {
     justifyContent: "center",
@@ -232,40 +202,6 @@ const styles = StyleSheet.create({
   inner: {
     padding: 20,
     flex: 1,
-    // justifyContent: "flex-end",
+    justifyContent: "flex-end",
   },
-  catText: {
-    marginVertical: 10,
-    fontSize: 22,
-    textAlign: "center"
-  },
-  pressable:{
-    backgroundColor: "#87bdd8",
-    alignSelf: "stretch",
-    paddingHorizontal: 10,
-    marginHorizontal: 10,
-    borderRadius: 15
-  
-  },
-  wrapper: {
-    fontSize: 20,
-    flex: 0.2,
-    textAlign: "center",
-    flexDirection:'column',
-    width: screenWidth*0.86,
-    backgroundColor: '#d6d4e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    paddingTop: 1,
-    margin: '1%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: .22,
-    elevation: 3,
-    },
 });

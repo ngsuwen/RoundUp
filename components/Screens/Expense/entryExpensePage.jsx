@@ -241,18 +241,6 @@ const styles = StyleSheet.create({
         // marginTop: 100
         
     },  
-    categoryContainer:{
-      flexDirection: "row",
-      marginTop: 30,
-      marginBottom: 20,
-      justifyContent: "space-between"
-    },
-    categoryText:{
-      fontSize: 16,
-      color: "grey",
-      fontWeight: "bold"
-  
-    },
     datepicker:{
       paddingVertical: 100,
       paddingHorizontal: 10,
