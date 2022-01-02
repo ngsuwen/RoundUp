@@ -24,34 +24,25 @@ const [user, setUser] = userContext
     fetchInvestments()
     },[])
 
-    const fetchInvestments = () => {
+    const fetchInvestments = async () => {
         const userid = user
-        fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
-        .then(data=>data.json())
-        .then((parsedData)=>{
-        // array of object
-
+        const fetchData = await fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
+        const parsedData = await fetchData.json()
         // grouping fetched data by ticker symbol 
         const entriesByTicker = _(parsedData).groupBy((element)=>{
             const groupedTicker = element.investmentsentry.ticker
             return groupedTicker
         })
-        // object of tickers who contains array of obj of entries
         // console.log('entriesByTicker:',entriesByTicker)
         setFetchedInvestmentEntries(entriesByTicker)
-        // const tickerList = Object.keys(entriesByTicker).sort()
-
- 
-       })
-        .catch((err)=>console.log(err))
-
         fetchStockPrice()
-    }
+       }
 
 
     const fetchStockPrice = async () => { 
 
     const tickerList = Object.keys(fetchedInvestmentEntries).sort()
+    console.log('tickerlist:',tickerList)
 
     const tickerAndPriceArr = []
 
@@ -66,7 +57,7 @@ const [user, setUser] = userContext
                 // .then((currentStockPrice)=>{
                 // // adding ticker symbol to obj containing ticker current price
 
-                // // console.log('currentstockprice:',currentStockPrice)
+                // console.log('currentstockprice:',parsedStockPriceObj)
                 // return currentStockPrice})
                 // .catch((err)=>console.log(err))}
                 return parsedStockPriceObj
@@ -80,7 +71,7 @@ const [user, setUser] = userContext
                 // .then((currentStockPrice)=>{
                 // // adding ticker symbol to obj containing ticker current price
 
-                // // console.log('currentstockprice:',currentStockPrice)
+                // console.log('currentcryptoprice:',parsedCryptoPriceObj)
                 // return currentStockPrice})
                 // .catch((err)=>console.log(err))}
                 return parsedCryptoPriceObj
@@ -88,6 +79,7 @@ const [user, setUser] = userContext
         }
 
         const fetchedPrice = await priceFetcher()
+        console.log('fetchedprice:',fetchedPrice)
         tickerAndPriceArr.push(fetchedPrice)
        
         }
