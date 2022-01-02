@@ -34,22 +34,22 @@ const [user, setUser] = userContext
             return groupedTicker
         })
         // console.log('entriesByTicker:',entriesByTicker)
-        setFetchedInvestmentEntries(entriesByTicker)
-        fetchStockPrice()
+        setFetchedInvestmentEntries(entriesByTicker) // ran but state will only update the next render... so fetchStockPrice() should not depend on state but rather a separate array that cna be passed into the function so you dont have to wait for the next render
+        fetchStockPrice(entriesByTicker)
        }
 
 
-    const fetchStockPrice = async () => { 
+    const fetchStockPrice = async (entriesByTicker) => { 
 
-    const tickerList = Object.keys(fetchedInvestmentEntries).sort()
-    console.log('tickerlist:',tickerList)
+    const tickerList = Object.keys(entriesByTicker).sort()
+    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty
 
-    const tickerAndPriceArr = []
+    const tickerAndPriceArr = [] 
 
     for (let ticker of tickerList){
 
         const priceFetcher = async () => {
-            if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='US stocks'){
+            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='US stocks'){
                 const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
                 const parsedStockPriceObj = await stockprice.json()
                 parsedStockPriceObj['ticker']=ticker
@@ -63,10 +63,11 @@ const [user, setUser] = userContext
                 return parsedStockPriceObj
             }
             
-            if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='Crypto'){
+            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto'){
                 const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
                 const parsedCryptoPriceObj = await cryptoprice.json()
-                parsedCryptoPriceObj['ticker']=ticker
+                // uppercase as crypto ticker is lowercase due to api requirements
+                parsedCryptoPriceObj['ticker']=ticker.toUpperCase()
                 // return addedTickerName
                 // .then((currentStockPrice)=>{
                 // // adding ticker symbol to obj containing ticker current price
@@ -164,6 +165,9 @@ const [user, setUser] = userContext
     tickernamewrapper: {
     flexDirection:'column',
     },
+    stockpricewrapper: {
+    alignSelf:'flex-end',
+    },
     ticker:{
     fontWeight:'bold',
     },
@@ -214,7 +218,7 @@ const [user, setUser] = userContext
                         <Text style={styles.ticker}>{stock.ticker}</Text>
                         {/* <Text style={styles.name}>{stock.name}</Text> */}
                     </View>
-                    <View>
+                    <View style={styles.stockpricewrapper}>
                          <Text>{stock.value}</Text>
                     </View>
                     <View>
