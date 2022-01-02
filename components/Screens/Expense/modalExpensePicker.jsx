@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, ScrollView, Button, Modal, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, ScrollView, Button, Modal, Dimensions, Pressable } from 'react-native';
+
 
 
 const OPTIONS = ["Shopping", "Food", "Health", "Transportation", "Household", "Others"]
@@ -17,7 +17,7 @@ const ModalPicker = (props) =>{
 
     const option = OPTIONS.map((item, index)=>{
         return(
-            <TouchableOpacity
+            <Pressable
                 style={styles.option}
                 key={index}
                 onPress={()=> onPressItem(item)}
@@ -25,11 +25,11 @@ const ModalPicker = (props) =>{
                 <Text style={styles.text}>
                     {item}
                 </Text>
-            </TouchableOpacity>
+            </Pressable>
         )
     })
     return(
-        <TouchableOpacity
+        <Pressable
             onPress={()=> changeModalVisibility(false)}
             style={styles.container}
             >
@@ -38,7 +38,7 @@ const ModalPicker = (props) =>{
                         {option}
                     </ScrollView>
                 </View>
-            </TouchableOpacity>
+            </Pressable>
     )
 }
 
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: 420
+        
 
     },
     modal:{

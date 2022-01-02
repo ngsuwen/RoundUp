@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions } from 'react-native';
+import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 import { ModalPicker } from './modalExpensePicker';
 
@@ -24,6 +24,8 @@ const EntryExpensePage = ({navigation}) => {
 
    // useState
    const [show, setShow] = useState(false);
+
+   // Modal for category
    const [isModalVisible, setIsModalVisible] = useState(false)
 
    const changeModalVisibility = (bool) =>{
@@ -156,18 +158,18 @@ const EntryExpensePage = ({navigation}) => {
 
               
                 
-               <TouchableOpacity 
-                  style={styles.touchableOpacity}
+               <Pressable 
+                  style={styles.pressable}
                   onPress={()=> changeModalVisibility(true)}
                   >
                   <Text style={styles.text}>{category}</Text>
 
-               </TouchableOpacity>
+               </Pressable>
                <Modal
                   transparent={true}
                   animationType='fade'
                   visible={isModalVisible}
-                  nRequestClose={()=> changeModalVisibility(false)}
+                  onRequestClose={()=> changeModalVisibility(false)}
 
                >
                   <ModalPicker 
@@ -268,11 +270,13 @@ const styles = StyleSheet.create({
       marginVertical: 20,
       fontSize: 25
     },
-    touchableOpacity:{
-      backgroundColor: "orange",
+    pressable:{
+      backgroundColor: "green",
       alignSelf: "stretch",
       paddingHorizontal: 20,
       marginHorizontal: 20
     }
  
 })
+
+
