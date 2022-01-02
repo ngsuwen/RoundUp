@@ -142,6 +142,10 @@ const EntryExpensePage = ({navigation}) => {
                     value={amount.toString()}
                     onChangeText={(text) => setAmount(text)}
                       />   
+                      <Button
+                        title="Clear"
+                        onPress={()=>setAmount([])}
+                        />
                   </View>
         
                 
@@ -195,6 +199,10 @@ const EntryExpensePage = ({navigation}) => {
                     value={description}
                     onChangeText={(text) => setDescription(text)}
                       /> 
+                      <Button
+                        title="Clear"
+                        onPress={()=>setDescription("")}
+                        />
                 </View>
                
                 
@@ -246,9 +254,10 @@ const styles = StyleSheet.create({
   
     },
     datepicker:{
-      paddingVertical: 10,
+      paddingVertical: 100,
       paddingHorizontal: 10,
       width: "100%",
+           
       // borderColor: "gray",
       // borderWidth: 1,
       right: 100,
@@ -256,7 +265,7 @@ const styles = StyleSheet.create({
     },
     textinput:{
       paddingVertical: 1,
-      paddingHorizontal: 100,
+      paddingHorizontal: 1,
       marginTop: 10,
       marginBottom: 10,
       
