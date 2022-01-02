@@ -255,12 +255,13 @@ const styles = StyleSheet.create({
       
     },
     textinput:{
-      paddingVertical: 15,
+      paddingVertical: 1,
       paddingHorizontal: 100,
       marginTop: 10,
       marginBottom: 10,
-      borderColor: "gray",
-      borderWidth: 1,
+      
+      // borderColor: "gray",
+      // borderWidth: 1,
     },
     picker:{
       justifyContent: "center",
@@ -285,6 +286,7 @@ const styles = StyleSheet.create({
       alignSelf: "stretch",
       paddingHorizontal: 10,
       marginHorizontal: 10,
+      borderRadius: 15
     
     },
     wrapper: {
@@ -292,13 +294,13 @@ const styles = StyleSheet.create({
       flex: 0.2,
       textAlign: "center",
       flexDirection:'column',
-      width: screenWidth*0.85,
+      width: screenWidth*0.86,
       backgroundColor: '#d5f4e6',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 8,
+      borderRadius: 20,
       paddingTop: 1,
-      margin: '2%',
+      margin: '1%',
       shadowColor: "#000",
       shadowOffset: {
       width: 2,
