@@ -124,12 +124,16 @@ const EntryExpensePage = ({navigation}) => {
       <SafeAreaView style={styles.container} >
         <View style={styles.inner}>
             
+            <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
                   value={new Date(date)}
                   onChange={onChangeDate}
-                  
                   />
+                  
+                  </View>
+
+                <View style={styles.wrapper} >
                 <TextInput
                     style={styles.textinput}
                     type="submit" 
@@ -138,7 +142,7 @@ const EntryExpensePage = ({navigation}) => {
                     value={amount.toString()}
                     onChangeText={(text) => setAmount(text)}
                       />   
-            
+                  </View>
         
                 
                 {/* <Picker
@@ -157,12 +161,13 @@ const EntryExpensePage = ({navigation}) => {
 
 
               
+              <View style={styles.wrapper}>
                 
                <Pressable 
                   style={styles.pressable}
                   onPress={()=> changeModalVisibility(true)}
                   >
-                  <Text style={styles.text}>{category}</Text>
+                  <Text style={styles.catText}>{category}</Text>
 
                </Pressable>
                <Modal
@@ -179,7 +184,9 @@ const EntryExpensePage = ({navigation}) => {
                   
                </Modal>
              
+               </View>
 
+              <View style={styles.wrapper}>
                <TextInput
                     style={styles.textinput}
                     type="submit" 
@@ -188,7 +195,7 @@ const EntryExpensePage = ({navigation}) => {
                     value={description}
                     onChangeText={(text) => setDescription(text)}
                       /> 
-
+                </View>
                
                 
                 <View style={styles.button}>
@@ -213,11 +220,14 @@ const EntryExpensePage = ({navigation}) => {
 
 export default EntryExpensePage;
 
+const screenWidth = Dimensions.get('screen').width
+const screenHeight = Dimensions.get('screen').height
+
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         flexDirection:'column',
-        backgroundColor: '#fff',
+        backgroundColor: '#e6e2d3',
         // alignItems: 'center',
         // justifyContent: 'center',
         // marginTop: 100
@@ -238,7 +248,6 @@ const styles = StyleSheet.create({
     datepicker:{
       paddingVertical: 10,
       paddingHorizontal: 10,
-      
       width: "100%",
       // borderColor: "gray",
       // borderWidth: 1,
@@ -266,16 +275,39 @@ const styles = StyleSheet.create({
       flex: 1,
       // justifyContent: "flex-end",
     },
-    text: {
-      marginVertical: 20,
-      fontSize: 25
+    catText: {
+      marginVertical: 10,
+      fontSize: 22,
+      textAlign: "center"
     },
     pressable:{
       backgroundColor: "#80ced6",
       alignSelf: "stretch",
-      paddingHorizontal: 20,
-      marginHorizontal: 20
-    }
+      paddingHorizontal: 10,
+      marginHorizontal: 10,
+    
+    },
+    wrapper: {
+      fontSize: 20,
+      flex: 0.2,
+      textAlign: "center",
+      flexDirection:'column',
+      width: screenWidth*0.85,
+      backgroundColor: '#d5f4e6',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 8,
+      paddingTop: 1,
+      margin: '2%',
+      shadowColor: "#000",
+      shadowOffset: {
+      width: 2,
+      height: 1,
+      },
+      shadowOpacity: 0.22,
+      shadowRadius: .22,
+      elevation: 3,
+      },
  
 })
 
