@@ -9,7 +9,7 @@ import {
   NativeBaseProvider,
   KeyboardAvoidingView,
 } from "native-base";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 
 
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
       fontSize: 25
     },
     pressable:{
-      backgroundColor: "green",
+      backgroundColor: "#80ced6",
       alignSelf: "stretch",
       paddingHorizontal: 20,
       marginHorizontal: 20

@@ -33,7 +33,7 @@ const ModalPicker = (props) =>{
             onPress={()=> changeModalVisibility(false)}
             style={styles.container}
             >
-                <View style={[styles.modal, {width: WIDTH - 20, height: HEIGHT / 2}]}>
+                <View style={[styles.modal, {width: WIDTH -20, height: HEIGHT / 2}]}>
                     <ScrollView>
                         {option}
                     </ScrollView>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 
     },
     modal:{
-        backgroundColor: "gray",
+        backgroundColor: "#b1cbbb",
         borderRadius: 10,
      
 
