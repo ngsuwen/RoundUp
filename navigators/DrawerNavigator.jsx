@@ -19,10 +19,10 @@ import IndexCashPage from "../components/Screens/Cash/indexCashPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
 
-// import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmentPage";
-// import IndexInvestmentPage from "../components/Screens/Investment/indexInvestmentPage";
-// import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
-// import EditInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmentPage";
+import IndexInvestmentPage from "../components/Screens/Investment/indexInvestmentPage";
+import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+import EditInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
 
 
 import Profile from "../components/Screens/profile";
@@ -102,12 +102,12 @@ export default function App({ navigation }) {
       <Drawer.Screen name="Edit Cash Page" component={EditCashPage}
         options={{drawerItemStyle: {height: 0}}} />
 
-      {/* <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
+      <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
       <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage} />
       <Drawer.Screen name="Show Investment Page" component={ShowInvestmentPage} 
         options={{drawerItemStyle: {height: 0}}}/> 
       <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}
-        options={{drawerItemStyle: {height: 0}}} /> */}
+        options={{drawerItemStyle: {height: 0}}} />
 
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
