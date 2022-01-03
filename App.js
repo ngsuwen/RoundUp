@@ -10,6 +10,7 @@ import StackNavigator from "./navigators/StackNavigator";
 function App() {
   // token state, to be provided at all pages to check for session
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   // useState for expense
   const [allExpense, setAllExpense] = useState([]);
@@ -31,7 +32,7 @@ function App() {
   const [amountInvestment, setAmountInvestment] = useState([]);
   const [categoryInvestment, setCategoryInvestment] = useState("Crypto");
   const [tickerInvestment, setTickerInvestment] = useState("TSLA");
-  const [qtyInvestment, setQtyInvestment] = useState([])
+  const [qtyInvestment, setQtyInvestment] = useState([]);
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -41,11 +42,10 @@ function App() {
 
   // useState for investment
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
-  const [tickerAndPrice,setTickerAndPrice] = useState([])
-  const [investmentMonth,setInvestmentMonth] = useState(moment().format("YYYY-MM"));
+  const [tickerAndPrice, setTickerAndPrice] = useState([]);
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
-  const [investmentgpForceRender,setInvestmentgpForceRender] = useState(false)
+  const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -65,7 +65,14 @@ function App() {
         : await AsyncStorage.setItem("accessToken", isTokenValid.accessToken);
       isTokenValid.error
         ? ""
-        : await AsyncStorage.setItem("refreshToken", isTokenValid.refreshToken);
+        : await AsyncStorage.setItem(
+            "refreshToken",
+            isTokenValid.refreshToken,
+            async () => {
+              const newToken = await AsyncStorage.getItem("refreshToken");
+              setToken(newToken);
+            }
+          );
       console.log(userId);
       console.log(accessToken, isTokenValid.accessToken);
       console.log(refreshToken, isTokenValid.refreshToken);
@@ -75,7 +82,7 @@ function App() {
     }
   }, []);
 
-  // route GET expense data for index page only 
+  // route GET expense data for index page only
   const reloadExpense = async () => {
     const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/`);
     if (res.status !== 200) {
@@ -99,9 +106,11 @@ function App() {
     setAllCash(data);
   };
 
-   // route GET investment data for index page only 
-   const reloadInvestment = async () => {
-    const res = await fetch(`https://roundup-api.herokuapp.com/data/investment/`);
+  // route GET investment data for index page only
+  const reloadInvestment = async () => {
+    const res = await fetch(
+      `https://roundup-api.herokuapp.com/data/investment/`
+    );
     if (res.status !== 200) {
       console.error("failed to fetch investment data");
       setAllInvestment([]);
@@ -141,7 +150,7 @@ function App() {
             setDescription,
           ],
           expenseContext: [allExpense, reloadExpense],
-          cashEntryContext:[
+          cashEntryContext: [
             dateCash,
             setDateCash,
             amountCash,
@@ -152,7 +161,7 @@ function App() {
             setDescriptionCash,
           ],
           cashContext: [allCash],
-          investmentEntryContext:[
+          investmentEntryContext: [
             dateInvestment,
             setDateInvestment,
             amountInvestment,
@@ -162,14 +171,17 @@ function App() {
             tickerInvestment,
             setTickerInvestment,
             qtyInvestment,
-            setQtyInvestment
+            setQtyInvestment,
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],
+          tokenContext: [token, setToken],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
-          tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
-          investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
-          investmentMonthContext: [investmentMonth,setInvestmentMonth],
+          tickerAndPriceContext: [tickerAndPrice, setTickerAndPrice],
+          investmentGPContext: [
+            investmentgpForceRender,
+            setInvestmentgpForceRender,
+          ],
         }}
       >
         <StackNavigator />
