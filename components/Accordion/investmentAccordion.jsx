@@ -72,7 +72,7 @@ const RenderTransactionHistory = () => {
   entriesByDay[date].forEach((entry)=>{
       totalAmount += entry.expensesentry.amount
   })
-
+  })
 }
 
 useEffect(()=>{
