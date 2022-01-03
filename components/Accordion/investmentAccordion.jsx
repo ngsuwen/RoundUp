@@ -44,9 +44,10 @@ const screenHeight = Dimensions.get('screen').height
 
 function AccordionComponent(props) {
 
-const { investmentContext, userContext, investmentMonthContext } = useContext(DataContext)
+const { investmentContext, userContext, investmentMonthContext,investmentTickerContext } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [investmentMonth,setInvestmentMonth] = investmentMonthContext
+const [tickerData,setTickerData] = investmentTickerContext
 const [user, setUser] = userContext
 
 
@@ -58,25 +59,40 @@ const RenderTransactionHistory = () => {
   const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
   return formattedGroupedDate
 })
-  console.log('entriesbyday:',entriesByDay)
-
-  const monthOfExpense = moment(investmentMonth, moment.ISO_8601).format('YYYY-MM')
+  // console.log('entriesbyday:',entriesByDay)
 
   // sorting the dates by lastest first (at the top)
   const allDatesAscending = Object.keys(entriesByDay).sort()
   const allDates = allDatesAscending.reverse()
 
+  let totalStockQty = 0
+  let totalAmtPaid = 0
   const entries = allDates.map((date,index)=>{
-  // method for calculating total amount for each day
-  let totalAmount = 0
+  // method for calculating total stock qty & total amount paid for each day
   entriesByDay[date].forEach((entry)=>{
-      totalAmount += entry.expensesentry.amount
+      if(entry.investmentsentry.transaction === 'Buy'){
+        totalStockQty += entry.investmentsentry.quantity
+      }
+      if(entry.investmentsentry.transaction === 'Sell'){
+        totalStockQty -= entry.investmentsentry.quantity
+      
   })
   })
+  const monthOfExpense = moment(investmentMonth, moment.ISO_8601).format('YYYY-MM')
+
+   
+  // do this last when you have all info
+  setTickerData(
+    {'totalstockqty:':totalStockQty,
+     'totalamountpaid:':totalAmtPaid,
+     'totalprofits':totalProfits,
+    })
 }
 
 useEffect(()=>{
   const resetPage = navigation.addListener("focus", ()=>{
+  // resetting ticker data
+  setTickerData([])
   RenderTransactionHistory()
   console.log('transaction history rendered')
     })
@@ -84,9 +100,6 @@ useEffect(()=>{
 },[investmentMonth])
 
 const navigation = useNavigation()
-
-
-
 
 
 // return(
