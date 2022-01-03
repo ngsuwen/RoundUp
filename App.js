@@ -25,6 +25,14 @@ function App() {
   const [categoryCash, setCategoryCash] = useState("Income");
   const [descriptionCash, setDescriptionCash] = useState("");
 
+  // useState for investment
+  const [allInvestment, setAllInvestment] = useState([]);
+  const [dateInvestment, setDateInvestment] = useState(new Date());
+  const [amountInvestment, setAmountInvestment] = useState([]);
+  const [categoryInvestment, setCategoryInvestment] = useState("Crypto");
+  const [tickerInvestment, setTickerInvestment] = useState("TSLA");
+  const [qtyInvestment, setQtyInvestment] = useState([]);
+
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
 
@@ -66,7 +74,7 @@ function App() {
     }
   }, []);
 
-  // route GET expense data for index page only // need this to render at UI side
+  // route GET expense data for index page only 
   const reloadExpense = async () => {
     const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/`);
     if (res.status !== 200) {
@@ -78,7 +86,7 @@ function App() {
     setAllExpense(data);
   };
 
-  // route GET cash data for index page only // need this to render at UI side
+  // route GET cash data for index page only
   const reloadCash = async () => {
     const res = await fetch(`https://roundup-api.herokuapp.com/data/cash/`);
     if (res.status !== 200) {
@@ -90,9 +98,22 @@ function App() {
     setAllCash(data);
   };
 
-  useEffect(()=>{
-    reloadCash()
-  }, [allCash])
+   // route GET investment data for index page only 
+   const reloadInvestment = async () => {
+    const res = await fetch(`https://roundup-api.herokuapp.com/data/investment/`);
+    if (res.status !== 200) {
+      console.error("failed to fetch investment data");
+      setAllInvestment([]);
+      return;
+    }
+    const data = await res.json();
+    setAllInvestment(data);
+  };
+
+  // useEffect(()=>{
+  //   reloadCash()
+  //   // reloadInvestment()
+  // }, [allCash])
 
   return (
     <NavigationContainer>
@@ -129,6 +150,19 @@ function App() {
             setDescriptionCash,
           ],
           cashContext: [allCash],
+          investmentEntryContext:[
+            dateInvestment,
+            setDateInvestment,
+            amountInvestment,
+            setAmountInvestment,
+            categoryInvestment,
+            setCategoryInvestment,
+            tickerInvestment,
+            setTickerInvestment,
+            qtyInvestment,
+            setQtyInvestment
+          ],
+          investmentContext: [allInvestment],
           userContext: [user, setUser],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],

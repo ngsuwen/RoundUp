@@ -7,17 +7,24 @@ import {
 } from "@react-navigation/drawer";
 import Home from "../components/Screens/home";
 import About from "../components/Screens/about";
-import expenseGeneralPage from "../components/Screens/expenseGeneralPage";
 import investmentGeneralPage from "../components/Screens/investmentGeneralPage";
+
+import expenseGeneralPage from "../components/Screens/expenseGeneralPage";
 import EntryExpensePage from "../components/Screens/Expense/entryExpensePage";
+import ShowExpensePage from "../components/Screens/Expense/showExpensePage";
+import EditExpensePage from "../components/Screens/Expense/editExpensePage";
 
 import EntryCashPage from "../components/Screens/Cash/entryCashPage";
 import IndexCashPage from "../components/Screens/Cash/indexCashPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
 
-import ShowExpensePage from "../components/Screens/Expense/showExpensePage";
-import EditExpensePage from "../components/Screens/Expense/editExpensePage";
+// import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmentPage";
+// import IndexInvestmentPage from "../components/Screens/Investment/indexInvestmentPage";
+// import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+// import EditInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+
+
 import Profile from "../components/Screens/profile";
 import logoutApi from "../components/api/logoutApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -94,6 +101,13 @@ export default function App({ navigation }) {
         options={{drawerItemStyle: {height: 0}}}/> 
       <Drawer.Screen name="Edit Cash Page" component={EditCashPage}
         options={{drawerItemStyle: {height: 0}}} />
+
+      {/* <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
+      <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage} />
+      <Drawer.Screen name="Show Investment Page" component={ShowInvestmentPage} 
+        options={{drawerItemStyle: {height: 0}}}/> 
+      <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}
+        options={{drawerItemStyle: {height: 0}}} /> */}
 
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
