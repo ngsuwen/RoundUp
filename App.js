@@ -42,7 +42,9 @@ function App() {
 
   // useState for investment
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
-  const [tickerAndPrice, setTickerAndPrice] = useState([]);
+  const [tickerAndPrice,setTickerAndPrice] = useState([])
+  const [investmentMonth,setInvestmentMonth] = useState(moment().format("YYYY-MM"));
+  const [tickerData,setTickerData] = useState([])
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
   const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
@@ -177,11 +179,10 @@ function App() {
           userContext: [user, setUser],
           tokenContext: [token, setToken],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
-          tickerAndPriceContext: [tickerAndPrice, setTickerAndPrice],
-          investmentGPContext: [
-            investmentgpForceRender,
-            setInvestmentgpForceRender,
-          ],
+          tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
+          investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
+          investmentMonthContext: [investmentMonth,setInvestmentMonth],
+          investmentTickerContext:[tickerData,setTickerData],
         }}
       >
         <StackNavigator />
