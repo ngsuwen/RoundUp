@@ -18,6 +18,13 @@ function App() {
   const [category, setCategory] = useState("Shopping");
   const [description, setDescription] = useState("");
 
+  // useState for cash
+  const [allCash, setAllCash] = useState([]);
+  const [dateCash, setDateCash] = useState(new Date());
+  const [amountCash, setAmountCash] = useState([]);
+  const [categoryCash, setCategoryCash] = useState("Income");
+  const [descriptionCash, setDescriptionCash] = useState("");
+
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
 
@@ -59,7 +66,7 @@ function App() {
     }
   }, []);
 
-  // route GET expense data // need this to render at UI side
+  // route GET expense data for index page only // need this to render at UI side
   const reloadExpense = async () => {
     const res = await fetch(`https://roundup-api.herokuapp.com/data/expense/`);
     if (res.status !== 200) {
@@ -70,6 +77,22 @@ function App() {
     const data = await res.json();
     setAllExpense(data);
   };
+
+  // route GET cash data for index page only // need this to render at UI side
+  const reloadCash = async () => {
+    const res = await fetch(`https://roundup-api.herokuapp.com/data/cash/`);
+    if (res.status !== 200) {
+      console.error("failed to fetch cash data");
+      setAllCash([]);
+      return;
+    }
+    const data = await res.json();
+    setAllCash(data);
+  };
+
+  useEffect(()=>{
+    reloadCash()
+  }, [allCash])
 
   return (
     <NavigationContainer>
@@ -94,8 +117,19 @@ function App() {
             description,
             setDescription,
           ],
-          userContext: [user, setUser],
           expenseContext: [allExpense, reloadExpense],
+          cashEntryContext:[
+            dateCash,
+            setDateCash,
+            amountCash,
+            setAmountCash,
+            categoryCash,
+            setCategoryCash,
+            descriptionCash,
+            setDescriptionCash,
+          ],
+          cashContext: [allCash],
+          userContext: [user, setUser],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
           investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
