@@ -8,6 +8,7 @@ const _ = require('underscore')
 // comma and dp for stock and crypto prices, if not formatted from api 
 // all currency in sgd
 // need to check api data if percentage change will be negative value
+// do up forcerender?
 
 export default function investmentTickerCard() {
 
@@ -21,7 +22,10 @@ const [user, setUser] = userContext
 
 
     useEffect(()=>{
-    fetchInvestments()
+    const resetPage = navigation.addListener("focus", ()=>{
+        fetchInvestments()
+        })
+        return resetPage
     },[])
 
     const fetchInvestments = async () => {
@@ -53,13 +57,6 @@ const [user, setUser] = userContext
                 const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
                 const parsedStockPriceObj = await stockprice.json()
                 parsedStockPriceObj['ticker']=ticker
-                // return addedTickerName
-                // .then((currentStockPrice)=>{
-                // // adding ticker symbol to obj containing ticker current price
-
-                // console.log('currentstockprice:',parsedStockPriceObj)
-                // return currentStockPrice})
-                // .catch((err)=>console.log(err))}
                 return parsedStockPriceObj
             }
             
@@ -68,13 +65,6 @@ const [user, setUser] = userContext
                 const parsedCryptoPriceObj = await cryptoprice.json()
                 // uppercase as crypto ticker is lowercase due to api requirements
                 parsedCryptoPriceObj['ticker']=ticker.toUpperCase()
-                // return addedTickerName
-                // .then((currentStockPrice)=>{
-                // // adding ticker symbol to obj containing ticker current price
-
-                // console.log('currentcryptoprice:',parsedCryptoPriceObj)
-                // return currentStockPrice})
-                // .catch((err)=>console.log(err))}
                 return parsedCryptoPriceObj
             }
         }
@@ -86,48 +76,7 @@ const [user, setUser] = userContext
         }
 
     setTickerAndPrice(tickerAndPriceArr)
-    // setInvestmentgpForceRender(!investmentgpForceRender)
     }
-
-
-    // array of object containing ticker symbol and current price for card rendering
-
-
-    // const fetchCurrentStockPrice = async () => {
-
-    //     const tickerList = Objt.keys(fetchedInvestmentEntries).sort()
-    //     // problem is that foreach is not done pushing and then you're trying to setstate
-    //     const tickerAndPriceArr = await Promise.all(tickerList.map(async(ticker,index)=>{
-    //         // need to check category before fetching current price
-    //         if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='US stocks'){
-    //         const stockPrice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
-    //         .then(data=>data.json())
-    //         .then((currentStockPrice)=>{
-    //         // adding ticker symbol to obj containing ticker current price
-    //         currentStockPrice['ticker']=ticker
-            
-    //         // console.log('ticker&pricearr:',tickerandpricearr)
-    //         // setTickerAndPrice([...tickerAndPrice,currentStockPrice])
-    //         })
-    //         .catch((err)=>console.log(err))
-    //         }
-
-    //         if(fetchedInvestmentEntries[ticker][0]['investmentsentry']['category']==='Crypto'){
-    //         await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`,{
-    //         })
-    //         .then(data=>data.json())
-    //         .then((currentCryptoPrice)=>{
-    //         currentCryptoPrice['ticker']=ticker
-    //         console.log(currentCryptoPrice)
-    //         return currentCryptoPrice
-    //         // console.log('ticker&pricearr:',tickerandpricearr)
-    //         // setTickerAndPrice([...tickerAndPrice,currentCryptoPrice])
-    //        })
-    //         .catch((err)=>console.log(err))
-    //         }
-    //     }))
-
-    // }
 
     console.log('tickerandpricestate:',tickerAndPrice)
 
@@ -166,7 +115,7 @@ const [user, setUser] = userContext
     flexDirection:'column',
     },
     stockpricewrapper: {
-    alignSelf:'flex-end',
+    alignSelf:'flex-end'
     },
     ticker:{
     fontWeight:'bold',
@@ -198,17 +147,6 @@ const [user, setUser] = userContext
     },
     })
 
-    ////// TO ACCESS EACH TRANSACTION OF EACH TICKER //////
-    // const tickerList = Object.keys(fetchedInvestmentEntries).sort()
-    // console.log('tickerlist:',tickerList)
-    // tickerList.forEach((element,index)=>{
-    //     // accessing object with its element (ticker symbol) which contains an array (use forEach to lopo thru) which contains all transactions for that ticker
-    //     fetchedInvestmentEntries[element].forEach((element2,index)=>{
-    //         return console.log('entry for each ticker:',element2)
-    //     })
-    // })
-
-
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (
         <View style={styles.wrapper}>
@@ -219,7 +157,7 @@ const [user, setUser] = userContext
                         {/* <Text style={styles.name}>{stock.name}</Text> */}
                     </View>
                     <View style={styles.stockpricewrapper}>
-                         <Text>{stock.value}</Text>
+                         <Text>$ {stock.value}</Text>
                     </View>
                     <View>
                         {/* need to check api data if percentage change will be negative value */}
