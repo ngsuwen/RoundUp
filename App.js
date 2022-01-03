@@ -110,10 +110,11 @@ function App() {
     setAllInvestment(data);
   };
 
+  // useEffect only for index page. If not needed for testing, will comment out
   // useEffect(()=>{
-  //   reloadCash()
-  //   // reloadInvestment()
-  // }, [allCash])
+  //   //reloadCash()
+  //   reloadInvestment()
+  // }, [allInvestment])
 
   return (
     <NavigationContainer>
@@ -162,7 +163,7 @@ function App() {
             qtyInvestment,
             setQtyInvestment
           ],
-          investmentContext: [allInvestment],
+          investmentQContext: [allInvestment],
           userContext: [user, setUser],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],

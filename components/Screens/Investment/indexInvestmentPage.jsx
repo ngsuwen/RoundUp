@@ -16,8 +16,8 @@ import DataContext from "../../../context/DataContext";
 
 const IndexInvestmentPage = ({ navigation }) => {
   // useContext
-  const { investmentContext  } = useContext(DataContext);
-  const [allInvestment] = investmentContext;
+  const { investmentQContext  } = useContext(DataContext);
+  const [allInvestment] = investmentQContext;
   
 
   return (

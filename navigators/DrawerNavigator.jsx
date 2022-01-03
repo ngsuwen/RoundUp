@@ -22,7 +22,7 @@ import EditCashPage from "../components/Screens/Cash/editCashPage";
 import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmentPage";
 import IndexInvestmentPage from "../components/Screens/Investment/indexInvestmentPage";
 import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
-import EditInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+import EditInvestmentPage from "../components/Screens/Investment/editInvestmentPage";
 
 
 import Profile from "../components/Screens/profile";
