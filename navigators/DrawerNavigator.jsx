@@ -23,6 +23,7 @@ import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmen
 import IndexInvestmentPage from "../components/Screens/Investment/indexInvestmentPage";
 import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
 import EditInvestmentPage from "../components/Screens/Investment/editInvestmentPage";
+import ShowTickerPage from "../components/Screens/Investment/showTickerPage";
 
 
 import Profile from "../components/Screens/profile";
@@ -108,7 +109,7 @@ export default function App({ navigation }) {
         options={{drawerItemStyle: {height: 0}}}/> 
       <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}
         options={{drawerItemStyle: {height: 0}}} />
-
+      <Drawer.Screen name="Show Ticker Page" component={ShowTickerPage}/>
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );
