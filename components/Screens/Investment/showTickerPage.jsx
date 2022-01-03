@@ -5,9 +5,13 @@ import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
 import ExpenseLineChartComponent from '../../Charts/expenseLineChart'
 import PieChartComponent from '../../Charts/expensePieChart'
-import AccordionList from '../../Accordion/expenseAccordion'
+import AccordionList from '../../Accordion/investmentAccordion'
+import MonthSelector from '../../Picker/monthPicker'
 
-export default function TickerBreakdownPage() {
+export default function TickerBreakdownPage({ navigation, route }) {
+
+const { selectedTickerAndPrice } = route.params
+console.log('selectedt&p:',selectedTickerAndPrice)
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
@@ -69,8 +73,11 @@ const styles = StyleSheet.create({
         <PieChartComponent/>
         <ExpenseLineChartComponent/>
       </Carousel>
+      <View style={styles.monthSelector}>
+        <MonthSelector/>
+      </View>
       <View style={styles.accordion}>
-      <AccordionList/>
+      <AccordionList selectedTickerAndPrice={selectedTickerAndPrice}/>
       </View>
     </View>
   )

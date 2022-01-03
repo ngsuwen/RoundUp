@@ -31,7 +31,7 @@ function App() {
   const [amountInvestment, setAmountInvestment] = useState([]);
   const [categoryInvestment, setCategoryInvestment] = useState("Crypto");
   const [tickerInvestment, setTickerInvestment] = useState("TSLA");
-  const [qtyInvestment, setQtyInvestment] = useState([]);
+  const [qtyInvestment, setQtyInvestment] = useState([])
 
   // useState for expense month selector (KSZ)
   const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
@@ -42,6 +42,7 @@ function App() {
   // useState for investment
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
   const [tickerAndPrice,setTickerAndPrice] = useState([])
+  const [investmentMonth,setInvestmentMonth] = useState(moment().format("YYYY-MM"));
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
   const [investmentgpForceRender,setInvestmentgpForceRender] = useState(false)
@@ -168,6 +169,7 @@ function App() {
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
           investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
+          investmentMonthContext: [investmentMonth,setInvestmentMonth],
         }}
       >
         <StackNavigator />
