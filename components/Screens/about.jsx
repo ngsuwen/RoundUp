@@ -1,30 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button} from 'react-native';
-import { NativeBaseProvider, Box } from 'native-base';
+import React from "react";
+import { ScrollView } from "react-native";
+import { Accordion, NativeBaseProvider, Center, Box } from "native-base";
 
-export default function About({ navigation }) {
-
+function AccordionComponent() {
   return (
-    <SafeAreaView style={styles.container}>
-
-      <Text >About Component</Text>
-      {/* button element will have navigation on header as a default */}
-      <Button
-        title="Go to Home"
-        onPress={() => navigation.navigate('Home')}
-      />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <Box m={3}>
+      <Accordion allowMultiple>
+      <Accordion.Item>
+          <Accordion.Summary>
+            Introduction
+            <Accordion.Icon />
+          </Accordion.Summary>
+          <Accordion.Details>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </Accordion.Details>
+        </Accordion.Item>
+        <Accordion.Item>
+          <Accordion.Summary>
+          {/* <Accordion.Summary _expanded={{ backgroundColor: 'coolGray.600' }}> */}
+            What are the features?
+            <Accordion.Icon />
+          </Accordion.Summary>
+          <Accordion.Details>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </Accordion.Details>
+        </Accordion.Item>
+        <Accordion.Item>
+          <Accordion.Summary>
+            Which stock markets are available for tracking?
+            <Accordion.Icon />
+          </Accordion.Summary>
+          <Accordion.Details>
+            Currently, only the US market is available. 
+          </Accordion.Details>
+        </Accordion.Item>
+      </Accordion>
+    </Box>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection:'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+export default function About() {
+  return (
+    <NativeBaseProvider>
+      <Center flex={1} bg="#fff">
+        <ScrollView>
+          <AccordionComponent />
+        </ScrollView>
+      </Center>
+    </NativeBaseProvider>
+  );
+}
