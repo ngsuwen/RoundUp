@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import moment from "moment";
 import { Center, NativeBaseProvider, Button, Text, View, Pressable } from "native-base";
-import ShowPageCard from "../../Cards/ShowPageCard";
+import ShowPageCard from "../../Cards/showPageCard";
 import DataContext from "../../../context/DataContext";
 import { Ionicons } from "@expo/vector-icons";
 
