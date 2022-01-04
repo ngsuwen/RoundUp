@@ -129,54 +129,61 @@ export default function LoginPage({ navigation }) {
                   ? "Incorrect password"
                   : "Error. Please try again."}
               </Text>
+              <FormControl>
+                <Input
+                  type={show ? "text" : "password"}
+                  size="md"
+                  onChangeText={(text) => setPassword(text)}
+                  InputRightElement={
+                    <Pressable onPress={passwordHandler}>
+                      <Icon
+                        as={Entypo}
+                        name={show ? "eye" : "eye-with-line"}
+                        color="coolGray.600"
+                        size={5}
+                        marginRight={3}
+                      />
+                    </Pressable>
+                  }
+                  placeholder="old password"
+                />
+                <Input
+                  type={show2 ? "text" : "password"}
+                  size="md"
+                  onChangeText={(text) => setPassword2(text)}
+                  InputRightElement={
+                    <Pressable onPress={passwordHandler2}>
+                      <Icon
+                        as={Entypo}
+                        name={show2 ? "eye" : "eye-with-line"}
+                        color="coolGray.600"
+                        size={5}
+                        marginRight={3}
+                      />
+                    </Pressable>
+                  }
+                  placeholder="new password (optional)"
+                />
+                <Input
+                  size="md"
+                  placeholder="referral (optional)"
+                  onChangeText={(text) => setReferral(text)}
+                />
+              </FormControl>
+              <Button.Group size="sm" mt="5">
+                <Button
+                  variant="outline"
+                  bgColor="white"
+                  colorScheme="light"
+                  onPress={updateHandler}
+                >
+                  <Text>Update</Text>
+                </Button>
+                <Button colorScheme="danger" onPress={deleteHandler}>
+                  <Text>Delete</Text>
+                </Button>
+              </Button.Group>
             </Center>
-            <FormControl>
-              <Input
-                type={show ? "text" : "password"}
-                size="md"
-                onChangeText={(text) => setPassword(text)}
-                InputRightElement={
-                  <Pressable onPress={passwordHandler}>
-                    <Icon
-                      as={Entypo}
-                      name={show ? "eye" : "eye-with-line"}
-                      color="coolGray.600"
-                      size={5}
-                      marginRight={3}
-                    />
-                  </Pressable>
-                }
-                placeholder="old password"
-              />
-              <Input
-                type={show2 ? "text" : "password"}
-                size="md"
-                onChangeText={(text) => setPassword2(text)}
-                InputRightElement={
-                  <Pressable onPress={passwordHandler2}>
-                    <Icon
-                      as={Entypo}
-                      name={show2 ? "eye" : "eye-with-line"}
-                      color="coolGray.600"
-                      size={5}
-                      marginRight={3}
-                    />
-                  </Pressable>
-                }
-                placeholder="new password (optional)"
-              />
-              <Input
-                size="md"
-                placeholder="referral (optional)"
-                onChangeText={(text) => setReferral(text)}
-              />
-            </FormControl>
-            <Button onPress={updateHandler} colorScheme="primary">
-              <Text>Update Profile</Text>
-            </Button>
-            <Button onPress={deleteHandler} colorScheme="danger">
-              <Text>Delete Profile</Text>
-            </Button>
           </Stack>
         </Center>
       </KeyboardAvoidingView>

@@ -7,6 +7,7 @@ import {
   Text,
   View,
   Pressable,
+  Divider,
 } from "native-base";
 import ShowPageCard from "../../Cards/showPageCard";
 import DataContext from "../../../context/DataContext";
@@ -66,7 +67,7 @@ const ShowExpensePage = ({ navigation, route }) => {
 
   return (
     <NativeBaseProvider>
-      <Center flex={1} bgColor="coolGray.100">
+      <Center flex={1} bgColor="#fff">
         <View
           width="90%"
           paddingRight={4}
@@ -83,11 +84,14 @@ const ShowExpensePage = ({ navigation, route }) => {
           </Pressable>
         </View>
         <ShowPageCard heading="Date" body={formattedDate} />
+        <Divider width="80%"/>
         <ShowPageCard
           heading="Amount"
           body={"$" + entry.expensesentry.amount}
         />
+        <Divider width="80%"/>
         <ShowPageCard heading="Category" body={entry.expensesentry.category} />
+        <Divider width="80%"/>
         <ShowPageCard
           heading="Description"
           body={entry.expensesentry.description}
@@ -102,7 +106,7 @@ const ShowExpensePage = ({ navigation, route }) => {
             <Text >Edit</Text>
           </Button>
           <Button colorScheme="danger" onPress={() => deleteExpense(entry._id)}>
-            Delete
+          <Text>Delete</Text>
           </Button>
         </Button.Group>
       </Center>

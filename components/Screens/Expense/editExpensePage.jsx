@@ -108,10 +108,8 @@ const EditExpensePage = ({ navigation, route }) => {
         keyboardVerticalOffset={120}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Center flex={1} bgColor="coolGray.100">
+        <Center flex={1} bgColor="#fff">
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
             p="4"
             bgColor="#fff"
@@ -140,10 +138,8 @@ const EditExpensePage = ({ navigation, route }) => {
             )}
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
-            p="4"
+            px="4"
             bgColor="#fff"
           >
             <Text fontSize="sm" fontWeight="bold">
@@ -159,8 +155,6 @@ const EditExpensePage = ({ navigation, route }) => {
             />
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
             p="4"
             bgColor="#fff"
@@ -206,10 +200,8 @@ const EditExpensePage = ({ navigation, route }) => {
             </Modal>
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
-            p="4"
+            px="4"
             bgColor="#fff"
           >
             <Text fontSize="sm" fontWeight="bold">

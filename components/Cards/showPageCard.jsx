@@ -3,11 +3,11 @@ import { Container, Text, Heading } from "native-base";
 
 export default function ShowPageCard({ heading, body }) {
   return (
-    <Container borderColor="coolGray.200" borderWidth="1" width="90%" p="4" bgColor="#fff">
-      <Text fontSize="sm" fontWeight="medium">
+    <Container width="90%" p="4" bgColor="#fff">
+      <Text fontSize="sm" fontWeight="bold">
         {heading}
       </Text>
-      <Text fontSize="sm" mt="1" fontWeight="bold">
+      <Text fontSize="sm" mt="1">
         {body}
       </Text>
     </Container>

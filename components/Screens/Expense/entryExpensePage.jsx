@@ -128,7 +128,7 @@ const EntryExpensePage = ({ navigation }) => {
         keyboardVerticalOffset={120}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Center flex={1} bgColor="coolGray.100">
+        <Center flex={1} bgColor="#fff">
           <View width="90%" paddingRight={4} paddingBottom={1} alignItems="flex-end">
             <Pressable
               onPress={() => {
@@ -139,8 +139,6 @@ const EntryExpensePage = ({ navigation }) => {
             </Pressable>
           </View>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
             p="4"
             bgColor="#fff"
@@ -169,10 +167,8 @@ const EntryExpensePage = ({ navigation }) => {
             )}
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
-            p="4"
+            px="4"
             bgColor="#fff"
           >
             <Text fontSize="sm" fontWeight="bold">
@@ -189,8 +185,6 @@ const EntryExpensePage = ({ navigation }) => {
             />
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
             p="4"
             bgColor="#fff"
@@ -236,10 +230,8 @@ const EntryExpensePage = ({ navigation }) => {
             </Modal>
           </Container>
           <Container
-            borderColor="coolGray.200"
-            borderWidth="1"
             width="90%"
-            p="4"
+            px="4"
             bgColor="#fff"
           >
             <Text fontSize="sm" fontWeight="bold">
