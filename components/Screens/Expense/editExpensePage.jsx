@@ -143,7 +143,7 @@ const EditExpensePage = ({ navigation, route }) => {
                 </Text>
               </Pressable>
               {show && (
-                <DatePicker value={new Date(date)} onChange={onChangeDate} />
+                <DatePicker style={{width: "100%"}} value={new Date(date)} onChange={onChangeDate} />
               )}
             </Container>
             <Container
