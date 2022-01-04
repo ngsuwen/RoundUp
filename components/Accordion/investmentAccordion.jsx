@@ -74,8 +74,8 @@ const RenderTransactionHistory = () => {
         totalStockQty += entry.investmentsentry.quantity
       }
       if(entry.investmentsentry.transaction === 'Sell'){
-        totalStockQty -= entry.investmentsentry.quantity
-      
+        totalStockQty -= entry.investmentsentry.quantity    
+      }
   })
   })
   const monthOfExpense = moment(investmentMonth, moment.ISO_8601).format('YYYY-MM')
