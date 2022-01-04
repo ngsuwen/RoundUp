@@ -1,28 +1,29 @@
 import * as React from "react";
 import DataContext from "../../../context/DataContext";
+import DatePicker from "@react-native-community/datetimepicker";
 import {
-  StyleSheet,
-  TextInput,
+  NativeBaseProvider,
+  Center,
+  Pressable,
   Text,
   View,
-  Picker,
-  SafeAreaView,
   Button,
-  Pressable,
+  Container,
+  Input,
   Modal,
-  Dimensions
-} from "react-native";
-import DatePicker from "@react-native-community/datetimepicker";
-import { NativeBaseProvider, KeyboardAvoidingView } from "native-base";
-import { ModalPicker } from './modalExpensePicker';
+} from "native-base";
+import { ModalPicker } from "./modalExpensePicker";
+import { Ionicons } from "@expo/vector-icons";
+import moment from "moment";
 
 const EditExpensePage = ({ navigation, route }) => {
   const { entry } = route.params;
 
   // useContext
-  const { userContext, expenseEntryContext, expenseForceRenderContext } = React.useContext(DataContext);
+  const { userContext, expenseEntryContext, expenseForceRenderContext } =
+    React.useContext(DataContext);
   const [userId, setUserId] = userContext;
-  
+
   const [
     date,
     setDate,
@@ -35,21 +36,19 @@ const EditExpensePage = ({ navigation, route }) => {
   ] = expenseEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
+  // useState
+  const [show, setShow] = React.useState(false);
 
-   // useState
-   const [show, setShow] = React.useState(false);
-   // Modal for category
-   const [isModalVisible, setIsModalVisible] = React.useState(false)
+  // Modal for category
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-   const changeModalVisibility = (bool) =>{
-    setIsModalVisible(bool)
-   }
+  const changeModalVisibility = (bool) => {
+    setIsModalVisible(bool);
+  };
 
-   const setData = (option) =>{
-     setCategory(option)
-   }
-
-
+  const setData = (option) => {
+    setCategory(option);
+  };
 
   const handleSubmit = async (expense) => {
     try {
@@ -75,7 +74,7 @@ const EditExpensePage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data expense failed");
       }
-      
+
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data
       navigation.navigate("Show Expense Page", { entry: data });
@@ -84,189 +83,144 @@ const EditExpensePage = ({ navigation, route }) => {
     }
   };
 
-    // Date Picker
-    const onChangeDate = (event, selectedDate) => {
-      const currentDate = selectedDate || new Date(date);
-      setDate(currentDate);
-      //setShow(false)
-    };
+  // Date Picker
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || new Date(date);
+    setDate(currentDate);
+    setShow(false);
+  };
 
   // to show and hide date picker
-  // const showDatepicker = () => {
-  //   setShow(true);
-  // };
+  const showDatepicker = () => {
+    setShow(true);
+  };
+
+  const formattedDate = moment(date, moment.ISO_8601).format("YYYY-MM-DD");
 
   return (
     <NativeBaseProvider>
-      <KeyboardAvoidingView
-        h={{
-          base: "100%",
-          lg: "auto",
-        }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <SafeAreaView style={styles.container}>
-          <View style={styles.inner}>
-            
-            <View style={styles.wrapper} >
-            <DatePicker
-              style={styles.datepicker}
-              value={new Date(date)}
-              onChange={onChangeDate}
-            />
-            </View>
-            
-            <View style={styles.wrapper}>
-            <TextInput
-              style={styles.textinput}
-              name="amount"
-              placeholder="Enter Amount"
-              value={amount.toString()}
-              onChangeText={(text) => setAmount(text)}
-            />
-             <Button
-                  title="Clear"
-                  onPress={()=>setAmount([])}
-                        />
-            </View>
-
-           <View style={styles.wrapper}>
-            <Pressable 
-                  style={styles.pressable}
-                  onPress={()=> changeModalVisibility(true)}
-                  >
-                  <Text style={styles.catText}>{category}</Text>
-
-               </Pressable>
-               <Modal
-                  transparent={true}
-                  animationType='fade'
-                  visible={isModalVisible}
-                  onRequestClose={()=> changeModalVisibility(false)}
-
-               >
-                  <ModalPicker 
-                    changeModalVisibility={changeModalVisibility}
-                    setData={setData}
-                  />
-                  
-               </Modal>
-              </View>
-
-
-            <View style={styles.wrapper} >
-            <TextInput
-              style={styles.textinput}
-              type="text"
-              name="description"
-              placeholder="Enter Description"
-              value={description}
-              onChangeText={(text) => setDescription(text)}
-            />
-            <Button
-                title="Clear"
-                onPress={()=>setDescription("")}
-                        />
-            </View>
-
-            <View style={styles.button}>
-              <Button
-                title="Update"
-                onPress={() => {
-                  handleSubmit(entry);
-                  // this is needed to force showpage to re-render as it will not mount again
-                  //setExpenseForceRender(!expenseForceRender) //not needed
-                }}
-              />
-              <Button
-                title="Back"
-                onPress={() =>
-                  navigation.navigate("Show Expense Page", { entry: entry })
-                }
-              />
-            </View>
+      <Center flex={1} bgColor="coolGray.100">
+        <Pressable
+          width="90%"
+          onPress={() =>
+            navigation.navigate("Show Expense Page", { entry: entry })
+          }
+        >
+          <View p="4" flexDirection="row" alignItems="flex-start">
+            <Ionicons name="chevron-back-outline" size={24} color="black" />
+            <Text fontSize="lg">Back</Text>
           </View>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+        </Pressable>
+        <Container
+          borderColor="coolGray.200"
+          borderWidth="1"
+          width="90%"
+          p="4"
+          bgColor="#fff"
+        >
+          <Text fontSize="md" fontWeight="bold">
+            Date
+          </Text>
+          <Pressable width="100%" onPress={showDatepicker}>
+            <Text
+              fontSize="lg"
+              mt="1"
+              borderRadius="sm"
+              borderColor="coolGray.200"
+              borderWidth="1"
+              p="2"
+            >
+              {formattedDate}
+            </Text>
+          </Pressable>
+          {show && (
+            <DatePicker value={new Date(date)} onChange={onChangeDate} />
+          )}
+        </Container>
+        <Container
+          borderColor="coolGray.200"
+          borderWidth="1"
+          width="90%"
+          p="4"
+          bgColor="#fff"
+        >
+          <Text fontSize="md" fontWeight="bold">
+            Amount
+          </Text>
+          <Input
+            width="100%"
+            fontSize="lg"
+            mt="1"
+            color="coolGray.600"
+            value={amount.toString()}
+            onChangeText={(text) => setAmount(text)}
+          />
+        </Container>
+        <Container
+          borderColor="coolGray.200"
+          borderWidth="1"
+          width="90%"
+          p="4"
+          bgColor="#fff"
+        >
+          <Text fontSize="md" fontWeight="bold">
+            Category
+          </Text>
+          <Pressable width="100%" onPress={() => changeModalVisibility(true)}>
+            <Text
+              fontSize="lg"
+              mt="1"
+              borderRadius="sm"
+              borderColor="coolGray.200"
+              borderWidth="1"
+              p="2"
+            >
+              {category}
+            </Text>
+          </Pressable>
+          <Modal
+            transparent={true}
+            animationType="fade"
+            visible={isModalVisible}
+            onRequestClose={() => changeModalVisibility(false)}
+          >
+            <ModalPicker
+              changeModalVisibility={changeModalVisibility}
+              setData={setData}
+            />
+          </Modal>
+        </Container>
+        <Container
+          borderColor="coolGray.200"
+          borderWidth="1"
+          width="90%"
+          p="4"
+          bgColor="#fff"
+        >
+          <Text fontSize="md" fontWeight="bold">
+            Description
+          </Text>
+          <Input
+            width="100%"
+            fontSize="lg"
+            mt="1"
+            color="coolGray.600"
+            value={description}
+            onChangeText={(text) => setDescription(text)}
+          />
+        </Container>
+        <Button
+          variant="outline"
+          bgColor="white"
+          colorScheme="light"
+          onPress={()=>{handleSubmit(entry)}}
+          mt="5"
+        >
+          <Text fontSize="md">Update</Text>
+        </Button>
+      </Center>
     </NativeBaseProvider>
   );
 };
 
 export default EditExpensePage;
-
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#e3eaa7",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-  datepicker: {
-    paddingVertical: 100,
-    paddingHorizontal: 10,
-    width: "100%",
-    // borderColor: "gray",
-    // borderWidth: 1,
-    right: 100,
-  },
-  textinput: {
-    paddingVertical: 1,
-    paddingHorizontal: 1,
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20
-
-  },
-  picker: {
-    justifyContent: "center",
-    // left: 60,
-  },
-  button: {
-    flexDirection: "row",
-    alignSelf: "center",
-  },
-  inner: {
-    padding: 20,
-    flex: 1,
-    // justifyContent: "flex-end",
-  },
-  catText: {
-    marginVertical: 10,
-    fontSize: 22,
-    textAlign: "center"
-  },
-  pressable:{
-    backgroundColor: "#87bdd8",
-    alignSelf: "stretch",
-    paddingHorizontal: 10,
-    marginHorizontal: 10,
-    borderRadius: 15
-  
-  },
-  wrapper: {
-    fontSize: 20,
-    flex: 0.2,
-    textAlign: "center",
-    flexDirection:'column',
-    width: screenWidth*0.86,
-    backgroundColor: '#d6d4e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    paddingTop: 1,
-    margin: '1%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: .22,
-    elevation: 3,
-    },
-});
