@@ -85,9 +85,9 @@ const EditExpensePage = ({ navigation, route }) => {
 
   // Date Picker
   const onChangeDate = (event, selectedDate) => {
+    setShow(false)
     const currentDate = selectedDate || new Date(date);
     setDate(currentDate);
-    setShow(false);
   };
 
   // to show and hide date picker
