@@ -133,6 +133,7 @@ export default function LoginPage({ navigation }) {
                 <Input
                   type={show ? "text" : "password"}
                   size="md"
+                  my="0.5"
                   onChangeText={(text) => setPassword(text)}
                   InputRightElement={
                     <Pressable onPress={passwordHandler}>
@@ -150,6 +151,7 @@ export default function LoginPage({ navigation }) {
                 <Input
                   type={show2 ? "text" : "password"}
                   size="md"
+                  my="0.5"
                   onChangeText={(text) => setPassword2(text)}
                   InputRightElement={
                     <Pressable onPress={passwordHandler2}>
@@ -166,6 +168,7 @@ export default function LoginPage({ navigation }) {
                 />
                 <Input
                   size="md"
+                  my="0.5"
                   placeholder="referral (optional)"
                   onChangeText={(text) => setReferral(text)}
                 />

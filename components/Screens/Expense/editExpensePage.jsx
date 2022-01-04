@@ -105,7 +105,7 @@ const EditExpensePage = ({ navigation, route }) => {
           base: "100%",
           lg: "auto",
         }}
-        keyboardVerticalOffset={120}
+        keyboardVerticalOffset={10}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="#fff">

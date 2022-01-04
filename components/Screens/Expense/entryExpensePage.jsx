@@ -125,11 +125,11 @@ const EntryExpensePage = ({ navigation }) => {
           base: "100%",
           lg: "auto",
         }}
-        keyboardVerticalOffset={120}
+        keyboardVerticalOffset={10}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="#fff">
-          <View width="90%" paddingRight={4} paddingBottom={1} alignItems="flex-end">
+          <View width="90%" paddingRight={5} alignItems="flex-end">
             <Pressable
               onPress={() => {
                 navigation.navigate("Home");
@@ -140,6 +140,7 @@ const EntryExpensePage = ({ navigation }) => {
           </View>
           <Container
             width="90%"
+            pt="0"
             p="4"
             bgColor="#fff"
           >
