@@ -125,6 +125,7 @@ const EntryExpensePage = ({ navigation }) => {
           base: "100%",
           lg: "auto",
         }}
+        keyboardVerticalOffset={120}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="coolGray.100">
