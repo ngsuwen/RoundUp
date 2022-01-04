@@ -179,15 +179,28 @@ const EditExpensePage = ({ navigation, route }) => {
             </Text>
           </Pressable>
           <Modal
-            transparent={true}
-            animationType="fade"
-            visible={isModalVisible}
-            onRequestClose={() => changeModalVisibility(false)}
+            isOpen={isModalVisible}
+            defaultIsOpen="false"
+            onClose={() => changeModalVisibility(false)}
+            size="lg"
           >
-            <ModalPicker
-              changeModalVisibility={changeModalVisibility}
-              setData={setData}
-            />
+            <Modal.Content>
+              <Modal.CloseButton />
+              <Modal.Header
+                _text={{
+                  fontWeight: "bold",
+                  fontSize: "lg"
+                }}
+              >
+                Category
+              </Modal.Header>
+              <Modal.Body>
+                <ModalPicker
+                  changeModalVisibility={changeModalVisibility}
+                  setData={setData}
+                />
+              </Modal.Body>
+            </Modal.Content>
           </Modal>
         </Container>
         <Container
@@ -213,7 +226,9 @@ const EditExpensePage = ({ navigation, route }) => {
           variant="outline"
           bgColor="white"
           colorScheme="light"
-          onPress={()=>{handleSubmit(entry)}}
+          onPress={() => {
+            handleSubmit(entry);
+          }}
           mt="5"
         >
           <Text fontSize="md">Update</Text>
