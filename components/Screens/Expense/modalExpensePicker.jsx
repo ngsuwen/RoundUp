@@ -22,7 +22,7 @@ const ModalPicker = (props) => {
     return (
       <Pressable key={index} onPress={() => onPressItem(item)}>
         <View mb="3" mt="3">
-          <Text fontSize="lg">{item}</Text>
+          <Text fontSize="sm">{item}</Text>
         </View>
       </Pressable>
     );

@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
 import moment from "moment";
-import { Center, NativeBaseProvider, Button, Text, View, Pressable } from "native-base";
+import {
+  Center,
+  NativeBaseProvider,
+  Button,
+  Text,
+  View,
+  Pressable,
+} from "native-base";
 import ShowPageCard from "../../Cards/showPageCard";
 import DataContext from "../../../context/DataContext";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
@@ -60,22 +67,21 @@ const ShowExpensePage = ({ navigation, route }) => {
   return (
     <NativeBaseProvider>
       <Center flex={1} bgColor="coolGray.100">
-        <Pressable
+        <View
           width="90%"
-          onPress={() => {
-            navigation.navigate("Expense GP");
-            setExpenseForceRender(!expenseForceRender);
-          }}
+          paddingRight={4}
+          paddingBottom={1}
+          alignItems="flex-end"
         >
-          <View
-            p="4"
-            flexDirection="row"
-            alignItems="flex-start"
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Expense GP");
+              setExpenseForceRender(!expenseForceRender);
+            }}
           >
-            <Ionicons name="chevron-back-outline" size={24} color="black" />
-            <Text fontSize="lg">Overview</Text>
-          </View>
-        </Pressable>
+            <Entypo name="cross" size={24} color="black" />
+          </Pressable>
+        </View>
         <ShowPageCard heading="Date" body={formattedDate} />
         <ShowPageCard
           heading="Amount"
@@ -86,14 +92,14 @@ const ShowExpensePage = ({ navigation, route }) => {
           heading="Description"
           body={entry.expensesentry.description}
         />
-        <Button.Group size="lg" mt="5">
+        <Button.Group size="sm" mt="5">
           <Button
             variant="outline"
             bgColor="white"
             colorScheme="light"
             onPress={editHandler}
           >
-            <Text fontSize="md">Edit</Text>
+            <Text >Edit</Text>
           </Button>
           <Button colorScheme="danger" onPress={() => deleteExpense(entry._id)}>
             Delete

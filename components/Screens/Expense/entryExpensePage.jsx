@@ -11,11 +11,11 @@ import {
   Container,
   Input,
   View,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "native-base";
 import DatePicker from "@react-native-community/datetimepicker";
 import { ModalPicker } from "./modalExpensePicker";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import moment from "moment";
 
 const EntryExpensePage = ({ navigation }) => {
@@ -129,17 +129,15 @@ const EntryExpensePage = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="coolGray.100">
-          <Pressable
-            width="90%"
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            <View p="4" flexDirection="row" alignItems="flex-start">
-              <Ionicons name="chevron-back-outline" size={24} color="black" />
-              <Text fontSize="lg">Home</Text>
-            </View>
-          </Pressable>
+          <View width="90%" paddingRight={4} paddingBottom={1} alignItems="flex-end">
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Entypo name="cross" size={24} color="black" />
+            </Pressable>
+          </View>
           <Container
             borderColor="coolGray.200"
             borderWidth="1"
@@ -147,12 +145,12 @@ const EntryExpensePage = ({ navigation }) => {
             p="4"
             bgColor="#fff"
           >
-            <Text fontSize="md" fontWeight="bold">
+            <Text fontSize="sm" fontWeight="bold">
               Date
             </Text>
             <Pressable width="100%" onPress={showDatepicker}>
               <Text
-                fontSize="lg"
+                fontSize="sm"
                 mt="1"
                 borderRadius="sm"
                 borderColor="coolGray.200"
@@ -163,7 +161,11 @@ const EntryExpensePage = ({ navigation }) => {
               </Text>
             </Pressable>
             {show && (
-              <DatePicker style={{width: "100%"}} value={new Date(date)} onChange={onChangeDate} />
+              <DatePicker
+                style={{ width: "100%" }}
+                value={new Date(date)}
+                onChange={onChangeDate}
+              />
             )}
           </Container>
           <Container
@@ -173,12 +175,12 @@ const EntryExpensePage = ({ navigation }) => {
             p="4"
             bgColor="#fff"
           >
-            <Text fontSize="md" fontWeight="bold">
+            <Text fontSize="sm" fontWeight="bold">
               Amount
             </Text>
             <Input
               width="100%"
-              fontSize="lg"
+              fontSize="sm"
               mt="1"
               color="coolGray.600"
               placeholder="amount"
@@ -193,12 +195,12 @@ const EntryExpensePage = ({ navigation }) => {
             p="4"
             bgColor="#fff"
           >
-            <Text fontSize="md" fontWeight="bold">
+            <Text fontSize="sm" fontWeight="bold">
               Category
             </Text>
             <Pressable width="100%" onPress={() => changeModalVisibility(true)}>
               <Text
-                fontSize="lg"
+                fontSize="sm"
                 mt="1"
                 borderRadius="sm"
                 borderColor="coolGray.200"
@@ -212,14 +214,14 @@ const EntryExpensePage = ({ navigation }) => {
               isOpen={isModalVisible}
               defaultIsOpen="false"
               onClose={() => changeModalVisibility(false)}
-              size="lg"
+              size="sm"
             >
               <Modal.Content>
                 <Modal.CloseButton />
                 <Modal.Header
                   _text={{
                     fontWeight: "bold",
-                    fontSize: "lg",
+                    fontSize: "sm",
                   }}
                 >
                   Category
@@ -240,12 +242,12 @@ const EntryExpensePage = ({ navigation }) => {
             p="4"
             bgColor="#fff"
           >
-            <Text fontSize="md" fontWeight="bold">
+            <Text fontSize="sm" fontWeight="bold">
               Description
             </Text>
             <Input
               width="100%"
-              fontSize="lg"
+              fontSize="sm"
               mt="1"
               color="coolGray.600"
               placeholder="description"
@@ -254,13 +256,14 @@ const EntryExpensePage = ({ navigation }) => {
             />
           </Container>
           <Button
+            size="sm"
             variant="outline"
             bgColor="white"
             colorScheme="light"
             onPress={handleSubmit}
             mt="5"
           >
-            <Text fontSize="md">Submit</Text>
+            <Text>Submit</Text>
           </Button>
         </Center>
       </KeyboardAvoidingView>
