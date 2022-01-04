@@ -10,7 +10,8 @@ import {
   Center,
   Container,
   Input,
-  View
+  View,
+  KeyboardAvoidingView
 } from "native-base";
 import DatePicker from "@react-native-community/datetimepicker";
 import { ModalPicker } from "./modalExpensePicker";
@@ -61,7 +62,7 @@ const EntryExpensePage = ({ navigation }) => {
 
   // Date Picker
   const onChangeDate = (event, selectedDate) => {
-    setShow(false)
+    setShow(false);
     const currentDate = selectedDate || new Date(date);
     setDate(currentDate);
   };
@@ -119,148 +120,151 @@ const EntryExpensePage = ({ navigation }) => {
 
   return (
     <NativeBaseProvider>
-      <Center flex={1} bgColor="coolGray.100">
-      <Pressable
-          width="90%"
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <View
+      <KeyboardAvoidingView
+        h={{
+          base: "100%",
+          lg: "auto",
+        }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <Center flex={1} bgColor="coolGray.100">
+          <Pressable
+            width="90%"
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          >
+            <View p="4" flexDirection="row" alignItems="flex-start">
+              <Ionicons name="chevron-back-outline" size={24} color="black" />
+              <Text fontSize="lg">Home</Text>
+            </View>
+          </Pressable>
+          <Container
+            borderColor="coolGray.200"
+            borderWidth="1"
+            width="90%"
             p="4"
-            flexDirection="row"
-            alignItems="flex-start"
+            bgColor="#fff"
           >
-            <Ionicons name="chevron-back-outline" size={24} color="black" />
-            <Text fontSize="lg">Home</Text>
-          </View>
-        </Pressable>
-        <Container
-          borderColor="coolGray.200"
-          borderWidth="1"
-          width="90%"
-          p="4"
-          bgColor="#fff"
-        >
-          <Text fontSize="md" fontWeight="bold">
-            Date
-          </Text>
-          <Pressable width="100%" onPress={showDatepicker}>
-            <Text
-              fontSize="lg"
-              mt="1"
-              borderRadius="sm"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              p="2"
-            >
-              {formattedDate}
+            <Text fontSize="md" fontWeight="bold">
+              Date
             </Text>
-          </Pressable>
-          {show && (
-            <DatePicker value={new Date(date)} onChange={onChangeDate} />
-          )}
-        </Container>
-        <Container
-          borderColor="coolGray.200"
-          borderWidth="1"
-          width="90%"
-          p="4"
-          bgColor="#fff"
-        >
-          <Text fontSize="md" fontWeight="bold">
-            Amount
-          </Text>
-          <Input
-            width="100%"
-            fontSize="lg"
-            mt="1"
-            color="coolGray.600"
-            placeholder="amount"
-            value={amount.toString()}
-            onChangeText={(text) => setAmount(text)}
-          />
-        </Container>
-        <Container
-          borderColor="coolGray.200"
-          borderWidth="1"
-          width="90%"
-          p="4"
-          bgColor="#fff"
-        >
-          <Text fontSize="md" fontWeight="bold">
-            Category
-          </Text>
-          <Pressable width="100%" onPress={() => changeModalVisibility(true)}>
-            <Text
-              fontSize="lg"
-              mt="1"
-              borderRadius="sm"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              p="2"
-            >
-              {category}
-            </Text>
-          </Pressable>
-          <Modal
-            isOpen={isModalVisible}
-            defaultIsOpen="false"
-            onClose={() => changeModalVisibility(false)}
-            size="lg"
-          >
-            <Modal.Content>
-              <Modal.CloseButton />
-              <Modal.Header
-                _text={{
-                  fontWeight: "bold",
-                  fontSize: "lg"
-                }}
+            <Pressable width="100%" onPress={showDatepicker}>
+              <Text
+                fontSize="lg"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
               >
-                Category
-              </Modal.Header>
-              <Modal.Body>
-                <ModalPicker
-                  changeModalVisibility={changeModalVisibility}
-                  setData={setData}
-                />
-              </Modal.Body>
-            </Modal.Content>
-          </Modal>
-        </Container>
-        <Container
-          borderColor="coolGray.200"
-          borderWidth="1"
-          width="90%"
-          p="4"
-          bgColor="#fff"
-        >
-          <Text fontSize="md" fontWeight="bold">
-            Description
-          </Text>
-          <Input
-            width="100%"
-            fontSize="lg"
-            mt="1"
-            color="coolGray.600"
-            placeholder="description"
-            value={description}
-            onChangeText={(text) => setDescription(text)}
-          />
-        </Container>
-        <Button
-          variant="outline"
-          bgColor="white"
-          colorScheme="light"
-          onPress={handleSubmit}
-          mt="5"
-        >
-          <Text fontSize="md">Submit</Text>
-        </Button>
-      </Center>
+                {formattedDate}
+              </Text>
+            </Pressable>
+            {show && (
+              <DatePicker value={new Date(date)} onChange={onChangeDate} />
+            )}
+          </Container>
+          <Container
+            borderColor="coolGray.200"
+            borderWidth="1"
+            width="90%"
+            p="4"
+            bgColor="#fff"
+          >
+            <Text fontSize="md" fontWeight="bold">
+              Amount
+            </Text>
+            <Input
+              width="100%"
+              fontSize="lg"
+              mt="1"
+              color="coolGray.600"
+              placeholder="amount"
+              value={amount.toString()}
+              onChangeText={(text) => setAmount(text)}
+            />
+          </Container>
+          <Container
+            borderColor="coolGray.200"
+            borderWidth="1"
+            width="90%"
+            p="4"
+            bgColor="#fff"
+          >
+            <Text fontSize="md" fontWeight="bold">
+              Category
+            </Text>
+            <Pressable width="100%" onPress={() => changeModalVisibility(true)}>
+              <Text
+                fontSize="lg"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {category}
+              </Text>
+            </Pressable>
+            <Modal
+              isOpen={isModalVisible}
+              defaultIsOpen="false"
+              onClose={() => changeModalVisibility(false)}
+              size="lg"
+            >
+              <Modal.Content>
+                <Modal.CloseButton />
+                <Modal.Header
+                  _text={{
+                    fontWeight: "bold",
+                    fontSize: "lg",
+                  }}
+                >
+                  Category
+                </Modal.Header>
+                <Modal.Body>
+                  <ModalPicker
+                    changeModalVisibility={changeModalVisibility}
+                    setData={setData}
+                  />
+                </Modal.Body>
+              </Modal.Content>
+            </Modal>
+          </Container>
+          <Container
+            borderColor="coolGray.200"
+            borderWidth="1"
+            width="90%"
+            p="4"
+            bgColor="#fff"
+          >
+            <Text fontSize="md" fontWeight="bold">
+              Description
+            </Text>
+            <Input
+              width="100%"
+              fontSize="lg"
+              mt="1"
+              color="coolGray.600"
+              placeholder="description"
+              value={description}
+              onChangeText={(text) => setDescription(text)}
+            />
+          </Container>
+          <Button
+            variant="outline"
+            bgColor="white"
+            colorScheme="light"
+            onPress={handleSubmit}
+            mt="5"
+          >
+            <Text fontSize="md">Submit</Text>
+          </Button>
+        </Center>
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };
-
 
 export default EntryExpensePage;
