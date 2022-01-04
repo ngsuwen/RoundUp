@@ -1,12 +1,13 @@
 // new entry not opened up after creation (bonus)
-// why is tickerandprice state rerendered?  and investmentaccordion page is not rerendered? 
-// for this page, we cannot fetch investment record per month as we will need all data to calculate p/l. Hence we shall only filter all the data per month selected. 
+// why is tickerandprice state rerendered?  A: is it because the whole show ticker page reloaded
+// check if investment accordion is reloaded when selectedmonth is changed? NO
+// for this page, we cannot fetch investment record per month as we will need all data to calculate p/l. Hence we shall only filter all the data per month selected.
 
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';
 import { ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
-import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable } from 'native-base';
+import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable, Icon } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
@@ -45,26 +46,27 @@ const screenHeight = Dimensions.get('screen').height
 
 function AccordionComponent(props) {
 
-const { investmentContext, userContext, investmentMonthContext,investmentTickerContext } = useContext(DataContext)
+const {investmentContext, userContext ,investmentTickerContext,tickerAndPriceContext } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
-const [investmentMonth,setInvestmentMonth] = investmentMonthContext
+const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
 const [tickerData,setTickerData] = investmentTickerContext
 const [user, setUser] = userContext
 
+// array of objects containing transaction data
+const transactionHistory = fetchedInvestmentEntries[props.selectedTickerAndPrice.ticker]
+const entriesByDay = _(transactionHistory).groupBy((element)=>{
+const groupedDate = element.investmentsentry.date
+const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
+return formattedGroupedDate
+})
+
+// sorting the dates by lastest first (at the top)
+const allDatesAscending = Object.keys(entriesByDay).sort()
+const allDates = allDatesAscending.reverse()
+
+// console.log('entriesbyday:',entriesByDay)
 
 const RenderTransactionHistory = () => {
-  // array of objects containing transaction data
-  const transactionHistory = fetchedInvestmentEntries[props.selectedTickerAndPrice.ticker]
-  const entriesByDay = _(transactionHistory).groupBy((element)=>{
-  const groupedDate = element.investmentsentry.date
-  const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
-  return formattedGroupedDate
-})
-  // console.log('entriesbyday:',entriesByDay)
-
-  // sorting the dates by lastest first (at the top)
-  const allDatesAscending = Object.keys(entriesByDay).sort()
-  const allDates = allDatesAscending.reverse()
 
 // avg price per stock, needed to find new totalAmountPaid
 // cost basis for one BUY transaction can be derived by price bought * qty
@@ -95,8 +97,8 @@ let currentStockQty = 0
 // loop through the whole list in chronological order and then use the formula as follows: 
 // unrealizedPL = currentStockQty*currentprice - totalAmountPaid
 
-const entries = allDates.map((date,index)=>{
 
+const stockDataCalculationFunction = allDates.map((date,index)=>{
 entriesByDay[date].forEach((entry,index)=>{ // will have to use loop instead of (for txn of arr) in order to access the index. index is needed to single out the first buy in price to not get the average of the first buy in price. index 1 onwards will have to be divided by 2, but not index 0. 
 console.log('entriesbydate:',entriesByDay[date])
  if(entry.investmentsentry.transaction==='Buy'){
@@ -114,21 +116,13 @@ console.log('entriesbydate:',entriesByDay[date])
  if(entry.investmentsentry.transaction==='Sell'){
     totalAmountPaid-=entry.investmentsentry.quantity*costBasis
     currentStockQty-=entry.investmentsentry.quantity
-    totalamountreceived=entry.investmentsentry.quantity*entry.investmentsentry.price
+
   }   
 })
 })
 
 // assuming current price is $20 (from API)
 let unrealizedPL = (currentStockQty*props.selectedTickerAndPrice.value)-totalAmountPaid
-
-console.log('costBasis:',costBasis)
-console.log('totalAmountPaid:',totalAmountPaid)
-console.log('currentstockqty:',currentStockQty)
-console.log('unrealized P/L:',unrealizedPL)
-
-
-
 
 // console.log('costBasis:',costBasis)
 // console.log('totalAmountPaid:',totalAmountPaid)
@@ -144,11 +138,17 @@ console.log('unrealized P/L:',unrealizedPL)
 
    
   // do this last when you have all info
-  // setTickerData(
-  //   {'totalstockqty:':totalStockQty,
-  //    'totalAmountPaid:':totalAmtPaid,
-  //    'totalprofits':totalProfits,
-  //   })
+  setTickerData(
+    {
+     'ticker':props.selectedTickerAndPrice.ticker,
+     'currentPrice':props.selectedTickerAndPrice.value,
+     'costBasis:':costBasis,
+     'currentStockQty:':currentStockQty,
+     'totalAmountPaid:':totalAmountPaid,
+     'unrealizedPL':unrealizedPL,
+    })
+
+    console.log('tickerData:',tickerData)
 }
 
 useEffect(()=>{
@@ -159,36 +159,39 @@ useEffect(()=>{
   console.log('transaction history rendered')
     })
     return resetPage
-},[investmentMonth])
+},[tickerAndPrice,tickerData,fetchedInvestmentEntries])
 
 const navigation = useNavigation()
 
 
-// return(
-// <Accordion.Item key={index}>
-//     <Accordion.Summary _expanded={{backgroundColor:'#DFD3C3'}}>
-//     {date}
-//     {`$ ${totalAmount}`}
-//     {/* <Accordion.Icon />  */}
-//     </Accordion.Summary>
-//     {entriesByDay[date].map((entry,index)=>{
-//     return(
-//     <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Expense Page', {entry})}>
-//     <Accordion.Details key={index}>
-//         <Text style={styles.entryDesc}>{entry.expensesentry.description}</Text>
-//         <Text style={styles.entryPrice}>{`$ ${entry.expensesentry.amount}`}</Text>
-//     <Divider my={2} style={styles.divider}/>
-//     </Accordion.Details>
-//     </Pressable>
-//     )})}
-// </Accordion.Item>
-// )
-// })
+const entries = allDates.map((date,index)=>{
+  return(
+    <Accordion.Item key={index}>
+        <Accordion.Summary _expanded={{backgroundColor:'#DFD3C3'}}>
+        {date}
+        <Accordion.Icon /> 
+        </Accordion.Summary>
+        {entriesByDay[date].map((entry,index)=>{
+        return(
+        <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Expense Page', {entry})}>
+        <Accordion.Details key={index}>
+            <Text style={styles.entryDesc}>Transaction: {entry.investmentsentry.transaction}</Text>
+            <Text style={styles.entryDesc}>No. of units: {entry.investmentsentry.quantity}</Text>
+            <Text style={styles.entryPrice}>Price: {`$ ${entry.investmentsentry.price}`}</Text>
+        <Divider my={2} style={styles.divider}/>
+        </Accordion.Details>
+        </Pressable>
+        )})}
+    </Accordion.Item>
+    )
+})
+
+
 
 return (
     <Box>
     <Accordion index={[0]}>
-    {/* {entries} */}
+    {entries}
     </Accordion>
     </Box>
     )

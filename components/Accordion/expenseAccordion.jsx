@@ -45,7 +45,7 @@ const screenHeight = Dimensions.get('screen').height
 function AccordionComponent() {
 
 const {monthContext,expenseMonthContext,userContext,expenseForceRenderContext } = useContext(DataContext);
-const [expenseMonth,setExpenseMonth] = monthContext
+const [selectedMonth,setSelectedMonth] = monthContext
 const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
 const [user, setUser] = userContext
 const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
@@ -53,7 +53,7 @@ const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
 const fetchExpenses = () => {
   const userid = user
-  const monthOfExpense = moment(expenseMonth, moment.ISO_8601).format('YYYY-MM')
+  const monthOfExpense = moment(selectedMonth, moment.ISO_8601).format('YYYY-MM')
   // console.log('monthofexpense:',monthOfExpense)
   fetch(`https://roundup-api.herokuapp.com/data/expense/user/${userid}/${monthOfExpense}`)
   .then(data=>data.json())
@@ -67,7 +67,7 @@ const fetchExpenses = () => {
   useEffect(()=>{
     fetchExpenses()
     console.log('expense gp loaded')
-  },[expenseMonth,expenseForceRender])
+  },[selectedMonth,expenseForceRender])
 
 const navigation = useNavigation()
 
