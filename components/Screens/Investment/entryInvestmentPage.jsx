@@ -6,14 +6,51 @@ import DatePicker from "@react-native-community/datetimepicker"
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 
+
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
+  Input
 } from "native-base";
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 
 const EntryInvestmentPage = ({navigation}) => {
- 
+
+  ///////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
+  const [ticks, setTicks] = useState([])
+  const [text, setText] = useState("")
+  const [suggestions, setSuggestions] = useState([])
+
+  useEffect(()=>{
+    const loadTick = async()=>{
+      const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
+      const data = await res.json()
+      console.log(data)
+      setTicks(data)
+    }
+    loadTick()
+  }, [])
+
+  const onChangeHandler = (text) =>{
+    // event.preventDefault()
+    let matches = []
+    if (text.length >0){
+        matches = ticks.filter(tick =>{
+          const regex = new RegExp(`${text}`, "gi");
+          return tick.name.match(regex)
+        })
+    }
+    console.log("matches", matches)
+    setSuggestions(matches)
+    setText(text)
+  }
+
+ ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+
    // useContext
    const { userContext, investmentEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
@@ -53,7 +90,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setAmountInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      setTickerInvestment("Select Ticker...")
+      setTickerInvestment([])
     })
      return resetPage
   }, [expenseForceRender])
@@ -192,7 +229,7 @@ const EntryInvestmentPage = ({navigation}) => {
                         </View>
 
 
-                    {/* ticker */}
+                    {/* ticker original working
                     <View style={styles.wrapper}>
 
                           <Pressable 
@@ -215,6 +252,33 @@ const EntryInvestmentPage = ({navigation}) => {
                             />
                             
                           </Modal>
+
+                          </View> */}
+
+
+                          {/* ticker test*/}
+                    <View style={styles.wrapper}>
+
+                    <Input
+                          width="100%"
+                          fontSize="lg"
+                          mt="1"
+                          color="coolGray.600"
+                          placeholder="Select Ticker..."
+                          value={ticks}
+                          onChangeText={(text) => onChangeHandler(text)}
+                        />
+                     
+                     {suggestions && suggestions.map((suggestion, i)=>{
+                        <View style={styles.wrapper} key={i}> 
+                            <View>{suggestion.symbol}</View>
+                          
+                        </View>
+                      })
+
+
+
+                      } 
 
                           </View>
 
@@ -304,7 +368,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
       fontSize: 20,
-      flex: 0.2,
+      flex: 0.13,
       textAlign: "center",
       flexDirection:'column',
       width: screenWidth*0.86,
@@ -323,6 +387,7 @@ const styles = StyleSheet.create({
       shadowRadius: .22,
       elevation: 3,
       },
+     
  
 })
 
