@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
 
 export default function MonthPickerModal({ placeholder }) {
   const {monthContext} = useContext(DataContext);
-  const [expenseMonth,setExpenseMonth] = monthContext
+  const [selectedMonth,setSelectedMonth] = monthContext
   const [isOpen, toggleOpen] = useState(false)
-  console.log('expensemonth:',expenseMonth)
+  console.log('selectedmonth:',selectedMonth)
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => toggleOpen(true)} style={styles.input}>
         <Text style={styles.inputText}>
-          {moment(expenseMonth).format('MMM YYYY')}
+          {moment(selectedMonth).format('MMM YYYY')}
         </Text>
       </TouchableOpacity>
 
@@ -81,8 +81,8 @@ export default function MonthPickerModal({ placeholder }) {
         <View style={styles.contentContainer}>
           <View style={styles.content}>
             <MonthPicker
-              selectedDate={expenseMonth || new Date()}
-              onMonthChange={setExpenseMonth}
+              selectedDate={selectedMonth || new Date()}
+              onMonthChange={setSelectedMonth}
               selectedBackgroundColor='#B4AEE8'
               prevText='Prev'
               nextText='Next'

@@ -34,8 +34,8 @@ function App() {
   const [tickerInvestment, setTickerInvestment] = useState("TSLA");
   const [qtyInvestment, setQtyInvestment] = useState([]);
 
-  // useState for expense month selector (KSZ)
-  const [expenseMonth, setExpenseMonth] = useState(moment().format("YYYY-MM"));
+  // useState for month selector (KSZ)
+  const [selectedMonth, setSelectedMonth] = useState(moment().format("YYYY-MM"));
 
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
@@ -43,7 +43,6 @@ function App() {
   // useState for investment
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
   const [tickerAndPrice,setTickerAndPrice] = useState([])
-  const [investmentMonth,setInvestmentMonth] = useState(moment().format("YYYY-MM"));
   const [tickerData,setTickerData] = useState([])
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
@@ -132,7 +131,7 @@ function App() {
     <NavigationContainer>
       <DataContext.Provider
         value={{
-          monthContext: [expenseMonth, setExpenseMonth],
+          monthContext: [selectedMonth, setSelectedMonth],
           expenseMonthContext: [
             fetchedExpenseEntries,
             setFetchedExpenseEntries,
@@ -181,7 +180,6 @@ function App() {
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
           investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
-          investmentMonthContext: [investmentMonth,setInvestmentMonth],
           investmentTickerContext:[tickerData,setTickerData],
         }}
       >

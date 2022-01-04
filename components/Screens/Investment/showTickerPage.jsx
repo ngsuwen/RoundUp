@@ -4,9 +4,9 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Scroll
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
 import ExpenseLineChartComponent from '../../Charts/expenseLineChart'
-import PieChartComponent from '../../Charts/expensePieChart'
+import TickerDataCard from '../../Cards/tickerDataCard'
 import AccordionList from '../../Accordion/investmentAccordion'
-import MonthSelector from '../../Picker/monthPicker'
+
 
 export default function TickerBreakdownPage({ navigation, route }) {
 
@@ -70,12 +70,9 @@ const styles = StyleSheet.create({
   return (
     <View style={styles.container}>
       <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
-        <PieChartComponent/>
+        <TickerDataCard/>
         <ExpenseLineChartComponent/>
       </Carousel>
-      <View style={styles.monthSelector}>
-        <MonthSelector/>
-      </View>
       <View style={styles.accordion}>
       <AccordionList selectedTickerAndPrice={selectedTickerAndPrice}/>
       </View>
