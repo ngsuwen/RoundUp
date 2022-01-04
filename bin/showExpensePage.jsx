@@ -14,7 +14,7 @@ import {
   FlatList
 } from "react-native";
 import { useContext } from "react";
-import DataContext from "../../../context/DataContext";
+import DataContext from "../context/DataContext";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext

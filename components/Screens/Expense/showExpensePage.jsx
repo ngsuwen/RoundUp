@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import moment from "moment";
-import { Center, NativeBaseProvider, Button, Text, View } from "native-base";
-import ShowPageCard from "../../Cards/showPageCard";
+import { Center, NativeBaseProvider, Button, Text, View, Pressable } from "native-base";
+import ShowPageCard from "../../Cards/ShowPageCard";
 import DataContext from "../../../context/DataContext";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable } from "react-native";
 
 const ShowExpensePage = ({ navigation, route }) => {
   // useContext
@@ -74,7 +73,7 @@ const ShowExpensePage = ({ navigation, route }) => {
             alignItems="flex-start"
           >
             <Ionicons name="chevron-back-outline" size={24} color="black" />
-            <Text fontSize="lg">Back</Text>
+            <Text fontSize="lg">Overview</Text>
           </View>
         </Pressable>
         <ShowPageCard heading="Date" body={formattedDate} />
