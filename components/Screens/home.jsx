@@ -10,14 +10,31 @@ import HomePageCashCard from "../Cards/homepageCashCard";
 import HomePageExpenseCard from "../Cards/homepageExpenseCard";
 import HomePageInvestmentCard from "../Cards/homepageInvestmentCard";
 
-const screenHeight = Dimensions.get('screen').height
-const carouselHeight = screenHeight*0.36
+const screenHeight = Dimensions.get("screen").height;
+const carouselHeight = screenHeight * 0.36;
+
+const style = {
+  dotStyle: {
+    backgroundColor: "#F5E0EE",
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    margin:3
+  },
+  activeDotStyle: {
+    backgroundColor: "#F49BD6",
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    margin: 3
+  },
+};
 
 export default function Home({ navigation }) {
   return (
     <NativeBaseProvider>
       <Box bgColor="#fff" height="100%">
-        <Carousel height={carouselHeight} showsControls={false}>
+        <Carousel height={carouselHeight} showsControls={false} dotStyle={style.dotStyle} activeDotStyle={style.activeDotStyle}>
           <View>
             <NetworthLineChartComponent />
           </View>
@@ -32,9 +49,9 @@ export default function Home({ navigation }) {
           </View>
         </Carousel>
         <Box height="55%" px={2}>
-        <HomePageCashCard navigation={navigation} />
-        <HomePageExpenseCard navigation={navigation} />
-        <HomePageInvestmentCard navigation={navigation} />
+          <HomePageCashCard navigation={navigation} />
+          <HomePageExpenseCard navigation={navigation} />
+          <HomePageInvestmentCard navigation={navigation} />
         </Box>
       </Box>
     </NativeBaseProvider>
