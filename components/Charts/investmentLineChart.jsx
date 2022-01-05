@@ -37,7 +37,7 @@ export default function investmentLineChartComponent() {
         <LineChart
             data={linedata}
             width={screenWidth}
-            height={screenHeight*0.2}
+            height={screenHeight*0.25}
             chartConfig={chartConfig}
             bezier
         />

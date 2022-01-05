@@ -39,6 +39,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.1",
     "react-native-web": "0.17.1",
+    "simple-carousel-react-native": "^1.0.2",
     "underscore": "^1.13.2"
   },
   "devDependencies": {
