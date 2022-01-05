@@ -1,27 +1,18 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
-import Autocomplete from "react-native-autocomplete-input"
-
 
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
-  Input,
-  useTypeahead,
-  Typeahead,
-  Icon,
-  IconButton,
-  Center,
-  Box,
-  
+  Input
 } from "native-base";
-
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 
 const EntryInvestmentPage = ({navigation}) => {
@@ -76,43 +67,10 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-    //autocomplete
-    // For Filtered Data
-    const [filteredTicker, setFilteredTicker] = useState([]);
-    // For Selected Data
-    const [selectedValue, setSelectedValue] = useState({});
-
-  // fetch crypto for ticker
-  useEffect(()=>{
-    const loadCoin = async() =>{
-        const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
-        const data = await res.json()
-        console.log(data)
-        setTickerInvestment(data)
-    }
-    loadCoin()
-    }, [])
-
-
-    const findTicker = (query) => {
-      // Method called every time when we change the value of the input
-      if (query) {
-        // Making a case insensitive regular expression
-        const regex = new RegExp(`${query.trim()}`, 'i');
-        // Setting the filtered film array according the query
-        setFilteredTicker(
-            tickerInvestment.filter((ticker) => ticker.id.search(regex) >= 0)
-        );
-      } else {
-        // If the query is null then return blank
-        setFilteredTicker([]);
-      }
-    };
-
 
 
    
-   // clear states onload at entryinvestment page
+   // clear states onload at entrycash page
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
       setDateInvestment(new Date())
@@ -261,7 +219,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
 
                     {/* Ticker */}
-                    {/* <View style={styles.wrapper}>
+                    <View style={styles.wrapper}>
 
                           <Pressable 
                             style={styles.pressable}
@@ -280,69 +238,13 @@ const EntryInvestmentPage = ({navigation}) => {
                             <ModalTickerPicker 
                               changeModalVisibilityTicker={changeModalVisibilityTicker}
                               setDataTicker={setDataTicker}
-                              setTickerInvestment={setTickerInvestment}
-                              tickerInvestment={tickerInvestment}
                             />
                             
                           </Modal>
 
-                          </View> */}
+                          </View>
 
-                        {/* Autocomplete ticker */}
 
-                      
-
-                        <View style={styles.container2}>
-                                  <Autocomplete
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    containerStyle={styles.autocompleteContainer}
-                                    // Data to show in suggestion
-                                    data={filteredTicker}
-                                    // Default value if you want to set something in input
-                                    defaultValue={
-                                      JSON.stringify(selectedValue) === '{}' ?
-                                      '' :
-                                      selectedValue.id
-                                    }
-                                    // Onchange of the text changing the state of the query
-                                    // Which will trigger the findFilm method
-                                    // To show the suggestions
-                                    onChangeText={(text) => findTicker(text)}
-                                    placeholder="Enter ticker"
-                                    renderItem={({item}) => (
-                                      // For the suggestion view
-                                      <TouchableOpacity
-                                        onPress={() => {
-                                          setSelectedValue(item);
-                                          setFilteredTicker([]);
-                                        }}>
-                                        <Text style={styles.itemText}>
-                                            {item.id}
-                                        </Text>
-                                      </TouchableOpacity>
-                                    )}
-                                  />
-                                  <View style={styles.descriptionContainer}>
-                                    {tickerInvestment.length > 0 ? (
-                                      <>
-                                        <Text style={styles.infoText}>
-                                            Selected Data
-                                        </Text>
-                                        <Text style={styles.infoText}>
-                                          {JSON.stringify(selectedValue)}
-                                        </Text>
-                                      </>
-                                    ) : (
-                                      <Text style={styles.infoText}>
-                                          Enter The Ticker
-                                      </Text>
-                                    )}
-                                  </View>
-                                </View>
-                 
-              
-                         
 
 
                           {/* Transaction */}
@@ -478,33 +380,6 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.22,
       shadowRadius: .22,
       elevation: 3,
-      },
-
-
-
-      container2: {
-        backgroundColor: '#F5FCFF',
-        flex: 1,
-        padding: 16,
-        marginTop: 40,
-      },
-      autocompleteContainer: {
-        backgroundColor: '#ffffff',
-        borderWidth: 0,
-      },
-      descriptionContainer: {
-        flex: 1,
-        justifyContent: 'center',
-      },
-      itemText: {
-        fontSize: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
-        margin: 2,
-      },
-      infoText: {
-        textAlign: 'center',
-        fontSize: 16,
       },
      
  
