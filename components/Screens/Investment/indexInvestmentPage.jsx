@@ -38,10 +38,11 @@ const IndexInvestmentPage = ({ navigation }) => {
                   <Text>Id: {entry._id}</Text>
                   <Text>Username: {entry.username}</Text>
                   <Text>Date: {entry.investmentsentry.date}</Text>
-                  <Text>Amount: $ {entry.investmentsentry.amount}</Text>
+                  <Text>Price: $ {entry.investmentsentry.price}</Text>
                   <Text>Quantity: {entry.investmentsentry.quantity}</Text>
                   <Text>Category: {entry.investmentsentry.category}</Text>
                   <Text>Ticker: {entry.investmentsentry.ticker}</Text>
+                  <Text>Transaction: {entry.investmentsentry.transaction}</Text>
                 </View>
               </TouchableOpacity>
              

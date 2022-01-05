@@ -20,7 +20,12 @@ const ShowInvestmentPage = ({ navigation, route }) => {
   // useContext
   const { expenseForceRenderContext , investmentEntryContext } = useContext(DataContext);
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
-  const [dateInvestment,setDateInvestment,amountInvestment,setAmountInvestment,categoryInvestment,setCategoryInvestment,tickerInvestment,setTickerInvestment, qtyInvestment, setQtyInvestment] = investmentEntryContext
+  const [dateInvestment,setDateInvestment,
+         priceInvestment,setPriceInvestment,
+         categoryInvestment,setCategoryInvestment,
+         tickerInvestment,setTickerInvestment, 
+         qtyInvestment, setQtyInvestment,
+        transaction, setTransaction] = investmentEntryContext
 
   const {entry} = route.params;
 
@@ -47,11 +52,12 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
-    setAmountInvestment(entry.investmentsentry.amount)
+    setPriceInvestment(entry.investmentsentry.amount)
     setTickerInvestment(entry.investmentsentry.ticker)
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
     setCategoryInvestment(entry.investmentsentry.category)
+    // setTransaction(entry.investmentsentry.transaction)
     navigation.navigate("Edit Investment Page", {entry: entry})
   }
 
@@ -63,10 +69,11 @@ const ShowInvestmentPage = ({ navigation, route }) => {
       <View >
    
         <Text style={styles.wrapper}>Date: {formattedDate}</Text>
-        <Text style={styles.wrapper}>Amount: $ {entry.investmentsentry.amount}</Text>
+        <Text style={styles.wrapper}>Price: $ {entry.investmentsentry.price}</Text>
         <Text style={styles.wrapper}>Quantity: $ {entry.investmentsentry.quantity}</Text>
         <Text style={styles.wrapper}>Category: {entry.investmentsentry.category}</Text>
         <Text style={styles.wrapper}>Ticker: {entry.investmentsentry.ticker}</Text>
+        <Text style={styles.wrapper}>Transaction: {entry.investmentsentry.transaction}</Text>
         <View style={styles.button}>
           <Button title="Delete" onPress={() => deleteInvestment(entry._id)} />
           <Button

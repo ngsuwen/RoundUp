@@ -24,7 +24,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const { userContext, investmentEntryContext, expenseForceRenderContext } = React.useContext(DataContext);
   const [userId, setUserId] = userContext;
   
-  const [dateInvestment,setDateInvestment,amountInvestment,setAmountInvestment,categoryInvestment,setCategoryInvestment,tickerInvestment,setTickerInvestment, qtyInvestment, setQtyInvestment] = investmentEntryContext
+  const [dateInvestment,setDateInvestment,
+         priceInvestment,setPriceInvestment,
+         categoryInvestment,setCategoryInvestment,
+         tickerInvestment,setTickerInvestment, 
+         qtyInvestment, setQtyInvestment,
+         transaction, setTransaction] = investmentEntryContext
 
 
    // useState
@@ -63,10 +68,11 @@ const EditInvestmentPage = ({ navigation, route }) => {
             username: userId,
             investmentsentry: {
               date: dateInvestment,
-              amount: amountInvestment,
+              price: priceInvestment,
               category: categoryInvestment,
               ticker: tickerInvestment,
-              quantity: qtyInvestment
+              quantity: qtyInvestment,
+              transaction: transaction
             },
           }),
           headers: {
@@ -120,14 +126,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
                   <TextInput
                       style={styles.textinput}
                       type="submit" 
-                      name="amount"
-                      placeholder="Enter Amount"
-                      value={amountInvestment.toString()}
-                      onChangeText={(text) => setAmountInvestment(text)}
+                      name="price"
+                      placeholder="Enter Price"
+                      value={priceInvestment.toString()}
+                      onChangeText={(text) => setPriceInvestment(text)}
                         />   
                         <Button
                           title="Clear"
-                          onPress={()=>setAmountInvestment([])}
+                          onPress={()=>setPriceInvestment([])}
                           />
                     </View>
 

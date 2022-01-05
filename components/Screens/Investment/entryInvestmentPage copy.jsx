@@ -5,7 +5,7 @@ import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Butt
 import DatePicker from "@react-native-community/datetimepicker"
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
-import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
+
 
 import {
   NativeBaseProvider,
@@ -17,17 +17,44 @@ import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 const EntryInvestmentPage = ({navigation}) => {
 
-  
+  ///////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
+  const [ticks, setTicks] = useState([])
+  const [text, setText] = useState("")
+  const [suggestions, setSuggestions] = useState([])
+
+  useEffect(()=>{
+    const loadTick = async()=>{
+      const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
+      const data = await res.json()
+      console.log(data)
+      setTicks(data)
+    }
+    loadTick()
+  }, [])
+
+  const onChangeHandler = (text) =>{
+    // event.preventDefault()
+    let matches = []
+    if (text.length >0){
+        matches = ticks.filter(tick =>{
+          const regex = new RegExp(`${text}`, "gi");
+          return tick.name.match(regex)
+        })
+    }
+    console.log("matches", matches)
+    setSuggestions(matches)
+    setText(text)
+  }
+
+ ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+
    // useContext
    const { userContext, investmentEntryContext, expenseForceRenderContext } = useContext(DataContext)
    const [userId, setUserId]=userContext
-   const [dateInvestment,setDateInvestment,
-          priceInvestment,setPriceInvestment,
-          categoryInvestment,setCategoryInvestment,
-          tickerInvestment,setTickerInvestment, 
-          qtyInvestment, setQtyInvestment,
-          transaction, setTransaction] = investmentEntryContext
-
+   const [dateInvestment,setDateInvestment,amountInvestment,setAmountInvestment,categoryInvestment,setCategoryInvestment,tickerInvestment,setTickerInvestment, qtyInvestment, setQtyInvestment] = investmentEntryContext
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // useState
@@ -55,30 +82,15 @@ const EntryInvestmentPage = ({navigation}) => {
      setTickerInvestment(option)
    }
 
-
-  // Modal for transaction
-  const [isModalVisibleTransaction, setIsModalVisibleTransaction] = useState(false)
-
-  const changeModalVisibilityTransaction = (bool) =>{
-  setIsModalVisibleTransaction(bool)
-  }
-
-  const setDataTransaction = (option) =>{
-    setTransaction(option)
-  }
-
-
-
    
    // clear states onload at entrycash page
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
       setDateInvestment(new Date())
-      setPriceInvestment([])
+      setAmountInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      setTickerInvestment("Select Ticker...")
-      setTransaction("Select Buy or Sell...")
+      setTickerInvestment([])
     })
      return resetPage
   }, [expenseForceRender])
@@ -106,11 +118,10 @@ const EntryInvestmentPage = ({navigation}) => {
                 { 
                   
                   date: dateInvestment,
-                  price: priceInvestment,
+                  amount: amountInvestment,
                   category: categoryInvestment,
                   ticker: tickerInvestment,
-                  quantity: qtyInvestment,
-                  transaction: transaction  }
+                  quantity: qtyInvestment  }
                 
                  
             }
@@ -157,19 +168,19 @@ const EntryInvestmentPage = ({navigation}) => {
                   
                   </View>
 
-                 {/* price */}
+                 {/* amount */}
                 <View style={styles.wrapper} >
                   <TextInput
                       style={styles.textinput}
                       type="submit" 
-                      name="price"
-                      placeholder="Enter Price"
-                      value={priceInvestment.toString()}
-                      onChangeText={(text) => setPriceInvestment(text)}
+                      name="amount"
+                      placeholder="Enter Amount"
+                      value={amountInvestment.toString()}
+                      onChangeText={(text) => setAmountInvestment(text)}
                         />   
                         <Button
                           title="Clear"
-                          onPress={()=>setPriceInvestment([])}
+                          onPress={()=>setAmountInvestment([])}
                           />
                     </View>
 
@@ -218,7 +229,7 @@ const EntryInvestmentPage = ({navigation}) => {
                         </View>
 
 
-                    {/* Ticker */}
+                    {/* ticker original working
                     <View style={styles.wrapper}>
 
                           <Pressable 
@@ -242,39 +253,34 @@ const EntryInvestmentPage = ({navigation}) => {
                             
                           </Modal>
 
-                          </View>
+                          </View> */}
 
 
-
-
-                          {/* Transaction */}
+                          {/* ticker test*/}
                     <View style={styles.wrapper}>
 
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTransaction(true)}
-                            >
-                            <Text style={styles.catText}>{transaction}</Text>
+                    <Input
+                          width="100%"
+                          fontSize="lg"
+                          mt="1"
+                          color="coolGray.600"
+                          placeholder="Select Ticker..."
+                          value={ticks}
+                          onChangeText={(text) => onChangeHandler(text)}
+                        />
+                     
+                     {suggestions && suggestions.map((suggestion, i)=>{
+                        <View style={styles.wrapper} key={i}> 
+                            <View>{suggestion.symbol}</View>
+                          
+                        </View>
+                      })
 
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTransaction}
-                            onRequestClose={()=> changeModalVisibilityTransaction(false)}
 
-                          >
-                            <ModalTransactionPicker 
-                              changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                              setDataTransaction={setDataTransaction}
-                            />
-                            
-                          </Modal>
+
+                      } 
 
                           </View>
-
-
-                         
 
          
                
@@ -362,7 +368,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
       fontSize: 20,
-      flex: 0.15,
+      flex: 0.13,
       textAlign: "center",
       flexDirection:'column',
       width: screenWidth*0.86,

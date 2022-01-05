@@ -29,10 +29,12 @@ function App() {
   // useState for investment
   const [allInvestment, setAllInvestment] = useState([]);
   const [dateInvestment, setDateInvestment] = useState(new Date());
-  const [amountInvestment, setAmountInvestment] = useState([]);
+  const [priceInvestment, setPriceInvestment] = useState([]);
   const [categoryInvestment, setCategoryInvestment] = useState("Crypto");
   const [tickerInvestment, setTickerInvestment] = useState("TSLA");
   const [qtyInvestment, setQtyInvestment] = useState([]);
+  const [transaction, setTransaction] = useState()
+
 
   // useState for month selector (KSZ)
   const [selectedMonth, setSelectedMonth] = useState(moment().format("YYYY-MM"));
@@ -123,10 +125,10 @@ function App() {
   };
 
   // useEffect only for index page. If not needed for testing, will comment out
-  // useEffect(()=>{
-  //   //reloadCash()
-  //   reloadInvestment()
-  // }, [allInvestment])
+  useEffect(()=>{
+    //reloadCash()
+    reloadInvestment()
+  }, [allInvestment])
 
   return (
     <NavigationContainer>
@@ -166,14 +168,16 @@ function App() {
           investmentEntryContext: [
             dateInvestment,
             setDateInvestment,
-            amountInvestment,
-            setAmountInvestment,
+            priceInvestment,
+            setPriceInvestment,
             categoryInvestment,
             setCategoryInvestment,
             tickerInvestment,
             setTickerInvestment,
             qtyInvestment,
             setQtyInvestment,
+            transaction,
+            setTransaction
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],
