@@ -1,68 +1,47 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
+import React from "react";
+import {
+  HStack,
+  Center,
+  Text,
+  View,
+  Pressable,
+  NativeBaseProvider,
+  Divider,
+} from "native-base";
+import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
-export default function homepageExpenseCard() {
-
-    const screenWidth = Dimensions.get('screen').width
-    const screenHeight = Dimensions.get('screen').height
-
-    const styles = StyleSheet.create({
-    wrapper: {
-    flex: 1,
-    flexDirection:'column',
-    width: screenWidth*0.9,
-    backgroundColor: '#F7F6F2',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    margin: '3%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    },
-    pressableWrapper: {
-    display:'flex',
-    height:'30%',
-    width:'100%',
-    flexDirection:'row',
-    alignItems:'stretch',
-    justifyContent:'center',
-    borderRadius: 5,
-    margin: '5%',
-    },
-    pressable: {
-    flex:1,
-    backgroundColor: '#F4E6E6',
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius: 5,
-    padding: '2%',
-    marginLeft: '2%',
-    marginRight: '2%',
-    },
-    })
-    
-    return (
-    <View style={styles.wrapper}>
-        <Text>Expense</Text>
-        <View>
-            <Text>Expense Balance</Text>
-            <Text>% Increase (Compared to last month)</Text>
-        </View>
-        <View style={styles.pressableWrapper}>
-            <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
-                <Text style={styles.text}>View</Text>
+export default function homepageCashCard({ navigation }) {
+  return (
+    <NativeBaseProvider>
+      <Center bgColor="#fff" flex={1} borderColor="coolGray.300" borderWidth={1} mx={2} my={1} borderRadius={10} shadow={4}>
+        <HStack
+          mb="2"
+          width="85%"
+          justifyContent="space-between"
+        >
+          <Text fontWeight="bold">Expense</Text>
+          <Text onPress={() => navigation.navigate("Expense GP")}>See all <AntDesign name="right" size={14} color="black" /></Text>
+        </HStack>
+        <Divider width="100%"/>
+        <HStack
+          width="85%"
+          justifyContent="space-between"
+          mt="2"
+          _text={{
+            color: "coolGray.800",
+          }}
+        >
+          <View>
+            <Text>$1403.34</Text>
+            <Text mt={0.5}>% Change: <Text color="emerald.600">+8.13</Text></Text>
+          </View>
+          <View justifyContent="center">
+            <Pressable onPress={() => navigation.navigate("Entry Expense Page")}>
+              <EvilIcons name="plus" size={24} color="black" />
             </Pressable>
-            <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
-                <Text style={styles.text}>Add</Text>
-            </Pressable>
-        </View>
-    </View>
-    )
-  }
-  
+          </View>
+        </HStack>
+      </Center>
+    </NativeBaseProvider>
+  );
+}
