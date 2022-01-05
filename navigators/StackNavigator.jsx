@@ -1,10 +1,14 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DataContext from "../context/DataContext";
+// import pages
 import Login from "../components/Screens/login"
 import Loading from "../components/Screens/loading";
 import Signup from "../components/Screens/signup";
+import EntryExpensePage from "../components/Screens/Expense/entryExpensePage";
+import ShowExpensePage from "../components/Screens/Expense/showExpensePage";
+import EditExpensePage from "../components/Screens/Expense/editExpensePage";
 import DrawerComponent from "./DrawerNavigator";
-import DataContext from "../context/DataContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +32,11 @@ export default function StackNavigator() {
       />
       <Stack.Screen name="Sign Up" component={Signup} />
       <Stack.Screen name="Drawer" component={DrawerComponent} />
+      <Stack.Screen name="Entry Expense Page" component={EntryExpensePage} />
+      <Stack.Screen name="Show Expense Page" component={ShowExpensePage} 
+        options={{drawerItemStyle: {height: 0}}} /> 
+      <Stack.Screen name="Edit Expense Page" component={EditExpensePage}
+        options={{drawerItemStyle: {height: 0}}} />
     </Stack.Navigator>
   );
 }

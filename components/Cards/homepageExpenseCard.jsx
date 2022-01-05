@@ -20,7 +20,7 @@ export default function homepageCashCard({ navigation }) {
           justifyContent="space-between"
         >
           <Text fontWeight="bold">Expense</Text>
-          <Text onPress={() => navigation.navigate("About")}>See all <AntDesign name="right" size={14} color="black" /></Text>
+          <Text onPress={() => navigation.navigate("Expense GP")}>See all <AntDesign name="right" size={14} color="black" /></Text>
         </HStack>
         <Divider width="100%"/>
         <HStack
@@ -36,7 +36,7 @@ export default function homepageCashCard({ navigation }) {
             <Text mt={0.5}>% Change: <Text color="emerald.600">+8.13</Text></Text>
           </View>
           <View justifyContent="center">
-            <Pressable onPress={() => navigation.navigate("About")}>
+            <Pressable onPress={() => navigation.navigate("Entry Expense Page")}>
               <EvilIcons name="plus" size={24} color="black" />
             </Pressable>
           </View>
