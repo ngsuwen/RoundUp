@@ -52,12 +52,12 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
-    setPriceInvestment(entry.investmentsentry.amount)
+    setPriceInvestment(entry.investmentsentry.price)
     setTickerInvestment(entry.investmentsentry.ticker)
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
     setCategoryInvestment(entry.investmentsentry.category)
-    // setTransaction(entry.investmentsentry.transaction)
+    setTransaction(entry.investmentsentry.transaction)
     navigation.navigate("Edit Investment Page", {entry: entry})
   }
 
@@ -70,7 +70,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
    
         <Text style={styles.wrapper}>Date: {formattedDate}</Text>
         <Text style={styles.wrapper}>Price: $ {entry.investmentsentry.price}</Text>
-        <Text style={styles.wrapper}>Quantity: $ {entry.investmentsentry.quantity}</Text>
+        <Text style={styles.wrapper}>Quantity: {entry.investmentsentry.quantity}</Text>
         <Text style={styles.wrapper}>Category: {entry.investmentsentry.category}</Text>
         <Text style={styles.wrapper}>Ticker: {entry.investmentsentry.ticker}</Text>
         <Text style={styles.wrapper}>Transaction: {entry.investmentsentry.transaction}</Text>

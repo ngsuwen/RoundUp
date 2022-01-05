@@ -15,6 +15,7 @@ import DatePicker from "@react-native-community/datetimepicker";
 import { NativeBaseProvider, KeyboardAvoidingView } from "native-base";
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
+import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 
 
 const EditInvestmentPage = ({ navigation, route }) => {
@@ -56,6 +57,19 @@ const EditInvestmentPage = ({ navigation, route }) => {
    const setDataTicker = (option) =>{
      setTickerInvestment(option)
    }
+
+     // Modal for transaction
+  const [isModalVisibleTransaction, setIsModalVisibleTransaction] = React.useState(false)
+
+  const changeModalVisibilityTransaction = (bool) =>{
+  setIsModalVisibleTransaction(bool)
+  }
+
+  const setDataTransaction = (option) =>{
+    setTransaction(option)
+  }
+
+
 
   const handleSubmit = async (investment) => {
     try {
@@ -121,7 +135,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
             />
             </View>
             
-                {/* amount */}
+                {/* price */}
                 <View style={styles.wrapper} >
                   <TextInput
                       style={styles.textinput}
@@ -206,6 +220,35 @@ const EditInvestmentPage = ({ navigation, route }) => {
                           </Modal>
 
                           </View>
+
+
+
+                     {/* Transaction */}
+                     <View style={styles.wrapper}>
+
+                            <Pressable 
+                              style={styles.pressable}
+                              onPress={()=> changeModalVisibilityTransaction(true)}
+                              >
+                              <Text style={styles.catText}>{transaction}</Text>
+
+                            </Pressable>
+                            <Modal
+                              transparent={true}
+                              animationType='fade'
+                              visible={isModalVisibleTransaction}
+                              onRequestClose={()=> changeModalVisibilityTransaction(false)}
+
+                            >
+                              <ModalTransactionPicker 
+                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                                setDataTransaction={setDataTransaction}
+                              />
+                              
+                            </Modal>
+
+                            </View>
+
 
 
 
