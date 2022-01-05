@@ -1,101 +1,47 @@
-import React, { useState, useContext } from 'react';
-import DataContext from '../../context/DataContext';
-import {
-  View,
-  Text,
-  Modal,
-  TouchableOpacity,
-  Alert,
-  StyleSheet,
-} from 'react-native';
-import moment from 'moment';
+import React, { useState, useContext } from "react";
+import DataContext from "../../context/DataContext";
+import { View, NativeBaseProvider, Button, Modal } from "native-base";
+import moment from "moment";
 import MonthPicker from "react-native-month-picker";
+import { AntDesign } from "@expo/vector-icons";
 
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-  },
-  input: {
-    flex:1,
-    backgroundColor: 'white',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    letterSpacing:15,
-    // borderWidth: 0.2,
-    borderRadius: 10,
-    width: '90%',
-    marginVertical: 6,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-  },
-  inputText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color:'#536162',
-  },
-  contentContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  content: {
-    backgroundColor: '#fff',
-    marginHorizontal: 20,
-    marginVertical: 70,
-    
-  },
-  confirmButton: {
-    borderWidth: 0.5,
-    padding: 15,
-    margin: 10,
-    borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+export default function MonthPickerModal() {
+  const { monthContext } = useContext(DataContext);
+  const [selectedMonth, setSelectedMonth] = monthContext;
+  const [isOpen, toggleOpen] = useState(false);
 
-export default function MonthPickerModal({ placeholder }) {
-  const {monthContext} = useContext(DataContext);
-  const [selectedMonth,setSelectedMonth] = monthContext
-  const [isOpen, toggleOpen] = useState(false)
-  console.log('selectedmonth:',selectedMonth)
+  const changeHandler = (date) => {
+    setSelectedMonth(date);
+    toggleOpen(false);
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => toggleOpen(true)} style={styles.input}>
-        <Text style={styles.inputText}>
-          {moment(selectedMonth).format('MMM YYYY')}
-        </Text>
-      </TouchableOpacity>
-
-      <Modal
-        style={styles.modal}
-        transparent
-        animationType="fade"
-        visible={isOpen}>
-        <View style={styles.contentContainer}>
-          <View style={styles.content}>
+    <View>
+      <Button onPress={() => toggleOpen(true)}>
+        {moment(selectedMonth).format("MMM YYYY")}
+      </Button>
+      <Modal isOpen={isOpen} onClose={() => toggleOpen(false)}>
+        <Modal.Content width="70%" bgColor="#fff">
+          <Modal.Body>
             <MonthPicker
               selectedDate={selectedMonth || new Date()}
-              onMonthChange={setSelectedMonth}
-              selectedBackgroundColor='#B4AEE8'
-              prevText='Prev'
-              nextText='Next'
-              currentMonthTextStyle= {{color: '#B4AEE8', fontWeight:'bold' }}
-              swipable = {true} 
+              onMonthChange={changeHandler}
+              selectedBackgroundColor="#fff"
+              nextIcon={<AntDesign name="right" size={20} color="black" />}
+              prevIcon={<AntDesign name="left" size={20} color="black" />}
+              selectedBackgroundColor="grey"
+              selectedMonthTextStyle={{ color: "#fff", fontWeight: "bold" }}
+              swipable={true}
             />
-            <TouchableOpacity
-              style={styles.confirmButton}
-              onPress={() => toggleOpen(false)}>
-              <Text>Confirm</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+            <Button
+              variant="outline"
+              colorScheme="light"
+              onPress={() => toggleOpen(false)}
+            >
+              Cancel
+            </Button>
+          </Modal.Body>
+        </Modal.Content>
       </Modal>
     </View>
   );

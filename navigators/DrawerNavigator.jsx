@@ -9,10 +9,7 @@ import Home from "../components/Screens/home";
 import About from "../components/Screens/about";
 import investmentGeneralPage from "../components/Screens/investmentGeneralPage";
 
-import expenseGeneralPage from "../components/Screens/expenseGeneralPage";
-import EntryExpensePage from "../components/Screens/Expense/entryExpensePage";
-import ShowExpensePage from "../components/Screens/Expense/showExpensePage";
-import EditExpensePage from "../components/Screens/Expense/editExpensePage";
+import expenseGeneralPage from "../components/Screens/Expense/expenseGeneralPage";
 
 import EntryCashPage from "../components/Screens/Cash/entryCashPage";
 import IndexCashPage from "../components/Screens/Cash/indexCashPage";

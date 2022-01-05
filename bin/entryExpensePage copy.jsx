@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useContext} from "react"
-import DataContext from '../../../context/DataContext';
+import DataContext from '../context/DataContext';
 import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, Button, Alert } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
 
