@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
 
   return (
     <View style={styles.container}>
-      <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
+      {/* <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}> */}
         <TickerDataCard/>
-        <ExpenseLineChartComponent/>
-      </Carousel>
+        {/* <ExpenseLineChartComponent/> */}
+      {/* </Carousel> */}
       <View style={styles.accordion}>
       <AccordionList selectedTickerAndPrice={selectedTickerAndPrice}/>
       </View>

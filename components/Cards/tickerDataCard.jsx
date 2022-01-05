@@ -58,14 +58,28 @@ export default function tickerDataCard() {
 
     // have to useEffect to rerender tickerData as it will only update the next render
 
-    useEffect(()=>{
-    renderTickerData()
-    },[tickerData])
+    // useEffect(()=>{
+    // renderTickerData()
+    // },[tickerData])
 
-    const renderTickerData = () => {
-            return(
-                <>
-                <Text>{tickerData.ticker}</Text>
+    // const renderTickerData = () => {
+    //         return(
+    //             <>
+    //             <Text>{tickerData.ticker}</Text>
+    //             <View>
+    //                 <Text>Current Price: ${tickerData.currentPrice}</Text>
+    //                 <Text>Cost Basis: ${tickerData.costBasis}</Text>
+    //                 <Text>Quantity: {tickerData.currentStockQty} units</Text>
+    //                 <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
+    //                 <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
+    //             </View>
+    //             </>
+    //         )
+    // }
+
+    return (
+        <View style={styles.wrapper}>
+            <Text>{tickerData.ticker}</Text>
                 <View>
                     <Text>Current Price: ${tickerData.currentPrice}</Text>
                     <Text>Cost Basis: ${tickerData.costBasis}</Text>
@@ -73,14 +87,8 @@ export default function tickerDataCard() {
                     <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
                     <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
                 </View>
-                </>
-            )
-    }
-
-    return (
-        <View style={styles.wrapper}>
-        {renderTickerData()}
-        {console.log('tickerdata in datacard:',tickerData)}
+        {/* {renderTickerData()}
+        {console.log('tickerdata in datacard:',tickerData)} */}
         </View>
     )
   }
