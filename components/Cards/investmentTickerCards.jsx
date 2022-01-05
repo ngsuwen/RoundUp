@@ -45,7 +45,7 @@ const [user, setUser] = userContext
     const fetchStockPrice = async (entriesByTicker) => { 
 
     const tickerList = Object.keys(entriesByTicker).sort()
-    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty
+    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
 
     const tickerAndPriceArr = [] 
 

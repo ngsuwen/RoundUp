@@ -138,13 +138,14 @@ let unrealizedPL = (currentStockQty*props.selectedTickerAndPrice.value)-totalAmo
 
    
   // do this last when you have all info
+  // similar to the investmenttickercards, if you save as state, it will only rerender the 2nd cycle, so on first render at tickerDataCard it will be empty unless forcedtorerender again. 
   setTickerData(
     {
      'ticker':props.selectedTickerAndPrice.ticker,
      'currentPrice':props.selectedTickerAndPrice.value,
-     'costBasis:':costBasis,
-     'currentStockQty:':currentStockQty,
-     'totalAmountPaid:':totalAmountPaid,
+     'costBasis':costBasis,
+     'currentStockQty':currentStockQty,
+     'totalAmountPaid':totalAmountPaid,
      'unrealizedPL':unrealizedPL,
     })
 
