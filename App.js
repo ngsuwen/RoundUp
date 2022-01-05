@@ -44,6 +44,7 @@ function App() {
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
   const [tickerAndPrice,setTickerAndPrice] = useState([])
   const [tickerData,setTickerData] = useState([])
+  const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = useState([])
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
   const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
@@ -181,6 +182,7 @@ function App() {
           tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
           investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
           investmentTickerContext:[tickerData,setTickerData],
+          investmentContextRawData:[fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData],
         }}
       >
         <StackNavigator />

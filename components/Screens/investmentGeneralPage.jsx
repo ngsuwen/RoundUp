@@ -10,7 +10,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Scroll
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
 import ExpenseLineChartComponent from '../Charts/expenseLineChart'
-import PieChartComponent from '../Charts/expensePieChart'
+import PieChartComponent from '../Charts/investmentPieChart'
 import InvestmentTickerCards from '../Cards/investmentTickerCards'
 
 export default function GeneralBreakdownPage() {
