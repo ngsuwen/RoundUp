@@ -13,7 +13,7 @@ import PieChartComponent from "../../Charts/expensePieChart";
 import AccordionList from "../../Accordion/expenseAccordion";
 import MonthSelector from "../../Picker/monthPicker";
 
-export default function GeneralBreakdownPage() {
+export default function GeneralBreakdownPage({navigation}) {
   const screenHeight = Dimensions.get("screen").height;
   const carouselHeight = screenHeight * 0.34;
 
@@ -57,7 +57,7 @@ export default function GeneralBreakdownPage() {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector />
+          <MonthSelector navigation={navigation}/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList />

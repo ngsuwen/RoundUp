@@ -241,7 +241,7 @@ const EntryExpensePage = ({ navigation }) => {
             onPress={handleSubmit}
             mt="5"
           >
-            <Text>Submit</Text>
+            <Text>Add Expense</Text>
           </Button>
         </Center>
       </KeyboardAvoidingView>
