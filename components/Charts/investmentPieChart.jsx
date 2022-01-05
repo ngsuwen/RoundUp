@@ -9,9 +9,9 @@ const _ = require('underscore')
 
 export default function PieChartComponent() {
 
-const {expenseMonthContext,monthContext} = useContext(DataContext)
-const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
-const [expenseMonth,setExpenseMonth] = monthContext
+const { investmentContextRawData,tickerAndPriceContext } = useContext(DataContext)
+const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = investmentContextRawData
+const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
 const [allLabels,setAllLabels] = useState([])
 const [dataPoints,setDataPoints] = useState([0])
 const [chartData,setChartData] = useState([])
@@ -19,7 +19,7 @@ const [chartData,setChartData] = useState([])
 
 useEffect(()=>{
 reloadExpenses()
-},[fetchedExpenseEntries])
+},[tickerAndPrice])
 
 useEffect(()=>{
 setChartDataFunction()
@@ -28,25 +28,22 @@ setChartDataFunction()
 
 const reloadExpenses = () => {
   // grouping logic
-  const entriesByCategory = _(fetchedExpenseEntries).groupBy((element)=>{
-    return element.expensesentry.category
-  })
+  const entriesByCategory = _(tickerAndPrice).groupBy('category')
+  // console.log('piechartentriesbycategory:',entriesByCategory)
 
-  // console.log('entriesbycategory:',entriesByCategory)
   const allCategories = Object.keys(entriesByCategory) // -> this is labels
   setAllLabels(allCategories)
 
   const totalAmountArr = allCategories.map((category)=>{
-  // method for calculating total amount for each day
+  // method for calculating total value (qty*currentprice) for each category
   let totalAmount = 0
   entriesByCategory[category].forEach((entry)=>{
-  totalAmount += entry.expensesentry.amount
+  totalAmount += entry.quantity*entry.value
   })
   return totalAmount
   })
 
-  // console.log('totalamountarr:',totalAmountArr)
-  // console.log('monthContext',monthContext)
+  // console.log('piecharttotalamountarr:',totalAmountArr)
 
 
   // this condition is required because if array is empty, react-chart-kit will return invalid number error
@@ -57,12 +54,12 @@ const reloadExpenses = () => {
     setAllLabels(['Loading...'])
   }
   }
-  
+
   const setChartDataFunction = () =>{
   let chartDataArr = []
 
   for(let i=0;i<allLabels.length;i++){
-    let colorArr = ['#ada7ff','#8e94f2','#8187dc','#cbb2fe','#e0c3fc','#8187DA'] // hard code by number of categories so each category has unique colors 
+    let colorArr = ['#ada7ff','#8187DA'] // hard code by number of categories so each category has unique colors 
     chartDataArr.push(    
     {
       name: allLabels[i], 
@@ -74,9 +71,12 @@ const reloadExpenses = () => {
   }
 
   setChartData(chartDataArr)
+  }
+
+  
   // console.log('chartdata:',chartData)
   // console.log('monthContext',monthContext)
-}
+
 
 
 
@@ -106,6 +106,7 @@ const reloadExpenses = () => {
   )
 
 }
+
 
 
   

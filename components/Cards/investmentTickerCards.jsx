@@ -14,8 +14,9 @@ export default function investmentTickerCard() {
 
 const navigation = useNavigation()
 
-const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext } = useContext(DataContext)
+const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
+const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = investmentContextRawData
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
 const [user, setUser] = userContext
 
@@ -31,12 +32,13 @@ const [user, setUser] = userContext
         const userid = user
         const fetchData = await fetch(`https://roundup-api.herokuapp.com/data/investment/user/${userid}`)
         const parsedData = await fetchData.json()
+        setFetchedInvestmentEntriesRawData(parsedData)
         // grouping fetched data by ticker symbol 
         const entriesByTicker = _(parsedData).groupBy((element)=>{
             const groupedTicker = element.investmentsentry.ticker
             return groupedTicker
         })
-        // console.log('entriesByTicker:',entriesByTicker)
+        console.log('entriesByTicker:',entriesByTicker)
         setFetchedInvestmentEntries(entriesByTicker) // ran but state will only update the next render... so fetchStockPrice() should not depend on state but rather a separate array that cna be passed into the function so you dont have to wait for the next render
         fetchStockPrice(entriesByTicker)
        }
@@ -56,6 +58,12 @@ const [user, setUser] = userContext
                 const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
                 const parsedStockPriceObj = await stockprice.json()
                 parsedStockPriceObj['ticker']=ticker
+                let totalStockQty = 0 
+                const totalStockQtyCalculator = parsedStockPriceObj['quantity']=entriesByTicker[ticker].forEach((transaction,index)=>{
+                    totalStockQty+=transaction.investmentsentry.quantity
+                })
+                parsedStockPriceObj['quantity']=totalStockQty
+                parsedStockPriceObj['category']='US stocks'
                 return parsedStockPriceObj
             }
             
@@ -64,6 +72,13 @@ const [user, setUser] = userContext
                 const parsedCryptoPriceObj = await cryptoprice.json()
                 // uppercase as crypto ticker is lowercase due to api requirements
                 parsedCryptoPriceObj['ticker']=ticker.toUpperCase()
+
+                let totalCryptoQty = 0 
+                const totalCryptoQtyCalculator = parsedCryptoPriceObj['quantity']=entriesByTicker[ticker].forEach((transaction,index)=>{
+                    totalCryptoQty+=transaction.investmentsentry.quantity
+                })
+                parsedCryptoPriceObj['quantity']=totalCryptoQty
+                parsedCryptoPriceObj['category']='Crypto'
                 return parsedCryptoPriceObj
             }
         }
