@@ -1,6 +1,6 @@
 import * as React from "react";
 import DataContext from "../../../context/DataContext";
-import DatePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-neat-date-picker";
 import {
   NativeBaseProvider,
   Center,
@@ -14,7 +14,6 @@ import {
   KeyboardAvoidingView,
 } from "native-base";
 import { ModalPicker } from "./modalExpensePicker";
-import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 
 const EditExpensePage = ({ navigation, route }) => {
@@ -85,10 +84,13 @@ const EditExpensePage = ({ navigation, route }) => {
   };
 
   // Date Picker
-  const onChangeDate = (event, selectedDate) => {
+  const onCancel = () => {
     setShow(false);
-    const currentDate = selectedDate || new Date(date);
-    setDate(currentDate);
+  };
+
+  const onConfirm = (date) => {
+    setShow(false);
+    setDate(date);
   };
 
   // to show and hide date picker
@@ -109,11 +111,7 @@ const EditExpensePage = ({ navigation, route }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="#fff">
-          <Container
-            width="90%"
-            p="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Date
             </Text>
@@ -129,19 +127,14 @@ const EditExpensePage = ({ navigation, route }) => {
                 {formattedDate}
               </Text>
             </Pressable>
-            {show && (
-              <DatePicker
-                style={{ width: "100%" }}
-                value={new Date(date)}
-                onChange={onChangeDate}
-              />
-            )}
+            <DatePicker
+              isVisible={show}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
           </Container>
-          <Container
-            width="90%"
-            px="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Amount
             </Text>
@@ -154,11 +147,7 @@ const EditExpensePage = ({ navigation, route }) => {
               onChangeText={(text) => setAmount(text)}
             />
           </Container>
-          <Container
-            width="90%"
-            p="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Category
             </Text>
@@ -199,11 +188,7 @@ const EditExpensePage = ({ navigation, route }) => {
               </Modal.Content>
             </Modal>
           </Container>
-          <Container
-            width="90%"
-            px="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Description
             </Text>
@@ -228,7 +213,7 @@ const EditExpensePage = ({ navigation, route }) => {
               <Text>Cancel</Text>
             </Button>
             <Button
-              colorScheme="primary" 
+              colorScheme="primary"
               onPress={() => {
                 handleSubmit(entry);
               }}

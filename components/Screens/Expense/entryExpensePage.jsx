@@ -13,7 +13,7 @@ import {
   View,
   KeyboardAvoidingView,
 } from "native-base";
-import DatePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-neat-date-picker";
 import { ModalPicker } from "./modalExpensePicker";
 import { Entypo } from "@expo/vector-icons";
 import moment from "moment";
@@ -61,10 +61,13 @@ const EntryExpensePage = ({ navigation }) => {
   }, [expenseForceRender]);
 
   // Date Picker
-  const onChangeDate = (event, selectedDate) => {
+  const onCancel = () => {
     setShow(false);
-    const currentDate = selectedDate || new Date(date);
-    setDate(currentDate);
+  };
+
+  const onConfirm = (date) => {
+    setShow(false);
+    setDate(date);
   };
 
   // to show and hide date picker
@@ -138,12 +141,7 @@ const EntryExpensePage = ({ navigation }) => {
               <Entypo name="cross" size={24} color="black" />
             </Pressable>
           </View>
-          <Container
-            width="90%"
-            pt="0"
-            p="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" pt="0" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Date
             </Text>
@@ -159,19 +157,14 @@ const EntryExpensePage = ({ navigation }) => {
                 {formattedDate}
               </Text>
             </Pressable>
-            {show && (
-              <DatePicker
-                style={{ width: "100%" }}
-                value={new Date(date)}
-                onChange={onChangeDate}
-              />
-            )}
+            <DatePicker
+              isVisible={show}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
           </Container>
-          <Container
-            width="90%"
-            px="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Amount
             </Text>
@@ -185,11 +178,7 @@ const EntryExpensePage = ({ navigation }) => {
               onChangeText={(text) => setAmount(text)}
             />
           </Container>
-          <Container
-            width="90%"
-            p="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Category
             </Text>
@@ -230,11 +219,7 @@ const EntryExpensePage = ({ navigation }) => {
               </Modal.Content>
             </Modal>
           </Container>
-          <Container
-            width="90%"
-            px="4"
-            bgColor="#fff"
-          >
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Description
             </Text>
