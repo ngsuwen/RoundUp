@@ -3,9 +3,9 @@ import DataContext from "../../context/DataContext";
 import { View, Center, Button, Modal } from "native-base";
 import moment from "moment";
 import MonthPicker from "react-native-month-picker";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
-export default function MonthPickerModal({navigation}) {
+export default function MonthPickerModal({ navigation, total }) {
   const { monthContext } = useContext(DataContext);
   const [selectedMonth, setSelectedMonth] = monthContext;
   const [isOpen, toggleOpen] = useState(false);
@@ -18,14 +18,23 @@ export default function MonthPickerModal({navigation}) {
   return (
     <View>
       <Center>
-      <Button.Group>
-        <Button variant="outline" colorScheme="light" onPress={() => toggleOpen(true)}>
-          {moment(selectedMonth).format("MMM YYYY")}
-        </Button>
-        <Button variant="outline" colorScheme="light" onPress={() => navigation.navigate("Entry Expense Page")}>
-          Add Expense
-        </Button>
-      </Button.Group>
+        <Button.Group>
+          <Button
+            variant="outline"
+            colorScheme="light"
+            onPress={() => toggleOpen(true)}
+          >
+            {moment(selectedMonth).format("MMM YYYY")}
+          </Button>
+          <Button
+            variant="outline"
+            colorScheme="light"
+            onPress={() => navigation.navigate("Entry Expense Page")}
+          >
+            Add Expense
+          </Button>
+          <Button variant="unstyled">{'Total: $'+total}</Button>
+        </Button.Group>
       </Center>
       <Modal isOpen={isOpen} onClose={() => toggleOpen(false)}>
         <Modal.Content width="70%" bgColor="#fff">

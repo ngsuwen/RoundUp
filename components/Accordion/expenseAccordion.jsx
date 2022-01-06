@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function AccordionComponent() {
+function AccordionComponent({setTotal}) {
   const {
     monthContext,
     expenseMonthContext,
@@ -100,6 +100,14 @@ function AccordionComponent() {
   const allDates = allDatesAscending.reverse();
   // console.log('alldates:',allDates)
 
+  let monthlyAmount = 0;
+  for (let dataEntry in entriesByDay) {
+    entriesByDay[dataEntry].forEach((entry) => {
+      monthlyAmount += entry.expensesentry.amount;
+    });
+    setTotal(monthlyAmount);
+  }
+  
   const checkDivider = (index) => {
     if (index % 2 == 0) {
       return "white";
@@ -126,7 +134,6 @@ function AccordionComponent() {
         {entriesByDay[date].map((entry, index) => {
           return (
             <Pressable
-              style={styles.pressable}
               onPress={() =>
                 navigation.navigate("Show Expense Page", { entry })
               }
@@ -151,12 +158,13 @@ function AccordionComponent() {
   );
 }
 
-export default function AccordionList() {
+export default function AccordionList({ setTotal }) {
+
   return (
     <NativeBaseProvider>
       <Center flex={1}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <AccordionComponent />
+          <AccordionComponent setTotal={setTotal} />
         </ScrollView>
       </Center>
     </NativeBaseProvider>

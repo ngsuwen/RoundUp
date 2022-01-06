@@ -4,7 +4,7 @@
 // link to edit/delete page for every entry
 // show total expense/savings/investments for that month above graph
 
-import React from "react";
+import * as React from "react";
 import { NativeBaseProvider, View, Box, Button } from "native-base";
 import { Dimensions } from "react-native";
 import Carousel from "pinar";
@@ -14,6 +14,9 @@ import AccordionList from "../../Accordion/expenseAccordion";
 import MonthSelector from "../../Picker/monthPicker";
 
 export default function GeneralBreakdownPage({navigation}) {
+  // useState for total amount of the month
+  const [total, setTotal]=React.useState(0)
+
   const screenHeight = Dimensions.get("screen").height;
   const carouselHeight = screenHeight * 0.34;
 
@@ -57,10 +60,10 @@ export default function GeneralBreakdownPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation}/>
+          <MonthSelector navigation={navigation} total={total}/>
         </Box>
         <Box height="50%" px={6}>
-          <AccordionList />
+          <AccordionList setTotal={setTotal}/>
         </Box>
       </Box>
     </NativeBaseProvider>
