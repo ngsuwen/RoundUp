@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
 import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, ScrollView } from 'react-native';
@@ -76,11 +76,20 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-    //autocomplete
-    // For Filtered Data
-    const [filteredTicker, setFilteredTicker] = useState([]);
-    // For Selected Data
-    const [selectedValue, setSelectedValue] = useState({});
+  //autocomplete
+
+  const animals = [
+    { id: 1, name: 'Aardvark' },
+    { id: 2, name: 'Kangaroo' },
+    { id: 3, name: 'Snake' },
+    { id: 4, name: 'Pikachu' },
+    { id: 5, name: 'Tiger' },
+    { id: 6, name: 'Godzilla' },
+  ];
+  
+  const [filterText, setFilterText] = useState('');
+
+
 
   // fetch crypto for ticker
   useEffect(()=>{
@@ -92,25 +101,16 @@ const EntryInvestmentPage = ({navigation}) => {
     }
     loadCoin()
     }, [])
+    
+    const filteredItems = useMemo(() => {
+      return animals.filter(
+        (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1
+      );
+    }, [filterText]);
 
-
-    const findTicker = (query) => {
-      // Method called every time when we change the value of the input
-      if (query) {
-        // Making a case insensitive regular expression
-        const regex = new RegExp(`${query.trim()}`, 'i');
-        // Setting the filtered film array according the query
-        setFilteredTicker(
-            tickerInvestment.filter((ticker) => ticker.id.search(regex) >= 0)
-        );
-      } else {
-        // If the query is null then return blank
-        setFilteredTicker([]);
-      }
-    };
-
-
-
+ 
+   
+  
    
    // clear states onload at entryinvestment page
   useEffect(()=>{
@@ -230,6 +230,33 @@ const EntryInvestmentPage = ({navigation}) => {
                               onPress={()=>setQtyInvestment([])}
                               />
                     </View>
+
+
+                     {/* Transaction */}
+                     <View style={styles.wrapper}>
+
+                            <Pressable 
+                              style={styles.pressable}
+                              onPress={()=> changeModalVisibilityTransaction(true)}
+                              >
+                              <Text style={styles.catText}>{transaction}</Text>
+
+                            </Pressable>
+                            <Modal
+                              transparent={true}
+                              animationType='fade'
+                              visible={isModalVisibleTransaction}
+                              onRequestClose={()=> changeModalVisibilityTransaction(false)}
+
+                            >
+                              <ModalTransactionPicker 
+                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                                setDataTransaction={setDataTransaction}
+                              />
+                              
+                            </Modal>
+
+                            </View>
         
               
 
@@ -290,91 +317,24 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         {/* Autocomplete ticker */}
 
-                      
-
-                        <View style={styles.container2}>
-                                  <Autocomplete
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    containerStyle={styles.autocompleteContainer}
-                                    // Data to show in suggestion
-                                    data={filteredTicker}
-                                    // Default value if you want to set something in input
-                                    defaultValue={
-                                      JSON.stringify(selectedValue) === '{}' ?
-                                      '' :
-                                      selectedValue.id
-                                    }
-                                    // Onchange of the text changing the state of the query
-                                    // Which will trigger the findFilm method
-                                    // To show the suggestions
-                                    onChangeText={(text) => findTicker(text)}
-                                    placeholder="Enter ticker"
-                                    renderItem={({item}) => (
-                                      // For the suggestion view
-                                      <TouchableOpacity
-                                        onPress={() => {
-                                          setSelectedValue(item);
-                                          setFilteredTicker([]);
-                                        }}>
-                                        <Text style={styles.itemText}>
-                                            {item.id}
-                                        </Text>
-                                      </TouchableOpacity>
-                                    )}
-                                  />
-                                  <View style={styles.descriptionContainer}>
-                                    {tickerInvestment.length > 0 ? (
-                                      <>
-                                        <Text style={styles.infoText}>
-                                            Selected Data
-                                        </Text>
-                                        <Text style={styles.infoText}>
-                                          {JSON.stringify(selectedValue)}
-                                        </Text>
-                                      </>
-                                    ) : (
-                                      <Text style={styles.infoText}>
-                                          Enter The Ticker
-                                      </Text>
-                                    )}
-                                  </View>
-                                </View>
-                 
-              
-                         
-
-
-                          {/* Transaction */}
-                    <View style={styles.wrapper}>
-
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTransaction(true)}
-                            >
-                            <Text style={styles.catText}>{transaction}</Text>
-
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTransaction}
-                            onRequestClose={()=> changeModalVisibilityTransaction(false)}
-
-                          >
-                            <ModalTransactionPicker 
-                              changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                              setDataTransaction={setDataTransaction}
-                            />
-                            
-                          </Modal>
-
-                          </View>
-
-
-                         
-
-         
+                        <Box>
+                          <Typeahead
+                            options={filteredItems}
+                            onChange={setFilterText}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
+                            getOptionKey={(item) => item.id}
+                            getOptionLabel={(item) => item.name}
+                            label="Select Ticker..."
+                            toggleIcon={({ isOpen }: any) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
+                                                
                
                 
                 <View style={styles.button}>
@@ -482,29 +442,33 @@ const styles = StyleSheet.create({
 
 
 
-      container2: {
-        backgroundColor: '#F5FCFF',
+
+      MainContainer: {
+        backgroundColor: '#FAFAFA',
         flex: 1,
-        padding: 16,
-        marginTop: 40,
+        padding: 12,
       },
-      autocompleteContainer: {
-        backgroundColor: '#ffffff',
-        borderWidth: 0,
+      AutocompleteStyle: {
+        flex: 1,
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        zIndex: 1,
+       borderWidth:1
       },
-      descriptionContainer: {
+      SearchBoxTextItem: {
+        margin: 5,
+        fontSize: 16,
+        paddingTop: 4,
+      },
+      selectedTextContainer: {
         flex: 1,
         justifyContent: 'center',
       },
-      itemText: {
-        fontSize: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
-        margin: 2,
-      },
-      infoText: {
+      selectedTextStyle: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 18,
       },
      
  
