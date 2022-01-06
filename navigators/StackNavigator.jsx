@@ -36,29 +36,13 @@ export default function StackNavigator() {
       <Stack.Screen name="Sign Up" component={Signup} />
       <Stack.Screen name="Drawer" component={DrawerComponent} />
 
-      <Stack.Screen name="Entry Expense Page" component={EntryExpensePage} />
-      <Stack.Screen
-        name="Show Expense Page"
-        component={ShowExpensePage}
-        options={{ drawerItemStyle: { height: 0 } }}
-      />
-      <Stack.Screen
-        name="Edit Expense Page"
-        component={EditExpensePage}
-        options={{ drawerItemStyle: { height: 0 } }}
-      />
+      <Stack.Screen name="Add Money Out" component={EntryExpensePage} />
+      <Stack.Screen name="Show Expense Page" component={ShowExpensePage} />
+      <Stack.Screen name="Edit Expense Page" component={EditExpensePage} />
 
-      <Stack.Screen name="Entry Cash Page" component={EntryCashPage} />
-      <Stack.Screen
-        name="Show Cash Page"
-        component={ShowCashPage}
-        options={{ drawerItemStyle: { height: 0 } }}
-      />
-      <Stack.Screen
-        name="Edit Cash Page"
-        component={EditCashPage}
-        options={{ drawerItemStyle: { height: 0 } }}
-      />
+      <Stack.Screen name="Add Money In" component={EntryCashPage} />
+      <Stack.Screen name="Show Cash Page" component={ShowCashPage} />
+      <Stack.Screen name="Edit Cash Page" component={EditCashPage} />
     </Stack.Navigator>
   );
 }

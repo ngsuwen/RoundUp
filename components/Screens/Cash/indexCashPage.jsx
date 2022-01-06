@@ -54,7 +54,7 @@ export default function IndexCashPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total} dir="Cash"/>
+          <MonthSelector navigation={navigation} total={total} dir="Add Money In"/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList setTotal={setTotal}/>
