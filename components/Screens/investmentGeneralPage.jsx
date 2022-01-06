@@ -9,7 +9,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native'
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
-import ExpenseLineChartComponent from '../Charts/expenseLineChart'
+import InvestmentLineChartComponent from '../Charts/investmentLineChart'
 import PieChartComponent from '../Charts/investmentPieChart'
 import InvestmentTickerCards from '../Cards/investmentTickerCards'
 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     <View style={styles.container}>
       <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
         <PieChartComponent/>
-        <ExpenseLineChartComponent/>
+        <InvestmentLineChartComponent/>
       </Carousel>
       <View style={styles.cardContainer}>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
