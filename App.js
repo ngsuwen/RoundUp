@@ -46,6 +46,9 @@ function App() {
     moment().format("YYYY-MM")
   );
 
+  // useState for cash fetched entries (month)
+  const [fetchedCashEntries, setFetchedCashEntries] = useState([]);
+
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
@@ -146,6 +149,10 @@ function App() {
           expenseMonthContext: [
             fetchedExpenseEntries,
             setFetchedExpenseEntries,
+          ],
+          cashMonthContext: [
+            fetchedCashEntries,
+            setFetchedCashEntries,
           ],
           expenseForceRenderContext: [
             expenseForceRender,
