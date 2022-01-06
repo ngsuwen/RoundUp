@@ -134,6 +134,7 @@ function AccordionComponent({setTotal}) {
         {entriesByDay[date].map((entry, index) => {
           return (
             <Pressable
+              key={index}
               onPress={() =>
                 navigation.navigate("Show Expense Page", { entry })
               }
