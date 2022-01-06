@@ -46,7 +46,7 @@ export default function IndexCashPage({navigation}) {
           dotStyle={styles.dotStyle}
           activeDotStyle={styles.activeDotStyle}
         >
-          <View>
+          <View pl={3}>
             <PieChartComponent />
           </View>
           <View>
@@ -54,7 +54,7 @@ export default function IndexCashPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total}/>
+          <MonthSelector navigation={navigation} total={total} dir="Cash"/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList setTotal={setTotal}/>

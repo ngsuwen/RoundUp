@@ -52,7 +52,7 @@ export default function GeneralBreakdownPage({navigation}) {
           dotStyle={styles.dotStyle}
           activeDotStyle={styles.activeDotStyle}
         >
-          <View>
+          <View pl={2.5}>
             <PieChartComponent />
           </View>
           <View>
@@ -60,7 +60,7 @@ export default function GeneralBreakdownPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total}/>
+          <MonthSelector navigation={navigation} total={total} dir="Expense"/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList setTotal={setTotal}/>

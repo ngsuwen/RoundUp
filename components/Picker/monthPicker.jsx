@@ -5,7 +5,7 @@ import moment from "moment";
 import MonthPicker from "react-native-month-picker";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function MonthPickerModal({ navigation, total }) {
+export default function MonthPickerModal({ navigation, total, dir }) {
   const { monthContext } = useContext(DataContext);
   const [selectedMonth, setSelectedMonth] = monthContext;
   const [isOpen, toggleOpen] = useState(false);
@@ -29,9 +29,9 @@ export default function MonthPickerModal({ navigation, total }) {
           <Button
             variant="outline"
             colorScheme="light"
-            onPress={() => navigation.navigate("Entry Expense Page")}
+            onPress={() => navigation.navigate(`Entry ${dir} Page`)}
           >
-            Add Expense
+            {'Add '+dir}
           </Button>
           <Button variant="unstyled">{'Total: $'+total}</Button>
         </Button.Group>
