@@ -8,7 +8,7 @@ import * as React from "react";
 import { NativeBaseProvider, View, Box, Button } from "native-base";
 import { Dimensions } from "react-native";
 import Carousel from "pinar";
-import ExpenseLineChartComponent from "../../Charts/expenseLineChart";
+import ExpenseLineChartComponent from "../../Charts/expenseLineChartDaily";
 import PieChartComponent from "../../Charts/expensePieChart";
 import AccordionList from "../../Accordion/expenseAccordion";
 import MonthSelector from "../../Picker/monthPicker";

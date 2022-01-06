@@ -1,62 +1,67 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
+import * as React from "react";
 import {
-  LineChart,
-} from 'react-native-chart-kit'
-import DataContext from '../../context/DataContext'
-import moment from 'moment'
- 
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  Dimensions,
+  Button,
+  ScrollView,
+} from "react-native";
+import { LineChart } from "react-native-chart-kit";
 
-export default function investmentLineChartComponent() {
+const monthArr = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+  "JAN",
+];
+const dataMonth = [];
+const todayDate = new Date();
+const todayMonth = todayDate.getMonth();
 
-const { investmentContext } = useContext(DataContext)
-const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
-const [allLabels,setAllLabels] = useState([])
-const [dataPoints,setDataPoints] = useState([0])
-
-useEffect(()=>{
-  reloadExpenses()
-},[fetchedInvestmentEntries])
-
-
-const reloadExpenses = () => {
-
-  try{
-  // grouping logic
-  const tickerList = Object.keys(fetchedInvestmentEntries)
-
-  const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-5).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
-
-  setAllLabels(dateDataPoints)
-
-  tickerList.forEach((ticker)=>{
-    const priceHistoryData = fetchedInvestmentEntries[ticker][0]['priceHistory'].slice(-5) // extracts the last 5 data point for the first transaction of every ticker (only the first txn is needed as all transaction has the same priceHistory data written into them)
-    // console.log('priceHistoryData:',priceHistoryData)
-  })
+if (todayMonth != 11) {
+  for (let i = todayMonth + 1; i < 12; i++) {
+    if (i % 2 === 0) {
+      dataMonth.push(monthArr[i]);
+    } else {
+      dataMonth.push("");
+    }
   }
-  catch(err){
-    console.log(err)
+}
+for (let i = 0; i <= todayMonth; i++) {
+  if (i % 2 === 0) {
+    dataMonth.push(monthArr[i]);
+  } else {
+    dataMonth.push("");
   }
- 
-  }
+}
 
+export default function cashLineChartComponent() {
+  const linedata = {
+    labels: dataMonth,
+    datasets: [
+      {
+        data: [20, 25, 21, 30, 50, 70, 100, 20, 25, 21, 30, 50],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 3, // optional
+      },
+    ],
+    legend: [`INVESTMENT, ${monthArr[todayDate.getMonth()+1]} ${todayDate.getFullYear()-1} - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`], // optional
+  };
 
-
-
-    const linedata = {
-        labels: allLabels,
-        datasets: [
-          {
-            data: [20, 25, 21, 30, 50, 70, 100],
-            color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-            strokeWidth: 3 // optional
-          }
-        ],
-        legend: ["Investment"] // optional
-      }
-
-  const screenWidth = Dimensions.get('screen').width
-  const screenHeight = Dimensions.get('screen').height
+  const screenWidth = Dimensions.get("screen").width;
+  const screenHeight = Dimensions.get("screen").height;
 
   const chartConfig = {
     backgroundGradientFrom: "#FFFFFF",
@@ -66,18 +71,18 @@ const reloadExpenses = () => {
     color: (opacity = 1) => `rgba(163, 71, 165, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
-  }
+    useShadowColorFromDataset: false, // optional
+  };
 
   return (
-        <LineChart
-            data={linedata}
-            width={screenWidth}
-            height={screenHeight*0.25}
-            chartConfig={chartConfig}
-            bezier
-        />
-  )}
-
-
- 
+    <>
+      <LineChart
+        data={linedata}
+        width={screenWidth}
+        height={screenHeight * 0.25}
+        chartConfig={chartConfig}
+        bezier
+      />
+    </>
+  );
+}
