@@ -7,7 +7,7 @@ import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 import Autocomplete from "react-native-autocomplete-input"
-
+import SearchableDropdown from 'react-native-searchable-dropdown';
 
 import {
   NativeBaseProvider,
@@ -86,12 +86,14 @@ const EntryInvestmentPage = ({navigation}) => {
     { id: 5, name: 'Tiger' },
     { id: 6, name: 'Godzilla' },
   ];
+
+
   
   const [filterText, setFilterText] = useState('');
+ 
 
 
-
-  // fetch crypto for ticker
+  //fetch crypto for ticker
   useEffect(()=>{
     const loadCoin = async() =>{
         const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
@@ -101,15 +103,13 @@ const EntryInvestmentPage = ({navigation}) => {
     }
     loadCoin()
     }, [])
-    
+
     const filteredItems = useMemo(() => {
       return animals.filter(
         (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1
       );
     }, [filterText]);
 
- 
-   
   
    
    // clear states onload at entryinvestment page
@@ -325,7 +325,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             getOptionKey={(item) => item.id}
                             getOptionLabel={(item) => item.name}
                             label="Select Ticker..."
-                            toggleIcon={({ isOpen }: any) => {
+                            toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
                               ) : (
@@ -334,9 +334,9 @@ const EntryInvestmentPage = ({navigation}) => {
                             }}
                           />
                         </Box>
-                                                
-               
-                
+
+
+
                 <View style={styles.button}>
                     <Button title="Submit" onPress={handleSubmit} />
                     <Button
