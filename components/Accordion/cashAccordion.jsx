@@ -1,6 +1,3 @@
-// category in accordion box?
-// new entry not opened up after creation (bonus)
-
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import DataContext from "../../context/DataContext";
@@ -23,43 +20,43 @@ const _ = require("underscore");
 function AccordionComponent({setTotal}) {
   const {
     monthContext,
-    expenseMonthContext,
+    cashMonthContext,
     userContext,
     expenseForceRenderContext,
   } = useContext(DataContext);
   const [selectedMonth, setSelectedMonth] = monthContext;
-  const [fetchedExpenseEntries, setFetchedExpenseEntries] = expenseMonthContext;
+  const [fetchedCashEntries, setFetchedCashEntries] = cashMonthContext;
   const [user, setUser] = userContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
-  const fetchExpenses = () => {
+  const fetchCash = () => {
     const userid = user;
-    const monthOfExpense = moment(selectedMonth, moment.ISO_8601).format(
+    const monthOfCash = moment(selectedMonth, moment.ISO_8601).format(
       "YYYY-MM"
     );
-    // console.log('monthofexpense:',monthOfExpense)
+    // console.log('monthofcash:',monthOfCash)
     fetch(
-      `https://roundup-api.herokuapp.com/data/expense/user/${userid}/${monthOfExpense}`
+      `https://roundup-api.herokuapp.com/data/cash/user/${userid}/${monthOfCash}`
     )
       .then((data) => data.json())
       .then((parsedData) => {
         // console.log('parseddata:',parsedData)
-        setFetchedExpenseEntries(parsedData);
+        setFetchedCashEntries(parsedData);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    fetchExpenses();
-    //console.log("expense gp loaded");
+    fetchCash();
+    //console.log("cash gp loaded");
   }, [selectedMonth, expenseForceRender]);
 
   const navigation = useNavigation();
 
   // grouping logic
-  // console.log('fetchedexpensesentries:',fetchedExpenseEntries)
-  const entriesByDay = _(fetchedExpenseEntries).groupBy((element) => {
-    const groupedDate = element.expensesentry.date;
+  // console.log('fetchedcashsentries:',fetchedCashEntries)
+  const entriesByDay = _(fetchedCashEntries).groupBy((element) => {
+    const groupedDate = element.cashentry.date;
     const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format(
       "YYYY-MM-DD"
     );
@@ -75,7 +72,7 @@ function AccordionComponent({setTotal}) {
   let monthlyAmount = 0;
   for (let dataEntry in entriesByDay) {
     entriesByDay[dataEntry].forEach((entry) => {
-      monthlyAmount += entry.expensesentry.amount;
+      monthlyAmount += entry.cashentry.amount;
     });
     setTotal(monthlyAmount);
   }
@@ -92,7 +89,7 @@ function AccordionComponent({setTotal}) {
     // method for calculating total amount for each day
     let totalAmount = 0;
     entriesByDay[date].forEach((entry) => {
-      totalAmount += entry.expensesentry.amount;
+      totalAmount += entry.cashentry.amount;
     });
 
     return (
@@ -108,13 +105,13 @@ function AccordionComponent({setTotal}) {
             <Pressable
               key={index}
               onPress={() =>
-                navigation.navigate("Show Expense Page", { entry })
+                navigation.navigate("Show Cash Page", { entry })
               }
             >
               <Accordion.Details key={index} bgColor={checkDivider(index)}>
                 <HStack width="100%" justifyContent="space-between">
-                  <Text>{entry.expensesentry.description}</Text>
-                  <Text>{`$ ${entry.expensesentry.amount}`}</Text>
+                  <Text>{entry.cashentry.description}</Text>
+                  <Text>{`$ ${entry.cashentry.amount}`}</Text>
                 </HStack>
               </Accordion.Details>
             </Pressable>

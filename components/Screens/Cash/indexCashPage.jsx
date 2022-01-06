@@ -1,88 +1,65 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  View,
-  Image,
-  SafeAreaView,
-  Dimensions,
-  Button,
-  ScrollView,
-} from "react-native";
-import { useContext } from "react";
-import DataContext from "../../../context/DataContext";
+import * as React from "react";
+import { NativeBaseProvider, View, Box, Button } from "native-base";
+import { Dimensions } from "react-native";
+import Carousel from "pinar";
+import LineChartComponent from "../../Charts/cashLineChart";
+import PieChartComponent from "../../Charts/cashPieChart";
+import AccordionList from "../../Accordion/cashAccordion";
+import MonthSelector from "../../Picker/monthPicker";
 
-const IndexCashPage = ({ navigation }) => {
-  // useContext
-  const { cashContext  } = useContext(DataContext);
-  const [allCash] = cashContext;
-  
+export default function IndexCashPage({navigation}) {
+  // useState for total amount of the month
+  const [total, setTotal]=React.useState(0)
 
-  
+  const screenHeight = Dimensions.get("screen").height;
+  const carouselHeight = screenHeight * 0.34;
 
-// might cause looping
-  // useEffect(() => {
-  //   reloadExpense();
-  // }, [allExpense]);  
-
-  
-
+  const styles = {
+    dotStyle: {
+      backgroundColor: "#F5E0EE",
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      marginLeft: 3,
+      marginRight: 3,
+      marginTop: 3,
+      marginBottom: 3,
+    },
+    activeDotStyle: {
+      backgroundColor: "#F49BD6",
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      marginLeft: 3,
+      marginRight: 3,
+      marginTop: 3,
+      marginBottom: 3,
+    },
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View>
-            
-          {allCash.map((entry, i) => {
-            return (
-              
-              <TouchableOpacity
-                key={i}
-                onPress={() => navigation.navigate("Show Cash Page", {entry})}
-              >
-              
-                <View style={styles.entry}>
-                  
-                  <Text>Id: {entry._id}</Text>
-                  <Text>Username: {entry.username}</Text>
-                  <Text>Date: {entry.cashentry.date}</Text>
-                  <Text>Amount: $ {entry.cashentry.amount}</Text>
-                  <Text>Category: {entry.cashentry.category}</Text>
-                  <Text>Description: {entry.cashentry.description}</Text>
-                </View>
-              </TouchableOpacity>
-             
-     
-            );
-          })}
-        </View>
-        <Button
-                  title="Back"
-                  onPress={() => navigation.navigate("Home")}
-                />
-      </ScrollView>
-    </SafeAreaView>
+    <NativeBaseProvider>
+      <Box bgColor="#fff" height="100%">
+        <Carousel
+          height={carouselHeight}
+          showsControls={false}
+          dotStyle={styles.dotStyle}
+          activeDotStyle={styles.activeDotStyle}
+        >
+          <View>
+            <PieChartComponent />
+          </View>
+          <View>
+            <LineChartComponent />
+          </View>
+        </Carousel>
+        <Box height="10%" px={6}>
+          <MonthSelector navigation={navigation} total={total}/>
+        </Box>
+        <Box height="50%" px={6}>
+          <AccordionList setTotal={setTotal}/>
+        </Box>
+      </Box>
+    </NativeBaseProvider>
   );
-};
-
-export default IndexCashPage;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  entry:{
-    paddingBottom: 10,
-    paddingTop: 10
-  }
-});
+}
