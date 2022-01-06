@@ -9,9 +9,9 @@ const _ = require('underscore')
 
 export default function PieChartComponent() {
 
-const {expenseMonthContext,monthContext} = useContext(DataContext)
-const [fetchedExpenseEntries,setFetchedExpenseEntries] = expenseMonthContext
-const [expenseMonth,setExpenseMonth] = monthContext
+const {cashMonthContext,monthContext} = useContext(DataContext)
+const [fetchedCashEntries,setFetchedCashEntries] = cashMonthContext
+const [cashMonth,setCashMonth] = monthContext
 const [allLabels,setAllLabels] = useState([])
 const [dataPoints,setDataPoints] = useState([0])
 const [chartData,setChartData] = useState([])
@@ -19,7 +19,7 @@ const [chartData,setChartData] = useState([])
 
 useEffect(()=>{
 reloadExpenses()
-},[fetchedExpenseEntries])
+},[fetchedCashEntries])
 
 useEffect(()=>{
 setChartDataFunction()
@@ -28,8 +28,8 @@ setChartDataFunction()
 
 const reloadExpenses = () => {
   // grouping logic
-  const entriesByCategory = _(fetchedExpenseEntries).groupBy((element)=>{
-    return element.expensesentry.category
+  const entriesByCategory = _(fetchedCashEntries).groupBy((element)=>{
+    return element.cashentry.category
   })
 
   // console.log('entriesbycategory:',entriesByCategory)
@@ -40,7 +40,7 @@ const reloadExpenses = () => {
   // method for calculating total amount for each day
   let totalAmount = 0
   entriesByCategory[category].forEach((entry)=>{
-  totalAmount += entry.expensesentry.amount
+  totalAmount += entry.cashentry.amount
   })
   return totalAmount
   })

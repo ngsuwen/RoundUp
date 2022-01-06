@@ -1,54 +1,54 @@
 import * as React from "react";
 import DataContext from "../../../context/DataContext";
+import DatePicker from "react-native-neat-date-picker";
 import {
-  StyleSheet,
-  TextInput,
+  NativeBaseProvider,
+  Center,
+  Pressable,
   Text,
   View,
-  SafeAreaView,
   Button,
-  Pressable,
+  Container,
+  Input,
   Modal,
-  Dimensions
-} from "react-native";
-import DatePicker from "@react-native-community/datetimepicker";
-import { NativeBaseProvider, KeyboardAvoidingView } from "native-base";
-import { ModalPicker } from './modalCashPicker';
+  KeyboardAvoidingView,
+} from "native-base";
+import { ModalPicker } from "./modalCashPicker";
+import moment from "moment";
 
 const EditCashPage = ({ navigation, route }) => {
   const { entry } = route.params;
 
   // useContext
-  const { userContext, cashEntryContext, expenseForceRenderContext } = React.useContext(DataContext);
+  const { userContext, cashEntryContext, expenseForceRenderContext } =
+    React.useContext(DataContext);
   const [userId, setUserId] = userContext;
-  
+
   const [
-    dateCash,
-    setDateCash,
-    amountCash,
-    setAmountCash,
-    categoryCash,
-    setCategoryCash,
-    descriptionCash,
-    setDescriptionCash,
+    date,
+    setDate,
+    amount,
+    setAmount,
+    category,
+    setCategory,
+    description,
+    setDescription,
   ] = cashEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
+  // useState
+  const [show, setShow] = React.useState(false);
 
-   // useState
-   const [show, setShow] = React.useState(false);
-   // Modal for category
-   const [isModalVisible, setIsModalVisible] = React.useState(false)
+  // Modal for category
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-   const changeModalVisibility = (bool) =>{
-    setIsModalVisible(bool)
-   }
+  const changeModalVisibility = (bool) => {
+    setIsModalVisible(bool);
+  };
 
-   const setData = (option) =>{
-     setCategoryCash(option)
-   }
-
-
+  const setData = (option) => {
+    setCategory(option);
+  };
 
   const handleSubmit = async (cash) => {
     try {
@@ -60,10 +60,10 @@ const EditCashPage = ({ navigation, route }) => {
           body: JSON.stringify({
             username: userId,
             cashentry: {
-              date: dateCash,
-              amount: amountCash,
-              category: categoryCash,
-              description: descriptionCash,
+              date: date,
+              amount: amount,
+              category: category,
+              description: description,
             },
           }),
           headers: {
@@ -74,7 +74,7 @@ const EditCashPage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data cash failed");
       }
-      
+
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data
       navigation.navigate("Show Cash Page", { entry: data });
@@ -83,13 +83,22 @@ const EditCashPage = ({ navigation, route }) => {
     }
   };
 
-    // Date Picker
-    const onChangeDate = (event, selectedDate) => {
-      const currentDate = selectedDate || new Date(dateCash);
-      setDateCash(currentDate);
+  // Date Picker
+  const onCancel = () => {
+    setShow(false);
+  };
 
-    };
+  const onConfirm = (date) => {
+    setShow(false);
+    setDate(date);
+  };
 
+  // to show and hide date picker
+  const showDatepicker = () => {
+    setShow(true);
+  };
+
+  const formattedDate = moment(date, moment.ISO_8601).format("YYYY-MM-DD");
 
   return (
     <NativeBaseProvider>
@@ -98,170 +107,124 @@ const EditCashPage = ({ navigation, route }) => {
           base: "100%",
           lg: "auto",
         }}
+        keyboardVerticalOffset={10}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
       >
-        <SafeAreaView style={styles.container}>
-          <View style={styles.inner}>
-            
-            <View style={styles.wrapper} >
+        <Center flex={1} bgColor="#fff">
+          <Container width="90%" p="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Date
+            </Text>
+            <Pressable width="100%" onPress={showDatepicker}>
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {formattedDate}
+              </Text>
+            </Pressable>
             <DatePicker
-              style={styles.datepicker}
-              value={new Date(dateCash)}
-              onChange={onChangeDate}
+              isVisible={show}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
             />
-            </View>
-            
-            <View style={styles.wrapper}>
-            <TextInput
-              style={styles.textinput}
-              name="amount"
-              placeholder="Enter Amount"
-              value={amountCash.toString()}
-              onChangeText={(text) => setAmountCash(text)}
+          </Container>
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Amount
+            </Text>
+            <Input
+              width="100%"
+              fontSize="sm"
+              mt="1"
+              color="coolGray.600"
+              value={amount.toString()}
+              onChangeText={(text) => setAmount(text)}
             />
-             <Button
-                  title="Clear"
-                  onPress={()=>setAmountCash([])}
-                        />
-            </View>
-
-           <View style={styles.wrapper}>
-            <Pressable 
-                  style={styles.pressable}
-                  onPress={()=> changeModalVisibility(true)}
-                  >
-                  <Text style={styles.catText}>{categoryCash}</Text>
-
-               </Pressable>
-               <Modal
-                  transparent={true}
-                  animationType='fade'
-                  visible={isModalVisible}
-                  onRequestClose={()=> changeModalVisibility(false)}
-
-               >
-                  <ModalPicker 
+          </Container>
+          <Container width="90%" p="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Category
+            </Text>
+            <Pressable width="100%" onPress={() => changeModalVisibility(true)}>
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {category}
+              </Text>
+            </Pressable>
+            <Modal
+              isOpen={isModalVisible}
+              defaultIsOpen="false"
+              onClose={() => changeModalVisibility(false)}
+              size="lg"
+            >
+              <Modal.Content>
+                <Modal.CloseButton />
+                <Modal.Header
+                  _text={{
+                    fontWeight: "bold",
+                    fontSize: "sm",
+                  }}
+                >
+                  Category
+                </Modal.Header>
+                <Modal.Body>
+                  <ModalPicker
                     changeModalVisibility={changeModalVisibility}
                     setData={setData}
                   />
-                  
-               </Modal>
-              </View>
-
-
-            <View style={styles.wrapper} >
-            <TextInput
-              style={styles.textinput}
-              type="text"
-              name="description"
-              placeholder="Enter Description"
-              value={descriptionCash}
-              onChangeText={(text) => setDescriptionCash(text)}
+                </Modal.Body>
+              </Modal.Content>
+            </Modal>
+          </Container>
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Description
+            </Text>
+            <Input
+              width="100%"
+              fontSize="sm"
+              mt="1"
+              color="coolGray.600"
+              value={description}
+              onChangeText={(text) => setDescription(text)}
             />
+          </Container>
+          <Button.Group size="sm" mt="5">
             <Button
-                title="Clear"
-                onPress={()=>setDescriptionCash("")}
-                        />
-            </View>
-
-            <View style={styles.button}>
-              <Button
-                title="Update"
-                onPress={() => {
-                  handleSubmit(entry);
-                  // this is needed to force showpage to re-render as it will not mount again
-                  //setExpenseForceRender(!expenseForceRender) //not needed
-                }}
-              />
-              <Button
-                title="Back"
-                onPress={() =>
-                  navigation.navigate("Show Cash Page", { entry: entry })
-                }
-              />
-            </View>
-          </View>
-        </SafeAreaView>
+              variant="outline"
+              bgColor="white"
+              colorScheme="light"
+              onPress={() =>
+                navigation.navigate("Show Cash Page", { entry: entry })
+              }
+            >
+              <Text>Cancel</Text>
+            </Button>
+            <Button
+              colorScheme="primary"
+              onPress={() => {
+                handleSubmit(entry);
+              }}
+            >
+              <Text>Update</Text>
+            </Button>
+          </Button.Group>
+        </Center>
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };
 
 export default EditCashPage;
-
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#e3eaa7",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-  datepicker: {
-    paddingVertical: 100,
-    paddingHorizontal: 10,
-    width: "100%",
-    // borderColor: "gray",
-    // borderWidth: 1,
-    right: 100,
-  },
-  textinput: {
-    paddingVertical: 1,
-    paddingHorizontal: 1,
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20
-
-  },
-  picker: {
-    justifyContent: "center",
-    // left: 60,
-  },
-  button: {
-    flexDirection: "row",
-    alignSelf: "center",
-  },
-  inner: {
-    padding: 20,
-    flex: 1,
-    // justifyContent: "flex-end",
-  },
-  catText: {
-    marginVertical: 10,
-    fontSize: 22,
-    textAlign: "center"
-  },
-  pressable:{
-    backgroundColor: "#87bdd8",
-    alignSelf: "stretch",
-    paddingHorizontal: 10,
-    marginHorizontal: 10,
-    borderRadius: 15
-  
-  },
-  wrapper: {
-    fontSize: 20,
-    flex: 0.2,
-    textAlign: "center",
-    flexDirection:'column',
-    width: screenWidth*0.86,
-    backgroundColor: '#d6d4e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    paddingTop: 1,
-    margin: '1%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: .22,
-    elevation: 3,
-    },
-});
