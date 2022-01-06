@@ -10,6 +10,8 @@ import {
   ScrollView,
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import yearlyCash from "../api/yearlyCash";
+import DataContext from "../../context/DataContext";
 
 const monthArr = [
   "JAN",
@@ -28,7 +30,7 @@ const monthArr = [
 ];
 const dataMonth = [];
 const todayDate = new Date();
-const todayMonth = todayDate.getMonth();
+let todayMonth = todayDate.getMonth();
 
 if (todayMonth != 11) {
   for (let i = todayMonth + 1; i < 12; i++) {
@@ -48,16 +50,38 @@ for (let i = 0; i <= todayMonth; i++) {
 }
 
 export default function cashLineChartComponent() {
+  const { userContext } = React.useContext(DataContext);
+  const [user, setUser] = userContext;
+  const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+  async function calculateData() {
+    let month;
+    if (todayMonth + 1 < 10) {
+      todayMonth += 1;
+      month = "0" + todayMonth;
+    }
+    const date = todayDate.getFullYear() + '-' + month
+    const data = await yearlyCash(user, date)
+    return data
+  }
+  
+  React.useEffect(async()=>{
+    setCashYearlyData(await calculateData())
+  },[])
+
   const linedata = {
     labels: dataMonth,
     datasets: [
       {
-        data: [20, 25, 21, 30, 50, 70, 100, 20, 25, 21, 30, 50],
+        data: cashYearlyData,
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 3, // optional
       },
     ],
-    legend: [`MONEY IN, ${monthArr[todayDate.getMonth()+1]} ${todayDate.getFullYear()-1} - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`], // optional
+    legend: [
+      `MONEY IN, ${monthArr[todayDate.getMonth() + 1]} ${
+        todayDate.getFullYear() - 1
+      } - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`,
+    ], // optional
   };
 
   const screenWidth = Dimensions.get("screen").width;
