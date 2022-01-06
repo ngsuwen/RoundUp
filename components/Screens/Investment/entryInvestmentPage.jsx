@@ -76,27 +76,13 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-  //autocomplete
-
-  const animals = [
-    { id: 1, name: 'Aardvark' },
-    { id: 2, name: 'Kangaroo' },
-    { id: 3, name: 'Snake' },
-    { id: 4, name: 'Pikachu' },
-    { id: 5, name: 'Tiger' },
-    { id: 6, name: 'Godzilla' },
-  ];
-
-
-  
-  const [filterText, setFilterText] = useState('');
- 
-
+  //autocomplete  
+  const [filterText, setFilterText] = useState("");
 
   //fetch crypto for ticker
   useEffect(()=>{
     const loadCoin = async() =>{
-        const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
+        const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
         const data = await res.json()
         console.log(data)
         setTickerInvestment(data)
@@ -104,11 +90,20 @@ const EntryInvestmentPage = ({navigation}) => {
     loadCoin()
     }, [])
 
-    const filteredItems = useMemo(() => {
-      return tickerInvestment.filter(
-        (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1
-      );
-    }, [filterText]);
+
+ 
+      const filteredItems = useMemo(() => {
+        return tickerInvestment.filter(
+          (item) => item.symbol.toLowerCase().indexOf(filterText.toLowerCase()) > -1
+        );
+        
+      }, [filterText]);
+
+      
+    
+    
+
+    
 
   
    
@@ -119,7 +114,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setPriceInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      //setTickerInvestment("Select Ticker...")
+      
       setTransaction("Select Buy or Sell...")
     })
      return resetPage
@@ -166,6 +161,7 @@ const EntryInvestmentPage = ({navigation}) => {
         }
         
       setExpenseForceRender(!expenseForceRender)
+     
 
       } catch(err){
         console.log(err)
@@ -189,15 +185,15 @@ const EntryInvestmentPage = ({navigation}) => {
       <SafeAreaView style={styles.container} >
         <View style={styles.inner}>
             
-            {/* date */}
-            {/* <View style={styles.wrapper} >
+            {/* date  */}
+            <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
                   value={new Date(dateInvestment)}
                   onChange={onChangeDate}
                   />
                   
-                  </View> */}
+                  </View>
 
                  {/* price */}
                 <View style={styles.wrapper} >
@@ -323,7 +319,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             onChange={setFilterText}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.id}
-                            getOptionLabel={(item) => item.name}
+                            getOptionLabel={(item) => item.symbol}
                             label="Select Ticker..."
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (

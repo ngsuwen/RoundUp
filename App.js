@@ -133,10 +133,10 @@ function App() {
   };
 
   // useEffect only for index page. If not needed for testing, will comment out
-  // useEffect(()=>{
-  //   //reloadCash()
-  //   reloadInvestment()
-  // }, [allInvestment])
+  useEffect(()=>{
+    //reloadCash()
+    reloadInvestment()
+  }, [allInvestment])
 
   return (
     <NavigationContainer>
