@@ -1,134 +1,117 @@
-import React, { useState, useEffect } from "react";
-import moment from 'moment';
+import React, { useContext } from "react";
+import moment from "moment";
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  View,
-  Image,
-  SafeAreaView,
-  Dimensions,
+  Center,
+  NativeBaseProvider,
   Button,
-  ScrollView,
-  FlatList
-} from "react-native";
-import { useContext } from "react";
+  Text,
+  View,
+  Pressable,
+  Divider,
+} from "native-base";
+import ShowPageCard from "../../Cards/showPageCard";
 import DataContext from "../../../context/DataContext";
+import { Entypo } from "@expo/vector-icons";
 
 const ShowCashPage = ({ navigation, route }) => {
   // useContext
-  const { cashContext, expenseForceRenderContext , cashEntryContext } = useContext(DataContext);
-  const [allCash] = cashContext;
-  const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
-  const [dateCash,setDateCash,amountCash,setAmountCash,categoryCash,setCategoryCash,descriptionCash,setDescriptionCash] = cashEntryContext
+  const { cashContext, expenseForceRenderContext, cashEntryContext } =
+    useContext(DataContext);
+  const [allCash, reloadCash] = cashContext;
+  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
+  const [
+    date,
+    setDate,
+    amount,
+    setAmount,
+    category,
+    setCategory,
+    description,
+    setDescription,
+  ] = cashEntryContext;
 
-  const {entry} = route.params;
+  const { entry } = route.params;
 
   // format date to "YYYY-MM-DD"
-  const actualDate = entry.cashentry.date
-  const formattedDate = moment(actualDate, moment.ISO_8601).format('YYYY-MM-DD')
-  
+  const actualDate = entry.cashentry.date;
+  const formattedDate = moment(actualDate, moment.ISO_8601).format(
+    "YYYY-MM-DD"
+  );
+
   // route DELETE
   const deleteCash = async (id) => {
     const res = await fetch(
-      `https://roundup-api.herokuapp.com/data/cash/${id}`,
+      `https://roundup-api.herokuapp.com/data/Cash/${id}`,
       {
         method: "DELETE",
       }
     );
     if (res.status !== 200) {
-      console.error("failed to delete cash");
+      console.error("failed to delete Cash");
       return;
     }
 
-    //reloadExpense();
-    setExpenseForceRender(!expenseForceRender)
+    //reloadCash();
+    setExpenseForceRender(!expenseForceRender);
     navigation.navigate("Index Cash Page");
   };
 
-  //need this to populate editexpensepage with specified fields
-  const editHandler=()=>{
-    setAmountCash(entry.cashentry.amount)
-    setDescriptionCash(entry.cashentry.description)
-    setDateCash(entry.cashentry.date)
-    setCategoryCash(entry.cashentry.category)
-    navigation.navigate("Edit Cash Page", {entry: entry})
-  }
-
-
+  //need this to populate editCashpage with specified fields
+  const editHandler = () => {
+    setAmount(entry.cashentry.amount);
+    setDescription(entry.cashentry.description);
+    setDate(entry.cashentry.date);
+    setCategory(entry.cashentry.category);
+    navigation.navigate("Edit Cash Page", { entry: entry });
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      
-      <View >
-   
-        <Text style={styles.wrapper}>Date: {formattedDate}</Text>
-        <Text style={styles.wrapper}>Amount: $ {entry.cashentry.amount}</Text>
-        <Text style={styles.wrapper}>Category: {entry.cashentry.category}</Text>
-        <Text style={styles.wrapper}>Description: {entry.cashentry.description}</Text>
-        <View style={styles.button}>
-          <Button title="Delete" onPress={() => deleteCash(entry._id)} />
-          <Button
-            title="Edit"
-            onPress={editHandler}
-          />
-          <Button
-            title="Back"
-            onPress={() => {navigation.navigate("Index Cash Page")
-            setExpenseForceRender(!expenseForceRender)}}
-          />
+    <NativeBaseProvider>
+      <Center flex={1} bgColor="#fff">
+        <View
+          width="90%"
+          paddingRight={4}
+          paddingBottom={1}
+          alignItems="flex-end"
+        >
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Index Cash Page");
+              setExpenseForceRender(!expenseForceRender);
+            }}
+          >
+            <Entypo name="cross" size={24} color="black" />
+          </Pressable>
         </View>
-      </View>
-
-    </SafeAreaView>
+        <ShowPageCard heading="Date" body={formattedDate} />
+        <Divider width="80%"/>
+        <ShowPageCard
+          heading="Amount"
+          body={"$" + entry.cashentry.amount}
+        />
+        <Divider width="80%"/>
+        <ShowPageCard heading="Category" body={entry.cashentry.category} />
+        <Divider width="80%"/>
+        <ShowPageCard
+          heading="Description"
+          body={entry.cashentry.description}
+        />
+        <Button.Group size="sm" mt="5">
+          <Button
+            variant="outline"
+            bgColor="white"
+            colorScheme="light"
+            onPress={editHandler}
+          >
+            <Text >Edit</Text>
+          </Button>
+          <Button colorScheme="danger" onPress={() => deleteCash(entry._id)}>
+          <Text>Delete</Text>
+          </Button>
+        </Button.Group>
+      </Center>
+    </NativeBaseProvider>
   );
 };
 
 export default ShowCashPage;
-
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#d5f4e6",
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  button:{
-    flexDirection: "row",
-    alignSelf: "center"  
-  },
-  wrapper: {
-    
-    fontSize: 20,
-    flex: 0.2,
-    textAlign: "center",
-    flexDirection:'column',
-    width: screenWidth*0.9,
-    backgroundColor: '#fefbd8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    paddingTop: 35,
-    margin: '2%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: .22,
-    elevation: 3,
-    },
-});
-
-
-  
