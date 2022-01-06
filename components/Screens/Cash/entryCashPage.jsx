@@ -67,7 +67,7 @@ const EntryCashPage = ({ navigation }) => {
 
   const onConfirm = (date) => {
     setShow(false);
-    setDate(date);
+    setDateCash(date);
   };
 
   // to show and hide date picker
