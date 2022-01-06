@@ -21,6 +21,7 @@ import {
   Box,
   
 } from "native-base";
+import { filter } from 'underscore';
 
 
 
@@ -99,13 +100,6 @@ const EntryInvestmentPage = ({navigation}) => {
         
       }, [filterText]);
 
-      
-    
-    
-
-    
-
-  
    
    // clear states onload at entryinvestment page
   useEffect(()=>{
@@ -145,7 +139,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: tickerInvestment,
+                  ticker: filterText,
                   quantity: qtyInvestment,
                   transaction: transaction  }
                 
@@ -315,6 +309,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         <Box>
                           <Typeahead
+                            
                             options={filteredItems}
                             onChange={setFilterText}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -330,6 +325,12 @@ const EntryInvestmentPage = ({navigation}) => {
                             }}
                           />
                         </Box>
+
+
+
+                       
+ 
+                                         
 
 
 
