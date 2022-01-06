@@ -31,22 +31,30 @@ function App() {
   const [dateInvestment, setDateInvestment] = useState(new Date());
   const [priceInvestment, setPriceInvestment] = useState([]);
   const [categoryInvestment, setCategoryInvestment] = useState("Crypto");
-  const [tickerInvestment, setTickerInvestment] = useState("TSLA");
+  const [tickerInvestment, setTickerInvestment] = useState([
+    {
+      id: "0xcharts",
+      name: "0xCharts",
+      symbol: "0xc",
+    },
+  ]);
   const [qtyInvestment, setQtyInvestment] = useState([]);
-  const [transaction, setTransaction] = useState()
-
+  const [transaction, setTransaction] = useState();
 
   // useState for month selector (KSZ)
-  const [selectedMonth, setSelectedMonth] = useState(moment().format("YYYY-MM"));
+  const [selectedMonth, setSelectedMonth] = useState(
+    moment().format("YYYY-MM")
+  );
 
   // useState for expense fetched entries (month) (KSZ)
   const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
   // useState for investment
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
-  const [tickerAndPrice,setTickerAndPrice] = useState([])
-  const [tickerData,setTickerData] = useState([])
-  const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = useState([])
+  const [tickerAndPrice, setTickerAndPrice] = useState([]);
+  const [tickerData, setTickerData] = useState([]);
+  const [fetchedInvestmentEntriesRawData, setFetchedInvestmentEntriesRawData] =
+    useState([]);
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
   const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
@@ -125,10 +133,10 @@ function App() {
   };
 
   // useEffect only for index page. If not needed for testing, will comment out
-  useEffect(()=>{
-    //reloadCash()
-    reloadInvestment()
-  }, [allInvestment])
+  // useEffect(()=>{
+  //   //reloadCash()
+  //   reloadInvestment()
+  // }, [allInvestment])
 
   return (
     <NavigationContainer>
@@ -177,16 +185,22 @@ function App() {
             qtyInvestment,
             setQtyInvestment,
             transaction,
-            setTransaction
+            setTransaction,
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],
           tokenContext: [token, setToken],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
-          tickerAndPriceContext: [tickerAndPrice,setTickerAndPrice],
-          investmentGPContext: [investmentgpForceRender,setInvestmentgpForceRender],
-          investmentTickerContext:[tickerData,setTickerData],
-          investmentContextRawData:[fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData],
+          tickerAndPriceContext: [tickerAndPrice, setTickerAndPrice],
+          investmentGPContext: [
+            investmentgpForceRender,
+            setInvestmentgpForceRender,
+          ],
+          investmentTickerContext: [tickerData, setTickerData],
+          investmentContextRawData: [
+            fetchedInvestmentEntriesRawData,
+            setFetchedInvestmentEntriesRawData,
+          ],
         }}
       >
         <StackNavigator />

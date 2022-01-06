@@ -105,7 +105,7 @@ const EntryInvestmentPage = ({navigation}) => {
     }, [])
 
     const filteredItems = useMemo(() => {
-      return animals.filter(
+      return tickerInvestment.filter(
         (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1
       );
     }, [filterText]);
@@ -119,7 +119,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setPriceInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      setTickerInvestment("Select Ticker...")
+      //setTickerInvestment("Select Ticker...")
       setTransaction("Select Buy or Sell...")
     })
      return resetPage
@@ -190,14 +190,14 @@ const EntryInvestmentPage = ({navigation}) => {
         <View style={styles.inner}>
             
             {/* date */}
-            <View style={styles.wrapper} >
+            {/* <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
                   value={new Date(dateInvestment)}
                   onChange={onChangeDate}
                   />
                   
-                  </View>
+                  </View> */}
 
                  {/* price */}
                 <View style={styles.wrapper} >
