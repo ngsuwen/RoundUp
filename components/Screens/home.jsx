@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
-import { View, NativeBaseProvider, Box } from "native-base";
+import { View, NativeBaseProvider, Box, HStack, Spinner, Text, Center, Heading } from "native-base";
+import { Image } from "react-native";
 import NetworthLineChartComponent from "../Charts/networthLineChart";
 import ExpenseLineChartComponent from "../Charts/expenseLineChart";
 import CashLineChartComponent from "../Charts/cashLineChart";
@@ -73,9 +74,9 @@ export default function Home({ navigation }) {
   const { userContext, expenseForceRenderContext } = React.useContext(DataContext);
   const [user, setUser] = userContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
-  const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
-  const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
-  const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+  const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0])
+  const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0])
+  const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0])
 
   async function calculateData(num) {
     let month;
@@ -104,7 +105,12 @@ export default function Home({ navigation }) {
 
   return (
     <NativeBaseProvider>
-      <Box bgColor="#fff" height="100%">
+      {networthYearlyData.length<12?
+        <Center bgColor="#fff" flex={1} px="3" alignItems="center">
+          <Spinner color="cyan.500" mb={10}/>
+        </Center>
+        :
+        <Box bgColor="#fff" height="100%">
         <Carousel height={carouselHeight} showsControls={false} dotStyle={style.dotStyle} activeDotStyle={style.activeDotStyle}>
           <View>
             <NetworthLineChartComponent dataMonth={dataMonth} networthYearlyData={networthYearlyData} monthArr={monthArr} todayDate={todayDate}/>
@@ -124,7 +130,7 @@ export default function Home({ navigation }) {
           <HomePageExpenseCard navigation={navigation} expenseYearlyData={expenseYearlyData} />
           <HomePageInvestmentCard navigation={navigation} />
         </Box>
-      </Box>
+      </Box>}
     </NativeBaseProvider>
   );
 }

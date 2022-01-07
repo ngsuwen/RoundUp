@@ -69,7 +69,7 @@ export default function LoginPage({ navigation }) {
         }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Center flex={1} px="3">
+        <Center bgColor="#fff" flex={1} px="3">
           <Stack
             space={2}
             w={{
