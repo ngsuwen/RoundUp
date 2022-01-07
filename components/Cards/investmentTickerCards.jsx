@@ -164,7 +164,7 @@ const [user, setUser] = userContext
 
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (
-        <View style={styles.wrapper}>
+        <View style={styles.wrapper} key={index}>
             <Pressable onPress={() => navigation.navigate('Show Ticker Page', {selectedTickerAndPrice: stock})}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
