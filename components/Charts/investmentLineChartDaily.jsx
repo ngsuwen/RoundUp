@@ -18,7 +18,6 @@ useEffect(()=>{
     reloadExpenses()
 },[fetchedInvestmentEntries])
 
-
 const reloadExpenses = () => {
 
   try{
@@ -26,33 +25,42 @@ const reloadExpenses = () => {
   const tickerList = Object.keys(fetchedInvestmentEntries)
   console.log('tickerlistatlinechartdaily:',tickerList)
   // console.log('fetchedinvestmententrylienchartdaily',fetchedInvestmentEntries)
-
+  
   // have to make sure there's pricehistory for the txn you're getting as priceHistory will be empty for newly added entries
-  for(let i = 0;i < 100;i++){
-    for(let j = 0; j < 100; j++){
-      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].length >= 7){
-      const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-5).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
-      console.log('datedatapoints:',dateDataPoints)
+  for(let i = 0;i < 100;i++){ // upper limit of 100 tickers
+    for(let j = 0; j < 100; j++){ // upper limit of 100 transactions
+      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].length >= 7){ // we just need 1 transaction with at least the latest 7 transactions (from the back)
+      const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
+      // console.log('datedatapoints:',dateDataPoints)
       // set x-axis
       setAllLabels(dateDataPoints)
+
+      // calculating total amount of everything (stocks and crypto combined)
+      let totalStocksAndCryptoAmount = 0 
+      // need to get qty * price for the last 7 days 
+      fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).forEach((priceHistoryEntry)=>{
+        console.log('ticker data 2:',tickerList[i], 'total amount:',priceHistoryEntry.price * priceHistoryEntry.quantity)
+        totalStocksAndCryptoAmount += priceHistoryEntry.price * priceHistoryEntry.quantity
+      })
+      
+
       // stop loop
-      break
+      break // break the loop as we just need 1 datapoint for each ticker 
       }
-    }
-    break
+    } // this will continue looping thru the rest of the tickers to get 1 transaction with at least 7 latest transactions each
   }
 
 
 
-  // tickerList.forEach((ticker)=>{
-  //   const priceHistoryData = fetchedInvestmentEntries[ticker][0]['priceHistory'].slice(-5) // extracts the last 5 data point for the first transaction of every ticker (only the first txn is needed as all transaction has the same priceHistory data written into them)
-  //   // console.log('priceHistoryData:',priceHistoryData)
-  // })
+
+
 
   }
   catch(err){
     console.log(err)
   }
+
+  
  
   }
 
