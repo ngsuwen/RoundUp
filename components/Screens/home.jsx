@@ -119,8 +119,8 @@ export default function Home({ navigation }) {
           </View>
         </Carousel>
         <Box height="55%" px={2}>
-          <HomePageCashCard navigation={navigation} />
-          <HomePageExpenseCard navigation={navigation} />
+          <HomePageCashCard navigation={navigation} cashYearlyData={cashYearlyData} />
+          <HomePageExpenseCard navigation={navigation} expenseYearlyData={expenseYearlyData} />
           <HomePageInvestmentCard navigation={navigation} />
         </Box>
       </Box>

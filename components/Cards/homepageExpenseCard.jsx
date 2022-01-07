@@ -10,7 +10,19 @@ import {
 } from "native-base";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
-export default function homepageCashCard({ navigation }) {
+export default function homepageExpenseCard({ navigation, expenseYearlyData }) {
+
+  const calculateChange=()=>{
+    let change = (Number(expenseYearlyData[11])/Number(expenseYearlyData[10])*100).toFixed(2)
+    if (change>0){
+      return <Text color="emerald.600">+{change}</Text>
+    } else if (change<0){
+      return <Text color="red.600">-{change}</Text>
+    } else {
+      return <Text color="coolGray.400">{change}</Text>
+    }
+  }
+
   return (
     <NativeBaseProvider>
       <Center bgColor="#fff" flex={1} borderColor="coolGray.300" borderWidth={1} mx={2} my={1} borderRadius={10} shadow={4}>
@@ -32,8 +44,8 @@ export default function homepageCashCard({ navigation }) {
           }}
         >
           <View>
-            <Text>$1403.34</Text>
-            <Text mt={0.5}>% Change: <Text color="emerald.600">+8.13</Text></Text>
+            <Text>${expenseYearlyData[11]}</Text>
+            <Text mt={0.5}>% Change: {calculateChange()}</Text>
           </View>
           <View justifyContent="center">
             <Pressable onPress={() => navigation.navigate("Add Money Out")}>
