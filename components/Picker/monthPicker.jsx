@@ -18,12 +18,9 @@ export default function MonthPickerModal({ navigation, type, dir }) {
     toggleOpen(false);
   };
 
-  console.log(selectedMonth)
-
   useEffect(async()=>{
     try {
-      // still need fixing
-      const total = await type(user,selectedMonth)
+      const total = await type(user,moment(selectedMonth).format("YYYY-MM"))
       setTotal(total[11])
     } catch (err){
       return
