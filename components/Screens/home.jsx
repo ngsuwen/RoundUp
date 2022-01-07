@@ -79,8 +79,8 @@ export default function Home({ navigation }) {
   async function calculateData(num) {
     let month;
     if (todayMonth + 1 < 10) {
-      todayMonth += 1;
-      month = "0" + todayMonth;
+      let strMonth = todayMonth + 1;
+      month = "0" + strMonth;
     }
     const date = todayDate.getFullYear() + '-' + month
     const cashData = await yearlyCash(user, date)
