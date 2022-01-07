@@ -35,7 +35,7 @@ const [user, setUser] = userContext
         setFetchedInvestmentEntriesRawData(parsedData)
         // grouping fetched data by ticker symbol 
         const entriesByTicker = _(parsedData).groupBy((element)=>{
-            const groupedTicker = element.investmentsentry.ticker
+            const groupedTicker = element.investmentsentry.ticker.toUpperCase()
             return groupedTicker
         })
         // console.log('entriesByTicker:',entriesByTicker)
@@ -47,7 +47,7 @@ const [user, setUser] = userContext
     const fetchStockPrice = async (entriesByTicker) => { 
 
     const tickerList = Object.keys(entriesByTicker).sort()
-    // console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
+    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
 
     const tickerAndPriceArr = [] 
 
@@ -84,7 +84,7 @@ const [user, setUser] = userContext
         }
 
         const fetchedPrice = await priceFetcher()
-        // console.log('fetchedprice:',fetchedPrice)
+        console.log('fetchedprice:',fetchedPrice)
         tickerAndPriceArr.push(fetchedPrice)
        
         }
@@ -92,7 +92,6 @@ const [user, setUser] = userContext
     setTickerAndPrice(tickerAndPriceArr)
     }
 
-    // console.log('tickerandpricestate:',tickerAndPrice)
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -160,6 +159,8 @@ const [user, setUser] = userContext
     marginRight: '2%',
     },
     })
+
+
 
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (

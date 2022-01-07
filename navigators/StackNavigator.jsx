@@ -12,6 +12,7 @@ import EntryCashPage from "../components/Screens/Cash/entryCashPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
 import DrawerComponent from "./DrawerNavigator";
+import ShowTickerPage from "../components/Screens/Investment/showTickerPage"
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,8 @@ export default function StackNavigator() {
       <Stack.Screen name="Add Money In" component={EntryCashPage} />
       <Stack.Screen name="Show Cash Page" component={ShowCashPage} />
       <Stack.Screen name="Edit Cash Page" component={EditCashPage} />
+
+
     </Stack.Navigator>
   );
 }
