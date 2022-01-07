@@ -25,14 +25,13 @@ const reloadExpenses = () => {
   // grouping logic
   const tickerList = Object.keys(fetchedInvestmentEntries)
   console.log('tickerlistatlinechartdaily:',tickerList)
+  // console.log('fetchedinvestmententrylienchartdaily',fetchedInvestmentEntries)
 
   // have to make sure there's pricehistory for the txn you're getting as priceHistory will be empty for newly added entries
   for(let i = 0;i < 100;i++){
     for(let j = 0; j < 100; j++){
-      console.log('dataloadtest:',fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-5))
-      break
-      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-5).length >= 7){
-      const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-5).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
+      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].length >= 7){
+      const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-5).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
       console.log('datedatapoints:',dateDataPoints)
       // set x-axis
       setAllLabels(dateDataPoints)
@@ -40,14 +39,16 @@ const reloadExpenses = () => {
       break
       }
     }
+    break
   }
 
 
 
-  tickerList.forEach((ticker)=>{
-    const priceHistoryData = fetchedInvestmentEntries[ticker][0]['priceHistory'].slice(-5) // extracts the last 5 data point for the first transaction of every ticker (only the first txn is needed as all transaction has the same priceHistory data written into them)
-    // console.log('priceHistoryData:',priceHistoryData)
-  })
+  // tickerList.forEach((ticker)=>{
+  //   const priceHistoryData = fetchedInvestmentEntries[ticker][0]['priceHistory'].slice(-5) // extracts the last 5 data point for the first transaction of every ticker (only the first txn is needed as all transaction has the same priceHistory data written into them)
+  //   // console.log('priceHistoryData:',priceHistoryData)
+  // })
+
   }
   catch(err){
     console.log(err)

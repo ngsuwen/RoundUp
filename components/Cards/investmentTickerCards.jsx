@@ -35,7 +35,7 @@ const [user, setUser] = userContext
         setFetchedInvestmentEntriesRawData(parsedData)
         // grouping fetched data by ticker symbol 
         const entriesByTicker = _(parsedData).groupBy((element)=>{
-            const groupedTicker = element.investmentsentry.ticker.toUpperCase()
+            const groupedTicker = element.investmentsentry.ticker
             return groupedTicker
         })
         // console.log('entriesByTicker:',entriesByTicker)
@@ -68,7 +68,7 @@ const [user, setUser] = userContext
             }
             
             if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto'){
-                const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker.toLowerCase()}/current`)
+                const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
                 const parsedCryptoPriceObj = await cryptoprice.json()
                 // uppercase as crypto ticker is lowercase due to api requirements
                 parsedCryptoPriceObj['ticker']=ticker
