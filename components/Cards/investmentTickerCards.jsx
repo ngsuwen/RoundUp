@@ -47,7 +47,7 @@ const [user, setUser] = userContext
     const fetchStockPrice = async (entriesByTicker) => { 
 
     const tickerList = Object.keys(entriesByTicker).sort()
-    // console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
+    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
 
     const tickerAndPriceArr = [] 
 
@@ -68,7 +68,7 @@ const [user, setUser] = userContext
             }
             
             if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto'){
-                const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker.toLowerCase()}/current`)
+                const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
                 const parsedCryptoPriceObj = await cryptoprice.json()
                 // uppercase as crypto ticker is lowercase due to api requirements
                 parsedCryptoPriceObj['ticker']=ticker
@@ -84,7 +84,7 @@ const [user, setUser] = userContext
         }
 
         const fetchedPrice = await priceFetcher()
-        // console.log('fetchedprice:',fetchedPrice)
+        console.log('fetchedprice:',fetchedPrice)
         tickerAndPriceArr.push(fetchedPrice)
        
         }
@@ -92,7 +92,6 @@ const [user, setUser] = userContext
     setTickerAndPrice(tickerAndPriceArr)
     }
 
-    // console.log('tickerandpricestate:',tickerAndPrice)
 
     const screenWidth = Dimensions.get('screen').width
     const screenHeight = Dimensions.get('screen').height
@@ -161,9 +160,11 @@ const [user, setUser] = userContext
     },
     })
 
+
+
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (
-        <View style={styles.wrapper}>
+        <View style={styles.wrapper} key={index}>
             <Pressable onPress={() => navigation.navigate('Show Ticker Page', {selectedTickerAndPrice: stock})}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
