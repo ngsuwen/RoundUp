@@ -53,7 +53,7 @@ const ShowExpensePage = ({ navigation, route }) => {
 
     //reloadExpense();
     setExpenseForceRender(!expenseForceRender);
-    navigation.navigate("Expense GP");
+    navigation.navigate("Money Out");
   };
 
   //need this to populate editexpensepage with specified fields
@@ -76,7 +76,7 @@ const ShowExpensePage = ({ navigation, route }) => {
         >
           <Pressable
             onPress={() => {
-              navigation.navigate("Expense GP");
+              navigation.navigate("Money Out");
               setExpenseForceRender(!expenseForceRender);
             }}
           >

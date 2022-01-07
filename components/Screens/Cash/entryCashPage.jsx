@@ -104,7 +104,7 @@ const EntryCashPage = ({ navigation }) => {
       console.log(err);
     }
 
-    navigation.navigate("Index Cash Page");
+    navigation.navigate("Money In");
   };
   return (
     <NativeBaseProvider>
@@ -226,7 +226,7 @@ const EntryCashPage = ({ navigation }) => {
             onPress={handleSubmit}
             mt="5"
           >
-            <Text>Add Cash-in</Text>
+            <Text>Add Money In</Text>
           </Button>
         </Center>
       </KeyboardAvoidingView>

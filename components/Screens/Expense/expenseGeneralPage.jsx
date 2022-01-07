@@ -8,7 +8,7 @@ import * as React from "react";
 import { NativeBaseProvider, View, Box, Button } from "native-base";
 import { Dimensions } from "react-native";
 import Carousel from "pinar";
-import ExpenseLineChartComponent from "../../Charts/expenseLineChart";
+import ExpenseLineChartComponent from "../../Charts/expenseLineChartDaily";
 import PieChartComponent from "../../Charts/expensePieChart";
 import AccordionList from "../../Accordion/expenseAccordion";
 import MonthSelector from "../../Picker/monthPicker";
@@ -60,7 +60,7 @@ export default function GeneralBreakdownPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total} dir="Expense"/>
+          <MonthSelector navigation={navigation} total={total} dir="Add Money Out"/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList setTotal={setTotal}/>

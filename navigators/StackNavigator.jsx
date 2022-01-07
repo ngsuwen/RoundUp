@@ -2,12 +2,15 @@ import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DataContext from "../context/DataContext";
 // import pages
-import Login from "../components/Screens/login"
+import Login from "../components/Screens/login";
 import Loading from "../components/Screens/loading";
 import Signup from "../components/Screens/signup";
 import EntryExpensePage from "../components/Screens/Expense/entryExpensePage";
 import ShowExpensePage from "../components/Screens/Expense/showExpensePage";
 import EditExpensePage from "../components/Screens/Expense/editExpensePage";
+import EntryCashPage from "../components/Screens/Cash/entryCashPage";
+import ShowCashPage from "../components/Screens/Cash/showCashPage";
+import EditCashPage from "../components/Screens/Cash/editCashPage";
 import DrawerComponent from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -32,11 +35,14 @@ export default function StackNavigator() {
       />
       <Stack.Screen name="Sign Up" component={Signup} />
       <Stack.Screen name="Drawer" component={DrawerComponent} />
-      <Stack.Screen name="Entry Expense Page" component={EntryExpensePage} />
-      <Stack.Screen name="Show Expense Page" component={ShowExpensePage} 
-        options={{drawerItemStyle: {height: 0}}} /> 
-      <Stack.Screen name="Edit Expense Page" component={EditExpensePage}
-        options={{drawerItemStyle: {height: 0}}} />
+
+      <Stack.Screen name="Add Money Out" component={EntryExpensePage} />
+      <Stack.Screen name="Show Expense Page" component={ShowExpensePage} />
+      <Stack.Screen name="Edit Expense Page" component={EditExpensePage} />
+
+      <Stack.Screen name="Add Money In" component={EntryCashPage} />
+      <Stack.Screen name="Show Cash Page" component={ShowCashPage} />
+      <Stack.Screen name="Edit Cash Page" component={EditCashPage} />
     </Stack.Navigator>
   );
 }

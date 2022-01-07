@@ -118,7 +118,7 @@ const EntryExpensePage = ({ navigation }) => {
       console.log(err);
     }
 
-    navigation.navigate("Expense GP");
+    navigation.navigate("Money Out");
   };
 
   return (
@@ -241,7 +241,7 @@ const EntryExpensePage = ({ navigation }) => {
             onPress={handleSubmit}
             mt="5"
           >
-            <Text>Add Expense</Text>
+            <Text>Add Money Out</Text>
           </Button>
         </Center>
       </KeyboardAvoidingView>

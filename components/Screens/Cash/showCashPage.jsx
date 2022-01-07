@@ -53,7 +53,7 @@ const ShowCashPage = ({ navigation, route }) => {
 
     //reloadCash();
     setExpenseForceRender(!expenseForceRender);
-    navigation.navigate("Index Cash Page");
+    navigation.navigate("Money In");
   };
 
   //need this to populate editCashpage with specified fields
@@ -76,7 +76,7 @@ const ShowCashPage = ({ navigation, route }) => {
         >
           <Pressable
             onPress={() => {
-              navigation.navigate("Index Cash Page");
+              navigation.navigate("Money In");
               setExpenseForceRender(!expenseForceRender);
             }}
           >

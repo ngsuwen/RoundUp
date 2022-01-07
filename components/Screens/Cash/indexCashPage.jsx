@@ -2,7 +2,7 @@ import * as React from "react";
 import { NativeBaseProvider, View, Box, Button } from "native-base";
 import { Dimensions } from "react-native";
 import Carousel from "pinar";
-import LineChartComponent from "../../Charts/cashLineChart";
+import LineChartComponent from "../../Charts/cashLineChartDaily";
 import PieChartComponent from "../../Charts/cashPieChart";
 import AccordionList from "../../Accordion/cashAccordion";
 import MonthSelector from "../../Picker/monthPicker";
@@ -54,7 +54,7 @@ export default function IndexCashPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total} dir="Cash"/>
+          <MonthSelector navigation={navigation} total={total} dir="Add Money In"/>
         </Box>
         <Box height="50%" px={6}>
           <AccordionList setTotal={setTotal}/>

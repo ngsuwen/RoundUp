@@ -29,9 +29,9 @@ export default function MonthPickerModal({ navigation, total, dir }) {
           <Button
             variant="outline"
             colorScheme="light"
-            onPress={() => navigation.navigate(`Entry ${dir} Page`)}
+            onPress={() => navigation.navigate(dir)}
           >
-            {'Add '+dir}
+            {dir}
           </Button>
           <Button variant="unstyled">{'Total: $'+total}</Button>
         </Button.Group>

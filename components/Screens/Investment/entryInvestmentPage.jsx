@@ -7,7 +7,7 @@ import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 import Autocomplete from "react-native-autocomplete-input"
-
+import SearchableDropdown from 'react-native-searchable-dropdown';
 
 import {
   NativeBaseProvider,
@@ -21,6 +21,7 @@ import {
   Box,
   
 } from "native-base";
+import { filter } from 'underscore';
 
 
 
@@ -76,41 +77,29 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-  //autocomplete
+  //autocomplete  
+  const [filterText, setFilterText] = useState("");
 
-  const animals = [
-    { id: 1, name: 'Aardvark' },
-    { id: 2, name: 'Kangaroo' },
-    { id: 3, name: 'Snake' },
-    { id: 4, name: 'Pikachu' },
-    { id: 5, name: 'Tiger' },
-    { id: 6, name: 'Godzilla' },
-  ];
-  
-  const [filterText, setFilterText] = useState('');
-
-
-
-  // fetch crypto for ticker
+  //fetch crypto for ticker
   useEffect(()=>{
     const loadCoin = async() =>{
-        const res = await fetch("https://api.coingecko.com/api/v3/coins/list")
+        const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
         const data = await res.json()
         console.log(data)
         setTickerInvestment(data)
     }
     loadCoin()
     }, [])
-    
-    const filteredItems = useMemo(() => {
-      return tickerInvestment.filter(
-        (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1
-      );
-    }, [filterText]);
+
 
  
-   
-  
+      const filteredItems = useMemo(() => {
+        return tickerInvestment.filter(
+          (item) => item.symbol.toLowerCase().indexOf(filterText.toLowerCase()) > -1
+        );
+        
+      }, [filterText]);
+
    
    // clear states onload at entryinvestment page
   useEffect(()=>{
@@ -119,7 +108,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setPriceInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      //setTickerInvestment("Select Ticker...")
+      
       setTransaction("Select Buy or Sell...")
     })
      return resetPage
@@ -150,7 +139,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: tickerInvestment,
+                  ticker: filterText,
                   quantity: qtyInvestment,
                   transaction: transaction  }
                 
@@ -166,6 +155,7 @@ const EntryInvestmentPage = ({navigation}) => {
         }
         
       setExpenseForceRender(!expenseForceRender)
+     
 
       } catch(err){
         console.log(err)
@@ -189,15 +179,15 @@ const EntryInvestmentPage = ({navigation}) => {
       <SafeAreaView style={styles.container} >
         <View style={styles.inner}>
             
-            {/* date */}
-            {/* <View style={styles.wrapper} >
+            {/* date  */}
+            <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
                   value={new Date(dateInvestment)}
                   onChange={onChangeDate}
                   />
                   
-                  </View> */}
+                  </View>
 
                  {/* price */}
                 <View style={styles.wrapper} >
@@ -319,13 +309,14 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         <Box>
                           <Typeahead
+                            
                             options={filteredItems}
                             onChange={setFilterText}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.id}
-                            getOptionLabel={(item) => item.name}
+                            getOptionLabel={(item) => item.symbol}
                             label="Select Ticker..."
-                            toggleIcon={({ isOpen }: any) => {
+                            toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
                               ) : (
@@ -334,9 +325,15 @@ const EntryInvestmentPage = ({navigation}) => {
                             }}
                           />
                         </Box>
-                                                
-               
-                
+
+
+
+                       
+ 
+                                         
+
+
+
                 <View style={styles.button}>
                     <Button title="Submit" onPress={handleSubmit} />
                     <Button
