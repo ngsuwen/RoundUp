@@ -10,63 +10,8 @@ import {
   ScrollView,
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import yearlyCash from "../api/yearlyCash";
-import DataContext from "../../context/DataContext";
 
-const monthArr = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-  "JAN",
-];
-const dataMonth = [];
-const todayDate = new Date();
-let todayMonth = todayDate.getMonth();
-
-if (todayMonth != 11) {
-  for (let i = todayMonth + 1; i < 12; i++) {
-    if (i % 2 === 0) {
-      dataMonth.push(monthArr[i]);
-    } else {
-      dataMonth.push("");
-    }
-  }
-}
-for (let i = 0; i <= todayMonth; i++) {
-  if (i % 2 === 0) {
-    dataMonth.push(monthArr[i]);
-  } else {
-    dataMonth.push("");
-  }
-}
-
-export default function cashLineChartComponent() {
-  const { userContext } = React.useContext(DataContext);
-  const [user, setUser] = userContext;
-  const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
-  async function calculateData() {
-    let month;
-    if (todayMonth + 1 < 10) {
-      todayMonth += 1;
-      month = "0" + todayMonth;
-    }
-    const date = todayDate.getFullYear() + '-' + month
-    const data = await yearlyCash(user, date)
-    return data
-  }
-  
-  React.useEffect(async()=>{
-    setCashYearlyData(await calculateData())
-  },[])
+export default function cashLineChartComponent({dataMonth, cashYearlyData, monthArr, todayDate}) {
 
   const linedata = {
     labels: dataMonth,

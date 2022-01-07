@@ -9,6 +9,45 @@ import Carousel from "pinar";
 import HomePageCashCard from "../Cards/homepageCashCard";
 import HomePageExpenseCard from "../Cards/homepageExpenseCard";
 import HomePageInvestmentCard from "../Cards/homepageInvestmentCard";
+import yearlyCash from "../api/yearlyCash";
+import yearlyExpense from "../api/yearlyExpense"
+import DataContext from "../../context/DataContext";
+
+const monthArr = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+  "JAN",
+];
+const dataMonth = [];
+const todayDate = new Date();
+let todayMonth = todayDate.getMonth();
+
+if (todayMonth != 11) {
+  for (let i = todayMonth + 1; i < 12; i++) {
+    if (i % 2 === 0) {
+      dataMonth.push(monthArr[i]);
+    } else {
+      dataMonth.push("");
+    }
+  }
+}
+for (let i = 0; i <= todayMonth; i++) {
+  if (i % 2 === 0) {
+    dataMonth.push(monthArr[i]);
+  } else {
+    dataMonth.push("");
+  }
+}
 
 const screenHeight = Dimensions.get("screen").height;
 const carouselHeight = screenHeight * 0.36;
@@ -31,21 +70,52 @@ const style = {
 };
 
 export default function Home({ navigation }) {
+  const { userContext } = React.useContext(DataContext);
+  const [user, setUser] = userContext;
+  const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+  const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+  const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+
+  async function calculateData(num) {
+    let month;
+    if (todayMonth + 1 < 10) {
+      todayMonth += 1;
+      month = "0" + todayMonth;
+    }
+    const date = todayDate.getFullYear() + '-' + month
+    const cashData = await yearlyCash(user, date)
+    const expenseData = await yearlyExpense(user, date)
+    const networthData = []
+    for (let i=0;i<12;i++){
+      // change expense to investment
+      const total = Number(cashData[i])+Number(expenseData[i])
+      networthData.push(total)
+    }
+    const dataArr = [cashData, expenseData, networthData]
+    return dataArr[num]
+  }
+  
+  React.useEffect(async()=>{
+    setCashYearlyData(await calculateData(0))
+    setExpenseYearlyData(await calculateData(1))
+    setNetworthYearlyData(await calculateData(2))
+  },[])
+
   return (
     <NativeBaseProvider>
       <Box bgColor="#fff" height="100%">
         <Carousel height={carouselHeight} showsControls={false} dotStyle={style.dotStyle} activeDotStyle={style.activeDotStyle}>
           <View>
-            <NetworthLineChartComponent />
+            <NetworthLineChartComponent dataMonth={dataMonth} networthYearlyData={networthYearlyData} monthArr={monthArr} todayDate={todayDate}/>
           </View>
           <View>
-            <CashLineChartComponent />
+            <CashLineChartComponent dataMonth={dataMonth} cashYearlyData={cashYearlyData} monthArr={monthArr} todayDate={todayDate}/>
           </View>
           <View>
-            <ExpenseLineChartComponent />
+            <ExpenseLineChartComponent dataMonth={dataMonth} expenseYearlyData={expenseYearlyData} monthArr={monthArr} todayDate={todayDate}/>
           </View>
           <View>
-            <InvestmentLineChartComponent />
+            <InvestmentLineChartComponent dataMonth={dataMonth}/>
           </View>
         </Carousel>
         <Box height="55%" px={2}>

@@ -11,48 +11,12 @@ import {
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
-const monthArr = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-  "JAN",
-];
-const dataMonth = [];
-const todayDate = new Date();
-const todayMonth = todayDate.getMonth();
-
-if (todayMonth != 11) {
-  for (let i = todayMonth + 1; i < 12; i++) {
-    if (i % 2 === 0) {
-      dataMonth.push(monthArr[i]);
-    } else {
-      dataMonth.push("");
-    }
-  }
-}
-for (let i = 0; i <= todayMonth; i++) {
-  if (i % 2 === 0) {
-    dataMonth.push(monthArr[i]);
-  } else {
-    dataMonth.push("");
-  }
-}
-
-export default function networthLineChartComponent() {
+export default function networthLineChartComponent({dataMonth, networthYearlyData, monthArr, todayDate}) {
   const linedata = {
     labels: dataMonth,
     datasets: [
       {
-        data: [20, 25, 21, 30, 50, 70, 100, 25, 21, 30, 50, 70, 100],
+        data: networthYearlyData,
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 3, // optional
       },
