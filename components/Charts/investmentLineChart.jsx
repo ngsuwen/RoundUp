@@ -15,16 +15,17 @@ const [allLabels,setAllLabels] = useState([])
 const [dataPoints,setDataPoints] = useState([0])
 
 useEffect(()=>{
-  reloadExpenses()
+  lineChartDataFunction()
 },[fetchedInvestmentEntries])
 
 
-const reloadExpenses = () => {
+const lineChartDataFunction = () => {
 
   try{
-  // grouping logic
+  // organize and set x-axis labels
   const tickerList = Object.keys(fetchedInvestmentEntries)
 
+  // need to check if priceHistory exists for that transaction (latest transaction before end of day will have no price history)
   const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-5).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
 
   setAllLabels(dateDataPoints)
@@ -33,15 +34,14 @@ const reloadExpenses = () => {
     const priceHistoryData = fetchedInvestmentEntries[ticker][0]['priceHistory'].slice(-5) // extracts the last 5 data point for the first transaction of every ticker (only the first txn is needed as all transaction has the same priceHistory data written into them)
     // console.log('priceHistoryData:',priceHistoryData)
   })
+
+  // tabulate total investments amount for all stocks and tickers 
   }
   catch(err){
     console.log(err)
   }
  
   }
-
-
-
 
     const linedata = {
         labels: allLabels,
