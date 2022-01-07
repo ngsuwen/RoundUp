@@ -1,19 +1,34 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import DataContext from "../../context/DataContext";
 import { View, Center, Button, Modal } from "native-base";
 import moment from "moment";
 import MonthPicker from "react-native-month-picker";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function MonthPickerModal({ navigation, total, dir }) {
-  const { monthContext } = useContext(DataContext);
+export default function MonthPickerModal({ navigation, type, dir }) {
+  const { monthContext, expenseForceRenderContext, userContext } = useContext(DataContext);
   const [selectedMonth, setSelectedMonth] = monthContext;
+  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
+  const [user, setUser] = userContext
   const [isOpen, toggleOpen] = useState(false);
+  const [total, setTotal] = useState(0);
 
   const changeHandler = (date) => {
     setSelectedMonth(date);
     toggleOpen(false);
   };
+
+  console.log(selectedMonth)
+
+  useEffect(async()=>{
+    try {
+      // still need fixing
+      const total = await type(user,selectedMonth)
+      setTotal(total[11])
+    } catch (err){
+      return
+    }
+  }, [selectedMonth])
 
   return (
     <View>

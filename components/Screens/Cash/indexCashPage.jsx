@@ -6,10 +6,9 @@ import LineChartComponent from "../../Charts/cashLineChartDaily";
 import PieChartComponent from "../../Charts/cashPieChart";
 import AccordionList from "../../Accordion/cashAccordion";
 import MonthSelector from "../../Picker/monthPicker";
+import yearlyCash from "../../api/yearlyCash";
 
 export default function IndexCashPage({navigation}) {
-  // useState for total amount of the month
-  const [total, setTotal]=React.useState(0)
 
   const screenHeight = Dimensions.get("screen").height;
   const carouselHeight = screenHeight * 0.34;
@@ -54,10 +53,10 @@ export default function IndexCashPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total} dir="Add Money In"/>
+          <MonthSelector navigation={navigation} type={yearlyCash} dir="Add Money In"/>
         </Box>
         <Box height="50%" px={6}>
-          <AccordionList setTotal={setTotal}/>
+          <AccordionList />
         </Box>
       </Box>
     </NativeBaseProvider>

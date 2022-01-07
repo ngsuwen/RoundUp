@@ -12,10 +12,9 @@ import ExpenseLineChartComponent from "../../Charts/expenseLineChartDaily";
 import PieChartComponent from "../../Charts/expensePieChart";
 import AccordionList from "../../Accordion/expenseAccordion";
 import MonthSelector from "../../Picker/monthPicker";
+import yearlyExpense from "../../api/yearlyExpense";
 
 export default function GeneralBreakdownPage({navigation}) {
-  // useState for total amount of the month
-  const [total, setTotal]=React.useState(0)
 
   const screenHeight = Dimensions.get("screen").height;
   const carouselHeight = screenHeight * 0.34;
@@ -60,10 +59,10 @@ export default function GeneralBreakdownPage({navigation}) {
           </View>
         </Carousel>
         <Box height="10%" px={6}>
-          <MonthSelector navigation={navigation} total={total} dir="Add Money Out"/>
+          <MonthSelector navigation={navigation} type={yearlyExpense} dir="Add Money Out"/>
         </Box>
         <Box height="50%" px={6}>
-          <AccordionList setTotal={setTotal}/>
+          <AccordionList />
         </Box>
       </Box>
     </NativeBaseProvider>

@@ -70,8 +70,9 @@ const style = {
 };
 
 export default function Home({ navigation }) {
-  const { userContext } = React.useContext(DataContext);
+  const { userContext, expenseForceRenderContext } = React.useContext(DataContext);
   const [user, setUser] = userContext;
+  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
   const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
   const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
   const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
@@ -99,7 +100,7 @@ export default function Home({ navigation }) {
     setCashYearlyData(await calculateData(0))
     setExpenseYearlyData(await calculateData(1))
     setNetworthYearlyData(await calculateData(2))
-  },[])
+  },[expenseForceRender])
 
   return (
     <NativeBaseProvider>

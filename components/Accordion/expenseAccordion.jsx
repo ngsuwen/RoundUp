@@ -20,7 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 const _ = require("underscore");
 
-function AccordionComponent({setTotal}) {
+function AccordionComponent() {
   const {
     monthContext,
     expenseMonthContext,
@@ -71,14 +71,6 @@ function AccordionComponent({setTotal}) {
   const allDatesAscending = Object.keys(entriesByDay).sort();
   const allDates = allDatesAscending.reverse();
   // console.log('alldates:',allDates)
-
-  let monthlyAmount = 0;
-  for (let dataEntry in entriesByDay) {
-    entriesByDay[dataEntry].forEach((entry) => {
-      monthlyAmount += entry.expensesentry.amount;
-    });
-    setTotal(monthlyAmount);
-  }
   
   const checkDivider = (index) => {
     if (index % 2 == 0) {
@@ -131,13 +123,13 @@ function AccordionComponent({setTotal}) {
   );
 }
 
-export default function AccordionList({ setTotal }) {
+export default function AccordionList() {
 
   return (
     <NativeBaseProvider>
       <Center flex={1}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <AccordionComponent setTotal={setTotal} />
+          <AccordionComponent />
         </ScrollView>
       </Center>
     </NativeBaseProvider>
