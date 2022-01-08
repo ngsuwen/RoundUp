@@ -100,7 +100,7 @@ const EntryInvestmentPage = ({navigation}) => {
         
         const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
           const data = await res.json()
-          const stockCompanies = data.slice(0, 50)
+          const stockCompanies = data.slice(0, 300)
           console.log(stockCompanies)
           setStock(stockCompanies)
       }
@@ -303,34 +303,6 @@ const EntryInvestmentPage = ({navigation}) => {
                       
                         </View>
 
-
-                    {/* Ticker */}
-                    {/* <View style={styles.wrapper}>
-
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTicker(true)}
-                            >
-                            <Text style={styles.catText}>{tickerInvestment}</Text>
-
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTicker}
-                            onRequestClose={()=> changeModalVisibilityTicker(false)}
-
-                          >
-                            <ModalTickerPicker 
-                              changeModalVisibilityTicker={changeModalVisibilityTicker}
-                              setDataTicker={setDataTicker}
-                              setTickerInvestment={setTickerInvestment}
-                              tickerInvestment={tickerInvestment}
-                            />
-                            
-                          </Modal>
-
-                          </View> */}
 
                         {/* Autocomplete ticker */}
 
