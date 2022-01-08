@@ -7,11 +7,19 @@ const WIDTH = Dimensions.get("screen").width
 const HEIGHT = Dimensions.get("screen").height
 
 const ModalCatPicker = (props) =>{
-    const {changeModalVisibilityCat, setDataCat} = props
+    const {changeModalVisibilityCat, setDataCat, setShow} = props
 
     const onPressItem = (option) =>{
         changeModalVisibilityCat(false)
         setDataCat(option)
+
+        if (option === "Crypto"){
+      
+            setShow(true)
+          } else{
+            
+            setShow(false)
+          }
     }
 
     const option = OPTIONS.map((item, index)=>{
