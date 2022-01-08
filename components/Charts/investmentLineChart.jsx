@@ -1,15 +1,16 @@
 import * as React from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   SafeAreaView,
   Dimensions,
-  Button,
   ScrollView,
 } from "react-native";
+import { Alert, Box, VStack, Text, Center, Button } from "native-base";
 import { LineChart } from "react-native-chart-kit";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const monthArr = [
   "JAN",
@@ -57,7 +58,11 @@ export default function cashLineChartComponent() {
         strokeWidth: 3, // optional
       },
     ],
-    legend: [`INVESTMENT, ${monthArr[todayDate.getMonth()+1]} ${todayDate.getFullYear()-1} - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`], // optional
+    legend: [
+      `INVESTMENT, ${monthArr[todayDate.getMonth() + 1]} ${
+        todayDate.getFullYear() - 1
+      } - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`,
+    ], // optional
   };
 
   const screenWidth = Dimensions.get("screen").width;
@@ -73,9 +78,32 @@ export default function cashLineChartComponent() {
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
-
+  const navigation = useNavigation();
   return (
     <>
+      <Center
+        flex={1}
+        height={"100%"}
+        width={"100%"}
+        style={{ position: "absolute", zIndex: 10 }}
+        bg="white:alpha.80"
+      >
+        <VStack space={3} alignItems="center" justifyContent="center">
+          <AntDesign name="lock" size={24} color="black" />
+          <Text fontSize="md" fontWeight="bold" color="coolGray.800">
+            Content Locked!
+          </Text>
+          <Button
+            variant="outline"
+            colorScheme="dark"
+            onPress={() => navigation.navigate("Profile")}
+          >
+            <Text fontSize="sm" color="coolGray.800">
+              Unlock Premium
+            </Text>
+          </Button>
+        </VStack>
+      </Center>
       <LineChart
         data={linedata}
         width={screenWidth}
