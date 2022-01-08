@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   FormControl,
   Stack,
@@ -41,6 +41,10 @@ export default function LoginPage({ navigation }) {
   const [show2, setShow2] = useState(false);
   const passwordHandler2 = () => setShow2(!show2);
 
+  useEffect(() => {
+    setClicked(false);
+  }, [isSignUpValid]);
+
   // check signup
   async function signUpHandler() {
     setClicked(true);
@@ -51,17 +55,17 @@ export default function LoginPage({ navigation }) {
         password2,
         referral
       );
-      setIsSignUpValid(
-        checkSignUp.error
-          ? checkSignUp.error == "incorrect password"
-            ? "passwords do not match"
-            : "username taken"
-          : "pass"
-      );
+      
+      checkSignUp.error
+        ? setIsSignUpValid(
+          checkSignUp.error == "incorrect password"
+          ? "passwords do not match"
+          : "username taken")
+        : "";
+
       // go back sign up page if got error
       if (checkSignUp.error) {
         navigation.navigate("Sign Up");
-        setClicked(false);
         return;
       }
       //try to login if signup is successful
@@ -73,6 +77,7 @@ export default function LoginPage({ navigation }) {
         const userId = await getUserId(checkUserAuth.refreshToken);
         setUser(userId);
         console.log(userId);
+        setIsSignUpValid("pass")
         // load drawer if login successful
         navigation.navigate("Drawer");
       } catch (err) {
@@ -85,7 +90,6 @@ export default function LoginPage({ navigation }) {
       // go back sign up page if unexpected error
       navigation.navigate("Sign Up");
     }
-    setClicked(false);
   }
 
   return (
