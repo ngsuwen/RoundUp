@@ -1,3 +1,5 @@
+// change the x-axis data point to past 7 days 
+
 import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
 import {
@@ -25,24 +27,31 @@ const reloadExpenses = () => {
   const tickerList = Object.keys(fetchedInvestmentEntries)
   console.log('tickerlistatlinechartdaily:',tickerList)
   // console.log('fetchedinvestmententrylienchartdaily',fetchedInvestmentEntries)
-  
+
+  // calculating total amount of everything (stocks and crypto combined)
+
+
+  let yAxisDataArr = [0,0,0,0,0,0,0] // putting 0 for the 7 days so we can reference the index later on
+
   // have to make sure there's pricehistory for the txn you're getting as priceHistory will be empty for newly added entries
-  for(let i = 0;i < 100;i++){ // upper limit of 100 tickers
-    for(let j = 0; j < 100; j++){ // upper limit of 100 transactions
-      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].length >= 7){ // we just need 1 transaction with at least the latest 7 transactions (from the back)
-      const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('HH:mm'))
+  for(let i = 0;i < tickerList.length;i++){
+    for(let j = 0; j < 100; j++){ // upper limit of 100 transactions -> need to edit to be length of total txn for each ticker 
+      if(fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].length >= 1){ // we just need 1 transaction with at least the latest 7 transactions (from the back)
+      const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('DD-MMM'))
       // console.log('datedatapoints:',dateDataPoints)
       // set x-axis
       setAllLabels(dateDataPoints)
 
-      // calculating total amount of everything (stocks and crypto combined)
-      let totalStocksAndCryptoAmount = 0 
-      // need to get qty * price for the last 7 days 
-      fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).forEach((priceHistoryEntry)=>{
-        console.log('ticker data 2:',tickerList[i], 'total amount:',priceHistoryEntry.price * priceHistoryEntry.quantity)
-        totalStocksAndCryptoAmount += priceHistoryEntry.price * priceHistoryEntry.quantity
+
+      // need to get qty * price for the last 7 days to calculate totalstocksandcryptoamount
+      let totalStocksAndCryptoAmountForOneDay = 0 
+      fetchedInvestmentEntries[tickerList[i]][j]['priceHistory'].slice(-7).forEach((priceHistoryEntryForOneDay,index)=>{ // reusing the same transaction from above i and j nested loop as we need just one txn. for each day of the txn. 
+        // console.log('priceHistoryEntry:',priceHistoryEntry) // contains date,price,quantity for one particular date
+        // console.log('ticker data 2:',tickerList[i], 'total amount:',priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity)
+        totalStocksAndCryptoAmountForOneDay += priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity // calculating and adding the total stock/crypto amount for that one day for this stock. Entire loop will add all stocks/crypto into totalStocksAndCryptoAmountForOneDay. 
+
+        yAxisDataArr[index] += totalStocksAndCryptoAmountForOneDay // for each day of the txn of every ticker, we add it to the respective total amount for that day in yAxisDataArr. Loops thru all the days firstly for each ticker and subsequently for all tickers
       })
-      
 
       // stop loop
       break // break the loop as we just need 1 datapoint for each ticker 
@@ -50,17 +59,13 @@ const reloadExpenses = () => {
     } // this will continue looping thru the rest of the tickers to get 1 transaction with at least 7 latest transactions each
   }
 
-
-
-
-
+  setDataPoints(yAxisDataArr)
 
   }
   catch(err){
     console.log(err)
   }
 
-  
  
   }
 
@@ -71,7 +76,7 @@ const reloadExpenses = () => {
         labels: allLabels,
         datasets: [
           {
-            data: [20, 25, 21, 30, 50, 70, 100],
+            data: dataPoints,
             color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
             strokeWidth: 3 // optional
           }
