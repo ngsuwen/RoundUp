@@ -25,7 +25,14 @@ const ShowInvestmentPage = ({ navigation, route }) => {
          categoryInvestment,setCategoryInvestment,
          tickerInvestment,setTickerInvestment, 
          qtyInvestment, setQtyInvestment,
-        transaction, setTransaction] = investmentEntryContext
+        transaction, setTransaction,
+        coin,setCoin,
+        stock,setStock,
+        filterTextCrypto,setFilterTextCrypto,
+        filterTextStock,setFilterTextStock,
+        filteredItemsCrypto,filteredItemsStock,
+        showTicker,setShowTicker
+      ] = investmentEntryContext
 
   const {entry} = route.params;
 
@@ -53,7 +60,10 @@ const ShowInvestmentPage = ({ navigation, route }) => {
   //need this to populate editpage with specified fields
   const editHandler=()=>{
     setPriceInvestment(entry.investmentsentry.price)
-    setTickerInvestment(entry.investmentsentry.ticker)
+    // setTickerInvestment(entry.investmentsentry.ticker)
+    showTicker ? setFilterTextCrypto(entry.investmentsentry.ticker)
+    : setFilterTextStock(entry.investmentsentry.ticker)
+    
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
     setCategoryInvestment(entry.investmentsentry.category)
