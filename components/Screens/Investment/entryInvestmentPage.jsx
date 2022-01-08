@@ -141,6 +141,8 @@ const EntryInvestmentPage = ({navigation}) => {
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
       setTransaction("Select Buy or Sell...")
+      setFilterTextCrypto("")
+      setFilterTextStock("")
      
     })
      return resetPage
@@ -315,7 +317,7 @@ const EntryInvestmentPage = ({navigation}) => {
                       { showTicker ?
                         <Box>
                           <Typeahead
-                            disabledKeys={[2]}
+                            inputValue={filterTextCrypto}
                             options={filteredItemsCrypto}
                             onChange={setFilterTextCrypto}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -337,7 +339,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             inputValue={filterTextStock}
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
-                            onSelectedItemChange={(value) => console.log("Selecrted Item ", value)}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
                             getOptionLabel={(item) => item.displaySymbol}
                             label="Select Stock..."
