@@ -161,7 +161,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: filterTextCrypto,
+                  ticker: show ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
                   transaction: transaction  }
                 
