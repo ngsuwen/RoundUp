@@ -82,7 +82,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
           />
           <Button
             title="Back"
-            onPress={() => {navigation.navigate("Index Investment Page")
+            onPress={() => {navigation.navigate("Investment GP")
             setExpenseForceRender(!expenseForceRender)}}
           />
         </View>
