@@ -42,6 +42,7 @@ function App() {
   const [transaction, setTransaction] = useState();
 
 
+  const [showTicker, setShowTicker] = useState(true);
   const [coin, setCoin] = useState([])
   const [stock, setStock] = useState([])
   const [filterTextCrypto, setFilterTextCrypto] = useState("");
@@ -250,6 +251,8 @@ useEffect(()=>{
             setFilterTextStock,
             filteredItemsCrypto,
             filteredItemsStock,
+            showTicker,
+            setShowTicker
 
           ],
           investmentQContext: [allInvestment],

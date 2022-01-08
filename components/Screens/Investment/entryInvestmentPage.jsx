@@ -41,7 +41,8 @@ const EntryInvestmentPage = ({navigation}) => {
           stock, setStock,
           filterTextCrypto, setFilterTextCrypto,
           filterTextStock, setFilterTextStock,
-          filteredItemsCrypto,filteredItemsStock
+          filteredItemsCrypto,filteredItemsStock,
+          showTicker, setShowTicker
          ] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
@@ -83,7 +84,7 @@ const EntryInvestmentPage = ({navigation}) => {
   }
 
   //autocomplete  
-  const [show, setShow] = useState(true);
+  // const [showTicker, setShowTicker] = useState(true);
   // const [coin, setCoin] = useState([])
   // const [stock, setStock] = useState([])
   // const [filterTextCrypto, setFilterTextCrypto] = useState("");
@@ -171,7 +172,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: show ? filterTextCrypto : filterTextStock,
+                  ticker: showTicker ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
                   transaction: transaction  }
                 
@@ -302,7 +303,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
-                              setShow={setShow}
+                              setShowTicker={setShowTicker}
                             />
                             
                         </Modal>
@@ -312,7 +313,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         {/* Autocomplete ticker */}
 
-                      { show ?
+                      { showTicker ?
                         <Box>
                           <Typeahead
                             
