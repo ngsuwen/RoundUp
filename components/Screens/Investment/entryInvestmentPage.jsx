@@ -97,7 +97,8 @@ const EntryInvestmentPage = ({navigation}) => {
    //fetch stock for ticker
    useEffect(()=>{
       const loadStock = async() =>{
-          const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&limit=100&token=c768mbqad3if0oe26md0")
+        
+        const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
           const data = await res.json()
           console.log(data)
           setStock(data)
@@ -114,13 +115,15 @@ const EntryInvestmentPage = ({navigation}) => {
         
       }, [filterTextCrypto]);
 
-      //filtered for stock
+      // filtered for stock
       const filteredItemsStock = useMemo(() => {
         return stock.filter(
           (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
         );
         
       }, [filterTextStock]);
+
+  
 
    
    // clear states onload at entryinvestment page
@@ -130,7 +133,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setPriceInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-      
+    
       setTransaction("Select Buy or Sell...")
     })
      return resetPage
