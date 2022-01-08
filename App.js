@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import checkToken from "./components/api/checkToken";
 import getUserId from "./components/api/getUserId";
@@ -44,6 +44,24 @@ function App() {
 
   const [coin, setCoin] = useState([])
   const [stock, setStock] = useState([])
+  const [filterTextCrypto, setFilterTextCrypto] = useState("");
+  const [filterTextStock, setFilterTextStock] = useState("");
+
+  // filtered for coin
+  const filteredItemsCrypto = useMemo(() => {
+    return coin.filter(
+      (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
+    );
+    
+  }, [filterTextCrypto]);
+
+  // filtered for stock
+  const filteredItemsStock = useMemo(() => {
+    return stock.filter(
+      (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
+    );
+    
+  }, [filterTextStock]);
 
 //fetch crypto for ticker
 useEffect(()=>{
@@ -226,6 +244,13 @@ useEffect(()=>{
             setCoin,
             stock,
             setStock,
+            filterTextCrypto,
+            setFilterTextCrypto,
+            filterTextStock,
+            setFilterTextStock,
+            filteredItemsCrypto,
+            filteredItemsStock,
+
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],

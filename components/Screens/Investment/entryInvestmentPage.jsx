@@ -38,7 +38,11 @@ const EntryInvestmentPage = ({navigation}) => {
           qtyInvestment, setQtyInvestment,
           transaction, setTransaction,
           coin, setCoin,
-          stock, setStock] = investmentEntryContext
+          stock, setStock,
+          filterTextCrypto, setFilterTextCrypto,
+          filterTextStock, setFilterTextStock,
+          filteredItemsCrypto,filteredItemsStock
+         ] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
@@ -82,8 +86,8 @@ const EntryInvestmentPage = ({navigation}) => {
   const [show, setShow] = useState(true);
   // const [coin, setCoin] = useState([])
   // const [stock, setStock] = useState([])
-  const [filterTextCrypto, setFilterTextCrypto] = useState("");
-  const [filterTextStock, setFilterTextStock] = useState("");
+  // const [filterTextCrypto, setFilterTextCrypto] = useState("");
+  // const [filterTextStock, setFilterTextStock] = useState("");
 
   // //fetch crypto for ticker
   // useEffect(()=>{
@@ -110,21 +114,21 @@ const EntryInvestmentPage = ({navigation}) => {
   //     }, [])
 
 
-      // filtered for coin
-      const filteredItemsCrypto = useMemo(() => {
-        return coin.filter(
-          (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
-        );
+      // // filtered for coin
+      // const filteredItemsCrypto = useMemo(() => {
+      //   return coin.filter(
+      //     (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
+      //   );
         
-      }, [filterTextCrypto]);
+      // }, [filterTextCrypto]);
 
-      // filtered for stock
-      const filteredItemsStock = useMemo(() => {
-        return stock.filter(
-          (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
-        );
+      // // filtered for stock
+      // const filteredItemsStock = useMemo(() => {
+      //   return stock.filter(
+      //     (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
+      //   );
         
-      }, [filterTextStock]);
+      // }, [filterTextStock]);
 
   
 

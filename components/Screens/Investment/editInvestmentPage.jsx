@@ -429,4 +429,36 @@ const styles = StyleSheet.create({
     shadowRadius: .22,
     elevation: 3,
     },
+
+
+
+
+
+    MainContainer: {
+      backgroundColor: '#FAFAFA',
+      flex: 1,
+      padding: 12,
+    },
+    AutocompleteStyle: {
+      flex: 1,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 1,
+     borderWidth:1
+    },
+    SearchBoxTextItem: {
+      margin: 5,
+      fontSize: 16,
+      paddingTop: 4,
+    },
+    selectedTextContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    selectedTextStyle: {
+      textAlign: 'center',
+      fontSize: 18,
+    },
 });
