@@ -115,7 +115,9 @@ function AccordionComponent() {
 
   return (
     <Box>
+      {allDates.length>0?
       <Accordion index={[0]}>{entries}</Accordion>
+      : <Text>No entries yet</Text>}
     </Box>
   );
 }
