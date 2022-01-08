@@ -100,8 +100,9 @@ const EntryInvestmentPage = ({navigation}) => {
         
         const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
           const data = await res.json()
-          console.log(data)
-          setStock(data)
+          const stockCompanies = data.slice(0, 50)
+          console.log(stockCompanies)
+          setStock(stockCompanies)
       }
       loadStock()
       }, [])
@@ -359,7 +360,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-                            getOptionKey={(item) => item.id}
+                            getOptionKey={(item) => item.symbol}
                             getOptionLabel={(item) => item.displaySymbol}
                             label="Select Stock..."
                             toggleIcon={({ isOpen }) => {
