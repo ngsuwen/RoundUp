@@ -6,7 +6,7 @@
 import React from 'react';
 import { useState,useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';
-import { ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, Text, Dimensions, Button } from 'react-native';
 import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable, Icon } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -139,27 +139,26 @@ let unrealizedPL = (currentStockQty*props.selectedTickerAndPrice.value)-totalAmo
    
   // do this last when you have all info
   // similar to the investmenttickercards, if you save as state, it will only rerender the 2nd cycle, so on first render at tickerDataCard it will be empty unless forcedtorerender again. 
-  setTickerData(
-    {
-     'ticker':props.selectedTickerAndPrice.ticker,
-     'currentPrice':props.selectedTickerAndPrice.value,
-     'costBasis':costBasis,
-     'currentStockQty':currentStockQty,
-     'totalAmountPaid':totalAmountPaid,
-     'unrealizedPL':unrealizedPL,
-    })
+setTickerData(
+  {
+    'ticker':props.selectedTickerAndPrice.ticker,
+    'currentPrice':props.selectedTickerAndPrice.value,
+    'costBasis':costBasis,
+    'currentStockQty':currentStockQty,
+    'totalAmountPaid':totalAmountPaid,
+    'unrealizedPL':unrealizedPL,
+  })
 
-    console.log('tickerData:',tickerData)
+  // console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
 }
 
 useEffect(()=>{
   const resetPage = navigation.addListener("focus", ()=>{
   // resetting ticker data
-  setTickerData([])
   RenderTransactionHistory()
   console.log('transaction history rendered')
     })
-    return resetPage
+  return resetPage
 },[tickerAndPrice,tickerData,fetchedInvestmentEntries])
 
 const navigation = useNavigation()
@@ -169,7 +168,7 @@ const entries = allDates.map((date,index)=>{
   return(
     <Accordion.Item key={index}>
         <Accordion.Summary _expanded={{backgroundColor:'#DFD3C3'}}>
-        {date}
+        {date} {tickerData.ticker}
         <Accordion.Icon /> 
         </Accordion.Summary>
         {entriesByDay[date].map((entry,index)=>{
@@ -200,14 +199,20 @@ return (
 
  
 export default function AccordionList (props) {
-
+  const navigation = useNavigation()
   return (
     <NativeBaseProvider>
       <Center flex={1}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <AccordionComponent selectedTickerAndPrice={props.selectedTickerAndPrice}/>
         </ScrollView>
+  
       </Center>
+      <Button
+                      title="Back"
+                      onPress={() => navigation.navigate("Investment GP")
+                         }
+                    />
     </NativeBaseProvider>
   );
 }

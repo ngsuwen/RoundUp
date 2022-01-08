@@ -4,6 +4,7 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function tickerDataCard() {
 
@@ -58,28 +59,18 @@ export default function tickerDataCard() {
 
     // have to useEffect to rerender tickerData as it will only update the next render
 
-    // useEffect(()=>{
-    // renderTickerData()
-    // },[tickerData])
+    useEffect(()=>{
+        // resetting ticker data
+    renderTickerData()
+    console.log('tickerdata refresh for tickerdatacard')
+    },[tickerData])
 
-    // const renderTickerData = () => {
-    //         return(
-    //             <>
-    //             <Text>{tickerData.ticker}</Text>
-    //             <View>
-    //                 <Text>Current Price: ${tickerData.currentPrice}</Text>
-    //                 <Text>Cost Basis: ${tickerData.costBasis}</Text>
-    //                 <Text>Quantity: {tickerData.currentStockQty} units</Text>
-    //                 <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
-    //                 <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
-    //             </View>
-    //             </>
-    //         )
-    // }
+    // const navigation = useNavigation()
 
-    return (
-        <View style={styles.wrapper}>
-            <Text>{tickerData.ticker}</Text>
+    const renderTickerData = () => {
+            return(
+                <>
+                <Text>{tickerData.ticker}</Text>
                 <View>
                     <Text>Current Price: ${tickerData.currentPrice}</Text>
                     <Text>Cost Basis: ${tickerData.costBasis}</Text>
@@ -87,9 +78,22 @@ export default function tickerDataCard() {
                     <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
                     <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
                 </View>
-        {/* {renderTickerData()}
-        {console.log('tickerdata in datacard:',tickerData)} */}
-        </View>
+                </>
+            )
+    }
+
+    return (
+        // <View style={styles.wrapper}>
+        //     <Text>{tickerData.ticker}</Text>
+        //         <View>
+        //             <Text>Current Price: ${tickerData.currentPrice}</Text>
+        //             <Text>Cost Basis: ${tickerData.costBasis}</Text>
+        //             <Text>Quantity: {tickerData.currentStockQty} units</Text>
+        //             <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
+        //             <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
+        //         </View>
+        renderTickerData()
+        // </View>
     )
   }
 
