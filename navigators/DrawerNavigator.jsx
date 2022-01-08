@@ -90,7 +90,8 @@ export default function App({ navigation }) {
       <Drawer.Screen name="Investment GP" component={investmentGeneralPage} />
 
       <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
-      <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage} />
+      <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage}
+        options={{drawerItemStyle: {height: 0}}} />
       <Drawer.Screen name="Show Investment Page" component={ShowInvestmentPage} 
         options={{drawerItemStyle: {height: 0}}}/> 
       <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}

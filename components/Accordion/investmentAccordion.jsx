@@ -174,7 +174,7 @@ const entries = allDates.map((date,index)=>{
         </Accordion.Summary>
         {entriesByDay[date].map((entry,index)=>{
         return(
-        <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Expense Page', {entry})}>
+        <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
         <Accordion.Details key={index}>
             <Text style={styles.entryDesc}>Transaction: {entry.investmentsentry.transaction}</Text>
             <Text style={styles.entryDesc}>No. of units: {entry.investmentsentry.quantity}</Text>

@@ -41,7 +41,6 @@ const EntryInvestmentPage = ({navigation}) => {
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
    // useState
-   const [show, setShow] = useState(false);
 
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = useState(false)
@@ -78,7 +77,11 @@ const EntryInvestmentPage = ({navigation}) => {
   }
 
   //autocomplete  
-  const [filterText, setFilterText] = useState("");
+  const [show, setShow] = useState(true);
+  const [coin, setCoin] = useState([])
+  const [stock, setStock] = useState([])
+  const [filterTextCrypto, setFilterTextCrypto] = useState("");
+  const [filterTextStock, setFilterTextStock] = useState("");
 
   //fetch crypto for ticker
   useEffect(()=>{
@@ -86,19 +89,38 @@ const EntryInvestmentPage = ({navigation}) => {
         const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
         const data = await res.json()
         console.log(data)
-        setTickerInvestment(data)
+        setCoin(data)
     }
     loadCoin()
     }, [])
 
+   //fetch stock for ticker
+   useEffect(()=>{
+      const loadStock = async() =>{
+          const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&limit=100&token=c768mbqad3if0oe26md0")
+          const data = await res.json()
+          console.log(data)
+          setStock(data)
+      }
+      loadStock()
+      }, [])
 
- 
-      const filteredItems = useMemo(() => {
-        return tickerInvestment.filter(
-          (item) => item.symbol.toLowerCase().indexOf(filterText.toLowerCase()) > -1
+
+      // filtered for coin
+      const filteredItemsCrypto = useMemo(() => {
+        return coin.filter(
+          (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
         );
         
-      }, [filterText]);
+      }, [filterTextCrypto]);
+
+      //filtered for stock
+      const filteredItemsStock = useMemo(() => {
+        return stock.filter(
+          (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
+        );
+        
+      }, [filterTextStock]);
 
    
    // clear states onload at entryinvestment page
@@ -139,7 +161,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: filterText,
+                  ticker: show ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
                   transaction: transaction  }
                 
@@ -161,7 +183,7 @@ const EntryInvestmentPage = ({navigation}) => {
         console.log(err)
       }
         
-        navigation.navigate("Index Investment Page")
+        navigation.navigate("Investment GP")
         
       }
     return (
@@ -270,6 +292,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
+                              setShow={setShow}
                             />
                             
                         </Modal>
@@ -307,15 +330,35 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         {/* Autocomplete ticker */}
 
+                      { show ?
                         <Box>
                           <Typeahead
                             
-                            options={filteredItems}
-                            onChange={setFilterText}
+                            options={filteredItemsCrypto}
+                            onChange={setFilterTextCrypto}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.id}
                             getOptionLabel={(item) => item.symbol}
-                            label="Select Ticker..."
+                            label="Select Crypto..."
+                            toggleIcon={({ isOpen }) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
+                                        :
+                        <Box>
+                          <Typeahead
+                            
+                            options={filteredItemsStock}
+                            onChange={setFilterTextStock}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
+                            getOptionKey={(item) => item.id}
+                            getOptionLabel={(item) => item.displaySymbol}
+                            label="Select Stock..."
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
@@ -327,9 +370,8 @@ const EntryInvestmentPage = ({navigation}) => {
                         </Box>
 
 
-
                        
- 
+                      }
                                          
 
 
