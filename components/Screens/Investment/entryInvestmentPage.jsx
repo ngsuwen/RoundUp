@@ -143,7 +143,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
       setFilterTextStock("")
-     
+      setShowTicker(true)
     })
      return resetPage
   }, [expenseForceRender])
