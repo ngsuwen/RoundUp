@@ -13,11 +13,17 @@ import { LineChart } from "react-native-chart-kit";
 
 export default function expenseLineChartComponent({dataMonth, expenseYearlyData, monthArr, todayDate}) {
 
+  let count = 0;
+
+  for(let i=0; i<12; i++){ 
+    count += Number(expenseYearlyData[i]); 
+  }
+
   const linedata = {
-    labels: dataMonth,
+    labels: count==0?['No Data Available']:dataMonth,
     datasets: [
       {
-        data: expenseYearlyData,
+        data: count==0?[0]:expenseYearlyData,
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 3, // optional
       },

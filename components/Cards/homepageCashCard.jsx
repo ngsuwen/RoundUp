@@ -11,10 +11,12 @@ import {
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
 export default function homepageCashCard({ navigation, cashYearlyData }) {
-
+  
   const calculateChange=()=>{
-    let change = (Number(cashYearlyData[11])/Number(cashYearlyData[10])*100).toFixed(2)
-    if (change>0){
+    let change = ((Number(cashYearlyData[11])-Number(cashYearlyData[10]))/Number(cashYearlyData[10])*100).toFixed(2)
+    if (cashYearlyData[10]==0){
+      return <Text color="emerald.600">+{cashYearlyData[11]}</Text>
+    } else if (change>0){
       return <Text color="emerald.600">+{change}</Text>
     } else if (change<0){
       return <Text color="red.600">-{change}</Text>

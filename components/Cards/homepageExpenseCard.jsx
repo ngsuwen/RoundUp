@@ -13,8 +13,10 @@ import { EvilIcons, AntDesign } from "@expo/vector-icons";
 export default function homepageExpenseCard({ navigation, expenseYearlyData }) {
 
   const calculateChange=()=>{
-    let change = (Number(expenseYearlyData[11])/Number(expenseYearlyData[10])*100).toFixed(2)
-    if (change>0){
+    let change = ((Number(expenseYearlyData[11])-Number(expenseYearlyData[10]))/Number(expenseYearlyData[10])*100).toFixed(2)
+    if (expenseYearlyData[10]==0){
+      return <Text color="emerald.600">+{expenseYearlyData[11]}</Text>
+    } else if (change>0){
       return <Text color="emerald.600">+{change}</Text>
     } else if (change<0){
       return <Text color="red.600">-{change}</Text>
