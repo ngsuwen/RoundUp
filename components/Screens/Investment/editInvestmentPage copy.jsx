@@ -84,7 +84,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker: show ? filterTextCrypto : filterTextStock,
+              ticker: tickerInvestment,
               quantity: qtyInvestment,
               transaction: transaction
             },

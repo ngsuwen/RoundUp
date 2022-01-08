@@ -47,13 +47,13 @@ const ShowInvestmentPage = ({ navigation, route }) => {
     }
 
     setExpenseForceRender(!expenseForceRender)
-    navigation.navigate("Index Investment Page");
+    navigation.navigate("Investment GP");
   };
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
     setPriceInvestment(entry.investmentsentry.price)
-    setTickerInvestment(entry.investmentsentry.ticker)
+    // setTickerInvestment(entry.investmentsentry.ticker)
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
     setCategoryInvestment(entry.investmentsentry.category)

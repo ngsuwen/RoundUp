@@ -36,7 +36,9 @@ const EntryInvestmentPage = ({navigation}) => {
           categoryInvestment,setCategoryInvestment,
           tickerInvestment,setTickerInvestment, 
           qtyInvestment, setQtyInvestment,
-          transaction, setTransaction] = investmentEntryContext
+          transaction, setTransaction,
+          coin, setCoin,
+          stock, setStock] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
@@ -78,34 +80,34 @@ const EntryInvestmentPage = ({navigation}) => {
 
   //autocomplete  
   const [show, setShow] = useState(true);
-  const [coin, setCoin] = useState([])
-  const [stock, setStock] = useState([])
+  // const [coin, setCoin] = useState([])
+  // const [stock, setStock] = useState([])
   const [filterTextCrypto, setFilterTextCrypto] = useState("");
   const [filterTextStock, setFilterTextStock] = useState("");
 
-  //fetch crypto for ticker
-  useEffect(()=>{
-    const loadCoin = async() =>{
-        const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
-        const data = await res.json()
-        console.log(data)
-        setCoin(data)
-    }
-    loadCoin()
-    }, [])
+  // //fetch crypto for ticker
+  // useEffect(()=>{
+  //   const loadCoin = async() =>{
+  //       const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
+  //       const data = await res.json()
+  //       console.log(data)
+  //       setCoin(data)
+  //   }
+  //   loadCoin()
+  //   }, [])
 
-   //fetch stock for ticker
-   useEffect(()=>{
-      const loadStock = async() =>{
+  //  //fetch stock for ticker
+  //  useEffect(()=>{
+  //     const loadStock = async() =>{
         
-        const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
-          const data = await res.json()
-          const stockCompanies = data.slice(0, 2500)
-          console.log(stockCompanies)
-          setStock(data)
-      }
-      loadStock()
-      }, [])
+  //       const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
+  //         const data = await res.json()
+  //         const stockCompanies = data.slice(0, 2500)
+  //         console.log(stockCompanies)
+  //         setStock(stockCompanies)
+  //     }
+  //     loadStock()
+  //     }, [])
 
 
       // filtered for coin
@@ -331,8 +333,8 @@ const EntryInvestmentPage = ({navigation}) => {
                             
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
-                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-                            getOptionKey={(item) => item.symbol}
+                            onSelectedItemChange={(value) => console.log("Selecrted Item ", value)}
+                            getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
                             getOptionLabel={(item) => item.displaySymbol}
                             label="Select Stock..."
                             toggleIcon={({ isOpen }) => {

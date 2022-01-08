@@ -41,6 +41,35 @@ function App() {
   const [qtyInvestment, setQtyInvestment] = useState([]);
   const [transaction, setTransaction] = useState();
 
+
+  const [coin, setCoin] = useState([])
+  const [stock, setStock] = useState([])
+
+//fetch crypto for ticker
+useEffect(()=>{
+  const loadCoin = async() =>{
+      const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
+      const data = await res.json()
+      //console.log(data)
+      setCoin(data)
+  }
+  loadCoin()
+  }, [])
+
+ //fetch stock for ticker
+ useEffect(()=>{
+    const loadStock = async() =>{
+      
+      const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
+        const data = await res.json()
+        const stockCompanies = data.slice(0, 1000)
+        //console.log(stockCompanies)
+        setStock(stockCompanies)
+    }
+    loadStock()
+    }, [])
+
+
   // useState for month selector (KSZ)
   const [selectedMonth, setSelectedMonth] = useState(
     moment().format("YYYY-MM")
@@ -193,6 +222,10 @@ function App() {
             setQtyInvestment,
             transaction,
             setTransaction,
+            coin,
+            setCoin,
+            stock,
+            setStock,
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],
