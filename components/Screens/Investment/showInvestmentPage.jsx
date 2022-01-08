@@ -63,7 +63,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
   const editHandler=()=>{
     setPriceInvestment(entry.investmentsentry.price)
     // setTickerInvestment(entry.investmentsentry.ticker)
-    showTicker ? setFilterTextCrypto(entry.investmentsentry.ticker)
+    categoryInvestment === "Crypto"  ? setFilterTextCrypto(entry.investmentsentry.ticker)
     : setFilterTextStock(entry.investmentsentry.ticker)
     
     setDateInvestment(entry.investmentsentry.date)

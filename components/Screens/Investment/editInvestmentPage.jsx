@@ -272,7 +272,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
                         {/* Autocomplete ticker */}
 
-                        { showTicker ?
+                        { categoryInvestment === "Crypto" ?
                         <Box>
                           <Typeahead
                             inputValue={filterTextCrypto}

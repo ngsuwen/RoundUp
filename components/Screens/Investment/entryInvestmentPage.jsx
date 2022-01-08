@@ -172,7 +172,7 @@ const EntryInvestmentPage = ({navigation}) => {
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: showTicker ? filterTextCrypto : filterTextStock,
+                  ticker: categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
                   transaction: transaction  }   
             }
@@ -309,7 +309,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
                         {/* Autocomplete ticker */}
 
-                      { showTicker ?
+                      { categoryInvestment === "Crypto" ?
                         <Box>
                           <Typeahead
                             inputValue={filterTextCrypto}
