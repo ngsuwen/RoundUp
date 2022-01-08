@@ -51,6 +51,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
         ] = investmentEntryContext
 
   
+        console.log("showTicker", showTicker)
+
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
 
@@ -270,7 +272,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                         { showTicker ?
                         <Box>
                           <Typeahead
-                            
+                            inputValue={filterTextCrypto}
                             options={filteredItemsCrypto}
                             onChange={setFilterTextCrypto}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -289,7 +291,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                                         :
                         <Box>
                           <Typeahead
-                            
+                            inputValue={filterTextStock}
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
                             onSelectedItemChange={(value) => console.log("Selecrted Item ", value)}

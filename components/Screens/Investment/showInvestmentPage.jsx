@@ -81,9 +81,10 @@ const ShowInvestmentPage = ({ navigation, route }) => {
         <Text style={styles.wrapper}>Date: {formattedDate}</Text>
         <Text style={styles.wrapper}>Price: $ {entry.investmentsentry.price}</Text>
         <Text style={styles.wrapper}>Quantity: {entry.investmentsentry.quantity}</Text>
+        <Text style={styles.wrapper}>Transaction: {entry.investmentsentry.transaction}</Text>
         <Text style={styles.wrapper}>Category: {entry.investmentsentry.category}</Text>
         <Text style={styles.wrapper}>Ticker: {entry.investmentsentry.ticker}</Text>
-        <Text style={styles.wrapper}>Transaction: {entry.investmentsentry.transaction}</Text>
+       
         <View style={styles.button}>
           <Button title="Delete" onPress={() => deleteInvestment(entry._id)} />
           <Button

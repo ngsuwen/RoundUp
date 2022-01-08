@@ -131,7 +131,7 @@ const EntryInvestmentPage = ({navigation}) => {
       // }, [filterTextStock]);
 
   
-
+    
    
    // clear states onload at entryinvestment page
   useEffect(()=>{
@@ -140,8 +140,8 @@ const EntryInvestmentPage = ({navigation}) => {
       setPriceInvestment([])
       setCategoryInvestment("Select Category...")
       setQtyInvestment([])
-    
       setTransaction("Select Buy or Sell...")
+     
     })
      return resetPage
   }, [expenseForceRender])
@@ -315,7 +315,7 @@ const EntryInvestmentPage = ({navigation}) => {
                       { showTicker ?
                         <Box>
                           <Typeahead
-                            
+                            disabledKeys={[2]}
                             options={filteredItemsCrypto}
                             onChange={setFilterTextCrypto}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -334,7 +334,7 @@ const EntryInvestmentPage = ({navigation}) => {
                                         :
                         <Box>
                           <Typeahead
-                            
+                            inputValue={filterTextStock}
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
                             onSelectedItemChange={(value) => console.log("Selecrted Item ", value)}
