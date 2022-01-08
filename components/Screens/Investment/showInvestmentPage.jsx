@@ -36,6 +36,8 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   const {entry} = route.params;
 
+  console.log("showTicker", showTicker)
+
   // format date to "YYYY-MM-DD"
   const actualDate = entry.investmentsentry.date
   const formattedDate = moment(actualDate, moment.ISO_8601).format('YYYY-MM-DD')

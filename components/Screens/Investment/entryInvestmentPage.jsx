@@ -169,15 +169,12 @@ const EntryInvestmentPage = ({navigation}) => {
               username: userId,
               investmentsentry:
                 { 
-                  
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
                   ticker: showTicker ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
-                  transaction: transaction  }
-                
-                 
+                  transaction: transaction  }   
             }
             ),
           headers: {
@@ -187,10 +184,8 @@ const EntryInvestmentPage = ({navigation}) => {
         if(res.status!==200){
           console.error('create data investment failed')
         }
-        
       setExpenseForceRender(!expenseForceRender)
      
-
       } catch(err){
         console.log(err)
       }
