@@ -79,7 +79,8 @@ const linedata = {
       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
       strokeWidth: 3 // optional
     }
-  ]
+  ],
+  legend: [fetchedExpenseEntries[0]?moment(fetchedExpenseEntries[0].expensesentry.date).format("MMM YYYY").toUpperCase():'']
 }
 
 
