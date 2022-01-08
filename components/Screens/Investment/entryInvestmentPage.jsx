@@ -100,9 +100,9 @@ const EntryInvestmentPage = ({navigation}) => {
         
         const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
           const data = await res.json()
-          const stockCompanies = data.slice(0, 300)
+          const stockCompanies = data.slice(0, 2500)
           console.log(stockCompanies)
-          setStock(stockCompanies)
+          setStock(data)
       }
       loadStock()
       }, [])
