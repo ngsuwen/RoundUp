@@ -12,10 +12,21 @@ import {
   Dimensions
 } from "react-native";
 import DatePicker from "@react-native-community/datetimepicker";
-import { NativeBaseProvider, KeyboardAvoidingView } from "native-base";
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
+import {
+  NativeBaseProvider,
+  KeyboardAvoidingView,
+  Input,
+  useTypeahead,
+  Typeahead,
+  Icon,
+  IconButton,
+  Center,
+  Box,
+  
+} from "native-base";
 
 
 const EditInvestmentPage = ({ navigation, route }) => {
@@ -30,12 +41,11 @@ const EditInvestmentPage = ({ navigation, route }) => {
          categoryInvestment,setCategoryInvestment,
          tickerInvestment,setTickerInvestment, 
          qtyInvestment, setQtyInvestment,
-         transaction, setTransaction] = investmentEntryContext
+         transaction, setTransaction,
+         coin, setCoin,
+         stock, setStock] = investmentEntryContext
 
-
-   // useState
-   const [show, setShow] = React.useState(false);
-   
+  
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
 
@@ -69,6 +79,26 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setTransaction(option)
   }
 
+  //autocomplete  
+  const [show, setShow] = React.useState(true);
+  const [filterTextCrypto, setFilterTextCrypto] = React.useState("");
+  const [filterTextStock, setFilterTextStock] = React.useState("");
+
+  // filtered for coin
+  const filteredItemsCrypto = React.useMemo(() => {
+    return coin.filter(
+      (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
+    );
+    
+  }, [filterTextCrypto]);
+
+  // filtered for stock
+  const filteredItemsStock = React.useMemo(() => {
+    return stock.filter(
+      (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
+    );
+    
+  }, [filterTextStock]);
 
 
   const handleSubmit = async (investment) => {
@@ -168,6 +198,33 @@ const EditInvestmentPage = ({ navigation, route }) => {
                     </View>
 
 
+                    {/* Transaction */}
+                    <View style={styles.wrapper}>
+
+                        <Pressable 
+                          style={styles.pressable}
+                          onPress={()=> changeModalVisibilityTransaction(true)}
+                          >
+                          <Text style={styles.catText}>{transaction}</Text>
+
+                        </Pressable>
+                        <Modal
+                          transparent={true}
+                          animationType='fade'
+                          visible={isModalVisibleTransaction}
+                          onRequestClose={()=> changeModalVisibilityTransaction(false)}
+
+                        >
+                          <ModalTransactionPicker 
+                            changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                            setDataTransaction={setDataTransaction}
+                          />
+                          
+                        </Modal>
+
+                        </View>
+
+
                         {/* category */}
                         <View style={styles.wrapper}>
 
@@ -188,6 +245,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
+                              setShow={setShow}
                             />
                             
                         </Modal>
@@ -195,7 +253,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                         </View>
 
 
-                    {/* ticker */}
+                    {/* ticker
                     <View style={styles.wrapper}>
 
                           <Pressable 
@@ -219,35 +277,55 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             
                           </Modal>
 
-                          </View>
+                          </View> */}
 
 
+                        {/* Autocomplete ticker */}
 
-                     {/* Transaction */}
-                     <View style={styles.wrapper}>
+                        { show ?
+                        <Box>
+                          <Typeahead
+                            
+                            options={filteredItemsCrypto}
+                            onChange={setFilterTextCrypto}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
+                            getOptionKey={(item) => item.id}
+                            getOptionLabel={(item) => item.symbol}
+                            label="Select Crypto..."
+                            toggleIcon={({ isOpen }) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
+                                        :
+                        <Box>
+                          <Typeahead
+                            
+                            options={filteredItemsStock}
+                            onChange={setFilterTextStock}
+                            onSelectedItemChange={(value) => console.log("Selecrted Item ", value)}
+                            getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
+                            getOptionLabel={(item) => item.displaySymbol}
+                            label="Select Stock..."
+                            toggleIcon={({ isOpen }) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
 
-                            <Pressable 
-                              style={styles.pressable}
-                              onPress={()=> changeModalVisibilityTransaction(true)}
-                              >
-                              <Text style={styles.catText}>{transaction}</Text>
 
-                            </Pressable>
-                            <Modal
-                              transparent={true}
-                              animationType='fade'
-                              visible={isModalVisibleTransaction}
-                              onRequestClose={()=> changeModalVisibilityTransaction(false)}
+                       
+                      }
 
-                            >
-                              <ModalTransactionPicker 
-                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                                setDataTransaction={setDataTransaction}
-                              />
-                              
-                            </Modal>
-
-                            </View>
+                     
 
 
 
