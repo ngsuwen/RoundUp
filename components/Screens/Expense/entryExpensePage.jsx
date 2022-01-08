@@ -77,16 +77,6 @@ const EntryExpensePage = ({ navigation }) => {
 
   const formattedDate = moment(date, moment.ISO_8601).format("YYYY-MM-DD");
 
-  //work in progress
-  //  const categories = ["Shopping", "Food", "Health", "Transportation", "Household"]
-  //  const CategoryList = () =>{
-  //    return <View style={styles.categoryContainer}>
-  //      {categories.map((item, index)=>(
-  //        <Text key={index} style={[styles.categoryText]}>{item}</Text>
-  //      ))}
-  //    </View>
-  //  }
-  ///////////////////////
 
   const handleSubmit = async (event) => {
     try {
