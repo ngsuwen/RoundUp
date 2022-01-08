@@ -19,7 +19,7 @@ export default function homepageExpenseCard({ navigation, expenseYearlyData }) {
     } else if (change>0){
       return <Text color="emerald.600">+{change}</Text>
     } else if (change<0){
-      return <Text color="red.600">-{change}</Text>
+      return <Text color="red.600">{change}</Text>
     } else {
       return <Text color="coolGray.400">{change}</Text>
     }
