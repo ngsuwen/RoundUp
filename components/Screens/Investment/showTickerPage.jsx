@@ -76,6 +76,11 @@ const styles = StyleSheet.create({
       <View style={styles.accordion}>
       <AccordionList selectedTickerAndPrice={selectedTickerAndPrice}/>
       </View>
+      <Button
+        title="Back"
+        onPress={() => navigation.navigate("Investment GP")
+            }
+      />
     </View>
   )
 }

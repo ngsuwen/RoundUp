@@ -14,7 +14,7 @@ export default function investmentTickerCard() {
 
 const navigation = useNavigation()
 
-const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData } = useContext(DataContext)
+const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData, investmentTickerContext} = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = investmentContextRawData
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext

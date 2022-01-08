@@ -66,7 +66,7 @@ const allDates = allDatesAscending.reverse()
 
 // console.log('entriesbyday:',entriesByDay)
 
-const RenderTransactionHistory = () => {
+const RenderTickerCardData = () => {
 
 // avg price per stock, needed to find new totalAmountPaid
 // cost basis for one BUY transaction can be derived by price bought * qty
@@ -156,7 +156,7 @@ setTickerData(
 
 useEffect(()=>{
   const resetPage = navigation.addListener("focus", ()=>{
-  RenderTransactionHistory()
+  RenderTickerCardData()
   console.log('transaction history rendered')
     })
   return resetPage
@@ -209,11 +209,6 @@ export default function AccordionList (props) {
         </ScrollView>
   
       </Center>
-      <Button
-                      title="Back"
-                      onPress={() => navigation.navigate("Investment GP")
-                         }
-                    />
     </NativeBaseProvider>
   );
 }
