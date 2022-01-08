@@ -47,7 +47,6 @@ const EntryInvestmentPage = ({navigation}) => {
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
-   // useState
 
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = useState(false)

@@ -43,7 +43,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
          qtyInvestment, setQtyInvestment,
          transaction, setTransaction,
          coin, setCoin,
-         stock, setStock] = investmentEntryContext
+         stock, setStock,
+         filterTextCrypto, setFilterTextCrypto,
+         filterTextStock, setFilterTextStock,
+         filteredItemsCrypto,filteredItemsStock,
+         showTicker, setShowTicker
+        ] = investmentEntryContext
 
   
     // Modal for category
@@ -79,26 +84,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setTransaction(option)
   }
 
-  //autocomplete  
-  const [show, setShow] = React.useState(true);
-  const [filterTextCrypto, setFilterTextCrypto] = React.useState("");
-  const [filterTextStock, setFilterTextStock] = React.useState("");
-
-  // filtered for coin
-  const filteredItemsCrypto = React.useMemo(() => {
-    return coin.filter(
-      (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
-    );
-    
-  }, [filterTextCrypto]);
-
-  // filtered for stock
-  const filteredItemsStock = React.useMemo(() => {
-    return stock.filter(
-      (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
-    );
-    
-  }, [filterTextStock]);
 
 
   const handleSubmit = async (investment) => {
@@ -114,7 +99,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker: show ? filterTextCrypto : filterTextStock,
+              ticker: showTicker ? filterTextCrypto : filterTextStock,
               quantity: qtyInvestment,
               transaction: transaction
             },
@@ -245,7 +230,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
-                              setShow={setShow}
+                              setShowTicker={setShowTicker}
                             />
                             
                         </Modal>
@@ -282,7 +267,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
                         {/* Autocomplete ticker */}
 
-                        { show ?
+                        { showTicker ?
                         <Box>
                           <Typeahead
                             
