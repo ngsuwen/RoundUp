@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   FormControl,
   Stack,
@@ -34,17 +34,22 @@ export default function LoginPage({ navigation }) {
   const [show, setShow] = useState(false);
   const passwordHandler = () => setShow(!show);
 
+  useEffect(() => {
+    setClicked(false);
+  }, [isLoginValid]);
+
   //check login
   async function loginHandler() {
-    setClicked(true)
+    setClicked(true);
     const checkUserAuth = await loginAuth(username, password);
-    setIsLoginValid(
-      checkUserAuth.error
-        ? checkUserAuth.error == "invalid user"
-          ? "invalid user"
-          : "invalid password"
-        : "pass"
-    );
+
+    checkUserAuth.error
+      ? setIsLoginValid(
+          checkUserAuth.error == "invalid user"
+            ? "invalid user"
+            : "invalid password"
+        )
+      : "";
     try {
       // store tokens in FE
       await AsyncStorage.setItem("accessToken", checkUserAuth.accessToken);
@@ -52,12 +57,12 @@ export default function LoginPage({ navigation }) {
       const userId = await getUserId(checkUserAuth.refreshToken);
       setUser(userId);
       console.log(userId);
+      setIsLoginValid("pass");
       navigation.navigate("Drawer");
     } catch (err) {
       console.log("Login error", err);
       navigation.navigate("Login");
     }
-    setClicked(false)
   }
 
   return (
@@ -112,7 +117,12 @@ export default function LoginPage({ navigation }) {
                 placeholder="password"
               />
             </FormControl>
-            <Button onPress={loginHandler} small primary isLoading={clicked?true:false}>
+            <Button
+              onPress={loginHandler}
+              small
+              primary
+              isLoading={clicked ? true : false}
+            >
               <Text>Log In</Text>
             </Button>
             <Center>
