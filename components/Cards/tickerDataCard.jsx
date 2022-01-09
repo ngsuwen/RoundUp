@@ -121,6 +121,8 @@ export default function tickerDataCard() {
          if(entry.investmentsentry.transaction==='Buy'){
             totalAmountPaid+=entry.investmentsentry.price*entry.investmentsentry.quantity
             currentStockQty+=entry.investmentsentry.quantity
+            console.log('ticker:',entry.investmentsentry.ticker)
+            console.log('BUYtotalamtpaid:',totalAmountPaid)
             
             // update cost basis after totalAmountPaid and currentStockQty is updated 
             if (index === 0){
@@ -133,6 +135,9 @@ export default function tickerDataCard() {
          if(entry.investmentsentry.transaction==='Sell'){
             totalAmountPaid-=entry.investmentsentry.quantity*costBasis
             currentStockQty-=entry.investmentsentry.quantity
+            console.log('ticker:',entry.investmentsentry.ticker)
+            console.log('SELLtotalamtpaid:',totalAmountPaid)
+            
         
           }   
         })
