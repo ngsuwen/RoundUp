@@ -19,11 +19,13 @@ import loginAuth from "../api/loginAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DataContext from "../../context/DataContext";
 import getUserId from "../api/getUserId";
+import getUser from "../api/getUser";
 
 export default function LoginPage({ navigation }) {
   // useContext
-  const { userContext } = useContext(DataContext);
+  const { userContext, userRoleContext } = useContext(DataContext);
   const [user, setUser] = userContext;
+  const [userRole, setUserRole] = userRoleContext
 
   console.log(user);
 
@@ -76,6 +78,8 @@ export default function LoginPage({ navigation }) {
         await AsyncStorage.setItem("refreshToken", checkUserAuth.refreshToken);
         const userId = await getUserId(checkUserAuth.refreshToken);
         setUser(userId);
+        const userInfo = await getUser(userId)
+        setUserRole(userInfo.role)
         console.log(userId);
         setIsSignUpValid("pass")
         // load drawer if login successful

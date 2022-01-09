@@ -22,8 +22,9 @@ import logoutApi from "../api/logoutApi";
 
 export default function LoginPage({ navigation }) {
   // useContext UserContext
-  const { userContext } = useContext(DataContext);
+  const { userContext, userRoleContext } = useContext(DataContext);
   const [user, setUser] = userContext;
+  const [userRole, setUserRole] = userRoleContext
 
   // useState
   const [isUpdateValid, setIsUpdateValid] = useState("pass");
@@ -49,6 +50,7 @@ export default function LoginPage({ navigation }) {
         return;
       }
       // go to home page if successful
+      setUserRole(referral===""?"BASIC":"PREMIUM")
       navigation.navigate("Home");
     } catch (err) {
       console.log(err);
@@ -73,6 +75,7 @@ export default function LoginPage({ navigation }) {
       await AsyncStorage.removeItem("accessToken");
       await AsyncStorage.removeItem("refreshToken");
       setUser("");
+      setUserRole(null)
       console.log("deleted");
       navigation.navigate("Login");
     } catch (err) {

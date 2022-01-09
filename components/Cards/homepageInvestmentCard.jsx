@@ -11,8 +11,13 @@ import {
   Button
 } from "native-base";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
+import DataContext from "../../context/DataContext";
 
 export default function homepageCashCard({ navigation }) {
+  
+  const { userRoleContext } = React.useContext(DataContext);
+  const [userRole, setUserRole] = userRoleContext;
+  
   return (
     <NativeBaseProvider>
       <Center
@@ -29,9 +34,10 @@ export default function homepageCashCard({ navigation }) {
           flex={1}
           width={"100%"}
           height={"100%"}
-          style={{ position: "absolute", zIndex: 10 }}
+          style={{ position: "absolute", zIndex: userRole==="BASIC"?10:-10 }}
           bg="white:alpha.80"
         >
+        {userRole==="BASIC"?
           <VStack
             space={3}
             alignItems="center"
@@ -46,6 +52,7 @@ export default function homepageCashCard({ navigation }) {
             </Text>
             </Button>
           </VStack>
+        :""}
         </Center>
         <HStack mb="2" width="85%" justifyContent="space-between">
           <Text fontWeight="bold">Investment</Text>

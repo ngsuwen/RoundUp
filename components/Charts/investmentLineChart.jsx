@@ -11,6 +11,7 @@ import { Alert, Box, VStack, Text, Center, Button } from "native-base";
 import { LineChart } from "react-native-chart-kit";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import DataContext from "../../context/DataContext";
 
 const monthArr = [
   "JAN",
@@ -49,6 +50,10 @@ for (let i = 0; i <= todayMonth; i++) {
 }
 
 export default function cashLineChartComponent() {
+
+  const { userRoleContext } = React.useContext(DataContext);
+  const [userRole, setUserRole] = userRoleContext;
+
   const linedata = {
     labels: dataMonth,
     datasets: [
@@ -85,9 +90,10 @@ export default function cashLineChartComponent() {
         flex={1}
         height={"100%"}
         width={"100%"}
-        style={{ position: "absolute", zIndex: 10 }}
+        style={{ position: "absolute", zIndex: userRole==="BASIC"?10:-10 }}
         bg="white:alpha.80"
       >
+        {userRole==="BASIC"?
         <VStack space={3} alignItems="center" justifyContent="center">
           <AntDesign name="lock" size={24} color="black" />
           <Text fontSize="md" fontWeight="bold" color="coolGray.800">
@@ -103,6 +109,7 @@ export default function cashLineChartComponent() {
             </Text>
           </Button>
         </VStack>
+        :''}
       </Center>
       <LineChart
         data={linedata}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import checkToken from "./components/api/checkToken";
 import getUserId from "./components/api/getUserId";
+import getUser from "./components/api/getUser";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import DataContext from "./context/DataContext";
@@ -11,6 +12,7 @@ function App() {
   // token state, to be provided at all pages to check for session
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [userRole, setUserRole] = useState(null)
 
   // useState for expense
   const [allExpense, setAllExpense] = useState([]);
@@ -124,6 +126,8 @@ useEffect(()=>{
         ? ""
         : await getUserId(isTokenValid.refreshToken);
       setUser(userId);
+      const userInfo = await getUser(userId)
+      setUserRole(userInfo.role)
       isTokenValid.error
         ? ""
         : await AsyncStorage.setItem("accessToken", isTokenValid.accessToken);
@@ -259,6 +263,7 @@ useEffect(()=>{
           investmentQContext: [allInvestment],
           userContext: [user, setUser],
           tokenContext: [token, setToken],
+          userRoleContext: [userRole, setUserRole],
           investmentContext: [fetchedInvestmentEntries, setInvestmentEntries],
           tickerAndPriceContext: [tickerAndPrice, setTickerAndPrice],
           investmentGPContext: [

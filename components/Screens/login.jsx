@@ -16,6 +16,7 @@ import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import loginAuth from "../api/loginAuth";
 import getUserId from "../api/getUserId";
+import getUser from "../api/getUser";
 import DataContext from "../../context/DataContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -27,8 +28,9 @@ export default function LoginPage({ navigation }) {
   const [clicked, setClicked] = useState(false);
 
   // useContext
-  const { userContext } = useContext(DataContext);
+  const { userContext, userRoleContext } = useContext(DataContext);
   const [user, setUser] = userContext;
+  const [userRole, setUserRole] = userRoleContext
 
   // password state
   const [show, setShow] = useState(false);
@@ -56,6 +58,8 @@ export default function LoginPage({ navigation }) {
       await AsyncStorage.setItem("refreshToken", checkUserAuth.refreshToken);
       const userId = await getUserId(checkUserAuth.refreshToken);
       setUser(userId);
+      const userInfo = await getUser(userId)
+      setUserRole(userInfo.role)
       console.log(userId);
       setIsLoginValid("pass");
       navigation.navigate("Drawer");
