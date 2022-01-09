@@ -35,10 +35,14 @@ const ShowInvestmentPage = ({ navigation, route }) => {
       ] = investmentEntryContext
 
   const {entry} = route.params;
-  // need to set below so that the edit autocomplete for ticker shows the correct one
-  setCategoryInvestment(entry.investmentsentry.category)
+
+  //force render of categoryInvestment so as to render in autcomplete correctly
+  //setCategoryInvestment(entry.investmentsentry.category)
+  
+
+  
   console.log("showTicker", showTicker)
-  console.log("categoryInvestment", categoryInvestment)
+  console.log("categoryInvestment", entry.investmentsentry.category)
 
   // format date to "YYYY-MM-DD"
   const actualDate = entry.investmentsentry.date
@@ -65,13 +69,13 @@ const ShowInvestmentPage = ({ navigation, route }) => {
   const editHandler=()=>{
     setPriceInvestment(entry.investmentsentry.price)
     // setTickerInvestment(entry.investmentsentry.ticker)
-    
+    setCategoryInvestment(entry.investmentsentry.category)
     categoryInvestment === "Crypto"  ? setFilterTextCrypto(entry.investmentsentry.ticker)
     : setFilterTextStock(entry.investmentsentry.ticker)
     
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
-    setCategoryInvestment(entry.investmentsentry.category)
+
     setTransaction(entry.investmentsentry.transaction)
     
     navigation.navigate("Edit Investment Page", {entry: entry})

@@ -55,17 +55,20 @@ const EditInvestmentPage = ({ navigation, route }) => {
         console.log("showTicker", showTicker)
         console.log("categoryInvestment", categoryInvestment)
       
-
+   
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
 
     const changeModalVisibilityCat = (bool) =>{
     setIsModalVisibleCat(bool)
+    
     }
 
     const setDataCat = (option) =>{
       setCategoryInvestment(option)
     }
+
+   
 
    // Modal for ticker
    const [isModalVisibleTicker, setIsModalVisibleTicker] = React.useState(false)
@@ -220,7 +223,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
                         <Pressable 
                             style={styles.pressable}
-                            onPress={()=> changeModalVisibilityCat(true)}
+                            onPress={(text)=> changeModalVisibilityCat(true)}
                             >
                             <Text style={styles.catText}>{categoryInvestment}</Text>
 
