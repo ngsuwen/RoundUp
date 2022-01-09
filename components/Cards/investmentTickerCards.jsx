@@ -47,8 +47,29 @@ const [user, setUser] = userContext
 
     const fetchStockPrice = async (entriesByTicker) => { 
 
-    const tickerList = Object.keys(entriesByTicker).sort()
-    console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
+    const allTickerList = Object.keys(entriesByTicker).sort()
+    // console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
+
+    // need to filter out stocks/crypto with 0 qty so we don't track prices for those 
+    
+    let tickerList = []
+    allTickerList.forEach((ticker)=>{
+        let currentStockQty = 0
+        entriesByTicker[ticker].map((entry)=>{
+            if(entry.investmentsentry.transaction==='Buy'){
+                currentStockQty+=entry.investmentsentry.quantity
+             }
+             if(entry.investmentsentry.transaction==='Sell'){
+                currentStockQty-=entry.investmentsentry.quantity
+              }   
+        })
+        console.log(`ticker:${ticker},qty:${currentStockQty}`)
+        if (currentStockQty > 0){
+            tickerList.push(ticker)
+        }
+    })
+
+    console.log('tickerlist:',tickerList)
 
     const tickerAndPriceArr = [] 
 
@@ -85,7 +106,7 @@ const [user, setUser] = userContext
         }
 
         const fetchedPrice = await priceFetcher()
-        console.log('fetchedprice:',fetchedPrice)
+        // console.log('fetchedprice:',fetchedPrice)
         tickerAndPriceArr.push(fetchedPrice)
        
         }

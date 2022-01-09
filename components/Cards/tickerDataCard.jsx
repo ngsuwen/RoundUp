@@ -39,6 +39,13 @@ export default function tickerDataCard() {
     shadowRadius: 2.22,
     elevation: 3,
     },
+    ticker:{
+    fontWeight:'bold',
+    margin:5,
+    },
+    details:{
+    fontFamily: 'Courier New',
+    }
     // pressableWrapper: {
     // display:'flex',
     // height:'30%',
@@ -178,13 +185,13 @@ export default function tickerDataCard() {
 
     return (
         <View style={styles.wrapper}>
-           <Text>{tickerData.ticker}</Text>
+           <Text style={styles.ticker}>{tickerData.ticker}</Text>
                <View>
-                    <Text>Current Price: ${tickerData.currentPrice}</Text>
-                    <Text>Cost Basis: ${tickerData.costBasis}</Text>
-                    <Text>Quantity: {tickerData.currentStockQty} units</Text>
-                    <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
-                    <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
+                    <Text style={styles.details}>Current Price: ${tickerData.currentPrice}</Text>
+                    <Text style={styles.details}>Cost Basis: ${tickerData.costBasis}</Text>
+                    <Text style={styles.details}>Quantity: {tickerData.currentStockQty} units</Text>
+                    <Text style={styles.details}>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
+                    <Text style={styles.details}>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
                 </View>
         </View>
              

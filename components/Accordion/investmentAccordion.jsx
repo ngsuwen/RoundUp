@@ -177,7 +177,6 @@ const entries = allDates.map((date,index)=>{
         return(
         <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
         <Accordion.Details key={index}>
-            <Text style={styles.entryDesc}>Ticker: {entry.investmentsentry.ticker}</Text>
             <Text style={styles.entryDesc}>Transaction: {entry.investmentsentry.transaction}</Text>
             <Text style={styles.entryDesc}>No. of units: {entry.investmentsentry.quantity}</Text>
             <Text style={styles.entryPrice}>Price: {`$ ${entry.investmentsentry.price}`}</Text>
