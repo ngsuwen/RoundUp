@@ -104,7 +104,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker: showTicker ? filterTextCrypto : filterTextStock,
+              ticker: categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock,
               quantity: qtyInvestment,
               transaction: transaction
             },
@@ -242,32 +242,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
                       
                         </View>
 
-
-                    {/* ticker
-                    <View style={styles.wrapper}>
-
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTicker(true)}
-                            >
-                            <Text style={styles.catText}>{tickerInvestment}</Text>
-
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTicker}
-                            onRequestClose={()=> changeModalVisibilityTicker(false)}
-
-                          >
-                            <ModalTickerPicker 
-                              changeModalVisibilityTicker={changeModalVisibilityTicker}
-                              setDataTicker={setDataTicker}
-                            />
-                            
-                          </Modal>
-
-                          </View> */}
 
 
                         {/* Autocomplete ticker */}
