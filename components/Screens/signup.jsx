@@ -23,9 +23,10 @@ import getUser from "../api/getUser";
 
 export default function LoginPage({ navigation }) {
   // useContext
-  const { userContext, userRoleContext } = useContext(DataContext);
+  const { userContext, userRoleContext, tokenContext } = useContext(DataContext);
   const [user, setUser] = userContext;
-  const [userRole, setUserRole] = userRoleContext
+  const [userRole, setUserRole] = userRoleContext;
+  const [token, setToken] = tokenContext;
 
   console.log(user);
 
@@ -76,6 +77,7 @@ export default function LoginPage({ navigation }) {
         // store tokens in FE
         await AsyncStorage.setItem("accessToken", checkUserAuth.accessToken);
         await AsyncStorage.setItem("refreshToken", checkUserAuth.refreshToken);
+        setToken(checkUserAuth.refreshToken);
         const userId = await getUserId(checkUserAuth.refreshToken);
         setUser(userId);
         const userInfo = await getUser(userId)
