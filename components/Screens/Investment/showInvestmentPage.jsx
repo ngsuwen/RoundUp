@@ -67,6 +67,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
+    
     setPriceInvestment(entry.investmentsentry.price)
     // setTickerInvestment(entry.investmentsentry.ticker)
     setCategoryInvestment(entry.investmentsentry.category)
