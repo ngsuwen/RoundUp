@@ -81,8 +81,7 @@ export default function tickerDataCard() {
         })
 
         // sorting the dates by lastest first (at the top)
-        const allDatesAscending = Object.keys(entriesByDay).sort()
-        const allDates = allDatesAscending.reverse()
+        const allDates = Object.keys(entriesByDay).sort()
 
 
         // avg price per stock, needed to find new totalAmountPaid
@@ -117,12 +116,12 @@ export default function tickerDataCard() {
         
         const stockDataCalculationFunction = allDates.map((date,index)=>{
         entriesByDay[date].forEach((entry,index)=>{ // will have to use loop instead of (for txn of arr) in order to access the index. index is needed to single out the first buy in price to not get the average of the first buy in price. index 1 onwards will have to be divided by 2, but not index 0. 
-        // console.log('entriesbydate:',entriesByDay[date])
+        // console.log('entriesbydateTICKERPAGE:',entriesByDay)
          if(entry.investmentsentry.transaction==='Buy'){
             totalAmountPaid+=entry.investmentsentry.price*entry.investmentsentry.quantity
             currentStockQty+=entry.investmentsentry.quantity
-            console.log('ticker:',entry.investmentsentry.ticker)
-            console.log('BUYtotalamtpaid:',totalAmountPaid)
+            // console.log('ticker:',entry.investmentsentry.ticker)
+            // console.log('BUYtotalamtpaid:',totalAmountPaid)
             
             // update cost basis after totalAmountPaid and currentStockQty is updated 
             if (index === 0){
@@ -135,8 +134,8 @@ export default function tickerDataCard() {
          if(entry.investmentsentry.transaction==='Sell'){
             totalAmountPaid-=entry.investmentsentry.quantity*costBasis
             currentStockQty-=entry.investmentsentry.quantity
-            console.log('ticker:',entry.investmentsentry.ticker)
-            console.log('SELLtotalamtpaid:',totalAmountPaid)
+            // console.log('ticker:',entry.investmentsentry.ticker)
+            // console.log('SELLtotalamtpaid:',totalAmountPaid)
             
         
           }   
