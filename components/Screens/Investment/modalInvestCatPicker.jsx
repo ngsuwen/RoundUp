@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, ScrollView, Button, Modal, Dimensions, Pressable } from 'react-native';
 
-const OPTIONS = ["Crypto", "US stocks"]
+const OPTIONS = ["US stocks", "Crypto"]
 
 const WIDTH = Dimensions.get("screen").width
 const HEIGHT = Dimensions.get("screen").height

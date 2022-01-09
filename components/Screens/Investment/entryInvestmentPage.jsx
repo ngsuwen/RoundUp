@@ -138,12 +138,12 @@ const EntryInvestmentPage = ({navigation}) => {
     const resetPage = navigation.addListener("focus", ()=>{
       setDateInvestment(new Date())
       setPriceInvestment([])
-      setCategoryInvestment("Select Category...")
+      setCategoryInvestment("US stocks")
       setQtyInvestment([])
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
       setFilterTextStock("")
-      setShowTicker(true)
+      //setShowTicker(true)
     })
      return resetPage
   }, [expenseForceRender])
