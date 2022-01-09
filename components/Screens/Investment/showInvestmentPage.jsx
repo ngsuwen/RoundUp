@@ -40,7 +40,6 @@ const ShowInvestmentPage = ({ navigation, route }) => {
   //setCategoryInvestment(entry.investmentsentry.category)
   
 
-  
   console.log("showTicker", showTicker)
   console.log("categoryInvestment", entry.investmentsentry.category)
 
@@ -67,11 +66,11 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
-    
+    //setExpenseForceRender(!expenseForceRender)
     setPriceInvestment(entry.investmentsentry.price)
     // setTickerInvestment(entry.investmentsentry.ticker)
     setCategoryInvestment(entry.investmentsentry.category)
-    categoryInvestment === "Crypto"  ? setFilterTextCrypto(entry.investmentsentry.ticker)
+    entry.investmentsentry.category === "Crypto"  ? setFilterTextCrypto(entry.investmentsentry.ticker)
     : setFilterTextStock(entry.investmentsentry.ticker)
     
     setDateInvestment(entry.investmentsentry.date)

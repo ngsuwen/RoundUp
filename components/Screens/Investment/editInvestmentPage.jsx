@@ -54,6 +54,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
         console.log("showTicker", showTicker)
         console.log("categoryInvestment", categoryInvestment)
+
       
    
     // Modal for category
