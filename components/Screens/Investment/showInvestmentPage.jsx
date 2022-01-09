@@ -18,30 +18,22 @@ import DataContext from "../../../context/DataContext";
 
 const ShowInvestmentPage = ({ navigation, route }) => {
   // useContext
-  const { expenseForceRenderContext , investmentEntryContext } = useContext(DataContext);
+  const { expenseForceRenderContext, investmentEntryContext } = useContext(DataContext);
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
   const [dateInvestment,setDateInvestment,
          priceInvestment,setPriceInvestment,
          categoryInvestment,setCategoryInvestment,
          tickerInvestment,setTickerInvestment, 
          qtyInvestment, setQtyInvestment,
-        transaction, setTransaction,
-        coin,setCoin,
-        stock,setStock,
-        filterTextCrypto,setFilterTextCrypto,
-        filterTextStock,setFilterTextStock,
-        filteredItemsCrypto,filteredItemsStock,
-        showTicker,setShowTicker
-      ] = investmentEntryContext
+         transaction, setTransaction,
+         coin,setCoin,
+         stock,setStock,
+         filterTextCrypto,setFilterTextCrypto,
+         filterTextStock,setFilterTextStock,
+         filteredItemsCrypto,filteredItemsStock,
+        ] = investmentEntryContext
 
   const {entry} = route.params;
-
-  //force render of categoryInvestment so as to render in autcomplete correctly
-  //setCategoryInvestment(entry.investmentsentry.category)
-  
-
-  console.log("showTicker", showTicker)
-  console.log("categoryInvestment", entry.investmentsentry.category)
 
   // format date to "YYYY-MM-DD"
   const actualDate = entry.investmentsentry.date
@@ -66,16 +58,16 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
   //need this to populate editpage with specified fields
   const editHandler=()=>{
-    //setExpenseForceRender(!expenseForceRender)
+    
     setPriceInvestment(entry.investmentsentry.price)
-    // setTickerInvestment(entry.investmentsentry.ticker)
     setCategoryInvestment(entry.investmentsentry.category)
+    // Note: cannot use categoryInvestment === "Crypto" as state change will happen only after run thru whole code. So checking with categoryInvestment
+    // straightaway will get non-updated value
     entry.investmentsentry.category === "Crypto"  ? setFilterTextCrypto(entry.investmentsentry.ticker)
     : setFilterTextStock(entry.investmentsentry.ticker)
     
     setDateInvestment(entry.investmentsentry.date)
     setQtyInvestment(entry.investmentsentry.quantity)
-
     setTransaction(entry.investmentsentry.transaction)
     
     navigation.navigate("Edit Investment Page", {entry: entry})

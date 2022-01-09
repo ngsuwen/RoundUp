@@ -42,9 +42,6 @@ function App() {
   ]);
   const [qtyInvestment, setQtyInvestment] = useState([]);
   const [transaction, setTransaction] = useState();
-
-
-  const [showTicker, setShowTicker] = useState(true);
   const [coin, setCoin] = useState([])
   const [stock, setStock] = useState([])
   const [filterTextCrypto, setFilterTextCrypto] = useState("");
@@ -221,7 +218,7 @@ useEffect(()=>{
             description,
             setDescription,
           ],
-          expenseContext: [allExpense, reloadExpense],
+          expenseContext: [allExpense],
           cashEntryContext: [
             dateCash,
             setDateCash,
@@ -256,9 +253,6 @@ useEffect(()=>{
             setFilterTextStock,
             filteredItemsCrypto,
             filteredItemsStock,
-            showTicker,
-            setShowTicker
-
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],

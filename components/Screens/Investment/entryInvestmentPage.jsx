@@ -6,8 +6,7 @@ import DatePicker from "@react-native-community/datetimepicker"
 import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
-import Autocomplete from "react-native-autocomplete-input"
-import SearchableDropdown from 'react-native-searchable-dropdown';
+
 
 import {
   NativeBaseProvider,
@@ -21,7 +20,7 @@ import {
   Box,
   
 } from "native-base";
-import { filter } from 'underscore';
+
 
 
 
@@ -42,7 +41,6 @@ const EntryInvestmentPage = ({navigation}) => {
           filterTextCrypto, setFilterTextCrypto,
           filterTextStock, setFilterTextStock,
           filteredItemsCrypto,filteredItemsStock,
-          showTicker, setShowTicker
          ] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
@@ -59,17 +57,6 @@ const EntryInvestmentPage = ({navigation}) => {
       setCategoryInvestment(option)
     }
 
-   // Modal for ticker
-   const [isModalVisibleTicker, setIsModalVisibleTicker] = useState(false)
-
-   const changeModalVisibilityTicker = (bool) =>{
-    setIsModalVisibleTicker(bool)
-   }
-
-   const setDataTicker = (option) =>{
-     setTickerInvestment(option)
-   }
-
 
   // Modal for transaction
   const [isModalVisibleTransaction, setIsModalVisibleTransaction] = useState(false)
@@ -82,56 +69,6 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-  //autocomplete  
-  // const [showTicker, setShowTicker] = useState(true);
-  // const [coin, setCoin] = useState([])
-  // const [stock, setStock] = useState([])
-  // const [filterTextCrypto, setFilterTextCrypto] = useState("");
-  // const [filterTextStock, setFilterTextStock] = useState("");
-
-  // //fetch crypto for ticker
-  // useEffect(()=>{
-  //   const loadCoin = async() =>{
-  //       const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
-  //       const data = await res.json()
-  //       console.log(data)
-  //       setCoin(data)
-  //   }
-  //   loadCoin()
-  //   }, [])
-
-  //  //fetch stock for ticker
-  //  useEffect(()=>{
-  //     const loadStock = async() =>{
-        
-  //       const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
-  //         const data = await res.json()
-  //         const stockCompanies = data.slice(0, 2500)
-  //         console.log(stockCompanies)
-  //         setStock(stockCompanies)
-  //     }
-  //     loadStock()
-  //     }, [])
-
-
-      // // filtered for coin
-      // const filteredItemsCrypto = useMemo(() => {
-      //   return coin.filter(
-      //     (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
-      //   );
-        
-      // }, [filterTextCrypto]);
-
-      // // filtered for stock
-      // const filteredItemsStock = useMemo(() => {
-      //   return stock.filter(
-      //     (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
-      //   );
-        
-      // }, [filterTextStock]);
-
-  
-    
    
    // clear states onload at entryinvestment page
   useEffect(()=>{
@@ -143,7 +80,7 @@ const EntryInvestmentPage = ({navigation}) => {
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
       setFilterTextStock("")
-      //setShowTicker(true)
+  
     })
      return resetPage
   }, [expenseForceRender])
@@ -299,7 +236,6 @@ const EntryInvestmentPage = ({navigation}) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
-                              setShowTicker={setShowTicker}
                             />
                             
                         </Modal>

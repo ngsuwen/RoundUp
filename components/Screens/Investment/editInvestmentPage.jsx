@@ -47,42 +47,26 @@ const EditInvestmentPage = ({ navigation, route }) => {
          filterTextCrypto, setFilterTextCrypto,
          filterTextStock, setFilterTextStock,
          filteredItemsCrypto,filteredItemsStock,
-         showTicker, setShowTicker
         ] = investmentEntryContext
 
-        const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+  const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
-        console.log("showTicker", showTicker)
-        console.log("categoryInvestment", categoryInvestment)
+ 
+  // Modal for category
+  const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
 
-      
-   
-    // Modal for category
-    const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
+  const changeModalVisibilityCat = (bool) =>{
+  setIsModalVisibleCat(bool)
+  
+  }
 
-    const changeModalVisibilityCat = (bool) =>{
-    setIsModalVisibleCat(bool)
-    
-    }
-
-    const setDataCat = (option) =>{
-      setCategoryInvestment(option)
-    }
+  const setDataCat = (option) =>{
+    setCategoryInvestment(option)
+  }
 
    
 
-   // Modal for ticker
-   const [isModalVisibleTicker, setIsModalVisibleTicker] = React.useState(false)
-
-   const changeModalVisibilityTicker = (bool) =>{
-    setIsModalVisibleTicker(bool)
-   }
-
-   const setDataTicker = (option) =>{
-     setTickerInvestment(option)
-   }
-
-     // Modal for transaction
+  // Modal for transaction
   const [isModalVisibleTransaction, setIsModalVisibleTransaction] = React.useState(false)
 
   const changeModalVisibilityTransaction = (bool) =>{
@@ -239,7 +223,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             <ModalCatPicker 
                               changeModalVisibilityCat={changeModalVisibilityCat}
                               setDataCat={setDataCat}
-                              setShowTicker={setShowTicker}
                             />
                             
                         </Modal>
@@ -253,7 +236,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                         { categoryInvestment === "Crypto" ?
                         <Box>
                           <Typeahead
-                            inputValue={filterTextCrypto}
+                            inputValue={filterTextCrypto} // for value to be populated at the field
                             options={filteredItemsCrypto}
                             onChange={setFilterTextCrypto}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -272,7 +255,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                                         :
                         <Box>
                           <Typeahead
-                            inputValue={filterTextStock}
+                            inputValue={filterTextStock}  // for value to be populated at the field
                             options={filteredItemsStock}
                             onChange={setFilterTextStock}
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
@@ -294,17 +277,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
                       }
 
                      
-
-
-
-
             <View style={styles.button}>
               <Button
                 title="Update"
                 onPress={() => {
                   handleSubmit(entry);
-                  // this is needed to force showpage to re-render as it will not mount again
-                  //setExpenseForceRender(!expenseForceRender) //not needed
+
                 }}
               />
               <Button
