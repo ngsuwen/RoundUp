@@ -13,7 +13,7 @@ export default function tickerDataCard(props) {
     const {investmentContext, userContext ,investmentTickerContext,tickerAndPriceContext } = useContext(DataContext)
     const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
     const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
-    // const [tickerData,setTickerData] = investmentTickerContext
+    const [tickerData,setTickerData] = investmentTickerContext
     const [user, setUser] = userContext
 
     const screenWidth = Dimensions.get('screen').width
@@ -60,15 +60,6 @@ export default function tickerDataCard(props) {
     // },
     })
 
-    let tickerData = 
-    {
-        'ticker':"",
-        'currentPrice':"",
-        'costBasis':"",
-        'currentStockQty':"",
-        'totalAmountPaid':"",
-        'unrealizedPL':"",
-      }
 
     const RenderTickerCardData = () => {
 
@@ -118,7 +109,7 @@ export default function tickerDataCard(props) {
         
         const stockDataCalculationFunction = allDates.map((date,index)=>{
         entriesByDay[date].forEach((entry,index)=>{ // will have to use loop instead of (for txn of arr) in order to access the index. index is needed to single out the first buy in price to not get the average of the first buy in price. index 1 onwards will have to be divided by 2, but not index 0. 
-        console.log('entriesbydate:',entriesByDay[date])
+        // console.log('entriesbydate:',entriesByDay[date])
          if(entry.investmentsentry.transaction==='Buy'){
             totalAmountPaid+=entry.investmentsentry.price*entry.investmentsentry.quantity
             currentStockQty+=entry.investmentsentry.quantity
@@ -158,18 +149,16 @@ export default function tickerDataCard(props) {
           // do this last when you have all info
           // similar to the investmenttickercards, if you save as state, it will only rerender the 2nd cycle, so on first render at tickerDataCard it will be empty unless forcedtorerender again. 
         
-        tickerData = 
-          {
-            'ticker':props.selectedTickerAndPrice.ticker,
-            'currentPrice':props.selectedTickerAndPrice.value,
-            'costBasis':costBasis,
-            'currentStockQty':currentStockQty,
-            'totalAmountPaid':totalAmountPaid,
-            'unrealizedPL':unrealizedPL,
-          }
-        
-        
-          console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
+        setTickerData({
+          'ticker':props.selectedTickerAndPrice.ticker,
+          'currentPrice':props.selectedTickerAndPrice.value,
+          'costBasis':costBasis,
+          'currentStockQty':currentStockQty,
+          'totalAmountPaid':totalAmountPaid,
+          'unrealizedPL':unrealizedPL,
+        })
+          
+        console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
         }
         
     useEffect(()=>{
@@ -179,7 +168,6 @@ export default function tickerDataCard(props) {
     
     },[fetchedInvestmentEntries])
     
-    const navigation = useNavigation()
         
 
     return (
@@ -192,7 +180,6 @@ export default function tickerDataCard(props) {
                     <Text>Total Amount Paid: ${tickerData.totalAmountPaid}</Text>
                     <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
                 </View>
-                  {/* renderTickerData() */}
         </View>
              
     )
