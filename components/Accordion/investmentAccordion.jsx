@@ -44,16 +44,17 @@ const screenHeight = Dimensions.get('screen').height
 })
 
 
-function AccordionComponent(props) {
+function AccordionComponent() {
 
-const {investmentContext, userContext ,investmentTickerContext,tickerAndPriceContext } = useContext(DataContext)
+const {investmentContext, userContext ,investmentTickerContext,tickerAndPriceContext,selectedTickerAndPriceContext } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
 const [tickerData,setTickerData] = investmentTickerContext
+const [selectedTickerAndPrice,setSelectedTickerAndPrice] = selectedTickerAndPriceContext
 const [user, setUser] = userContext
 
 // array of objects containing transaction data
-const transactionHistory = fetchedInvestmentEntries[props.selectedTickerAndPrice.ticker]
+const transactionHistory = fetchedInvestmentEntries[selectedTickerAndPrice.ticker]
 const entriesByDay = _(transactionHistory).groupBy((element)=>{
 const groupedDate = element.investmentsentry.date
 const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
@@ -122,7 +123,7 @@ console.log('entriesbydate:',entriesByDay[date])
 })
 
 // assuming current price is $20 (from API)
-let unrealizedPL = (currentStockQty*props.selectedTickerAndPrice.value)-totalAmountPaid
+let unrealizedPL = (currentStockQty*selectedTickerAndPrice.value)-totalAmountPaid
 
 // console.log('costBasis:',costBasis)
 // console.log('totalAmountPaid:',totalAmountPaid)
@@ -142,8 +143,8 @@ let unrealizedPL = (currentStockQty*props.selectedTickerAndPrice.value)-totalAmo
 
 setTickerData(
   {
-    'ticker':props.selectedTickerAndPrice.ticker,
-    'currentPrice':props.selectedTickerAndPrice.value,
+    'ticker':selectedTickerAndPrice.ticker,
+    'currentPrice':selectedTickerAndPrice.value,
     'costBasis':costBasis,
     'currentStockQty':currentStockQty,
     'totalAmountPaid':totalAmountPaid,
@@ -154,13 +155,13 @@ setTickerData(
   console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
 }
 
-useEffect(()=>{
-  const resetPage = navigation.addListener("focus", ()=>{
-  RenderTickerCardData()
-  console.log('transaction history rendered')
-    })
-  return resetPage
-},[tickerAndPrice,tickerData,fetchedInvestmentEntries])
+// useEffect(()=>{
+//   const resetPage = navigation.addListener("focus", ()=>{
+//   RenderTickerCardData()
+//   console.log('transaction history rendered')
+//     })
+//   return resetPage
+// },[tickerAndPrice,selectedTickerAndPrice,fetchedInvestmentEntries])
 
 const navigation = useNavigation()
 
@@ -176,6 +177,7 @@ const entries = allDates.map((date,index)=>{
         return(
         <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
         <Accordion.Details key={index}>
+            <Text style={styles.entryDesc}>Ticker: {entry.investmentsentry.ticker}</Text>
             <Text style={styles.entryDesc}>Transaction: {entry.investmentsentry.transaction}</Text>
             <Text style={styles.entryDesc}>No. of units: {entry.investmentsentry.quantity}</Text>
             <Text style={styles.entryPrice}>Price: {`$ ${entry.investmentsentry.price}`}</Text>
@@ -199,13 +201,13 @@ return (
 }
 
  
-export default function AccordionList (props) {
+export default function AccordionList () {
   const navigation = useNavigation()
   return (
     <NativeBaseProvider>
       <Center flex={1}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <AccordionComponent selectedTickerAndPrice={props.selectedTickerAndPrice}/>
+          <AccordionComponent/>
         </ScrollView>
   
       </Center>

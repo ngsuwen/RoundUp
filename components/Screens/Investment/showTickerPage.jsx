@@ -8,10 +8,7 @@ import TickerDataCard from '../../Cards/tickerDataCard'
 import AccordionList from '../../Accordion/investmentAccordion'
 
 
-export default function TickerBreakdownPage({ navigation, route }) {
-
-const { selectedTickerAndPrice } = route.params
-console.log('selectedt&p:',selectedTickerAndPrice)
+export default function TickerBreakdownPage({ navigation}) {
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
         {/* <ExpenseLineChartComponent/> */}
       {/* </Carousel> */}
       <View style={styles.accordion}>
-      <AccordionList selectedTickerAndPrice={selectedTickerAndPrice}/>
+      <AccordionList/>
       </View>
       <Button
         title="Back"

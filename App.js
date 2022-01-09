@@ -104,6 +104,7 @@ useEffect(()=>{
   const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
   const [tickerAndPrice, setTickerAndPrice] = useState([]);
   const [tickerData, setTickerData] = useState([]);
+  const [selectedTickerAndPrice,setSelectedTickerAndPrice] = useState()
   const [fetchedInvestmentEntriesRawData, setFetchedInvestmentEntriesRawData] =
     useState([]);
   // forcerender for update routes
@@ -269,6 +270,7 @@ useEffect(()=>{
             fetchedInvestmentEntriesRawData,
             setFetchedInvestmentEntriesRawData,
           ],
+          selectedTickerAndPriceContext:[selectedTickerAndPrice,setSelectedTickerAndPrice],
         }}
       >
         <StackNavigator />

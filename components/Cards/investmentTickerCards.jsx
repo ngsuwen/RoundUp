@@ -14,10 +14,11 @@ export default function investmentTickerCard() {
 
 const navigation = useNavigation()
 
-const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData, investmentTickerContext} = useContext(DataContext)
+const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData, investmentTickerContext,selectedTickerAndPriceContext} = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = investmentContextRawData
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
+const [selectedTickerAndPrice,setSelectedTickerAndPrice] = selectedTickerAndPriceContext
 const [user, setUser] = userContext
 
 
@@ -165,7 +166,9 @@ const [user, setUser] = userContext
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (
         <View style={styles.wrapper} key={index}>
-            <Pressable onPress={() => navigation.navigate('Show Ticker Page', {selectedTickerAndPrice: stock})}>
+            <Pressable onPress={() => {
+                setSelectedTickerAndPrice(stock)
+                navigation.navigate('Show Ticker Page')}}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
                         <Text style={styles.ticker}>{stock.ticker.toUpperCase()}</Text>
