@@ -259,7 +259,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.id}
                             getOptionLabel={(item) => item.symbol}
-                            label="Select Crypto..."
+                            label="Select Crypto Ticker"
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
@@ -278,7 +278,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
                             getOptionLabel={(item) => item.displaySymbol}
-                            label="Select Stock..."
+                            label="Select Stock Ticker"
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />

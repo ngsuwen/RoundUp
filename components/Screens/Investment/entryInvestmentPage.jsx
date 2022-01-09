@@ -138,7 +138,7 @@ const EntryInvestmentPage = ({navigation}) => {
     const resetPage = navigation.addListener("focus", ()=>{
       setDateInvestment(new Date())
       setPriceInvestment([])
-      setCategoryInvestment("Select Category...")
+      setCategoryInvestment("Crypto")
       setQtyInvestment([])
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
@@ -318,7 +318,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.id}
                             getOptionLabel={(item) => item.symbol}
-                            label="Select Crypto..."
+                            label="Select Crypto Ticker"
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
@@ -337,7 +337,7 @@ const EntryInvestmentPage = ({navigation}) => {
                             onSelectedItemChange={(value) => console.log("Selected Item ", value)}
                             getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
                             getOptionLabel={(item) => item.displaySymbol}
-                            label="Select Stock..."
+                            label="Select Stock Ticker"
                             toggleIcon={({ isOpen }) => {
                               return isOpen ? (
                                 <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
