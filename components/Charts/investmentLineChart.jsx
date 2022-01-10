@@ -13,52 +13,22 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import DataContext from "../../context/DataContext";
 
-const monthArr = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-  "JAN",
-];
-const dataMonth = [];
-const todayDate = new Date();
-const todayMonth = todayDate.getMonth();
-
-if (todayMonth != 11) {
-  for (let i = todayMonth + 1; i < 12; i++) {
-    if (i % 2 === 0) {
-      dataMonth.push(monthArr[i]);
-    } else {
-      dataMonth.push("");
-    }
-  }
-}
-for (let i = 0; i <= todayMonth; i++) {
-  if (i % 2 === 0) {
-    dataMonth.push(monthArr[i]);
-  } else {
-    dataMonth.push("");
-  }
-}
-
-export default function cashLineChartComponent() {
+export default function cashLineChartComponent({dataMonth, investmentYearlyData, monthArr, todayDate}) {
 
   const { userRoleContext } = React.useContext(DataContext);
   const [userRole, setUserRole] = userRoleContext;
 
+  let count = 0;
+
+  for(let i=0; i<12; i++){ 
+    count += Number(investmentYearlyData[i]); 
+  }
+
   const linedata = {
-    labels: dataMonth,
+    labels: count==0?['No Data Available']:dataMonth,
     datasets: [
       {
-        data: [20, 25, 21, 30, 50, 70, 100, 20, 25, 21, 30, 50],
+        data: count==0?[0]:investmentYearlyData,
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 3, // optional
       },

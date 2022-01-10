@@ -11,7 +11,8 @@ import HomePageCashCard from "../Cards/homepageCashCard";
 import HomePageExpenseCard from "../Cards/homepageExpenseCard";
 import HomePageInvestmentCard from "../Cards/homepageInvestmentCard";
 import yearlyCash from "../api/yearlyCash";
-import yearlyExpense from "../api/yearlyExpense"
+import yearlyExpense from "../api/yearlyExpense";
+import yearlyInvestment from "../api/yearlyInvestment";
 import DataContext from "../../context/DataContext";
 
 const monthArr = [
@@ -76,6 +77,7 @@ export default function Home({ navigation }) {
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
   const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0])
   const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0])
+  const [investmentYearlyData, setInvestmentYearlyData] = React.useState([0,0,0,0])
   const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0])
 
   async function calculateData(num) {
@@ -87,20 +89,22 @@ export default function Home({ navigation }) {
     const date = todayDate.getFullYear() + '-' + month
     const cashData = await yearlyCash(user, date)
     const expenseData = await yearlyExpense(user, date)
+    const investData = await yearlyInvestment(user, date)
     const networthData = []
     for (let i=0;i<12;i++){
       // change expense to investment
-      const total = Number(cashData[i])+Number(expenseData[i])
+      const total = Number(cashData[i])+Number(investData[i])
       networthData.push(total)
     }
-    const dataArr = [cashData, expenseData, networthData]
+    const dataArr = [cashData, expenseData, investData, networthData]
     return dataArr[num]
   }
   
   React.useEffect(async()=>{
     setCashYearlyData(await calculateData(0))
     setExpenseYearlyData(await calculateData(1))
-    setNetworthYearlyData(await calculateData(2))
+    setInvestmentYearlyData(await calculateData(2))
+    setNetworthYearlyData(await calculateData(3))
   },[expenseForceRender])
 
   return (
@@ -122,13 +126,13 @@ export default function Home({ navigation }) {
             <ExpenseLineChartComponent dataMonth={dataMonth} expenseYearlyData={expenseYearlyData} monthArr={monthArr} todayDate={todayDate}/>
           </View>
           <View>
-            <InvestmentLineChartComponent dataMonth={dataMonth}/>
+            <InvestmentLineChartComponent dataMonth={dataMonth} investmentYearlyData={investmentYearlyData} monthArr={monthArr} todayDate={todayDate}/>
           </View>
         </Carousel>
         <Box height="55%" px={2}>
           <HomePageCashCard navigation={navigation} cashYearlyData={cashYearlyData} />
           <HomePageExpenseCard navigation={navigation} expenseYearlyData={expenseYearlyData} />
-          <HomePageInvestmentCard navigation={navigation} />
+          <HomePageInvestmentCard navigation={navigation} investmentYearlyData={investmentYearlyData}/>
         </Box>
       </Box>}
     </NativeBaseProvider>

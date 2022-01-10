@@ -13,11 +13,24 @@ import {
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import DataContext from "../../context/DataContext";
 
-export default function homepageCashCard({ navigation }) {
+export default function homepageCashCard({ navigation, investmentYearlyData }) {
   
   const { userRoleContext } = React.useContext(DataContext);
   const [userRole, setUserRole] = userRoleContext;
   
+  const calculateChange=()=>{
+    let change = ((Number(investmentYearlyData[11])-Number(investmentYearlyData[10]))/Number(investmentYearlyData[10])*100).toFixed(2)
+    if (investmentYearlyData[10]==0){
+      return <Text color="emerald.600">+{investmentYearlyData[11]}</Text>
+    } else if (change>0){
+      return <Text color="emerald.600">+{change}</Text>
+    } else if (change<0){
+      return <Text color="red.600">{change}</Text>
+    } else {
+      return <Text color="coolGray.400">{change}</Text>
+    }
+  }
+
   return (
     <NativeBaseProvider>
       <Center
@@ -70,12 +83,11 @@ export default function homepageCashCard({ navigation }) {
           }}
         >
           <View>
-            <Text>$50403.34</Text>
-            <Text mt={0.5}>
-              % Change: <Text color="emerald.600">+23.45</Text>
-            </Text>
+            <Text>${investmentYearlyData[11]}</Text>
+            <Text mt={0.5}>% Change: {calculateChange()}</Text>
           </View>
           <View justifyContent="center">
+          {/* navigation to be updated */}
             <Pressable onPress={() => navigation.navigate("About")}>
               <EvilIcons name="plus" size={24} color="black" />
             </Pressable>
