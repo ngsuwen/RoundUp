@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, ScrollView } from 'react-native';
-import DatePicker from "@react-native-community/datetimepicker"
+import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Dimensions, ScrollView } from 'react-native';
+import DatePicker from "react-native-neat-date-picker";
+// import DatePicker from "@react-native-community/datetimepicker"
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
-
+import { Entypo } from "@expo/vector-icons";
+import moment from "moment";
 
 import {
   NativeBaseProvider,
@@ -17,6 +19,9 @@ import {
   IconButton,
   Center,
   Box,
+  Container,
+  Modal, 
+  Button
   
 } from "native-base";
 
@@ -41,6 +46,33 @@ const EntryInvestmentPage = ({navigation}) => {
          ] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+
+   // show for datepicker
+   const [show, setShow] = useState(false);
+
+   // Date Picker
+  const onCancel = () => {
+    setShow(false);
+  };
+
+  const onConfirm = (date) => {
+    setShow(false);
+    setDateInvestment(date);
+  };
+
+  // to show and hide date picker
+  const showDatepicker = () => {
+    setShow(true);
+  };
+
+  // Date Picker
+  // const onChangeDate = (event, selectedDate) => {
+  //   const currentDate = selectedDate || new Date(dateInvestment);
+  //   setDateInvestment(currentDate);
+    
+  // };
+
+  const formattedDate = moment(dateInvestment, moment.ISO_8601).format("YYYY-MM-DD");
 
 
     // Modal for category
@@ -83,12 +115,7 @@ const EntryInvestmentPage = ({navigation}) => {
   }, [expenseForceRender])
 
 
-    // Date Picker
-    const onChangeDate = (event, selectedDate) => {
-      const currentDate = selectedDate || new Date(dateInvestment);
-      setDateInvestment(currentDate);
-      
-    };
+
 
 
     const handleSubmit = async (event) => {
@@ -139,11 +166,46 @@ const EntryInvestmentPage = ({navigation}) => {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{flex: 1}}
       >
- 
-      <SafeAreaView style={styles.container} >
-        <View style={styles.inner}>
-            
-            {/* date  */}
+
+      <Center flex={1} bgColor="#fff">
+
+        
+        <View width="90%" paddingRight={5} alignItems="flex-end">
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                <Entypo name="cross" size={24} color="black" />
+              </Pressable>
+            </View>
+
+            {/* date */}
+            <Container width="90%" pt="0" p="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Date
+            </Text>
+            <Pressable width="100%" onPress={showDatepicker}>
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {formattedDate}
+              </Text>
+            </Pressable>
+            <DatePicker
+              isVisible={show}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
+          </Container>
+
+            {/* date old
             <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
@@ -151,9 +213,25 @@ const EntryInvestmentPage = ({navigation}) => {
                   onChange={onChangeDate}
                   />
                   
-                  </View>
+                  </View> */}
 
-                 {/* price */}
+                   {/* price */}
+                  <Container width="90%" px="4" bgColor="#fff">
+                    <Text fontSize="sm" fontWeight="bold">
+                      Price
+                    </Text>
+                    <Input
+                      width="100%"
+                      fontSize="sm"
+                      mt="1"
+                      color="coolGray.600"
+                      placeholder="Enter Price"
+                      value={priceInvestment.toString()}
+                      onChangeText={(text) => setPriceInvestment(text)}
+                    />
+                  </Container>
+
+                 {/* price old
                 <View style={styles.wrapper} >
                   <TextInput
                 
@@ -168,9 +246,26 @@ const EntryInvestmentPage = ({navigation}) => {
                           title="Clear"
                           onPress={()=>setPriceInvestment([])}
                           />
-                    </View>
+                    </View> */}
 
-                  {/* quantity */}
+
+                     {/* quantity */}
+                  <Container width="90%" px="4" bgColor="#fff">
+                    <Text fontSize="sm" fontWeight="bold">
+                      Price
+                    </Text>
+                    <Input
+                      width="100%"
+                      fontSize="sm"
+                      mt="1"
+                      color="coolGray.600"
+                      placeholder="Enter Quantity"
+                      value={qtyInvestment.toString()}
+                      onChangeText={(text) => setQtyInvestment(text)}
+                    />
+                  </Container>
+
+                  {/* quantity old
                   <View style={styles.wrapper} >
                       <TextInput
                           style={styles.textinput}
@@ -184,10 +279,55 @@ const EntryInvestmentPage = ({navigation}) => {
                               title="Clear"
                               onPress={()=>setQtyInvestment([])}
                               />
-                    </View>
+                    </View> */}
 
 
-                     {/* Transaction */}
+                    {/* Transaction */}
+
+                    <Container width="90%" p="4" bgColor="#fff">
+                        <Text fontSize="sm" fontWeight="bold">
+                          Transaction
+                        </Text>
+                        <Pressable width="100%" onPress={() => changeModalVisibilityTransaction(true)}>
+                          <Text
+                            fontSize="sm"
+                            mt="1"
+                            borderRadius="sm"
+                            borderColor="coolGray.200"
+                            borderWidth="1"
+                            p="2"
+                          >
+                            {transaction}
+                          </Text>
+                        </Pressable>
+                        <Modal
+                          isOpen={isModalVisibleTransaction}
+                          defaultIsOpen="false"
+                          onClose={() => changeModalVisibilityTransaction(false)}
+                          size="sm"
+                        >
+                          <Modal.Content>
+                            <Modal.CloseButton />
+                            <Modal.Header
+                              _text={{
+                                fontWeight: "bold",
+                                fontSize: "sm",
+                              }}
+                            >
+                              Transaction
+                            </Modal.Header>
+                            <Modal.Body>
+                              <ModalTransactionPicker
+                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                                setDataTransaction={setDataTransaction}
+                              />
+                            </Modal.Body>
+                          </Modal.Content>
+                        </Modal>
+                      </Container>
+
+
+                     {/* Transaction old
                      <View style={styles.wrapper}>
 
                             <Pressable 
@@ -211,11 +351,56 @@ const EntryInvestmentPage = ({navigation}) => {
                               
                             </Modal>
 
-                            </View>
+                            </View> */}
         
               
+                        {/* Category */}
 
-                        {/* category */}
+                        <Container width="90%" p="4" bgColor="#fff">
+                        <Text fontSize="sm" fontWeight="bold">
+                          Category
+                        </Text>
+                        <Pressable width="100%" onPress={() => changeModalVisibilityCat(true)}>
+                          <Text
+                            fontSize="sm"
+                            mt="1"
+                            borderRadius="sm"
+                            borderColor="coolGray.200"
+                            borderWidth="1"
+                            p="2"
+                          >
+                            {categoryInvestment}
+                          </Text>
+                        </Pressable>
+                        <Modal
+                          isOpen={isModalVisibleCat}
+                          defaultIsOpen="false"
+                          onClose={() => changeModalVisibilityCat(false)}
+                          size="sm"
+                        >
+                          <Modal.Content>
+                            <Modal.CloseButton />
+                            <Modal.Header
+                              _text={{
+                                fontWeight: "bold",
+                                fontSize: "sm",
+                              }}
+                            >
+                              Category
+                            </Modal.Header>
+                            <Modal.Body>
+                              <ModalCatPicker
+                                changeModalVisibilityCat={changeModalVisibilityCat}
+                                setDataCat={setDataCat}
+                              />
+                            </Modal.Body>
+                          </Modal.Content>
+                        </Modal>
+                      </Container>
+
+
+
+                        {/* category old
                         <View style={styles.wrapper}>
 
                         <Pressable 
@@ -239,13 +424,13 @@ const EntryInvestmentPage = ({navigation}) => {
                             
                         </Modal>
                       
-                        </View>
+                        </View> */}
 
 
                         {/* Autocomplete ticker */}
 
                       { categoryInvestment === "Crypto" ?
-                        <Box>
+                        <Container width="90%" p="4" bgColor="#fff">
                           <Typeahead
                             inputValue={filterTextCrypto}
                             options={filteredItemsCrypto}
@@ -262,9 +447,9 @@ const EntryInvestmentPage = ({navigation}) => {
                               );
                             }}
                           />
-                        </Box>
+                        </Container>
                                         :
-                        <Box>
+                        <Container width="90%" p="4" bgColor="#fff">
                           <Typeahead
                             inputValue={filterTextStock}
                             options={filteredItemsStock}
@@ -281,27 +466,38 @@ const EntryInvestmentPage = ({navigation}) => {
                               );
                             }}
                           />
-                        </Box>
+                        </Container>
 
 
                        
                       }
                                          
+                      <Button
+                          size="sm"
+                          variant="outline"
+                          bgColor="white"
+                          colorScheme="light"
+                          onPress={handleSubmit}
+                          mt="5"
+                        >
+                          <Text>Add Investment</Text>
+                        </Button>
 
 
-
-                <View style={styles.button}>
+                {/* old button
+                  <View style={styles.button}>
                     <Button title="Submit" onPress={handleSubmit} />
                     <Button
                       title="Back"
                       onPress={() => navigation.navigate("Home")}
                     />
-                </View>
+                </View> */}
                 
-            </View>
+          
                   
                
-        </SafeAreaView>
+  
+        </Center>
          </KeyboardAvoidingView>
      </NativeBaseProvider>
             
@@ -311,119 +507,119 @@ const EntryInvestmentPage = ({navigation}) => {
 
 export default EntryInvestmentPage;
 
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
+// const screenWidth = Dimensions.get('screen').width
+// const screenHeight = Dimensions.get('screen').height
 
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        flexDirection:'column',
-        backgroundColor: '#e6e2d3',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // marginTop: 100
+// const styles = StyleSheet.create({
+//     container:{
+//         flex: 1,
+//         flexDirection:'column',
+//         backgroundColor: '#e6e2d3',
+//         // alignItems: 'center',
+//         // justifyContent: 'center',
+//         // marginTop: 100
         
-    },  
-    datepicker:{
-      paddingVertical: 100,
-      paddingHorizontal: 10,
-      width: "100%",
+//     },  
+//     datepicker:{
+//       paddingVertical: 100,
+//       paddingHorizontal: 10,
+//       width: "100%",
            
-      // borderColor: "gray",
-      // borderWidth: 1,
-      right: 100,
+//       // borderColor: "gray",
+//       // borderWidth: 1,
+//       right: 100,
       
-    },
-    textinput:{
-      paddingVertical: 1,
-      paddingHorizontal: 1,
-      marginTop: 10,
-      marginBottom: 10,
-      fontSize: 20
+//     },
+//     textinput:{
+//       paddingVertical: 1,
+//       paddingHorizontal: 1,
+//       marginTop: 10,
+//       marginBottom: 10,
+//       fontSize: 20
       
-      // borderColor: "gray",
-      // borderWidth: 1,
-    },
-    picker:{
-      justifyContent: "center",
-      // left: 60,
-    },
-    button:{
-      flexDirection: "row",
-      alignSelf: "center"
-    },
-    inner: {
-      padding: 20,
-      flex: 1,
-      // justifyContent: "flex-end",
-    },
-    catText: {
-      marginVertical: 10,
-      fontSize: 22,
-      textAlign: "center"
-    },
-    pressable:{
-      backgroundColor: "#80ced6",
-      alignSelf: "stretch",
-      paddingHorizontal: 10,
-      marginHorizontal: 10,
-      borderRadius: 15
+//       // borderColor: "gray",
+//       // borderWidth: 1,
+//     },
+//     picker:{
+//       justifyContent: "center",
+//       // left: 60,
+//     },
+//     button:{
+//       flexDirection: "row",
+//       alignSelf: "center"
+//     },
+//     inner: {
+//       padding: 20,
+//       flex: 1,
+//       // justifyContent: "flex-end",
+//     },
+//     catText: {
+//       marginVertical: 10,
+//       fontSize: 22,
+//       textAlign: "center"
+//     },
+//     pressable:{
+//       backgroundColor: "#80ced6",
+//       alignSelf: "stretch",
+//       paddingHorizontal: 10,
+//       marginHorizontal: 10,
+//       borderRadius: 15
     
-    },
-    wrapper: {
-      fontSize: 20,
-      flex: 0.15,
-      textAlign: "center",
-      flexDirection:'column',
-      width: screenWidth*0.86,
-      backgroundColor: '#d5f4e6',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
-      paddingTop: 1,
-      margin: '1%',
-      shadowColor: "#000",
-      shadowOffset: {
-      width: 2,
-      height: 1,
-      },
-      shadowOpacity: 0.22,
-      shadowRadius: .22,
-      elevation: 3,
-      },
+//     },
+//     wrapper: {
+//       fontSize: 20,
+//       flex: 0.15,
+//       textAlign: "center",
+//       flexDirection:'column',
+//       width: screenWidth*0.86,
+//       backgroundColor: '#d5f4e6',
+//       alignItems: 'center',
+//       justifyContent: 'center',
+//       borderRadius: 20,
+//       paddingTop: 1,
+//       margin: '1%',
+//       shadowColor: "#000",
+//       shadowOffset: {
+//       width: 2,
+//       height: 1,
+//       },
+//       shadowOpacity: 0.22,
+//       shadowRadius: .22,
+//       elevation: 3,
+//       },
 
 
 
 
-      MainContainer: {
-        backgroundColor: '#FAFAFA',
-        flex: 1,
-        padding: 12,
-      },
-      AutocompleteStyle: {
-        flex: 1,
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        zIndex: 1,
-       borderWidth:1
-      },
-      SearchBoxTextItem: {
-        margin: 5,
-        fontSize: 16,
-        paddingTop: 4,
-      },
-      selectedTextContainer: {
-        flex: 1,
-        justifyContent: 'center',
-      },
-      selectedTextStyle: {
-        textAlign: 'center',
-        fontSize: 18,
-      },
+//       MainContainer: {
+//         backgroundColor: '#FAFAFA',
+//         flex: 1,
+//         padding: 12,
+//       },
+//       AutocompleteStyle: {
+//         flex: 1,
+//         left: 0,
+//         position: 'absolute',
+//         right: 0,
+//         top: 0,
+//         zIndex: 1,
+//        borderWidth:1
+//       },
+//       SearchBoxTextItem: {
+//         margin: 5,
+//         fontSize: 16,
+//         paddingTop: 4,
+//       },
+//       selectedTextContainer: {
+//         flex: 1,
+//         justifyContent: 'center',
+//       },
+//       selectedTextStyle: {
+//         textAlign: 'center',
+//         fontSize: 18,
+//       },
      
  
-})
+// })
 
 
