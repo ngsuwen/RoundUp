@@ -80,6 +80,7 @@ export default function tickerDataCard() {
         return formattedGroupedDate
         })
 
+
         // sorting the dates by lastest first (at the top)
         const allDates = Object.keys(entriesByDay).sort()
 
