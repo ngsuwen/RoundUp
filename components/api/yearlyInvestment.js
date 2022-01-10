@@ -9,7 +9,7 @@ export default async function yearlyExpense(id, date) {
   
     try {
       const response = await fetch(
-        `https://roundup-api.herokuapp.com/data/expense/user/${id}/yearly/${date}`,
+        `https://roundup-api.herokuapp.com/data/investment/user/${id}/yearly/${date}`,
         requestOptions
       );
       const data = await response.json();
