@@ -78,7 +78,7 @@ useEffect(()=>{
  useEffect(()=>{
     const loadStock = async() =>{
       
-      const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&token=c768mbqad3if0oe26md0")
+      const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNAS&token=c768mbqad3if0oe26md0")
         const data = await res.json()
         const stockCompanies = data.slice(0, 1000)
         //console.log(stockCompanies)
