@@ -36,8 +36,8 @@ const reloadExpenses = () => {
 
   // have to make sure there's pricehistory for the txn you're getting as priceHistory will be empty for newly added entries
   for(let i = 0;i < tickerList.length;i++){
-    const dateDataPoints = fetchedInvestmentEntries[tickerList[i]][0]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('DD-MMM')) // index 0 of ticker as that is the longest priceHistory list 
-    // console.log('datedatapoints:',dateDataPoints)
+    const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('DD-MMM')) // index 0 of the first ticker as that will give the longest date data point
+    console.log('datedatapoints:',dateDataPoints)
     // set x-axis
     setAllLabels(dateDataPoints)
 
