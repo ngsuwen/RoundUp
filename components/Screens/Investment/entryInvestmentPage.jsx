@@ -3,7 +3,6 @@ import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
 import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, ScrollView } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
-import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 
@@ -20,8 +19,6 @@ import {
   Box,
   
 } from "native-base";
-
-
 
 
 const EntryInvestmentPage = ({navigation}) => {
@@ -96,7 +93,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
     const handleSubmit = async (event) => {
       try{
-
+        
         event.preventDefault();
         const res = await fetch("https://roundup-api.herokuapp.com/data/investment", {
          
@@ -122,6 +119,7 @@ const EntryInvestmentPage = ({navigation}) => {
           console.error('create data investment failed')
         }
       setExpenseForceRender(!expenseForceRender)
+      
      
       } catch(err){
         console.log(err)
@@ -158,6 +156,7 @@ const EntryInvestmentPage = ({navigation}) => {
                  {/* price */}
                 <View style={styles.wrapper} >
                   <TextInput
+                
                       style={styles.textinput}
                       type="submit" 
                       name="price"
@@ -295,8 +294,7 @@ const EntryInvestmentPage = ({navigation}) => {
                     <Button title="Submit" onPress={handleSubmit} />
                     <Button
                       title="Back"
-                      onPress={() => navigation.navigate("Home")
-                         }
+                      onPress={() => navigation.navigate("Home")}
                     />
                 </View>
                 
