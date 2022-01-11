@@ -3,22 +3,20 @@ import DataContext from "../../../context/DataContext";
 import {
   StyleSheet,
   TextInput,
+  Text,
+  View,
   SafeAreaView,
+  Button,
+  Pressable,
+  Modal,
   Dimensions
 } from "react-native";
-// import DatePicker from "@react-native-community/datetimepicker";
-import DatePicker from "react-native-neat-date-picker";
+import DatePicker from "@react-native-community/datetimepicker";
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
-  Pressable,
-  Text,
-  View,
-  Container,
-  Modal,
-  Button,
   Input,
   useTypeahead,
   Typeahead,
@@ -28,7 +26,6 @@ import {
   Box,
   
 } from "native-base";
-import moment from "moment";
 
 
 const EditInvestmentPage = ({ navigation, route }) => {
@@ -52,27 +49,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
         ] = investmentEntryContext
 
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
-
-
-  // show for datepicker
-  const [show, setShow] = React.useState(false);
-
-   // Date Picker
-  const onCancel = () => {
-    setShow(false);
-  };
-
-  const onConfirm = (date) => {
-    setShow(false);
-    setDateInvestment(date);
-  };
-
-  // to show and hide date picker
-  const showDatepicker = () => {
-    setShow(true);
-  };
-
-  const formattedDate = moment(dateInvestment, moment.ISO_8601).format("YYYY-MM-DD");
 
  
   // Modal for category
@@ -137,7 +113,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
     }
   };
 
- 
+   // Date Picker
+   const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || new Date(dateInvestment);
+    setDateInvestment(currentDate);
+    
+  };
 
 
   return (
@@ -150,58 +131,18 @@ const EditInvestmentPage = ({ navigation, route }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-       <Center flex={1} bgColor="#fff">
-        <Container width="90%" p="4" bgColor="#fff">
-              <Text fontSize="sm" fontWeight="bold">
-                Date
-              </Text>
-              <Pressable width="100%" onPress={showDatepicker}>
-                <Text
-                  fontSize="sm"
-                  mt="1"
-                  borderRadius="sm"
-                  borderColor="coolGray.200"
-                  borderWidth="1"
-                  p="2"
-                >
-                  {formattedDate}
-                </Text>
-              </Pressable>
-              <DatePicker
-                isVisible={show}
-                mode={"single"}
-                onCancel={onCancel}
-                onConfirm={onConfirm}
-              />
-            </Container>
-
-
-         
-            {/* date old
+        <SafeAreaView style={styles.container}>
+          <View style={styles.inner}>
+            
             <View style={styles.wrapper} >
             <DatePicker
               style={styles.datepicker}
               value={new Date(dateInvestment)}
               onChange={onChangeDate}
             />
-            </View> */}
-
-            {/* price */}
-            <Container width="90%" px="4" bgColor="#fff">
-            <Text fontSize="sm" fontWeight="bold">
-              Price
-            </Text>
-            <Input
-              width="100%"
-              fontSize="sm"
-              mt="1"
-              color="coolGray.600"
-              value={priceInvestment.toString()}
-              onChangeText={(text) => setPriceInvestment(text)}
-            />
-          </Container>
+            </View>
             
-                {/* price old
+                {/* price */}
                 <View style={styles.wrapper} >
                   <TextInput
                       style={styles.textinput}
@@ -215,25 +156,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
                           title="Clear"
                           onPress={()=>setPriceInvestment([])}
                           />
-                    </View> */}
+                    </View>
 
-                     {/* quantity */}
-                  <Container width="90%" px="4" bgColor="#fff">
-                    <Text fontSize="sm" fontWeight="bold">
-                      Quantity
-                    </Text>
-                    <Input
-                      width="100%"
-                      fontSize="sm"
-                      mt="1"
-                      color="coolGray.600"
-                      placeholder="Enter Quantity"
-                      value={qtyInvestment.toString()}
-                      onChangeText={(text) => setQtyInvestment(text)}
-                    />
-                  </Container>
-
-                  {/* quantity old
+                  {/* quantity */}
                   <View style={styles.wrapper} >
                       <TextInput
                           style={styles.textinput}
@@ -247,55 +172,10 @@ const EditInvestmentPage = ({ navigation, route }) => {
                               title="Clear"
                               onPress={()=>setQtyInvestment([])}
                               />
-                    </View> */}
-
-                   {/* Transaction */}
-
-                   <Container width="90%" p="4" bgColor="#fff">
-                        <Text fontSize="sm" fontWeight="bold">
-                          Transaction
-                        </Text>
-                        <Pressable width="100%" onPress={() => changeModalVisibilityTransaction(true)}>
-                          <Text
-                            fontSize="sm"
-                            mt="1"
-                            borderRadius="sm"
-                            borderColor="coolGray.200"
-                            borderWidth="1"
-                            p="2"
-                          >
-                            {transaction}
-                          </Text>
-                        </Pressable>
-                        <Modal
-                          isOpen={isModalVisibleTransaction}
-                          defaultIsOpen="false"
-                          onClose={() => changeModalVisibilityTransaction(false)}
-                          size="sm"
-                        >
-                          <Modal.Content>
-                            <Modal.CloseButton />
-                            <Modal.Header
-                              _text={{
-                                fontWeight: "bold",
-                                fontSize: "sm",
-                              }}
-                            >
-                              Transaction
-                            </Modal.Header>
-                            <Modal.Body>
-                              <ModalTransactionPicker
-                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                                setDataTransaction={setDataTransaction}
-                              />
-                            </Modal.Body>
-                          </Modal.Content>
-                        </Modal>
-                      </Container>
-                    
+                    </View>
 
 
-                    {/* Transaction old
+                    {/* Transaction */}
                     <View style={styles.wrapper}>
 
                         <Pressable 
@@ -319,55 +199,10 @@ const EditInvestmentPage = ({ navigation, route }) => {
                           
                         </Modal>
 
-                        </View> */}
+                        </View>
 
 
-                        {/* Category */}
-
-                        <Container width="90%" p="4" bgColor="#fff">
-                        <Text fontSize="sm" fontWeight="bold">
-                          Category
-                        </Text>
-                        <Pressable width="100%" onPress={() => changeModalVisibilityCat(true)}>
-                          <Text
-                            fontSize="sm"
-                            mt="1"
-                            borderRadius="sm"
-                            borderColor="coolGray.200"
-                            borderWidth="1"
-                            p="2"
-                          >
-                            {categoryInvestment}
-                          </Text>
-                        </Pressable>
-                        <Modal
-                          isOpen={isModalVisibleCat}
-                          defaultIsOpen="false"
-                          onClose={() => changeModalVisibilityCat(false)}
-                          size="sm"
-                        >
-                          <Modal.Content>
-                            <Modal.CloseButton />
-                            <Modal.Header
-                              _text={{
-                                fontWeight: "bold",
-                                fontSize: "sm",
-                              }}
-                            >
-                              Category
-                            </Modal.Header>
-                            <Modal.Body>
-                              <ModalCatPicker
-                                changeModalVisibilityCat={changeModalVisibilityCat}
-                                setDataCat={setDataCat}
-                              />
-                            </Modal.Body>
-                          </Modal.Content>
-                        </Modal>
-                      </Container>
-
-
-                        {/* category old
+                        {/* category */}
                         <View style={styles.wrapper}>
 
                         <Pressable 
@@ -391,14 +226,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
                             
                         </Modal>
                       
-                        </View> */}
+                        </View>
 
 
 
                         {/* Autocomplete ticker */}
 
                         { categoryInvestment === "Crypto" ?
-                        <Container width="90%" p="4" bgColor="#fff">
+                        <Box>
                           <Typeahead
                             inputValue={filterTextCrypto} // for value to be populated at the field
                             options={filteredItemsCrypto}
@@ -415,9 +250,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
                               );
                             }}
                           />
-                        </Container>
+                        </Box>
                                         :
-                        <Container width="90%" p="4" bgColor="#fff">
+                        <Box>
                           <Typeahead
                             inputValue={filterTextStock}  // for value to be populated at the field
                             options={filteredItemsStock}
@@ -434,35 +269,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
                               );
                             }}
                           />
-                        </Container>
+                        </Box>
 
 
                        
                       }
 
-                      <Button.Group size="sm" mt="5">
-                          <Button
-                            variant="outline"
-                            bgColor="white"
-                            colorScheme="light"
-                            onPress={() =>
-                              navigation.navigate("Show Investment Page", { entry: entry })
-                            }
-                          >
-                            <Text>Cancel</Text>
-                          </Button>
-                          <Button
-                            colorScheme="primary"
-                            onPress={() => {
-                              handleSubmit(entry);
-                            }}
-                          >
-                            <Text>Update</Text>
-                          </Button>
-                        </Button.Group>
-
                      
-            {/* <View style={styles.button}>
+            <View style={styles.button}>
               <Button
                 title="Update"
                 onPress={() => {
@@ -476,9 +290,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
                   navigation.navigate("Show Investment Page", { entry: entry })
                 }
               />
-            </View> */}
-  
-        </Center>
+            </View>
+          </View>
+        </SafeAreaView>
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
