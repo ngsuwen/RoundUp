@@ -155,9 +155,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
       }
 
       if (isPriceValid === false || isQtyValid === false){
-        alert("One of the fields are invalid. Create failed!")
+        alert("One of the fields is invalid. Create failed!")
         return navigation.navigate("Edit Investment Page", { entry: entry })
       }
+      if (priceInvestment.length < 1 || qtyInvestment.length < 1 ){
+        alert("One of the fields is empty. Create failed!")
+        return navigation.navigate("Edit Investment Page", { entry: entry })
+      }
+      
       
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data

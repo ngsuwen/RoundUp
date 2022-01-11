@@ -92,8 +92,14 @@ const EditExpensePage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data expense failed");
       }
+
+      // validation
       if (isAmountValid === false){
-        alert("One of the fields are invalid. Create failed!")
+        alert("One of the fields is invalid. Create failed!")
+        return navigation.navigate("Edit Expense Page", {entry: entry})
+      }
+      if (amount.length < 1 || description.length < 1 ){
+        alert("One of the fields is empty. Create failed!")
         return navigation.navigate("Edit Expense Page", {entry: entry})
       }
 
