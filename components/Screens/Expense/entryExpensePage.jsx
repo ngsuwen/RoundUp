@@ -122,10 +122,16 @@ const EntryExpensePage = ({ navigation }) => {
       }
 
       setExpenseForceRender(!expenseForceRender);
+      // validation
       if (isAmountValid === false){
-        alert("One of the fields are invalid. Create failed!")
+        alert("One of the fields is invalid. Create failed!")
         return navigation.navigate("Add Money Out")
       }
+      if (amount.length < 1 || description.length < 1 ){
+        alert("One of the fields is empty. Create failed!")
+        return navigation.navigate("Add Money Out")
+      }
+
     } catch (err) {
       console.log(err);
     }

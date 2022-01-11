@@ -121,7 +121,11 @@ const EntryCashPage = ({ navigation }) => {
 
       setExpenseForceRender(!expenseForceRender);
       if (isAmountValid === false){
-        alert("One of the fields are invalid. Create failed!")
+        alert("One of the fields is invalid. Create failed!")
+        return navigation.navigate("Add Money In")
+      }
+      if (amountCash.length < 1 || descriptionCash.length < 1 ){
+        alert("One of the fields is empty. Create failed!")
         return navigation.navigate("Add Money In")
       }
     } catch (err) {

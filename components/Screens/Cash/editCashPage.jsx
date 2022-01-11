@@ -92,8 +92,13 @@ const EditCashPage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data cash failed");
       }
+      // validation
       if (isAmountValid === false){
-        alert("One of the fields are invalid. Create failed!")
+        alert("One of the fields is invalid. Create failed!")
+        return navigation.navigate("Edit Cash Page", {entry: entry})
+      }
+      if (amountCash.length < 1 || descriptionCash.length < 1 ){
+        alert("One of the fields is empty. Create failed!")
         return navigation.navigate("Edit Cash Page", {entry: entry})
       }
 
