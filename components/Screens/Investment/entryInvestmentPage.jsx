@@ -48,6 +48,27 @@ const EntryInvestmentPage = ({navigation}) => {
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
+
+   // validation
+  //  const [isPriceValid, setIsPriceValid] = useState(true)
+
+  //  const validatePrice = (price) =>{
+  //   const  re = /^\d+\.\d{2}$/
+    
+  //   // const result = re.test(price)
+  //   // console.log("result", result)
+  //   return re.test(String(price).toLowerCase())
+  
+  // }
+
+  // const onPriceBlur = () =>{
+  //   const isPriceValid = validatePrice(priceInvestment)
+  //   setIsPriceValid(isPriceValid) //set as true or false
+
+  // }
+
+
+
    // show for datepicker
    const [show, setShow] = useState(false);
 
@@ -209,8 +230,10 @@ const EntryInvestmentPage = ({navigation}) => {
             placeholder="Enter Price"
             value={priceInvestment.toString()}
             onChangeText={(text) => setPriceInvestment(text)}
+            // onBlur={onPriceBlur}
             
           />
+          {/* {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>} */}
         </Container>
 
                 
