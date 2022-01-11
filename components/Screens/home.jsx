@@ -80,7 +80,7 @@ export default function Home({ navigation }) {
   const [investmentYearlyData, setInvestmentYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
   const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
 
-  async function calculateData(num) {
+  async function calculateData() {
     let month;
     if (todayMonth + 1 < 10) {
       let strMonth = todayMonth + 1;
@@ -96,15 +96,15 @@ export default function Home({ navigation }) {
       const total = Number(cashData[i])+Number(investData[i])
       networthData.push(total)
     }
-    const dataArr = [cashData, expenseData, investData, networthData]
-    return dataArr[num]
+    setCashYearlyData(cashData)
+    setExpenseYearlyData(expenseData)
+    setInvestmentYearlyData(investData)
+    setNetworthYearlyData(networthData)
+    return
   }
   
   React.useEffect(async()=>{
-    setCashYearlyData(await calculateData(0))
-    setExpenseYearlyData(await calculateData(1))
-    setInvestmentYearlyData(await calculateData(2))
-    setNetworthYearlyData(await calculateData(3))
+    await calculateData()
   },[expenseForceRender])
 
   return (

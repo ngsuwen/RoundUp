@@ -1,15 +1,17 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { Accordion, NativeBaseProvider, Center, Box } from "native-base";
+import { Accordion, NativeBaseProvider, Center, Box, Text } from "native-base";
 
 function AccordionComponent() {
   return (
     <Box m={3}>
       <Accordion allowMultiple>
       <Accordion.Item>
-          <Accordion.Summary>
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
+          <Text fontWeight="bold">
             Introduction
-            <Accordion.Icon />
+            </Text>
+            <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -19,34 +21,37 @@ function AccordionComponent() {
           </Accordion.Details>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Summary>
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
           {/* <Accordion.Summary _expanded={{ backgroundColor: 'coolGray.600' }}> */}
-            What are the features?
-            <Accordion.Icon />
+            <Text fontWeight="bold">
+              What are the features?
+            </Text>
+            <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            As a basic user, you can track your inflow and outflow of cash. As a premium user, you can track your investment for cyptocurrencies and stocks.
           </Accordion.Details>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Summary>
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
+            <Text fontWeight="bold">
             Which stock markets are available for tracking?
-            <Accordion.Icon />
+            </Text>
+            <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
             Currently, only the US market is available. 
           </Accordion.Details>
         </Accordion.Item>
                 <Accordion.Item>
-          <Accordion.Summary>
-            Why is my Investment/ networth showing up 0?
-            <Accordion.Icon />
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
+            <Text fontWeight="bold">
+            Why is the data not updated?
+            </Text>
+            <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            It takes time to load the investment data from our server. Please give it roughly another 20s to connect after the page has loaded. We hope to seek your understanding. 
+            After you have created / edited / deleted entries, it takes time to update our database. Please give the app a few seconds to reflect the changes. We hope to seek your understanding. 
           </Accordion.Details>
         </Accordion.Item>
       </Accordion>

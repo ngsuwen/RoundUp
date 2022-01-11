@@ -90,7 +90,8 @@ function AccordionComponent() {
     return (
       <Accordion.Item key={index}>
         <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
-          <HStack width="100%" justifyContent="space-between">
+          <Accordion.Icon color="black" size="5"/>
+          <HStack width="90%" justifyContent="space-between">
             <Text fontWeight="bold">{date}</Text>
             <Text fontWeight="bold">{`$ ${totalAmount}`}</Text>
           </HStack>
@@ -105,7 +106,7 @@ function AccordionComponent() {
             >
               <Accordion.Details key={index} bgColor={checkDivider(index)}>
                 <HStack width="100%" justifyContent="space-between">
-                  <Text>{entry.expensesentry.description}</Text>
+                  <Text pl={"10%"}>{entry.expensesentry.description}</Text>
                   <Text>{`$ ${entry.expensesentry.amount}`}</Text>
                 </HStack>
               </Accordion.Details>
