@@ -138,7 +138,7 @@ const [user, setUser] = userContext
     flex: 1,
     flexDirection:'column',
     width: screenWidth*0.9,
-    backgroundColor: '#F7F6F2',
+    backgroundColor: '#d0d4da',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
@@ -186,7 +186,6 @@ const [user, setUser] = userContext
     },
     pressable: {
     flex:1,
-    backgroundColor: '#F4E6E6',
     justifyContent:'center',
     alignItems:'center',
     borderRadius: 5,
@@ -195,7 +194,6 @@ const [user, setUser] = userContext
     marginRight: '2%',
     },
     })
-
 
 
     const stockCards = tickerAndPrice.map((stock,index)=>{

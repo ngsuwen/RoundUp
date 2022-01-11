@@ -25,14 +25,14 @@ const EditCashPage = ({ navigation, route }) => {
   const [userId, setUserId] = userContext;
 
   const [
-    dateCash,
-    setDateCash,
-    amountCash,
-    setAmountCash,
-    categoryCash,
-    setCategoryCash,
-    descriptionCash,
-    setDescriptionCash,
+    date,
+    setDate,
+    amount,
+    setAmount,
+    category,
+    setCategory,
+    description,
+    setDescription,
   ] = cashEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
@@ -65,7 +65,7 @@ const EditCashPage = ({ navigation, route }) => {
   };
 
   const setData = (option) => {
-    setCategoryCash(option);
+    setCategory(option);
   };
 
   const handleSubmit = async (cash) => {
@@ -78,10 +78,10 @@ const EditCashPage = ({ navigation, route }) => {
           body: JSON.stringify({
             username: userId,
             cashentry: {
-              date: dateCash,
-              amount: amountCash,
-              category: categoryCash,
-              description: descriptionCash,
+              date: date,
+              amount: amount,
+              category: category,
+              description: description,
             },
           }),
           headers: {
@@ -112,7 +112,7 @@ const EditCashPage = ({ navigation, route }) => {
 
   const onConfirm = (date) => {
     setShow(false);
-    setDateCash(date);
+    setDate(date);
   };
 
   // to show and hide date picker
@@ -120,7 +120,7 @@ const EditCashPage = ({ navigation, route }) => {
     setShow(true);
   };
 
-  const formattedDate = moment(dateCash, moment.ISO_8601).format("YYYY-MM-DD");
+  const formattedDate = moment(date, moment.ISO_8601).format("YYYY-MM-DD");
 
   return (
     <NativeBaseProvider>
@@ -165,9 +165,9 @@ const EditCashPage = ({ navigation, route }) => {
               fontSize="sm"
               mt="1"
               color="coolGray.600"
-              value={amountCash.toString()}
-              onChangeText={(text) => setAmountCash(text)}
-              onBlur={() =>onAmountBlur(amountCash)}
+              value={amount.toString()}
+              onChangeText={(text) => setAmount(text)}
+              onBlur={() =>onAmountBlur(amount)}
             />
             {isAmountValid ? "" : <Text color="red.600">Invalid Amount</Text>}
           </Container>
@@ -184,7 +184,7 @@ const EditCashPage = ({ navigation, route }) => {
                 borderWidth="1"
                 p="2"
               >
-                {categoryCash}
+                {category}
               </Text>
             </Pressable>
             <Modal
@@ -221,8 +221,8 @@ const EditCashPage = ({ navigation, route }) => {
               fontSize="sm"
               mt="1"
               color="coolGray.600"
-              value={descriptionCash}
-              onChangeText={(text) => setDescriptionCash(text)}
+              value={description}
+              onChangeText={(text) => setDescription(text)}
             />
           </Container>
           <Button.Group size="sm" mt="5">

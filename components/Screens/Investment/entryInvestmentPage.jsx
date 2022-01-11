@@ -182,7 +182,7 @@ const EntryInvestmentPage = ({navigation}) => {
     return (
       <NativeBaseProvider>
           <KeyboardAvoidingView
-                keyboardVerticalOffset={150} behavior="padding"
+                // keyboardVerticalOffset={100} behavior="padding"
                 h={{
                   base: "100%",
                   lg: "auto",
@@ -267,6 +267,8 @@ const EntryInvestmentPage = ({navigation}) => {
           />
           {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
         </Container>
+
+
 
 
         {/* Transaction */}
@@ -356,8 +358,9 @@ const EntryInvestmentPage = ({navigation}) => {
           </Modal>
         </Container>
 
+
           {/* Autocomplete ticker */}
-        { categoryInvestment === "Crypto" ?
+          { categoryInvestment === "Crypto" ?
         <Container width="90%" px="4" bgColor="#fff">
          
             <Typeahead
@@ -391,7 +394,7 @@ const EntryInvestmentPage = ({navigation}) => {
               label="Select Stock Ticker"
               toggleIcon={({ isOpen }) => {
                 return isOpen ? (
-                  <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                  <Icon name="arrow-drop-up" type="MaterialIcons" size={12} style={"z-index: 1"} />
                 ) : (
                   <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
                 );
@@ -400,6 +403,7 @@ const EntryInvestmentPage = ({navigation}) => {
             </Container>
    
         }
+
                                          
         <Button
             size="sm"
