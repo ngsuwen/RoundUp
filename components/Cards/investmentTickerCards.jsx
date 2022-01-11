@@ -201,7 +201,7 @@ const [user, setUser] = userContext
         <View style={styles.wrapper} key={index}>
             <Pressable onPress={() => {
                 setSelectedTickerAndPrice(stock)
-                navigation.navigate('Ticker Info')}}>
+                navigation.navigate('Show Ticker Page')}}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
                         <Text style={styles.ticker}>{stock.ticker.toUpperCase()}</Text>
