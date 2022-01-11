@@ -1,4 +1,4 @@
-export default async function yearlyExpense(id, date) {
+export default async function yearlyInvestment(id, date) {
   var raw = "";
 
   var requestOptions = {
@@ -29,6 +29,8 @@ export default async function yearlyExpense(id, date) {
         // console.log("last day",lastday)
         if (entry==null) {
           monthlyInvestment += 0;
+        } else if (entry.priceHistory.length==0){
+          monthlyInvestment += Number(entry.investmentsentry.price)*Number(entry.investmentsentry.quantity)
         } else {
           // if (i != 12) {
           //   indexFound = entry.priceHistory.findIndex(
