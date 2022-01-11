@@ -147,7 +147,7 @@ const EntryExpensePage = ({ navigation }) => {
           <View width="90%" paddingRight={5} alignItems="flex-end">
             <Pressable
               onPress={() => {
-                navigation.navigate("Expenses");
+                navigation.navigate("Money Out");
               }}
             >
               <Entypo name="cross" size={24} color="black" />

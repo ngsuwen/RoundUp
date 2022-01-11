@@ -139,16 +139,3 @@ export default function Home({ navigation }) {
   );
 }
 
-// {/* button component can't be styled so we use a pressable component */}
-// <NativeBaseProvider>
-// {/* <Pressable style={styles.pressable} onPress={() => navigation.navigate('About')}>
-//   <Text style={styles.text}>Go to About</Text>
-// </Pressable> */}
-// </NativeBaseProvider>
-
-// pressable: {
-//   backgroundColor: 'salmon',
-//   borderRadius: 5,
-//   padding: '2%',
-//   margin: '5%',
-// },

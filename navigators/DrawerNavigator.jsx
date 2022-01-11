@@ -12,7 +12,7 @@ import investmentGeneralPage from "../components/Screens/Investment/investmentGe
 import expenseGeneralPage from "../components/Screens/Expense/expenseGeneralPage";
 
 import EntryCashPage from "../components/Screens/Cash/entryCashPage";
-import IndexCashPage from "../components/Screens/Cash/cashGeneralPage";
+import cashGeneralPage from "../components/Screens/Cash/cashGeneralPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
 
@@ -83,11 +83,11 @@ export default function App({ navigation }) {
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Home" component={Home}/>
       <Drawer.Screen name="About" component={About} />
-      <Drawer.Screen name="Cash" component={IndexCashPage} />
-      <Drawer.Screen name="Expenses" component={expenseGeneralPage} />
-      <Drawer.Screen name="Investments" component={investmentGeneralPage} />
+      <Drawer.Screen name="Money In" component={cashGeneralPage} />
+      <Drawer.Screen name="Money Out" component={expenseGeneralPage} />
+      <Drawer.Screen name="Investment GP" component={investmentGeneralPage} />
 
       <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
       <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage}
@@ -96,7 +96,7 @@ export default function App({ navigation }) {
         options={{drawerItemStyle: {height: 0}}}/> 
       <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}
         options={{drawerItemStyle: {height: 0}}} />
-      <Drawer.Screen name="Ticker Info" component={ShowTickerPage}
+      <Drawer.Screen name="Show Ticker Page" component={ShowTickerPage}
        options={{drawerItemStyle: {height: 0}}} />
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>

@@ -144,7 +144,7 @@ const EntryCashPage = ({ navigation }) => {
           <View width="90%" paddingRight={5} alignItems="flex-end">
             <Pressable
               onPress={() => {
-                navigation.navigate("Cash");
+                navigation.navigate("Money In");
               }}
             >
               <Entypo name="cross" size={24} color="black" />
