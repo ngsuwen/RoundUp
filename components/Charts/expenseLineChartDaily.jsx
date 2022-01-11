@@ -84,6 +84,11 @@ const linedata = {
 }
 
 
+// set comma for y-axis values over 1000
+const numberWithCommas = (num) => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 return (
       <LineChart
           data={linedata}
@@ -91,6 +96,7 @@ return (
           height={screenHeight*0.25}
           chartConfig={chartConfig}
           bezier
+          formatYLabel={(data)=>numberWithCommas(Math.round(data))}
       />
 )
 }

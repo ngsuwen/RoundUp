@@ -53,6 +53,31 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
+  // validation
+  const [isPriceValid, setIsPriceValid] = React.useState(true)
+  const [isQtyValid, setIsQtyValid] = React.useState(true)
+
+  const validateNum = (price) =>{
+   const  re = /^[0-9]*$/
+   
+   // const result = re.test(price)
+   // console.log("result", result)
+   return re.test(String(price).toLowerCase())
+ 
+ }
+
+ const onPriceBlur = (bool) =>{
+   const isPriceValid = validateNum(bool)
+   setIsPriceValid(isPriceValid) //set as true or false
+
+ }
+
+ const onQtyBlur = (bool) =>{
+   const isQtyValid = validateNum(bool)
+   setIsQtyValid(isQtyValid) //set as true or false
+
+ }
+
 
   // show for datepicker
   const [show, setShow] = React.useState(false);
@@ -128,6 +153,11 @@ const EditInvestmentPage = ({ navigation, route }) => {
       if (res.status !== 200) {
         console.error("edit data investment failed");
       }
+
+      if (isPriceValid === false || isQtyValid === false){
+        alert("One of the fields are invalid. Create failed!")
+        return navigation.navigate("Edit Investment Page", { entry: entry })
+      }
       
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data
@@ -188,7 +218,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
               color="coolGray.600"
               value={priceInvestment.toString()}
               onChangeText={(text) => setPriceInvestment(text)}
+              onBlur={() =>onPriceBlur(priceInvestment)}
             />
+             {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
           </Container>
             
 
@@ -205,7 +237,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
             placeholder="Enter Quantity"
             value={qtyInvestment.toString()}
             onChangeText={(text) => setQtyInvestment(text)}
+            onBlur={() =>onQtyBlur(qtyInvestment)}
           />
+          {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
         </Container>
 
 

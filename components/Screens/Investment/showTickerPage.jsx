@@ -82,19 +82,19 @@ export default function TickerBreakdownPage({ navigation }) {
         <Box height="10%" px={6}>
           <Center>
             <Button.Group>
+            <Button
+                variant="outline"
+                colorScheme="light"
+                onPress={() => navigation.navigate("Investment GP")}
+              >
+                Back
+              </Button>
               <Button
                 variant="outline"
                 colorScheme="light"
                 onPress={() => navigation.navigate("Entry Investment Page")}
               >
                 Add Entry
-              </Button>
-              <Button
-                variant="outline"
-                colorScheme="light"
-                onPress={() => navigation.navigate("Investment GP")}
-              >
-                Back/ Change Ticker?
               </Button>
             </Button.Group>
           </Center>

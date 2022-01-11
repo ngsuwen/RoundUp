@@ -94,6 +94,10 @@ const reloadExpenses = () => {
     useShadowColorFromDataset: false // optional
   }
 
+  const numberWithCommas = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  
   return (
         <PieChart
             data={chartData}

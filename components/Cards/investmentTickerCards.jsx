@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import DataContext from '../../context/DataContext';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
+import { parse } from 'react-native-svg';
 const _ = require('underscore')
 
 
@@ -63,22 +64,32 @@ const [user, setUser] = userContext
                 currentStockQty-=entry.investmentsentry.quantity
               }   
         })
-        console.log(`ticker:${ticker},qty:${currentStockQty}`)
+        // console.log(`ticker:${ticker},qty:${currentStockQty}`)
         if (currentStockQty > 0){
             tickerList.push(ticker)
         }
     })
 
-    console.log('tickerlist:',tickerList)
+    // console.log('tickerlist:',tickerList)
 
     const tickerAndPriceArr = [] 
 
     for (let ticker of tickerList){
 
+        // function to input commas for thousands
+        const numberWithCommas = (num) => {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         const priceFetcher = async () => {
             if(entriesByTicker[ticker][0]['investmentsentry']['category']==='US stocks'){
                 const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
                 const parsedStockPriceObj = await stockprice.json()
+                if(parsedStockPriceObj['value']>=1){
+                    parsedStockPriceObj['prettifiedValue'] = numberWithCommas((Number.parseFloat(parsedStockPriceObj['value']).toFixed(2)))} // 2 d.p
+                if(parsedStockPriceObj['value']<1){
+                    parsedStockPriceObj['prettifiedValue'] = (Number.parseFloat(parsedStockPriceObj['value']).toPrecision(6)) // 6 s.f
+                }
                 parsedStockPriceObj['ticker']=ticker
                 let totalStockQty = 0 
                 const totalStockQtyCalculator = parsedStockPriceObj['quantity']=entriesByTicker[ticker].forEach((transaction,index)=>{
@@ -92,7 +103,11 @@ const [user, setUser] = userContext
             if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto'){
                 const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
                 const parsedCryptoPriceObj = await cryptoprice.json()
-                // uppercase as crypto ticker is lowercase due to api requirements
+                if(parsedCryptoPriceObj['value']>=1){
+                    parsedCryptoPriceObj['prettifiedValue'] = numberWithCommas((Number.parseFloat(parsedCryptoPriceObj['value']).toFixed(2)))} // 2 d.p
+                if(parsedCryptoPriceObj['value']<1){
+                    parsedCryptoPriceObj['prettifiedValue'] = (Number.parseFloat(parsedCryptoPriceObj['value']).toPrecision(6)) // 6 s.f
+                }
                 parsedCryptoPriceObj['ticker']=ticker
 
                 let totalCryptoQty = 0 
@@ -140,17 +155,15 @@ const [user, setUser] = userContext
     infoWrapper:{
     flex:1,
     flexDirection:'row',
-    // backgroundColor:'yellow',
     width:screenWidth*0.7,
-    justifyContent:'space-between',
-    alignItems:'center',
     margin:'2%',
     },
     tickernamewrapper: {
     flexDirection:'column',
     },
     stockpricewrapper: {
-    alignSelf:'flex-end'
+    flex:2,
+    width:'50%',
     },
     ticker:{
     fontWeight:'bold',
@@ -159,6 +172,7 @@ const [user, setUser] = userContext
     fontSize: 9,
     },
     price:{
+    textAlign:'right',
     },
     pressableWrapper: {
     display:'flex',
@@ -196,7 +210,7 @@ const [user, setUser] = userContext
                         {/* <Text style={styles.name}>{stock.name}</Text> */}
                     </View>
                     <View style={styles.stockpricewrapper}>
-                         <Text>$ {stock.value}</Text>
+                         <Text style={styles.price}>$ {stock.prettifiedValue}</Text>
                     </View>
                     <View>
                         {/* need to check api data if percentage change will be negative value */}

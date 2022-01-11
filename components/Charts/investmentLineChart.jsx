@@ -54,6 +54,13 @@ export default function cashLineChartComponent({dataMonth, investmentYearlyData,
     useShadowColorFromDataset: false, // optional
   };
   const navigation = useNavigation();
+
+
+  // set comma for y-axis values over 1000
+  const numberWithCommas = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return (
     <>
       <Center
@@ -87,6 +94,7 @@ export default function cashLineChartComponent({dataMonth, investmentYearlyData,
         height={screenHeight * 0.25}
         chartConfig={chartConfig}
         bezier
+        formatYLabel={(data)=>numberWithCommas(Math.round(data))}
       />
     </>
   );

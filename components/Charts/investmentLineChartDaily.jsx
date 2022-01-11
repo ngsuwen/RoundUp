@@ -25,7 +25,7 @@ const reloadExpenses = () => {
 
   try{
   // grouping logic
-  const tickerList = Object.keys(fetchedInvestmentEntries)
+  const tickerList = Object.keys(fetchedInvestmentEntries) 
   // console.log('tickerlistatlinechartdaily:',tickerList)
   // console.log('fetchedinvestmententrylienchartdaily',fetchedInvestmentEntries)
 
@@ -105,7 +105,7 @@ const reloadExpenses = () => {
             chartConfig={chartConfig}
             bezier
             yAxisSuffix="K"
-            formatYLabel={(data)=>Math.round(data/1000)}
+            formatYLabel={(data)=>Math.round(data)}
         />
   )}
 

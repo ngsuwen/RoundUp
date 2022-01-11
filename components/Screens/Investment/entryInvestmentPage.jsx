@@ -48,27 +48,31 @@ const EntryInvestmentPage = ({navigation}) => {
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
-
    // validation
-  //  const [isPriceValid, setIsPriceValid] = useState(true)
+   const [isPriceValid, setIsPriceValid] = useState(true)
+   const [isQtyValid, setIsQtyValid] = useState(true)
 
-  //  const validatePrice = (price) =>{
-  //   const  re = /^\d+\.\d{2}$/
+   const validateNum = (price) =>{
+    const  re = /^[0-9]*$/
     
-  //   // const result = re.test(price)
-  //   // console.log("result", result)
-  //   return re.test(String(price).toLowerCase())
+    // const result = re.test(price)
+    // console.log("result", result)
+    return re.test(String(price).toLowerCase())
   
-  // }
+  }
 
-  // const onPriceBlur = () =>{
-  //   const isPriceValid = validatePrice(priceInvestment)
-  //   setIsPriceValid(isPriceValid) //set as true or false
+  const onPriceBlur = (bool) =>{
+    const isPriceValid = validateNum(bool)
+    setIsPriceValid(isPriceValid) //set as true or false
 
-  // }
+  }
+ 
+  const onQtyBlur = (bool) =>{
+    const isQtyValid = validateNum(bool)
+    setIsQtyValid(isQtyValid) //set as true or false
 
-
-
+  }
+   
    // show for datepicker
    const [show, setShow] = useState(false);
 
@@ -124,6 +128,8 @@ const EntryInvestmentPage = ({navigation}) => {
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
       setFilterTextStock("")
+      setIsPriceValid(true)
+      setIsQtyValid(true)
   
     })
      return resetPage
@@ -159,6 +165,12 @@ const EntryInvestmentPage = ({navigation}) => {
         }
       setExpenseForceRender(!expenseForceRender)
       
+      if (isPriceValid === false || isQtyValid === false){
+        alert("One of the fields are invalid. Create failed!")
+        return navigation.navigate("Entry Investment Page")
+      }
+
+     
      
       } catch(err){
         console.log(err)
@@ -170,7 +182,7 @@ const EntryInvestmentPage = ({navigation}) => {
     return (
       <NativeBaseProvider>
           <KeyboardAvoidingView
-
+                keyboardVerticalOffset={150} behavior="padding"
                 h={{
                   base: "100%",
                   lg: "auto",
@@ -230,10 +242,10 @@ const EntryInvestmentPage = ({navigation}) => {
             placeholder="Enter Price"
             value={priceInvestment.toString()}
             onChangeText={(text) => setPriceInvestment(text)}
-            // onBlur={onPriceBlur}
+            onBlur={() =>onPriceBlur(priceInvestment)}
             
           />
-          {/* {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>} */}
+          {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
         </Container>
 
                 
@@ -251,7 +263,9 @@ const EntryInvestmentPage = ({navigation}) => {
             placeholder="Enter Quantity"
             value={qtyInvestment.toString()}
             onChangeText={(text) => setQtyInvestment(text)}
+            onBlur={() =>onQtyBlur(qtyInvestment)}
           />
+          {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
         </Container>
 
 
@@ -344,7 +358,8 @@ const EntryInvestmentPage = ({navigation}) => {
 
           {/* Autocomplete ticker */}
         { categoryInvestment === "Crypto" ?
-          <Container width="90%" p="4" bgColor="#fff">
+        <Container width="90%" px="4" bgColor="#fff">
+         
             <Typeahead
               inputValue={filterTextCrypto}
               options={filteredItemsCrypto}
@@ -361,9 +376,11 @@ const EntryInvestmentPage = ({navigation}) => {
                 );
               }}
             />
-          </Container>
+            </Container>
+        
                           :
-          <Container width="90%" p="4" bgColor="#fff">
+           <Container width="90%" px="4" bgColor="#fff">
+         
             <Typeahead
               inputValue={filterTextStock}
               options={filteredItemsStock}
@@ -380,7 +397,8 @@ const EntryInvestmentPage = ({navigation}) => {
                 );
               }}
             />
-          </Container>
+            </Container>
+   
         }
                                          
         <Button

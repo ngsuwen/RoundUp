@@ -7,7 +7,7 @@ import {
 } from "@react-navigation/drawer";
 import Home from "../components/Screens/home";
 import About from "../components/Screens/about";
-import investmentGeneralPage from "../components/Screens/investmentGeneralPage";
+import investmentGeneralPage from "../components/Screens/Investment/investmentGeneralPage";
 
 import expenseGeneralPage from "../components/Screens/Expense/expenseGeneralPage";
 
