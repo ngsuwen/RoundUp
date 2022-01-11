@@ -100,7 +100,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
       <Divider width="80%"/>
       <ShowPageCard
           heading="Quantity"
-          body={"$" + entry.investmentsentry.quantity}
+          body={entry.investmentsentry.quantity}
         />
       <Divider width="80%"/>
       <ShowPageCard heading="Transaction" body={entry.investmentsentry.transaction} />

@@ -169,6 +169,8 @@ const EntryInvestmentPage = ({navigation}) => {
         alert("One of the fields are invalid. Create failed!")
         return navigation.navigate("Entry Investment Page")
       }
+
+     
      
       } catch(err){
         console.log(err)
@@ -180,7 +182,7 @@ const EntryInvestmentPage = ({navigation}) => {
     return (
       <NativeBaseProvider>
           <KeyboardAvoidingView
-
+                keyboardVerticalOffset={150} behavior="padding"
                 h={{
                   base: "100%",
                   lg: "auto",
@@ -356,7 +358,8 @@ const EntryInvestmentPage = ({navigation}) => {
 
           {/* Autocomplete ticker */}
         { categoryInvestment === "Crypto" ?
-          <Container width="90%" p="4" bgColor="#fff">
+        <Container width="90%" px="4" bgColor="#fff">
+         
             <Typeahead
               inputValue={filterTextCrypto}
               options={filteredItemsCrypto}
@@ -373,9 +376,11 @@ const EntryInvestmentPage = ({navigation}) => {
                 );
               }}
             />
-          </Container>
+            </Container>
+        
                           :
-          <Container width="90%" p="4" bgColor="#fff">
+           <Container width="90%" px="4" bgColor="#fff">
+         
             <Typeahead
               inputValue={filterTextStock}
               options={filteredItemsStock}
@@ -392,7 +397,8 @@ const EntryInvestmentPage = ({navigation}) => {
                 );
               }}
             />
-          </Container>
+            </Container>
+   
         }
                                          
         <Button
