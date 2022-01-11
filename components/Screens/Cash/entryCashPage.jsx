@@ -35,6 +35,26 @@ const EntryCashPage = ({ navigation }) => {
   ] = cashEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
+  // validation
+  const [isAmountValid, setIsAmountValid] = useState(true)
+
+  const validateNum = (price) =>{
+   const  re = /^[0-9]*$/
+   
+   // const result = re.test(price)
+   // console.log("result", result)
+   return re.test(String(price).toLowerCase())
+ 
+ }
+
+ const onAmountBlur = (bool) =>{
+   const isAmountValid = validateNum(bool)
+   setIsAmountValid(isAmountValid) //set as true or false
+
+ }
+
+ 
+
   // useState
   const [show, setShow] = useState(false);
 
@@ -100,6 +120,10 @@ const EntryCashPage = ({ navigation }) => {
       }
 
       setExpenseForceRender(!expenseForceRender);
+      if (isAmountValid === false){
+        alert("One of the fields are invalid. Create failed!")
+        return navigation.navigate("Add Money In")
+      }
     } catch (err) {
       console.log(err);
     }
@@ -161,7 +185,9 @@ const EntryCashPage = ({ navigation }) => {
               placeholder="amount"
               value={amountCash.toString()}
               onChangeText={(text) => setAmountCash(text)}
+              onBlur={() =>onAmountBlur(amountCash)}
             />
+            {isAmountValid ? "" : <Text color="red.600">Invalid Amount</Text>}
           </Container>
           <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
