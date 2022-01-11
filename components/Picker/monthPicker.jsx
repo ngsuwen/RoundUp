@@ -6,9 +6,8 @@ import MonthPicker from "react-native-month-picker";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function MonthPickerModal({ navigation, type, dir }) {
-  const { monthContext, expenseForceRenderContext, userContext } = useContext(DataContext);
+  const { monthContext, userContext } = useContext(DataContext);
   const [selectedMonth, setSelectedMonth] = monthContext;
-  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
   const [user, setUser] = userContext
   const [isOpen, toggleOpen] = useState(false);
   const [total, setTotal] = useState(0);

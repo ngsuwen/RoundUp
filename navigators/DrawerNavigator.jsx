@@ -12,7 +12,7 @@ import investmentGeneralPage from "../components/Screens/Investment/investmentGe
 import expenseGeneralPage from "../components/Screens/Expense/expenseGeneralPage";
 
 import EntryCashPage from "../components/Screens/Cash/entryCashPage";
-import IndexCashPage from "../components/Screens/Cash/indexCashPage";
+import IndexCashPage from "../components/Screens/Cash/cashGeneralPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
 

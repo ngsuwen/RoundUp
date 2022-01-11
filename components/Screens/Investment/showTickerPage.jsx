@@ -75,10 +75,7 @@ export default function TickerBreakdownPage({ navigation }) {
   return (
     <NativeBaseProvider>
       <Box bgColor="#fff" height="100%">
-        {/* <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}> */}
         <TickerDataCard />
-        {/* <ExpenseLineChartComponent/> */}
-        {/* </Carousel> */}
         <Box height="10%" px={6}>
           <Center>
             <Button.Group>

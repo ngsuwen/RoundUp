@@ -4,10 +4,10 @@
 // for this page, we cannot fetch investment record per month as we will need all data to calculate p/l. Hence we shall only filter all the data per month selected.
 
 import React from 'react';
-import { useState,useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import DataContext from '../../context/DataContext';
-import { ScrollView, StyleSheet, Text, Dimensions, Button } from 'react-native';
-import { Accordion, NativeBaseProvider, Center, Box, Divider, Pressable, Icon } from 'native-base';
+import { ScrollView, StyleSheet, Text, Dimensions} from 'react-native';
+import { Accordion, NativeBaseProvider, Center, Box, Pressable, HStack } from 'native-base';
 import { createNavigatorFactory } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
@@ -60,6 +60,14 @@ const groupedDate = element.investmentsentry.date
 const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-MM-DD')
 return formattedGroupedDate
 })
+
+const checkDivider = (index) => {
+  if (index % 2 == 0) {
+    return "white";
+  } else {
+    return "coolGray.100";
+  }
+};
 
 // sorting the dates by lastest first (at the top)
 const allDatesAscending = Object.keys(entriesByDay).sort()
@@ -169,18 +177,19 @@ const navigation = useNavigation()
 const entries = allDates.map((date,index)=>{
   return(
     <Accordion.Item key={index}>
-        <Accordion.Summary _expanded={{backgroundColor:'#DFD3C3'}}>
-        {date}
+        <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300"}}>
+        <Text style={{fontWeight:'bold'}}>{date}</Text>
         <Accordion.Icon /> 
         </Accordion.Summary>
-        {entriesByDay[date].map((entry,index)=>{
+        {entriesByDay[date].map((entry,index2)=>{
         return(
-        <Pressable style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
-        <Accordion.Details key={index}>
-            <Text style={styles.entryDesc}>Transaction: {entry.investmentsentry.transaction}</Text>
-            <Text style={styles.entryDesc}>No. of units: {entry.investmentsentry.quantity}</Text>
-            <Text style={styles.entryPrice}>Price: {`$ ${entry.investmentsentry.price}`}</Text>
-        <Divider my={2} style={styles.divider}/>
+        <Pressable key={index2} style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
+        <Accordion.Details key={index} bgColor={checkDivider(index2)}>
+        <HStack width="100%" justifyContent="space-between">
+            <Text style={styles.entryDesc}>{entry.investmentsentry.transaction}</Text>
+            <Text style={styles.entryDesc}>Quantity: {entry.investmentsentry.quantity}</Text>
+            <Text style={styles.entryPrice}>Price: {`$${entry.investmentsentry.price}`}</Text>
+        </HStack>
         </Accordion.Details>
         </Pressable>
         )})}
