@@ -40,6 +40,15 @@ function AccordionComponent() {
             Currently, only the US market is available. 
           </Accordion.Details>
         </Accordion.Item>
+                <Accordion.Item>
+          <Accordion.Summary>
+            Why is my Investment/ networth showing up 0?
+            <Accordion.Icon />
+          </Accordion.Summary>
+          <Accordion.Details>
+            It takes time to load the investment data from our server. Please give it roughly another 20s to connect after the page has loaded. We hope to seek your understanding. 
+          </Accordion.Details>
+        </Accordion.Item>
       </Accordion>
     </Box>
   );

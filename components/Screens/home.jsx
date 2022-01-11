@@ -77,8 +77,8 @@ export default function Home({ navigation }) {
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
   const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0])
   const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0])
-  const [investmentYearlyData, setInvestmentYearlyData] = React.useState([0,0,0,0])
-  const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0])
+  const [investmentYearlyData, setInvestmentYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
+  const [networthYearlyData, setNetworthYearlyData] = React.useState([0,0,0,0,0,0,0,0,0,0,0,0])
 
   async function calculateData(num) {
     let month;
@@ -109,7 +109,7 @@ export default function Home({ navigation }) {
 
   return (
     <NativeBaseProvider>
-      {networthYearlyData.length<12?
+      {expenseYearlyData.length<12?
         <Center bgColor="#fff" flex={1} px="3" alignItems="center">
           <Spinner color="cyan.500" mb={10}/>
         </Center>
