@@ -128,6 +128,8 @@ const EntryInvestmentPage = ({navigation}) => {
       setTransaction("Select Buy or Sell...")
       setFilterTextCrypto("")
       setFilterTextStock("")
+      setIsPriceValid(true)
+      setIsQtyValid(true)
   
     })
      return resetPage
@@ -163,6 +165,10 @@ const EntryInvestmentPage = ({navigation}) => {
         }
       setExpenseForceRender(!expenseForceRender)
       
+      if (isPriceValid === false || isQtyValid === false){
+        alert("One of the fields are invalid!")
+        navigation.navigate("Entry Investment Page")
+      }
      
       } catch(err){
         console.log(err)
