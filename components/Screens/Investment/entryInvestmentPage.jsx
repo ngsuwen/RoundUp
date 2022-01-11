@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Dimensions, ScrollView } from 'react-native';
 import DatePicker from "react-native-neat-date-picker";
 // import DatePicker from "@react-native-community/datetimepicker"
 import { ModalCatPicker} from "./modalInvestCatPicker"
@@ -13,15 +12,16 @@ import {
   NativeBaseProvider,
   KeyboardAvoidingView,
   Input,
-  useTypeahead,
   Typeahead,
   Icon,
-  IconButton,
   Center,
   Box,
   Container,
   Modal, 
-  Button
+  Button,
+  Pressable,
+  Text,
+  View
   
 } from "native-base";
 
@@ -252,7 +252,7 @@ const EntryInvestmentPage = ({navigation}) => {
                      {/* quantity */}
                   <Container width="90%" px="4" bgColor="#fff">
                     <Text fontSize="sm" fontWeight="bold">
-                      Price
+                      Quantity
                     </Text>
                     <Input
                       width="100%"
