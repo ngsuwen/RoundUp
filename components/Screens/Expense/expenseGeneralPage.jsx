@@ -1,9 +1,3 @@
-// need to do summation based on daily entry, that means having more than one entry consolidated per day with summation and breakdown of daily expenses
-// search icon,
-// icon for category
-// link to edit/delete page for every entry
-// show total expense/savings/investments for that month above graph
-
 import * as React from "react";
 import { NativeBaseProvider, View, Box, Button } from "native-base";
 import { Dimensions } from "react-native";

@@ -1,5 +1,3 @@
-// check if card updates when changes are made to entry, else have to useEffect 
-
 import React from 'react';
 import { useState, useEffect, useContext } from 'react'
 import DataContext from '../../context/DataContext';

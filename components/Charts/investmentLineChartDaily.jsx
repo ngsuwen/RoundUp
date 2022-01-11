@@ -1,5 +1,4 @@
 // note that investment chart will only update the next day as market data for consolidatino is fetched daily
-// test if new entry with no pricehistory will crash app
 
 import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';

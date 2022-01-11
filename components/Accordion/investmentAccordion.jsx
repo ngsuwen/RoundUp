@@ -1,6 +1,3 @@
-// new entry not opened up after creation (bonus)
-// why is tickerandprice state rerendered?  A: is it because the whole show ticker page reloaded
-// check if investment accordion is reloaded when selectedmonth is changed? NO
 // for this page, we cannot fetch investment record per month as we will need all data to calculate p/l. Hence we shall only filter all the data per month selected.
 
 import React from 'react';

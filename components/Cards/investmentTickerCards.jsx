@@ -5,12 +5,6 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressa
 import { parse } from 'react-native-svg';
 const _ = require('underscore')
 
-
-// comma and dp for stock and crypto prices, if not formatted from api 
-// all currency in sgd
-// need to check api data if percentage change will be negative value
-// do up forcerender?
-
 export default function investmentTickerCard() {
 
 const navigation = useNavigation()
@@ -209,14 +203,6 @@ const [user, setUser] = userContext
                     </View>
                     <View style={styles.stockpricewrapper}>
                          <Text style={styles.price}>$ {stock.prettifiedValue}</Text>
-                    </View>
-                    <View>
-                        {/* need to check api data if percentage change will be negative value */}
-                        {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>{stock.percentagechange}%</Text> */}
-                    </View>
-                    <View>
-                    {/* using percentage change for color as price change may not be a negative number depending on api data */}
-                    {/* <Text style={{color:stock.percentagechange>=0?'green':'red'}}>${stock.pricechange}</Text> */}
                     </View>
                 </View>
             </Pressable>

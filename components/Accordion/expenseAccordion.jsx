@@ -1,6 +1,3 @@
-// category in accordion box?
-// new entry not opened up after creation (bonus)
-
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import DataContext from "../../context/DataContext";
