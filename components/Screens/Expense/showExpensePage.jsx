@@ -51,7 +51,6 @@ const ShowExpensePage = ({ navigation, route }) => {
       return;
     }
 
-    //reloadExpense();
     setExpenseForceRender(!expenseForceRender);
     navigation.navigate("Money Out");
   };
