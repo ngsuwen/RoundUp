@@ -82,7 +82,7 @@ export default function TickerBreakdownPage({ navigation }) {
             <Button
                 variant="outline"
                 colorScheme="light"
-                onPress={() => navigation.navigate("Investment GP")}
+                onPress={() => navigation.navigate("Investments")}
               >
                 Back
               </Button>

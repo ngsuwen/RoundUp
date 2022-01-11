@@ -138,7 +138,7 @@ const [user, setUser] = userContext
     flex: 1,
     flexDirection:'column',
     width: screenWidth*0.9,
-    backgroundColor: '#d0d4da',
+    backgroundColor: '#D9DFE8',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
@@ -201,7 +201,7 @@ const [user, setUser] = userContext
         <View style={styles.wrapper} key={index}>
             <Pressable onPress={() => {
                 setSelectedTickerAndPrice(stock)
-                navigation.navigate('Show Ticker Page')}}>
+                navigation.navigate('Ticker Info')}}>
                 <View style={styles.infoWrapper}>
                     <View style={styles.tickernamewrapper}>
                         <Text style={styles.ticker}>{stock.ticker.toUpperCase()}</Text>

@@ -125,7 +125,7 @@ const EntryInvestmentPage = ({navigation}) => {
         console.log(err)
       }
         
-        navigation.navigate("Investment GP")
+        navigation.navigate("Investments")
         
       }
     return (

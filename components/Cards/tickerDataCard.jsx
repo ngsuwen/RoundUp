@@ -25,7 +25,7 @@ export default function tickerDataCard() {
     flexDirection:'column',
     width: screenWidth*0.90,
     height: screenHeight*0.20,
-    backgroundColor: '#d0d4da',
+    backgroundColor: '#D9DFE8',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
