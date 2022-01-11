@@ -166,8 +166,8 @@ const EntryInvestmentPage = ({navigation}) => {
       setExpenseForceRender(!expenseForceRender)
       
       if (isPriceValid === false || isQtyValid === false){
-        alert("One of the fields are invalid!")
-        navigation.navigate("Entry Investment Page")
+        alert("One of the fields are invalid. Create failed!")
+        return navigation.navigate("Entry Investment Page")
       }
      
       } catch(err){
