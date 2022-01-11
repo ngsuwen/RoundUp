@@ -9,9 +9,9 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native'
 import { NativeBaseProvider, Box } from 'native-base'
 import Carousel from "pinar"
-import InvestmentLineChartComponentDaily from '../Charts/investmentLineChartDaily'
-import PieChartComponent from '../Charts/investmentPieChart'
-import InvestmentTickerCards from '../Cards/investmentTickerCards'
+import InvestmentLineChartComponentDaily from '../../Charts/investmentLineChartDaily'
+import PieChartComponent from '../../Charts/investmentPieChart'
+import InvestmentTickerCards from '../../Cards/investmentTickerCards'
 
 export default function GeneralBreakdownPage() {
 
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   carouselContainer:{
     height: screenHeight*0.28,
     marginBottom:'5%',
+    marginLeft:'3%'
   },
   dotStyle:{
     backgroundColor: "#F5E0EE",

@@ -105,7 +105,7 @@ const reloadExpenses = () => {
             chartConfig={chartConfig}
             bezier
             yAxisSuffix="K"
-            formatYLabel={(data)=>Math.round(data/1000)}
+            formatYLabel={(data)=>Math.round(data)}
         />
   )}
 

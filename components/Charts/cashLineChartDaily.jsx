@@ -48,11 +48,10 @@ export default function cashLineChartComponent() {
         "DD"
       );
       return formattedGroupedDate;
-    });
+    })
 
-    // console.log('entriesbyday:',entriesByDay)
     const allDates = Object.keys(entriesByDay).sort((a, b) => a - b); // -> this is labels
-    setAllLabels(allDates);
+    setAllLabels(allDates)
 
     const totalAmountArr = allDates.map((date) => {
       // method for calculating total amount for each day
@@ -84,6 +83,11 @@ export default function cashLineChartComponent() {
     legend: [fetchedCashEntries[0]?moment(fetchedCashEntries[0].cashentry.date).format("MMM YYYY").toUpperCase():'']
   };
 
+  // set comma for y-axis values over 1000
+  const numberWithCommas = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return (
     <LineChart
       data={linedata}
@@ -91,6 +95,7 @@ export default function cashLineChartComponent() {
       height={screenHeight * 0.25}
       chartConfig={chartConfig}
       bezier
+      formatYLabel={(data)=>numberWithCommas(Math.round(data))}
     />
   );
 }
