@@ -1,18 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useMemo} from 'react';
 import {useContext} from "react"
 import DataContext from '../../../context/DataContext';
-import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Pressable, Text, TextInput,View, Picker, SafeAreaView, Button, Modal, Dimensions, ScrollView } from 'react-native';
 import DatePicker from "@react-native-community/datetimepicker"
-import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
+
 
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
-  Input
+  Input,
+  useTypeahead,
+  Typeahead,
+  Icon,
+  IconButton,
+  Center,
+  Box,
+  
 } from "native-base";
-import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 
 const EntryInvestmentPage = ({navigation}) => {
@@ -26,12 +32,16 @@ const EntryInvestmentPage = ({navigation}) => {
           categoryInvestment,setCategoryInvestment,
           tickerInvestment,setTickerInvestment, 
           qtyInvestment, setQtyInvestment,
-          transaction, setTransaction] = investmentEntryContext
+          transaction, setTransaction,
+          coin, setCoin,
+          stock, setStock,
+          filterTextCrypto, setFilterTextCrypto,
+          filterTextStock, setFilterTextStock,
+          filteredItemsCrypto,filteredItemsStock,
+         ] = investmentEntryContext
 
    const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
 
-   // useState
-   const [show, setShow] = useState(false);
 
     // Modal for category
     const [isModalVisibleCat, setIsModalVisibleCat] = useState(false)
@@ -43,17 +53,6 @@ const EntryInvestmentPage = ({navigation}) => {
     const setDataCat = (option) =>{
       setCategoryInvestment(option)
     }
-
-   // Modal for ticker
-   const [isModalVisibleTicker, setIsModalVisibleTicker] = useState(false)
-
-   const changeModalVisibilityTicker = (bool) =>{
-    setIsModalVisibleTicker(bool)
-   }
-
-   const setDataTicker = (option) =>{
-     setTickerInvestment(option)
-   }
 
 
   // Modal for transaction
@@ -67,18 +66,18 @@ const EntryInvestmentPage = ({navigation}) => {
     setTransaction(option)
   }
 
-
-
    
-   // clear states onload at entrycash page
+   // clear states onload at entryinvestment page
   useEffect(()=>{
     const resetPage = navigation.addListener("focus", ()=>{
       setDateInvestment(new Date())
       setPriceInvestment([])
-      setCategoryInvestment("Select Category...")
+      setCategoryInvestment("Crypto")
       setQtyInvestment([])
-      setTickerInvestment("Select Ticker...")
       setTransaction("Select Buy or Sell...")
+      setFilterTextCrypto("")
+      setFilterTextStock("")
+  
     })
      return resetPage
   }, [expenseForceRender])
@@ -94,7 +93,7 @@ const EntryInvestmentPage = ({navigation}) => {
 
     const handleSubmit = async (event) => {
       try{
-
+        
         event.preventDefault();
         const res = await fetch("https://roundup-api.herokuapp.com/data/investment", {
          
@@ -104,15 +103,12 @@ const EntryInvestmentPage = ({navigation}) => {
               username: userId,
               investmentsentry:
                 { 
-                  
                   date: dateInvestment,
                   price: priceInvestment,
                   category: categoryInvestment,
-                  ticker: tickerInvestment,
+                  ticker: categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock,
                   quantity: qtyInvestment,
-                  transaction: transaction  }
-                
-                 
+                  transaction: transaction  }   
             }
             ),
           headers: {
@@ -122,14 +118,14 @@ const EntryInvestmentPage = ({navigation}) => {
         if(res.status!==200){
           console.error('create data investment failed')
         }
-        
       setExpenseForceRender(!expenseForceRender)
-
+      
+     
       } catch(err){
         console.log(err)
       }
         
-        navigation.navigate("Index Investment Page")
+        navigation.navigate("Investment GP")
         
       }
     return (
@@ -147,7 +143,7 @@ const EntryInvestmentPage = ({navigation}) => {
       <SafeAreaView style={styles.container} >
         <View style={styles.inner}>
             
-            {/* date */}
+            {/* date  */}
             <View style={styles.wrapper} >
                 <DatePicker
                   style={styles.datepicker}
@@ -160,6 +156,7 @@ const EntryInvestmentPage = ({navigation}) => {
                  {/* price */}
                 <View style={styles.wrapper} >
                   <TextInput
+                
                       style={styles.textinput}
                       type="submit" 
                       name="price"
@@ -188,6 +185,33 @@ const EntryInvestmentPage = ({navigation}) => {
                               onPress={()=>setQtyInvestment([])}
                               />
                     </View>
+
+
+                     {/* Transaction */}
+                     <View style={styles.wrapper}>
+
+                            <Pressable 
+                              style={styles.pressable}
+                              onPress={()=> changeModalVisibilityTransaction(true)}
+                              >
+                              <Text style={styles.catText}>{transaction}</Text>
+
+                            </Pressable>
+                            <Modal
+                              transparent={true}
+                              animationType='fade'
+                              visible={isModalVisibleTransaction}
+                              onRequestClose={()=> changeModalVisibilityTransaction(false)}
+
+                            >
+                              <ModalTransactionPicker 
+                                changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                                setDataTransaction={setDataTransaction}
+                              />
+                              
+                            </Modal>
+
+                            </View>
         
               
 
@@ -218,73 +242,59 @@ const EntryInvestmentPage = ({navigation}) => {
                         </View>
 
 
-                    {/* Ticker */}
-                    <View style={styles.wrapper}>
+                        {/* Autocomplete ticker */}
 
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTicker(true)}
-                            >
-                            <Text style={styles.catText}>{tickerInvestment}</Text>
-
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTicker}
-                            onRequestClose={()=> changeModalVisibilityTicker(false)}
-
-                          >
-                            <ModalTickerPicker 
-                              changeModalVisibilityTicker={changeModalVisibilityTicker}
-                              setDataTicker={setDataTicker}
-                            />
-                            
-                          </Modal>
-
-                          </View>
-
-
-
-
-                          {/* Transaction */}
-                    <View style={styles.wrapper}>
-
-                          <Pressable 
-                            style={styles.pressable}
-                            onPress={()=> changeModalVisibilityTransaction(true)}
-                            >
-                            <Text style={styles.catText}>{transaction}</Text>
-
-                          </Pressable>
-                          <Modal
-                            transparent={true}
-                            animationType='fade'
-                            visible={isModalVisibleTransaction}
-                            onRequestClose={()=> changeModalVisibilityTransaction(false)}
-
-                          >
-                            <ModalTransactionPicker 
-                              changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                              setDataTransaction={setDataTransaction}
-                            />
-                            
-                          </Modal>
-
-                          </View>
+                      { categoryInvestment === "Crypto" ?
+                        <Box>
+                          <Typeahead
+                            inputValue={filterTextCrypto}
+                            options={filteredItemsCrypto}
+                            onChange={setFilterTextCrypto}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
+                            getOptionKey={(item) => item.id}
+                            getOptionLabel={(item) => item.symbol}
+                            label="Select Crypto Ticker"
+                            toggleIcon={({ isOpen }) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
+                                        :
+                        <Box>
+                          <Typeahead
+                            inputValue={filterTextStock}
+                            options={filteredItemsStock}
+                            onChange={setFilterTextStock}
+                            onSelectedItemChange={(value) => console.log("Selected Item ", value)}
+                            getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
+                            getOptionLabel={(item) => item.displaySymbol}
+                            label="Select Stock Ticker"
+                            toggleIcon={({ isOpen }) => {
+                              return isOpen ? (
+                                <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
+                              ) : (
+                                <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
+                              );
+                            }}
+                          />
+                        </Box>
 
 
-                         
+                       
+                      }
+                                         
 
-         
-               
-                
+
+
                 <View style={styles.button}>
                     <Button title="Submit" onPress={handleSubmit} />
                     <Button
                       title="Back"
-                      onPress={() => navigation.navigate("Home")
-                         }
+                      onPress={() => navigation.navigate("Home")}
                     />
                 </View>
                 
@@ -380,6 +390,37 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.22,
       shadowRadius: .22,
       elevation: 3,
+      },
+
+
+
+
+      MainContainer: {
+        backgroundColor: '#FAFAFA',
+        flex: 1,
+        padding: 12,
+      },
+      AutocompleteStyle: {
+        flex: 1,
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        zIndex: 1,
+       borderWidth:1
+      },
+      SearchBoxTextItem: {
+        margin: 5,
+        fontSize: 16,
+        paddingTop: 4,
+      },
+      selectedTextContainer: {
+        flex: 1,
+        justifyContent: 'center',
+      },
+      selectedTextStyle: {
+        textAlign: 'center',
+        fontSize: 18,
       },
      
  

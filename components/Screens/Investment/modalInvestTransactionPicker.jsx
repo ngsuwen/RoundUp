@@ -18,54 +18,56 @@ const ModalTransactionPicker = (props) =>{
     const option = OPTIONS.map((item, index)=>{
         return(
             <Pressable
-                style={styles.option}
+                // style={styles.option}
                 key={index}
                 onPress={()=> onPressItem(item)}
                 >
-                <Text style={styles.text}>
-                    {item}
-                </Text>
+                <View mb="3" mt="3">
+                    <Text fontSize="sm">{item}</Text>
+                </View>
             </Pressable>
         )
     })
-    return(
-        <Pressable
-            onPress={()=> changeModalVisibilityTransaction(false)}
-            style={styles.container}
-            >
-                <View style={[styles.modal, {width: WIDTH -20, height: HEIGHT / 2}]}>
-                    <ScrollView>
-                        {option}
-                    </ScrollView>
-                </View>
-            </Pressable>
-    )
+    return(<ScrollView>{option}</ScrollView>)
 }
 
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+// const styles = StyleSheet.create({
+//     container:{
+//         flex: 1,
+//         alignItems: "center",
+//         justifyContent: "center",
         
 
-    },
-    modal:{
-        backgroundColor: "#b1cbbb",
-        borderRadius: 10,
+//     },
+//     modal:{
+//         backgroundColor: "#b1cbbb",
+//         borderRadius: 10,
      
 
-    },
-    option:{
-        alignItems: "flex-start",
+//     },
+//     option:{
+//         alignItems: "flex-start",
 
-    },
-    text:{
-        margin: 20,
-        fontSize: 20,
-        fontWeight: "bold"
+//     },
+//     text:{
+//         margin: 20,
+//         fontSize: 20,
+//         fontWeight: "bold"
 
-    }
-})
+//     }
+// })
 
 export {ModalTransactionPicker}
+
+
+
+// <Pressable
+//             onPress={()=> changeModalVisibilityTransaction(false)}
+//             style={styles.container}
+//             >
+//                 <View style={[styles.modal, {width: WIDTH -20, height: HEIGHT / 2}]}>
+//                     <ScrollView>
+//                         {option}
+//                     </ScrollView>
+//                 </View>
+//             </Pressable>

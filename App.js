@@ -66,10 +66,15 @@ function App() {
 //fetch crypto for ticker
 useEffect(()=>{
   const loadCoin = async() =>{
-      const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=300&page=1&sparkline=false")
-      const data = await res.json()
+      const res  = await fetch("https://roundup-api.herokuapp.com/data/investment/crypto/all")
+      if (res.status !== 200) {
+        console.error("failed to fetch crypto data");
+        setCoin([]);
+        return;
+      }
+      const data = await res.json();
       //console.log(data)
-      setCoin(data)
+      setCoin(data);
   }
   loadCoin()
   }, [])
@@ -77,8 +82,12 @@ useEffect(()=>{
  //fetch stock for ticker
  useEffect(()=>{
     const loadStock = async() =>{
-      
-      const res = await fetch("https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNAS&token=c768mbqad3if0oe26md0")
+      const res  = await fetch("https://roundup-api.herokuapp.com/data/investment/stocks/all")
+      if (res.status !== 200) {
+        console.error("failed to fetch stocks data");
+        setStock([]);
+        return;
+      }
         const data = await res.json()
         const stockCompanies = data.slice(0, 1000)
         //console.log(stockCompanies)

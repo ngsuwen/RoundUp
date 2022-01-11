@@ -12,7 +12,6 @@ import {
   Dimensions
 } from "react-native";
 import DatePicker from "@react-native-community/datetimepicker";
-import { ModalTickerPicker } from './modalInvestTickerPicker';
 import { ModalCatPicker} from "./modalInvestCatPicker"
 import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
 import {
