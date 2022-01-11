@@ -36,6 +36,24 @@ const EditExpensePage = ({ navigation, route }) => {
   ] = expenseEntryContext;
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
+  // validation
+  const [isAmountValid, setIsAmountValid] = React.useState(true)
+
+  const validateNum = (price) =>{
+   const  re = /^[0-9]*$/
+   
+   // const result = re.test(price)
+   // console.log("result", result)
+   return re.test(String(price).toLowerCase())
+ 
+ }
+
+ const onAmountBlur = (bool) =>{
+   const isAmountValid = validateNum(bool)
+   setIsAmountValid(isAmountValid) //set as true or false
+
+ }
+
   // useState
   const [show, setShow] = React.useState(false);
 
@@ -73,6 +91,10 @@ const EditExpensePage = ({ navigation, route }) => {
       );
       if (res.status !== 200) {
         console.error("edit data expense failed");
+      }
+      if (isAmountValid === false){
+        alert("One of the fields are invalid. Create failed!")
+        return navigation.navigate("Edit Expense Page", {entry: entry})
       }
 
       const data = await res.json();
@@ -145,7 +167,9 @@ const EditExpensePage = ({ navigation, route }) => {
               color="coolGray.600"
               value={amount.toString()}
               onChangeText={(text) => setAmount(text)}
+              onBlur={() =>onAmountBlur(amount)}
             />
+            {isAmountValid ? "" : <Text color="red.600">Invalid Amount</Text>}
           </Container>
           <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
