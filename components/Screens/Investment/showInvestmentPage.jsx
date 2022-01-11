@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  View,
-  Image,
-  SafeAreaView,
-  Dimensions,
+  Center,
+  NativeBaseProvider,
   Button,
-  ScrollView,
-  FlatList
-} from "react-native";
+  Text,
+  View,
+  Pressable,
+  Divider,
+} from "native-base";
 import { useContext } from "react";
 import DataContext from "../../../context/DataContext";
+import { Entypo } from "@expo/vector-icons";
+import ShowPageCard from "../../Cards/showPageCard";
 
 const ShowInvestmentPage = ({ navigation, route }) => {
   // useContext
@@ -76,79 +74,59 @@ const ShowInvestmentPage = ({ navigation, route }) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      
-      <View >
-   
-        <Text style={styles.wrapper}>Date: {formattedDate}</Text>
-        <Text style={styles.wrapper}>Price: $ {entry.investmentsentry.price}</Text>
-        <Text style={styles.wrapper}>Quantity: {entry.investmentsentry.quantity}</Text>
-        <Text style={styles.wrapper}>Transaction: {entry.investmentsentry.transaction}</Text>
-        <Text style={styles.wrapper}>Category: {entry.investmentsentry.category}</Text>
-        <Text style={styles.wrapper}>Ticker: {entry.investmentsentry.ticker}</Text>
-       
-        <View style={styles.button}>
-          <Button title="Delete" onPress={() => deleteInvestment(entry._id)} />
-          <Button
-            title="Edit"
-            onPress={editHandler}
-          />
-          <Button
-            title="Back"
-            onPress={() => {navigation.navigate("Investment GP")
-            setExpenseForceRender(!expenseForceRender)}}
-          />
-        </View>
-      </View>
+    <NativeBaseProvider>
+      <Center flex={1} bgColor="#fff">
+        <View
+          width="90%"
+          paddingRight={4}
+          paddingBottom={1}
+          alignItems="flex-end"
+        >
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Investment GP");
+              setExpenseForceRender(!expenseForceRender);
+            }}
+          >
+            <Entypo name="cross" size={24} color="black" />
+          </Pressable>
+       </View>
+       <ShowPageCard heading="Date" body={formattedDate} />
+       <Divider width="80%"/>
+       <ShowPageCard
+          heading="Price"
+          body={"$" + entry.investmentsentry.price}
+        />
+      <Divider width="80%"/>
+      <ShowPageCard
+          heading="Quantity"
+          body={"$" + entry.investmentsentry.quantity}
+        />
+      <Divider width="80%"/>
+      <ShowPageCard heading="Transaction" body={entry.investmentsentry.transaction} />
+      <Divider width="80%"/>
+      <Divider width="80%"/>
+      <ShowPageCard heading="Category" body={entry.investmentsentry.category} />
+      <Divider width="80%"/>
+      <ShowPageCard heading="Ticker" body={entry.investmentsentry.ticker} />
 
-    </SafeAreaView>
+      <Button.Group size="sm" mt="5">
+          <Button
+            variant="outline"
+            bgColor="white"
+            colorScheme="light"
+            onPress={editHandler}
+          >
+            <Text >Edit</Text>
+          </Button>
+          <Button colorScheme="danger" onPress={() => deleteInvestment(entry._id)}>
+          <Text>Delete</Text>
+          </Button>
+        </Button.Group>
+      
+      </Center>
+    </NativeBaseProvider>
   );
 };
 
 export default ShowInvestmentPage;
-
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#d5f4e6",
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  button:{
-    flexDirection: "row",
-    alignSelf: "center"  
-  },
-  wrapper: {
-    
-    fontSize: 20,
-    flex: 0.2,
-    textAlign: "center",
-    flexDirection:'column',
-    width: screenWidth*0.9,
-    backgroundColor: '#fefbd8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    paddingTop: 35,
-    margin: '2%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: .22,
-    elevation: 3,
-    },
-});
-
-
-  
