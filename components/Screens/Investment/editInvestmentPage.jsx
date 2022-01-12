@@ -61,12 +61,18 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
-// autocomplete
+  // autocomplete
   const autocompleteCryptoList = coin.map((item) => item.symbol);
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
   const [inputCryptoItems, setInputCryptoItems] = React.useState(autocompleteCryptoList);
   const [inputStockItems, setInputStockItems] = React.useState(autocompleteStockList);
+  
+  const [inputValue, setInputValue] = React.useState();
+
+  React.useEffect(() => {
+    setInputValue(entry.investmentsentry.ticker);
+  }, [expenseForceRender]);
 
   const {
     isOpen,
@@ -75,23 +81,26 @@ const EditInvestmentPage = ({ navigation, route }) => {
     getMenuProps,
     getToggleButtonProps,
   } = useTypeahead({
-    items: categoryInvestment === "Crypto" ? inputCryptoItems:inputStockItems,
+    items: categoryInvestment === "Crypto" ? inputCryptoItems : inputStockItems,
     itemToString: (item) => item.toString(),
-    onInputValueChange: ({ inputValue }) => {
-      categoryInvestment === "Crypto" ?
-      setInputCryptoItems(
-        autocompleteCryptoList.filter((item) =>
-          item.toLowerCase().startsWith(inputValue.toLowerCase())
-        )
-      ):
-      setInputStockItems(
-        autocompleteStockList.filter((item) =>
-          item.toLowerCase().startsWith(inputValue.toLowerCase())
-        )
-      )
-    },
   });
 
+  const textChangeHandler = (text) => {
+    categoryInvestment === "Crypto"
+      ? setInputCryptoItems(
+          autocompleteCryptoList.filter((item) =>
+            item.toLowerCase().startsWith(text.toLowerCase())
+          )
+        )
+      : setInputStockItems(
+          autocompleteStockList.filter((item) =>
+            item.toLowerCase().startsWith(text.toLowerCase())
+          )
+        );
+    setInputValue(text);
+    return;
+  };
+  
   // validation
   const [isPriceValid, setIsPriceValid] = React.useState(true);
   const [isQtyValid, setIsQtyValid] = React.useState(true);
@@ -172,10 +181,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker:
-                categoryInvestment === "Crypto"
-                  ? inputCryptoItems.length>1?filterTextCrypto:inputCryptoItems[0]
-                  : inputStockItems.length>1?filterTextStock:inputStockItems[0],
+              ticker: inputValue,
               quantity: qtyInvestment,
               transaction: transaction,
             },
@@ -266,8 +272,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
           <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" pb={1} fontWeight="bold">
               {categoryInvestment === "Crypto"
-                ? "Select Crypto Ticker"
-                : "Select Stock Ticker"}
+                ? "Crypto Ticker"
+                : "Stock Ticker"}
             </Text>
             <Box width="100%">
               <Input
@@ -275,9 +281,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 fontSize="sm"
                 mt="1"
                 color="coolGray.600"
-                placeholder={entry.investmentsentry.ticker}
-                placeholderTextColor="#000"
-                {...getInputProps()}
+                value={inputValue}
+                onChangeText={(text)=>textChangeHandler(text)}
                 w={{
                   base: "100%",
                   md: "25%",
@@ -316,28 +321,27 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 {...getMenuProps()}
               >
                 <ScrollView>
-                  {categoryInvestment === "Crypto" ?
-                  inputCryptoItems.map((item, index) => (
-                    <Button
-                      key={`${item}${index}`}
-                      {...getMenuItemProps(item, index)}
-                      bgColor="muted.50"
-                      justifyContent="flex-start"
-                    >
-                      <Text fontSize="sm">{item}</Text>
-                    </Button>
-                  )):
-                  inputStockItems.map((item, index) => (
-                    <Button
-                      key={`${item}${index}`}
-                      {...getMenuItemProps(item, index)}
-                      bgColor="muted.50"
-                      justifyContent="flex-start"
-                    >
-                      <Text fontSize="sm">{item}</Text>
-                    </Button>
-                  ))
-                  }
+                  {categoryInvestment === "Crypto"
+                    ? inputCryptoItems.map((item, index) => (
+                        <Button
+                          key={`${item}${index}`}
+                          {...getMenuItemProps(item, index)}
+                          bgColor="muted.50"
+                          justifyContent="flex-start"
+                        >
+                          <Text fontSize="sm">{item}</Text>
+                        </Button>
+                      ))
+                    : inputStockItems.map((item, index) => (
+                        <Button
+                          key={`${item}${index}`}
+                          {...getMenuItemProps(item, index)}
+                          bgColor="muted.50"
+                          justifyContent="flex-start"
+                        >
+                          <Text fontSize="sm">{item}</Text>
+                        </Button>
+                      ))}
                 </ScrollView>
               </Box>
             )}
