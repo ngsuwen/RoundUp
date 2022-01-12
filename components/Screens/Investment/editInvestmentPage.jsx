@@ -24,6 +24,7 @@ import {
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
+import { ScrollView } from "react-native";
 
 const EditInvestmentPage = ({ navigation, route }) => {
   const { entry } = route.params;
@@ -59,6 +60,37 @@ const EditInvestmentPage = ({ navigation, route }) => {
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
+
+// autocomplete
+  const autocompleteCryptoList = coin.map((item) => item.symbol);
+  const autocompleteStockList = stock.map((item) => item.displaySymbol);
+
+  const [inputCryptoItems, setInputCryptoItems] = React.useState(autocompleteCryptoList);
+  const [inputStockItems, setInputStockItems] = React.useState(autocompleteStockList);
+
+  const {
+    isOpen,
+    getInputProps,
+    getMenuItemProps,
+    getMenuProps,
+    getToggleButtonProps,
+  } = useTypeahead({
+    items: categoryInvestment === "Crypto" ? inputCryptoItems:inputStockItems,
+    itemToString: (item) => item.toString(),
+    onInputValueChange: ({ inputValue }) => {
+      categoryInvestment === "Crypto" ?
+      setInputCryptoItems(
+        autocompleteCryptoList.filter((item) =>
+          item.toLowerCase().startsWith(inputValue.toLowerCase())
+        )
+      ):
+      setInputStockItems(
+        autocompleteStockList.filter((item) =>
+          item.toLowerCase().startsWith(inputValue.toLowerCase())
+        )
+      )
+    },
+  });
 
   // validation
   const [isPriceValid, setIsPriceValid] = React.useState(true);
@@ -184,7 +216,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="#fff">
-          
           {/* Category */}
           <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
@@ -233,47 +264,84 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
           {/* Autocomplete ticker */}
           <Container width="90%" p="4" bgColor="#fff">
-           <Text fontSize="sm" pb={1} fontWeight="bold">
-              {categoryInvestment === "Crypto" ? "Select crypto ticker":"Select stock ticker"}
+            <Text fontSize="sm" pb={1} fontWeight="bold">
+              {categoryInvestment === "Crypto"
+                ? "Select Crypto Ticker"
+                : "Select Stock Ticker"}
             </Text>
-          {categoryInvestment === "Crypto" ? (
-              <Typeahead
-                inputValue={filterTextCrypto} // for value to be populated at the field
-                options={filteredItemsCrypto}
-                onChange={setFilterTextCrypto}
-                onSelectedItemChange={(value) =>
-                  console.log("Selected Item ", value)
-                }
-                getOptionKey={(item) => item.id}
-                getOptionLabel={(item) => item.symbol}
-                toggleIcon={({ isOpen }) => {
-                  return isOpen ? (
-                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
-                  ) : (
-                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
-                  );
+            <Box width="100%">
+              <Input
+                width="85%"
+                fontSize="sm"
+                mt="1"
+                color="coolGray.600"
+                value={categoryInvestment === "Crypto"?filterTextCrypto:filterTextStock}
+                // {...getInputProps()}
+                w={{
+                  base: "100%",
+                  md: "25%",
                 }}
-              />
-          ) : (
-              <Typeahead
-                inputValue={filterTextStock} // for value to be populated at the field
-                options={filteredItemsStock}
-                onChange={setFilterTextStock}
-                onSelectedItemChange={(value) =>
-                  console.log("Selected Item ", value)
+                InputRightElement={
+                  <IconButton
+                    {...getToggleButtonProps()}
+                    icon={
+                      isOpen ? (
+                        <MaterialIcons
+                          name="arrow-drop-up"
+                          size={24}
+                          color="black"
+                        />
+                      ) : (
+                        <MaterialIcons
+                          name="arrow-drop-down"
+                          size={24}
+                          color="black"
+                        />
+                      )
+                    }
+                  />
                 }
-                getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
-                getOptionLabel={(item) => item.displaySymbol}
-                toggleIcon={({ isOpen }) => {
-                  return isOpen ? (
-                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
-                  ) : (
-                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
-                  );
-                }}
               />
-          )}
+            </Box>
+            {isOpen && (
+              <Box
+                width="100%"
+                maxHeight="115"
+                borderRadius="0"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                pb="2"
+                bgColor="muted.50"
+                {...getMenuProps()}
+              >
+                <ScrollView>
+                  {categoryInvestment === "Crypto" ?
+                  inputCryptoItems.map((item, index) => (
+                    <Button
+                      key={`${item}${index}`}
+                      {...getMenuItemProps(item, index)}
+                      bgColor="muted.50"
+                      justifyContent="flex-start"
+                    >
+                      <Text fontSize="sm">{item}</Text>
+                    </Button>
+                  )):
+                  inputStockItems.map((item, index) => (
+                    <Button
+                      key={`${item}${index}`}
+                      {...getMenuItemProps(item, index)}
+                      bgColor="muted.50"
+                      justifyContent="flex-start"
+                    >
+                      <Text fontSize="sm">{item}</Text>
+                    </Button>
+                  ))
+                  }
+                </ScrollView>
+              </Box>
+            )}
           </Container>
+
           <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Date
