@@ -68,6 +68,16 @@ const EditCashPage = ({ navigation, route }) => {
     setCategoryCash(option);
   };
 
+  // clear states onload at entryinvestment page
+  React.useEffect(() => {
+    const resetPage = navigation.addListener("focus", () => {
+      setIsAmountValid(true);
+    
+      
+    });
+    return resetPage;
+  }, [expenseForceRender]);
+
   const handleSubmit = async (cash) => {
     try {
       // event.preventDefault();
@@ -96,12 +106,14 @@ const EditCashPage = ({ navigation, route }) => {
           alert("One of the fields is invalid. Create failed!")
           return navigation.navigate("Edit Cash Page", {entry: entry})
         }
-        if (amountCash.length < 1 || descriptionCash.length < 1 ){
-          alert("One of the fields is empty. Create failed!")
-          return navigation.navigate("Edit Cash Page", {entry: entry})
-        }
+        
+        
       }
-      
+      // no field validation error not working
+      // if (amountCash.length < 1 || descriptionCash.length < 1 ){
+      //   alert("One of the fields is empty. Create failed!")
+      //   return navigation.navigate("Edit Cash Page", {entry: entry})
+      // }
 
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data

@@ -90,18 +90,18 @@ const EditExpensePage = ({ navigation, route }) => {
         }
       );
       if (res.status !== 200) {
-        console.error("edit data expense failed");
+        //console.error("edit data expense failed");
+        // validation
+        if (isAmountValid === false){
+          alert("One of the fields is invalid. Create failed!")
+          return navigation.navigate("Edit Expense Page", {entry: entry})
+        }
       }
-
-      // validation
-      if (isAmountValid === false){
-        alert("One of the fields is invalid. Create failed!")
-        return navigation.navigate("Edit Expense Page", {entry: entry})
-      }
-      if (amount.length < 1 || description.length < 1 ){
-        alert("One of the fields is empty. Create failed!")
-        return navigation.navigate("Edit Expense Page", {entry: entry})
-      }
+      // no field validation error not working
+      // if (amount.length < 1 || description.length < 1 ){
+      //   alert("One of the fields is empty. Create failed!")
+      //   return navigation.navigate("Edit Expense Page", {entry: entry})
+      // }
 
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data

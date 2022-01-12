@@ -118,19 +118,21 @@ const EntryExpensePage = ({ navigation }) => {
         }
       );
       if (res.status !== 200) {
-        console.error("create data expense failed");
-      }
-
-      setExpenseForceRender(!expenseForceRender);
-      // validation
-      if (isAmountValid === false){
-        alert("One of the fields is invalid. Create failed!")
-        return navigation.navigate("Add Money Out")
-      }
+        //console.error("create data expense failed");
+        // validation
+        if (isAmountValid === false){
+          alert("One of the fields is invalid. Create failed!")
+          return navigation.navigate("Add Money Out")
+        }
+      // no field validation error
       if (amount.length < 1 || description.length < 1 ){
         alert("One of the fields is empty. Create failed!")
         return navigation.navigate("Add Money Out")
       }
+      }
+
+      setExpenseForceRender(!expenseForceRender);
+      
 
     } catch (err) {
       console.log(err);
