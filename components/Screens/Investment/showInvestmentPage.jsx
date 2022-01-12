@@ -84,7 +84,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
         >
           <Pressable
             onPress={() => {
-              navigation.navigate("Show Ticker Page");
+              navigation.navigate("Show Ticker Page", {entry: entry});
               setExpenseForceRender(!expenseForceRender);
             }}
           >

@@ -201,7 +201,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
         }
       );
       if (res.status !== 200) {
-        //console.error("edit data investment failed");
+        console.error("edit data investment failed");
         // validation
         if (isPriceValid === false || isQtyValid === false) {
           alert("One of the fields is invalid. Create failed!");
