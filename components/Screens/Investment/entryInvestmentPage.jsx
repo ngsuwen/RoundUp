@@ -242,7 +242,7 @@ const EntryInvestmentPage = ({ navigation }) => {
           <View width="90%" paddingRight={5} alignItems="flex-end">
             <Pressable
               onPress={() => {
-                navigation.navigate("Home");
+                navigation.navigate("Investment GP");
               }}
             >
               <Entypo name="cross" size={24} color="black" />
