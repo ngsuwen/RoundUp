@@ -213,12 +213,13 @@ const EntryInvestmentPage = ({ navigation }) => {
           alert("One of the fields is invalid. Create failed!");
           return navigation.navigate("Entry Investment Page");
         }
-      // no field validation error
-      if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
-        alert("One of the fields is empty. Create failed!");
-        return navigation.navigate("Entry Investment Page");
+        // no field validation error not working
+        if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
+          alert("One of the fields is empty. Create failed!");
+          return navigation.navigate("Entry Investment Page");
+        }
       }
-      }
+      
       setExpenseForceRender(!expenseForceRender);
 
      
