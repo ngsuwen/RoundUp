@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
-import { View, NativeBaseProvider, Box, HStack, Spinner, Text, Center, Heading } from "native-base";
-import { Image } from "react-native";
+import { View, NativeBaseProvider, Box, Spinner, Center } from "native-base";
 import NetworthLineChartComponent from "../Charts/networthLineChart";
 import ExpenseLineChartComponent from "../Charts/expenseLineChart";
 import CashLineChartComponent from "../Charts/cashLineChart";
@@ -93,7 +92,7 @@ export default function Home({ navigation }) {
     const networthData = []
     for (let i=0;i<12;i++){
       // change expense to investment
-      const total = Number(cashData[i])+Number(investData[i])
+      const total = Number(cashData[i])+Number(investData[i])-Number(expenseData[i])
       networthData.push(total)
     }
     setCashYearlyData(cashData)

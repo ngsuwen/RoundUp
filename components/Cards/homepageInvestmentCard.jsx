@@ -88,7 +88,7 @@ export default function homepageCashCard({ navigation, investmentYearlyData }) {
           </View>
           <View justifyContent="center">
           {/* navigation to be updated */}
-            <Pressable onPress={() => navigation.navigate("About")}>
+            <Pressable onPress={() => navigation.navigate("Entry Investment Page")}>
               <EvilIcons name="plus" size={24} color="black" />
             </Pressable>
           </View>

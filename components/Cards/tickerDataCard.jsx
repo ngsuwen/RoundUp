@@ -161,7 +161,7 @@ export default function tickerDataCard() {
           'unrealizedPL':unrealizedPL,
         })
           
-        console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
+        // console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
         }
       
     const navigation = useNavigation()
@@ -169,7 +169,7 @@ export default function tickerDataCard() {
     useEffect(()=>{   
       const resetPage = navigation.addListener("focus", ()=>{
         RenderTickerCardData()
-        console.log('tickercard data rendered')
+        // console.log('tickercard data rendered')
       })
       return resetPage
         
