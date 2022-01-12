@@ -189,8 +189,8 @@ const EntryInvestmentPage = ({ navigation }) => {
               category: categoryInvestment,
               ticker:
                 categoryInvestment === "Crypto"
-                  ? filterTextCrypto
-                  : filterTextStock,
+                  ? inputCryptoItems[0]
+                  : inputStockItems[0],
               quantity: qtyInvestment,
               transaction: transaction,
             },

@@ -174,8 +174,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
               category: categoryInvestment,
               ticker:
                 categoryInvestment === "Crypto"
-                  ? filterTextCrypto
-                  : filterTextStock,
+                  ? inputCryptoItems.length>1?filterTextCrypto:inputCryptoItems[0]
+                  : inputStockItems.length>1?filterTextStock:inputStockItems[0],
               quantity: qtyInvestment,
               transaction: transaction,
             },
@@ -275,8 +275,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 fontSize="sm"
                 mt="1"
                 color="coolGray.600"
-                value={categoryInvestment === "Crypto"?filterTextCrypto:filterTextStock}
-                // {...getInputProps()}
+                placeholder={entry.investmentsentry.ticker}
+                placeholderTextColor="#000"
+                {...getInputProps()}
                 w={{
                   base: "100%",
                   md: "25%",
