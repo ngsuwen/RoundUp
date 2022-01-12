@@ -168,6 +168,15 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setTransaction(option);
   };
 
+  // clear states onload at entryinvestment page
+  React.useEffect(() => {
+    const resetPage = navigation.addListener("focus", () => {
+      setIsPriceValid(true);
+      setIsQtyValid(true);
+    });
+    return resetPage;
+  }, [expenseForceRender]);
+
   const handleSubmit = async (investment) => {
     try {
       // event.preventDefault();
@@ -192,17 +201,20 @@ const EditInvestmentPage = ({ navigation, route }) => {
         }
       );
       if (res.status !== 200) {
-        console.error("edit data investment failed");
+        //console.error("edit data investment failed");
+        // validation
+        if (isPriceValid === false || isQtyValid === false) {
+          alert("One of the fields is invalid. Create failed!");
+          return navigation.navigate("Edit Investment Page", { entry: entry });
+        }
+        // doesnt work below
+        if (priceInvestment.length === 0 || qtyInvestment.length === 0) {
+          alert("One of the fields is empty. Create failed!");
+          return navigation.navigate("Edit Investment Page", { entry: entry });
+        }
       }
 
-      if (isPriceValid === false || isQtyValid === false) {
-        alert("One of the fields is invalid. Create failed!");
-        return navigation.navigate("Edit Investment Page", { entry: entry });
-      }
-      if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
-        alert("One of the fields is empty. Create failed!");
-        return navigation.navigate("Edit Investment Page", { entry: entry });
-      }
+     
 
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data

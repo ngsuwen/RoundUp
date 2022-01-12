@@ -116,18 +116,20 @@ const EntryCashPage = ({ navigation }) => {
         },
       });
       if (res.status !== 200) {
-        console.error("create data cash failed");
+        // console.error("create data cash failed");
+        // validation
+        if (isAmountValid === false){
+          alert("One of the fields is invalid. Create failed!")
+          return navigation.navigate("Add Money In")
+        }
+        if (amountCash.length < 1 || descriptionCash.length < 1 ){
+          alert("One of the fields is empty. Create failed!")
+          return navigation.navigate("Add Money In")
+        }
       }
 
       setExpenseForceRender(!expenseForceRender);
-      if (isAmountValid === false){
-        alert("One of the fields is invalid. Create failed!")
-        return navigation.navigate("Add Money In")
-      }
-      if (amountCash.length < 1 || descriptionCash.length < 1 ){
-        alert("One of the fields is empty. Create failed!")
-        return navigation.navigate("Add Money In")
-      }
+      
     } catch (err) {
       console.log(err);
     }

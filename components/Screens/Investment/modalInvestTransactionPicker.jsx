@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet,Text, TextInput,View, Picker, SafeAreaView, ScrollView, Button, Modal, Dimensions, Pressable } from 'react-native';
+import { StyleSheet, TextInput, Picker, SafeAreaView, Button, Modal, Dimensions } from 'react-native';
+import { Text, View, ScrollView, Pressable } from "native-base";
 
 const OPTIONS = ["Buy", "Sell"]
 

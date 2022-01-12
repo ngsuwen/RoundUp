@@ -207,19 +207,20 @@ const EntryInvestmentPage = ({ navigation }) => {
         }
       );
       if (res.status !== 200) {
-        console.error("create data investment failed");
+        //console.error("create data investment failed");
+        if (isPriceValid === false || isQtyValid === false) {
+          alert("One of the fields is invalid. Create failed!");
+          return navigation.navigate("Entry Investment Page");
+        }
+  
+        if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
+          alert("One of the fields is empty. Create failed!");
+          return navigation.navigate("Entry Investment Page");
+        }
       }
       setExpenseForceRender(!expenseForceRender);
 
-      if (isPriceValid === false || isQtyValid === false) {
-        alert("One of the fields is invalid. Create failed!");
-        return navigation.navigate("Entry Investment Page");
-      }
-
-      if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
-        alert("One of the fields is empty. Create failed!");
-        return navigation.navigate("Entry Investment Page");
-      }
+     
     } catch (err) {
       console.log(err);
     }
