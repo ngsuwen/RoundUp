@@ -178,12 +178,13 @@ const EditInvestmentPage = ({ navigation, route }) => {
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
+        keyboardVerticalOffset={200}
+        resizeToAvoidBottomPadding= {false}
         h={{
           base: "100%",
           lg: "auto",
         }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
       >
        <Center flex={1} bgColor="#fff">
         <Container width="90%" p="4" bgColor="#fff">

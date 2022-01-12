@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo} from 'react';
-import {useContext} from "react"
-import DataContext from '../../../context/DataContext';
+import React, { useState, useEffect, useMemo } from "react";
+import { useContext } from "react";
+import DataContext from "../../../context/DataContext";
 import DatePicker from "react-native-neat-date-picker";
 // import DatePicker from "@react-native-community/datetimepicker"
-import { ModalCatPicker} from "./modalInvestCatPicker"
-import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
-import { Entypo } from "@expo/vector-icons";
+import { ModalCatPicker } from "./modalInvestCatPicker";
+import { ModalTransactionPicker } from "./modalInvestTransactionPicker";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
 
 import {
@@ -17,66 +17,72 @@ import {
   Center,
   Box,
   Container,
-  Modal, 
+  Modal,
   Button,
   Pressable,
   Text,
   View,
-  Divider
-  
+  Divider,
 } from "native-base";
 
+const EntryInvestmentPage = ({ navigation }) => {
+  // useContext
+  const { userContext, investmentEntryContext, expenseForceRenderContext } =
+    useContext(DataContext);
+  const [userId, setUserId] = userContext;
+  const [
+    dateInvestment,
+    setDateInvestment,
+    priceInvestment,
+    setPriceInvestment,
+    categoryInvestment,
+    setCategoryInvestment,
+    tickerInvestment,
+    setTickerInvestment,
+    qtyInvestment,
+    setQtyInvestment,
+    transaction,
+    setTransaction,
+    coin,
+    setCoin,
+    stock,
+    setStock,
+    filterTextCrypto,
+    setFilterTextCrypto,
+    filterTextStock,
+    setFilterTextStock,
+    filteredItemsCrypto,
+    filteredItemsStock,
+  ] = investmentEntryContext;
 
-const EntryInvestmentPage = ({navigation}) => {
+  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
-  
-   // useContext
-   const { userContext, investmentEntryContext, expenseForceRenderContext } = useContext(DataContext)
-   const [userId, setUserId]=userContext
-   const [dateInvestment,setDateInvestment,
-          priceInvestment,setPriceInvestment,
-          categoryInvestment,setCategoryInvestment,
-          tickerInvestment,setTickerInvestment, 
-          qtyInvestment, setQtyInvestment,
-          transaction, setTransaction,
-          coin, setCoin,
-          stock, setStock,
-          filterTextCrypto, setFilterTextCrypto,
-          filterTextStock, setFilterTextStock,
-          filteredItemsCrypto,filteredItemsStock,
-         ] = investmentEntryContext
+  // validation
+  const [isPriceValid, setIsPriceValid] = useState(true);
+  const [isQtyValid, setIsQtyValid] = useState(true);
 
-   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+  const validateNum = (price) => {
+    const re = /^[0-9]*$/;
 
-   // validation
-   const [isPriceValid, setIsPriceValid] = useState(true)
-   const [isQtyValid, setIsQtyValid] = useState(true)
-
-   const validateNum = (price) =>{
-    const  re = /^[0-9]*$/
-    
     // const result = re.test(price)
     // console.log("result", result)
-    return re.test(String(price).toLowerCase())
-  
-  }
+    return re.test(String(price).toLowerCase());
+  };
 
-  const onPriceBlur = (bool) =>{
-    const isPriceValid = validateNum(bool)
-    setIsPriceValid(isPriceValid) //set as true or false
+  const onPriceBlur = (bool) => {
+    const isPriceValid = validateNum(bool);
+    setIsPriceValid(isPriceValid); //set as true or false
+  };
 
-  }
- 
-  const onQtyBlur = (bool) =>{
-    const isQtyValid = validateNum(bool)
-    setIsQtyValid(isQtyValid) //set as true or false
+  const onQtyBlur = (bool) => {
+    const isQtyValid = validateNum(bool);
+    setIsQtyValid(isQtyValid); //set as true or false
+  };
 
-  }
-   
-   // show for datepicker
-   const [show, setShow] = useState(false);
+  // show for datepicker
+  const [show, setShow] = useState(false);
 
-   // Date Picker
+  // Date Picker
   const onCancel = () => {
     setShow(false);
   };
@@ -91,124 +97,206 @@ const EntryInvestmentPage = ({navigation}) => {
     setShow(true);
   };
 
-  const formattedDate = moment(dateInvestment, moment.ISO_8601).format("YYYY-MM-DD");
-
+  const formattedDate = moment(dateInvestment, moment.ISO_8601).format(
+    "YYYY-MM-DD"
+  );
 
   // Modal for category
-  const [isModalVisibleCat, setIsModalVisibleCat] = useState(false)
+  const [isModalVisibleCat, setIsModalVisibleCat] = useState(false);
 
-  const changeModalVisibilityCat = (bool) =>{
-  setIsModalVisibleCat(bool)
-  }
+  const changeModalVisibilityCat = (bool) => {
+    setIsModalVisibleCat(bool);
+  };
 
-  const setDataCat = (option) =>{
-    setCategoryInvestment(option)
-  }
-
+  const setDataCat = (option) => {
+    setCategoryInvestment(option);
+  };
 
   // Modal for transaction
-  const [isModalVisibleTransaction, setIsModalVisibleTransaction] = useState(false)
+  const [isModalVisibleTransaction, setIsModalVisibleTransaction] =
+    useState(false);
 
-  const changeModalVisibilityTransaction = (bool) =>{
-  setIsModalVisibleTransaction(bool)
-  }
+  const changeModalVisibilityTransaction = (bool) => {
+    setIsModalVisibleTransaction(bool);
+  };
 
-  const setDataTransaction = (option) =>{
-    setTransaction(option)
-  }
+  const setDataTransaction = (option) => {
+    setTransaction(option);
+  };
 
-   
   // clear states onload at entryinvestment page
-  useEffect(()=>{
-    const resetPage = navigation.addListener("focus", ()=>{
-      setDateInvestment(new Date())
-      setPriceInvestment([])
-      setCategoryInvestment("Crypto")
-      setQtyInvestment([])
-      setTransaction("Select Buy or Sell...")
-      setFilterTextCrypto("")
-      setFilterTextStock("")
-      setIsPriceValid(true)
-      setIsQtyValid(true)
-  
-    })
-     return resetPage
-  }, [expenseForceRender])
+  useEffect(() => {
+    const resetPage = navigation.addListener("focus", () => {
+      setDateInvestment(new Date());
+      setPriceInvestment([]);
+      setCategoryInvestment("Crypto");
+      setQtyInvestment([]);
+      setTransaction("Select Buy or Sell...");
+      setFilterTextCrypto("");
+      setFilterTextStock("");
+      setIsPriceValid(true);
+      setIsQtyValid(true);
+    });
+    return resetPage;
+  }, [expenseForceRender]);
 
-
-    const handleSubmit = async (event) => {
-      try{
-        
-        event.preventDefault();
-        const res = await fetch("https://roundup-api.herokuapp.com/data/investment", {
-         
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const res = await fetch(
+        "https://roundup-api.herokuapp.com/data/investment",
+        {
           method: "POST",
-          body: JSON.stringify(
-            { 
-              username: userId,
-              investmentsentry:
-                { 
-                  date: dateInvestment,
-                  price: priceInvestment,
-                  category: categoryInvestment,
-                  ticker: categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock,
-                  quantity: qtyInvestment,
-                  transaction: transaction  }   
-            }
-            ),
+          body: JSON.stringify({
+            username: userId,
+            investmentsentry: {
+              date: dateInvestment,
+              price: priceInvestment,
+              category: categoryInvestment,
+              ticker:
+                categoryInvestment === "Crypto"
+                  ? filterTextCrypto
+                  : filterTextStock,
+              quantity: qtyInvestment,
+              transaction: transaction,
+            },
+          }),
           headers: {
             "Content-Type": "application/json",
           },
-        })
-        if(res.status!==200){
-          console.error('create data investment failed')
         }
-      setExpenseForceRender(!expenseForceRender)
-      
-      if (isPriceValid === false || isQtyValid === false){
-        alert("One of the fields is invalid. Create failed!")
-        return navigation.navigate("Entry Investment Page")
+      );
+      if (res.status !== 200) {
+        console.error("create data investment failed");
+      }
+      setExpenseForceRender(!expenseForceRender);
+
+      if (isPriceValid === false || isQtyValid === false) {
+        alert("One of the fields is invalid. Create failed!");
+        return navigation.navigate("Entry Investment Page");
       }
 
-      if (priceInvestment.length < 1 || qtyInvestment.length < 1 ){
-        alert("One of the fields is empty. Create failed!")
-        return navigation.navigate("Entry Investment Page")
+      if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
+        alert("One of the fields is empty. Create failed!");
+        return navigation.navigate("Entry Investment Page");
       }
-     
-     
-      } catch(err){
-        console.log(err)
-      }
-        
-        navigation.navigate("Investment GP")
-        
-      }
-    return (
-      <NativeBaseProvider>
-          <KeyboardAvoidingView
-                // keyboardVerticalOffset={100} behavior="padding"
-                h={{
-                  base: "100%",
-                  lg: "auto",
-                }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={{flex: 1}}
+    } catch (err) {
+      console.log(err);
+    }
+
+    navigation.navigate("Investment GP");
+  };
+  return (
+    <NativeBaseProvider>
+      <KeyboardAvoidingView
+        h={{
+          base: "100%",
+          lg: "auto",
+        }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        <Center flex={1} bgColor="#fff">
+          <View width="90%" paddingRight={5} alignItems="flex-end">
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Entypo name="cross" size={24} color="black" />
+            </Pressable>
+          </View>
 
-      <Center flex={1} bgColor="#fff">
-
-        <View width="90%" paddingRight={5} alignItems="flex-end">
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
+          {/* Category */}
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Category
+            </Text>
+            <Pressable
+              width="100%"
+              onPress={() => changeModalVisibilityCat(true)}
+            >
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
               >
-                <Entypo name="cross" size={24} color="black" />
-              </Pressable>
-            </View>
+                {categoryInvestment}
+              </Text>
+            </Pressable>
+            <Modal
+              isOpen={isModalVisibleCat}
+              defaultIsOpen="false"
+              onClose={() => changeModalVisibilityCat(false)}
+              size="sm"
+            >
+              <Modal.Content>
+                <Modal.CloseButton />
+                <Modal.Header
+                  _text={{
+                    fontWeight: "bold",
+                    fontSize: "sm",
+                  }}
+                >
+                  Category
+                </Modal.Header>
+                <Modal.Body>
+                  <ModalCatPicker
+                    changeModalVisibilityCat={changeModalVisibilityCat}
+                    setDataCat={setDataCat}
+                  />
+                </Modal.Body>
+              </Modal.Content>
+            </Modal>
+          </Container>
 
-            {/* date */}
-            <Container width="90%" pt="0" p="4" bgColor="#fff">
+          {/* Autocomplete ticker */}
+          <Container width="90%" p="4" bgColor="#fff">
+           <Text fontSize="sm" pb={1} fontWeight="bold">
+              {categoryInvestment === "Crypto" ? "Select crypto ticker":"Select stock ticker"}
+            </Text>
+          {categoryInvestment === "Crypto" ? (
+              <Typeahead
+                inputValue={filterTextCrypto}
+                options={filteredItemsCrypto}
+                onChange={setFilterTextCrypto}
+                onSelectedItemChange={(value) =>
+                  console.log("Selected Item ", value)
+                }
+                getOptionKey={(item) => item.id}
+                getOptionLabel={(item) => item.symbol}
+                toggleIcon={({ isOpen }) => {
+                  return isOpen ? (
+                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
+                  ) : (
+                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
+                  );
+                }}
+              />
+          ) : (
+              <Typeahead
+                inputValue={filterTextStock}
+                options={filteredItemsStock}
+                onChange={setFilterTextStock}
+                onSelectedItemChange={(value) =>
+                  console.log("Selected Item ", value)
+                }
+                getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
+                getOptionLabel={(item) => item.displaySymbol}
+                toggleIcon={({ isOpen }) => {
+                  return isOpen ? (
+                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
+                  ) : (
+                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
+                  );
+                }}
+              />
+          )}
+          </Container>
+          {/* date */}
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Date
             </Text>
@@ -232,55 +320,51 @@ const EntryInvestmentPage = ({navigation}) => {
             />
           </Container>
 
-          
-        {/* price */}
-        <Container width="90%" px="4" bgColor="#fff">
-          <Text fontSize="sm" fontWeight="bold">
-            Price
-          </Text>
-          <Input
-            width="100%"
-            fontSize="sm"
-            mt="1"
-            color="coolGray.600"
-            placeholder="Enter Price"
-            value={priceInvestment.toString()}
-            onChangeText={(text) => setPriceInvestment(text)}
-            onBlur={() =>onPriceBlur(priceInvestment)}
-            
-          />
-          {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
-        </Container>
+          {/* price */}
+          <Container width="90%" pt="4" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Price
+            </Text>
+            <Input
+              width="100%"
+              fontSize="sm"
+              mt="1"
+              color="coolGray.600"
+              placeholder="Enter Price"
+              value={priceInvestment.toString()}
+              onChangeText={(text) => setPriceInvestment(text)}
+              onBlur={() => onPriceBlur(priceInvestment)}
+            />
+            {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
+          </Container>
 
-                
+          {/* quantity */}
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Quantity
+            </Text>
+            <Input
+              width="100%"
+              fontSize="sm"
+              mt="1"
+              color="coolGray.600"
+              placeholder="Enter Quantity"
+              value={qtyInvestment.toString()}
+              onChangeText={(text) => setQtyInvestment(text)}
+              onBlur={() => onQtyBlur(qtyInvestment)}
+            />
+            {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
+          </Container>
 
-        {/* quantity */}
-        <Container width="90%" px="4" bgColor="#fff">
-          <Text fontSize="sm" fontWeight="bold">
-            Quantity
-          </Text>
-          <Input
-            width="100%"
-            fontSize="sm"
-            mt="1"
-            color="coolGray.600"
-            placeholder="Enter Quantity"
-            value={qtyInvestment.toString()}
-            onChangeText={(text) => setQtyInvestment(text)}
-            onBlur={() =>onQtyBlur(qtyInvestment)}
-          />
-          {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
-        </Container>
-
-
-
-
-        {/* Transaction */}
-        <Container width="90%" p="4" bgColor="#fff">
+          {/* Transaction */}
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Transaction
             </Text>
-            <Pressable width="100%" onPress={() => changeModalVisibilityTransaction(true)}>
+            <Pressable
+              width="100%"
+              onPress={() => changeModalVisibilityTransaction(true)}
+            >
               <Text
                 fontSize="sm"
                 mt="1"
@@ -310,7 +394,9 @@ const EntryInvestmentPage = ({navigation}) => {
                 </Modal.Header>
                 <Modal.Body>
                   <ModalTransactionPicker
-                    changeModalVisibilityTransaction={changeModalVisibilityTransaction}
+                    changeModalVisibilityTransaction={
+                      changeModalVisibilityTransaction
+                    }
                     setDataTransaction={setDataTransaction}
                   />
                 </Modal.Body>
@@ -318,98 +404,7 @@ const EntryInvestmentPage = ({navigation}) => {
             </Modal>
           </Container>
 
-
-          {/* Category */}
-          <Container width="90%" p="4" bgColor="#fff">
-          <Text fontSize="sm" fontWeight="bold">
-            Category
-          </Text>
-          <Pressable width="100%" onPress={() => changeModalVisibilityCat(true)}>
-            <Text
-              fontSize="sm"
-              mt="1"
-              borderRadius="sm"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              p="2"
-            >
-              {categoryInvestment}
-            </Text>
-          </Pressable>
-          <Modal
-            isOpen={isModalVisibleCat}
-            defaultIsOpen="false"
-            onClose={() => changeModalVisibilityCat(false)}
-            size="sm"
-          >
-            <Modal.Content>
-              <Modal.CloseButton />
-              <Modal.Header
-                _text={{
-                  fontWeight: "bold",
-                  fontSize: "sm",
-                }}
-              >
-                Category
-              </Modal.Header>
-              <Modal.Body>
-                <ModalCatPicker
-                  changeModalVisibilityCat={changeModalVisibilityCat}
-                  setDataCat={setDataCat}
-                />
-              </Modal.Body>
-            </Modal.Content>
-          </Modal>
-        </Container>
-
-
-          {/* Autocomplete ticker */}
-          { categoryInvestment === "Crypto" ?
-        <Container width="90%" px="4" bgColor="#fff">
-         
-            <Typeahead
-              inputValue={filterTextCrypto}
-              options={filteredItemsCrypto}
-              onChange={setFilterTextCrypto}
-              onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-              getOptionKey={(item) => item.id}
-              getOptionLabel={(item) => item.symbol}
-              label="Select Crypto Ticker"
-              toggleIcon={({ isOpen }) => {
-                return isOpen ? (
-                  <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
-                ) : (
-                  <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
-                );
-              }}
-            />
-            </Container>
-        
-                          :
-           <Container width="90%" px="4" bgColor="#fff">
-         
-            <Typeahead
-              inputValue={filterTextStock}
-              options={filteredItemsStock}
-              onChange={setFilterTextStock}
-              onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-              getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
-              getOptionLabel={(item) => item.displaySymbol}
-              label="Select Stock Ticker"
-              toggleIcon={({ isOpen }) => {
-                return isOpen ? (
-                  <Icon name="arrow-drop-up" type="MaterialIcons" size={12} style={"z-index: 1"} />
-                ) : (
-                  <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
-                );
-              }}
-            />
-            </Container>
-   
-        }
-
-                                         
-        <Button
+          <Button
             size="sm"
             variant="outline"
             bgColor="white"
@@ -419,13 +414,10 @@ const EntryInvestmentPage = ({navigation}) => {
           >
             <Text>Add Investment</Text>
           </Button>
-
-         </Center>
-        </KeyboardAvoidingView>
-     </NativeBaseProvider>
-            
-        
-    )
-}
+        </Center>
+      </KeyboardAvoidingView>
+    </NativeBaseProvider>
+  );
+};
 
 export default EntryInvestmentPage;

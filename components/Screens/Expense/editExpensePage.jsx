@@ -135,7 +135,6 @@ const EditExpensePage = ({ navigation, route }) => {
           base: "100%",
           lg: "auto",
         }}
-        keyboardVerticalOffset={10}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Center flex={1} bgColor="#fff">
@@ -177,7 +176,7 @@ const EditExpensePage = ({ navigation, route }) => {
             />
             {isAmountValid ? "" : <Text color="red.600">Invalid Amount</Text>}
           </Container>
-          <Container width="90%" p="4" bgColor="#fff">
+          <Container width="90%" px="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Category
             </Text>
@@ -218,7 +217,7 @@ const EditExpensePage = ({ navigation, route }) => {
               </Modal.Content>
             </Modal>
           </Container>
-          <Container width="90%" px="4" bgColor="#fff">
+          <Container width="90%" px="4" pt="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Description
             </Text>
