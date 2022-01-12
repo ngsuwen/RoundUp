@@ -67,6 +67,7 @@ const EntryInvestmentPage = ({ navigation }) => {
   const [inputCryptoItems, setInputCryptoItems] = useState(autocompleteCryptoList);
   const [inputStockItems, setInputStockItems] = useState(autocompleteStockList);
 
+  const [inputValue, setInputValue] = React.useState();
 
   const {
     isOpen,
@@ -76,21 +77,24 @@ const EntryInvestmentPage = ({ navigation }) => {
     getToggleButtonProps,
   } = useTypeahead({
     items: categoryInvestment === "Crypto" ? inputCryptoItems:inputStockItems,
-    itemToString: (item) => item.toString(),
-    onInputValueChange: ({ inputValue }) => {
-      categoryInvestment === "Crypto" ?
-      setInputCryptoItems(
-        autocompleteCryptoList.filter((item) =>
-          item.toLowerCase().startsWith(inputValue.toLowerCase())
-        )
-      ):
-      setInputStockItems(
-        autocompleteStockList.filter((item) =>
-          item.toLowerCase().startsWith(inputValue.toLowerCase())
-        )
-      )
-    },
+    itemToString: (item) => item.toString()
   });
+
+  const textChangeHandler = (text) => {
+    categoryInvestment === "Crypto"
+      ? setInputCryptoItems(
+          autocompleteCryptoList.filter((item) =>
+            item.toLowerCase().startsWith(text.toLowerCase())
+          )
+        )
+      : setInputStockItems(
+          autocompleteStockList.filter((item) =>
+            item.toLowerCase().startsWith(text.toLowerCase())
+          )
+        );
+    setInputValue(text);
+    return;
+  };
 
   // validation
   const [isPriceValid, setIsPriceValid] = useState(true);
@@ -171,6 +175,7 @@ const EntryInvestmentPage = ({ navigation }) => {
       setFilterTextStock("");
       setIsPriceValid(true);
       setIsQtyValid(true);
+      setInputValue('')
     });
     return resetPage;
   }, [expenseForceRender]);
@@ -293,8 +298,8 @@ const EntryInvestmentPage = ({ navigation }) => {
           <Container width="90%" p="4" bgColor="#fff">
             <Text fontSize="sm" pb={1} fontWeight="bold">
               {categoryInvestment === "Crypto"
-                ? "Select Crypto Ticker"
-                : "Select Stock Ticker"}
+                ? "Crypto Ticker"
+                : "Stock Ticker"}
             </Text>
             <Box width="100%">
               <Input
@@ -303,7 +308,8 @@ const EntryInvestmentPage = ({ navigation }) => {
                 mt="1"
                 color="coolGray.600"
                 placeholder="Enter Ticker"
-                {...getInputProps()}
+                value={inputValue}
+                onChangeText={(text)=>textChangeHandler(text)}
                 w={{
                   base: "100%",
                   md: "25%",
