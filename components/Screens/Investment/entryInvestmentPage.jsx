@@ -6,14 +6,17 @@ import DatePicker from "react-native-neat-date-picker";
 import { ModalCatPicker } from "./modalInvestCatPicker";
 import { ModalTransactionPicker } from "./modalInvestTransactionPicker";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { ScrollView } from "react-native";
 import moment from "moment";
 
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
   Input,
+  useTypeahead,
   Typeahead,
   Icon,
+  IconButton,
   Center,
   Box,
   Container,
@@ -56,6 +59,28 @@ const EntryInvestmentPage = ({ navigation }) => {
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
+
+  // autocomplete
+  const autocompleteList = coin.map(item=>item.symbol)
+  
+  const [inputItems, setInputItems] = useState(autocompleteList);
+  const {
+    isOpen,
+    getInputProps,
+    getMenuItemProps,
+    getMenuProps,
+    getToggleButtonProps,
+  } = useTypeahead({
+    items: inputItems,
+    itemToString: (item) => item.toString(),
+    onInputValueChange: ({ inputValue }) => {
+      setInputItems(
+        autocompleteList.filter((item) =>
+          item.toLowerCase().startsWith(inputValue.toLowerCase())
+        )
+      );
+    },
+  });
 
   // validation
   const [isPriceValid, setIsPriceValid] = useState(true);
@@ -254,28 +279,73 @@ const EntryInvestmentPage = ({ navigation }) => {
 
           {/* Autocomplete ticker */}
           <Container width="90%" p="4" bgColor="#fff">
-           <Text fontSize="sm" pb={1} fontWeight="bold">
-              {categoryInvestment === "Crypto" ? "Select crypto ticker":"Select stock ticker"}
+            <Text fontSize="sm" pb={1} fontWeight="bold">
+              {categoryInvestment === "Crypto"
+                ? "Select crypto ticker"
+                : "Select stock ticker"}
             </Text>
-          {categoryInvestment === "Crypto" ? (
-              <Typeahead
-                inputValue={filterTextCrypto}
-                options={filteredItemsCrypto}
-                onChange={setFilterTextCrypto}
-                onSelectedItemChange={(value) =>
-                  console.log("Selected Item ", value)
-                }
-                getOptionKey={(item) => item.id}
-                getOptionLabel={(item) => item.symbol}
-                toggleIcon={({ isOpen }) => {
-                  return isOpen ? (
-                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
-                  ) : (
-                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
-                  );
-                }}
-              />
-          ) : (
+            {categoryInvestment === "Crypto" ? (
+              <>
+                <Box width="100%">
+                  <Input
+                    width="85%"
+                    fontSize="sm"
+                    mt="1"
+                    color="coolGray.600"
+                    {...getInputProps()}
+                    w={{
+                      base: "100%",
+                      md: "25%",
+                    }}
+                    InputRightElement={
+                      <IconButton
+                        {...getToggleButtonProps()}
+                        icon={
+                          isOpen ? (
+                            <MaterialIcons
+                              name="arrow-drop-up"
+                              size={24}
+                              color="black"
+                            />
+                          ) : (
+                            <MaterialIcons
+                              name="arrow-drop-down"
+                              size={24}
+                              color="black"
+                            />
+                          )
+                        }
+                      />
+                    }
+                  />
+                </Box>
+                {isOpen &&
+                <Box
+                  width="100%"
+                  maxHeight="115"
+                  borderRadius="0"
+                  borderColor="coolGray.200"
+                  borderWidth="1"
+                  pb="2"
+                  bgColor="muted.50"
+                  {...getMenuProps()}
+                >
+                  <ScrollView>
+                    {inputItems.map((item, index) => (
+                        <Button
+                          key={`${item}${index}`}
+                          {...getMenuItemProps(item, index)}
+                          bgColor="muted.50"
+                          justifyContent="flex-start"
+                        >
+                          <Text fontSize="sm">{item}</Text>
+                        </Button>
+                      ))}
+                  </ScrollView>
+                </Box>
+                }   
+              </>
+            ) : (
               <Typeahead
                 inputValue={filterTextStock}
                 options={filteredItemsStock}
@@ -287,13 +357,21 @@ const EntryInvestmentPage = ({ navigation }) => {
                 getOptionLabel={(item) => item.displaySymbol}
                 toggleIcon={({ isOpen }) => {
                   return isOpen ? (
-                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
+                    <MaterialIcons
+                      name="arrow-drop-up"
+                      size={24}
+                      color="black"
+                    />
                   ) : (
-                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
+                    <MaterialIcons
+                      name="arrow-drop-down"
+                      size={24}
+                      color="black"
+                    />
                   );
                 }}
               />
-          )}
+            )}
           </Container>
           {/* date */}
           <Container width="90%" px="4" bgColor="#fff">
