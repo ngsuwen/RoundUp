@@ -1,15 +1,10 @@
 import * as React from "react";
 import DataContext from "../../../context/DataContext";
-import {
-  StyleSheet,
-  TextInput,
-  SafeAreaView,
-  Dimensions
-} from "react-native";
+import { StyleSheet, TextInput, SafeAreaView, Dimensions } from "react-native";
 // import DatePicker from "@react-native-community/datetimepicker";
 import DatePicker from "react-native-neat-date-picker";
-import { ModalCatPicker} from "./modalInvestCatPicker"
-import {ModalTransactionPicker} from "./modalInvestTransactionPicker"
+import { ModalCatPicker } from "./modalInvestCatPicker";
+import { ModalTransactionPicker } from "./modalInvestTransactionPicker";
 import {
   NativeBaseProvider,
   KeyboardAvoidingView,
@@ -26,63 +21,71 @@ import {
   IconButton,
   Center,
   Box,
-  
 } from "native-base";
+import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
-
 
 const EditInvestmentPage = ({ navigation, route }) => {
   const { entry } = route.params;
 
   // useContext
-  const { userContext, investmentEntryContext, expenseForceRenderContext } = React.useContext(DataContext);
+  const { userContext, investmentEntryContext, expenseForceRenderContext } =
+    React.useContext(DataContext);
   const [userId, setUserId] = userContext;
-  
-  const [dateInvestment,setDateInvestment,
-         priceInvestment,setPriceInvestment,
-         categoryInvestment,setCategoryInvestment,
-         tickerInvestment,setTickerInvestment, 
-         qtyInvestment, setQtyInvestment,
-         transaction, setTransaction,
-         coin, setCoin,
-         stock, setStock,
-         filterTextCrypto, setFilterTextCrypto,
-         filterTextStock, setFilterTextStock,
-         filteredItemsCrypto,filteredItemsStock,
-        ] = investmentEntryContext
 
-  const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
+  const [
+    dateInvestment,
+    setDateInvestment,
+    priceInvestment,
+    setPriceInvestment,
+    categoryInvestment,
+    setCategoryInvestment,
+    tickerInvestment,
+    setTickerInvestment,
+    qtyInvestment,
+    setQtyInvestment,
+    transaction,
+    setTransaction,
+    coin,
+    setCoin,
+    stock,
+    setStock,
+    filterTextCrypto,
+    setFilterTextCrypto,
+    filterTextStock,
+    setFilterTextStock,
+    filteredItemsCrypto,
+    filteredItemsStock,
+  ] = investmentEntryContext;
+
+  const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
 
   // validation
-  const [isPriceValid, setIsPriceValid] = React.useState(true)
-  const [isQtyValid, setIsQtyValid] = React.useState(true)
+  const [isPriceValid, setIsPriceValid] = React.useState(true);
+  const [isQtyValid, setIsQtyValid] = React.useState(true);
 
-  const validateNum = (price) =>{
-   const  re = /^[0-9]*$/
-   
-   // const result = re.test(price)
-   // console.log("result", result)
-   return re.test(String(price).toLowerCase())
- 
- }
+  const validateNum = (price) => {
+    const re = /^[0-9]*$/;
 
- const onPriceBlur = (bool) =>{
-   const isPriceValid = validateNum(bool)
-   setIsPriceValid(isPriceValid) //set as true or false
+    // const result = re.test(price)
+    // console.log("result", result)
+    return re.test(String(price).toLowerCase());
+  };
 
- }
+  const onPriceBlur = (bool) => {
+    const isPriceValid = validateNum(bool);
+    setIsPriceValid(isPriceValid); //set as true or false
+  };
 
- const onQtyBlur = (bool) =>{
-   const isQtyValid = validateNum(bool)
-   setIsQtyValid(isQtyValid) //set as true or false
-
- }
-
+  const onQtyBlur = (bool) => {
+    const isQtyValid = validateNum(bool);
+    setIsQtyValid(isQtyValid); //set as true or false
+  };
 
   // show for datepicker
   const [show, setShow] = React.useState(false);
 
-   // Date Picker
+  // Date Picker
   const onCancel = () => {
     setShow(false);
   };
@@ -97,35 +100,32 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setShow(true);
   };
 
-  const formattedDate = moment(dateInvestment, moment.ISO_8601).format("YYYY-MM-DD");
+  const formattedDate = moment(dateInvestment, moment.ISO_8601).format(
+    "YYYY-MM-DD"
+  );
 
- 
   // Modal for category
-  const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false)
+  const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false);
 
-  const changeModalVisibilityCat = (bool) =>{
-  setIsModalVisibleCat(bool)
-  
-  }
+  const changeModalVisibilityCat = (bool) => {
+    setIsModalVisibleCat(bool);
+  };
 
-  const setDataCat = (option) =>{
-    setCategoryInvestment(option)
-  }
-
-   
+  const setDataCat = (option) => {
+    setCategoryInvestment(option);
+  };
 
   // Modal for transaction
-  const [isModalVisibleTransaction, setIsModalVisibleTransaction] = React.useState(false)
+  const [isModalVisibleTransaction, setIsModalVisibleTransaction] =
+    React.useState(false);
 
-  const changeModalVisibilityTransaction = (bool) =>{
-  setIsModalVisibleTransaction(bool)
-  }
+  const changeModalVisibilityTransaction = (bool) => {
+    setIsModalVisibleTransaction(bool);
+  };
 
-  const setDataTransaction = (option) =>{
-    setTransaction(option)
-  }
-
-
+  const setDataTransaction = (option) => {
+    setTransaction(option);
+  };
 
   const handleSubmit = async (investment) => {
     try {
@@ -140,9 +140,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker: categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock,
+              ticker:
+                categoryInvestment === "Crypto"
+                  ? filterTextCrypto
+                  : filterTextStock,
               quantity: qtyInvestment,
-              transaction: transaction
+              transaction: transaction,
             },
           }),
           headers: {
@@ -154,16 +157,15 @@ const EditInvestmentPage = ({ navigation, route }) => {
         console.error("edit data investment failed");
       }
 
-      if (isPriceValid === false || isQtyValid === false){
-        alert("One of the fields is invalid. Create failed!")
-        return navigation.navigate("Edit Investment Page", { entry: entry })
+      if (isPriceValid === false || isQtyValid === false) {
+        alert("One of the fields is invalid. Create failed!");
+        return navigation.navigate("Edit Investment Page", { entry: entry });
       }
-      if (priceInvestment.length < 1 || qtyInvestment.length < 1 ){
-        alert("One of the fields is empty. Create failed!")
-        return navigation.navigate("Edit Investment Page", { entry: entry })
+      if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
+        alert("One of the fields is empty. Create failed!");
+        return navigation.navigate("Edit Investment Page", { entry: entry });
       }
-      
-      
+
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data
       navigation.navigate("Show Investment Page", { entry: data });
@@ -172,48 +174,132 @@ const EditInvestmentPage = ({ navigation, route }) => {
     }
   };
 
- 
-
-
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
-        keyboardVerticalOffset={200}
-        resizeToAvoidBottomPadding= {false}
         h={{
           base: "100%",
           lg: "auto",
         }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-       <Center flex={1} bgColor="#fff">
-        <Container width="90%" p="4" bgColor="#fff">
-              <Text fontSize="sm" fontWeight="bold">
-                Date
+        <Center flex={1} bgColor="#fff">
+          
+          {/* Category */}
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Category
+            </Text>
+            <Pressable
+              width="100%"
+              onPress={() => changeModalVisibilityCat(true)}
+            >
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {categoryInvestment}
               </Text>
-              <Pressable width="100%" onPress={showDatepicker}>
-                <Text
-                  fontSize="sm"
-                  mt="1"
-                  borderRadius="sm"
-                  borderColor="coolGray.200"
-                  borderWidth="1"
-                  p="2"
+            </Pressable>
+            <Modal
+              isOpen={isModalVisibleCat}
+              defaultIsOpen="false"
+              onClose={() => changeModalVisibilityCat(false)}
+              size="sm"
+            >
+              <Modal.Content>
+                <Modal.CloseButton />
+                <Modal.Header
+                  _text={{
+                    fontWeight: "bold",
+                    fontSize: "sm",
+                  }}
                 >
-                  {formattedDate}
-                </Text>
-              </Pressable>
-              <DatePicker
-                isVisible={show}
-                mode={"single"}
-                onCancel={onCancel}
-                onConfirm={onConfirm}
+                  Category
+                </Modal.Header>
+                <Modal.Body>
+                  <ModalCatPicker
+                    changeModalVisibilityCat={changeModalVisibilityCat}
+                    setDataCat={setDataCat}
+                  />
+                </Modal.Body>
+              </Modal.Content>
+            </Modal>
+          </Container>
+
+          {/* Autocomplete ticker */}
+          <Container width="90%" p="4" bgColor="#fff">
+           <Text fontSize="sm" pb={1} fontWeight="bold">
+              {categoryInvestment === "Crypto" ? "Select crypto ticker":"Select stock ticker"}
+            </Text>
+          {categoryInvestment === "Crypto" ? (
+              <Typeahead
+                inputValue={filterTextCrypto} // for value to be populated at the field
+                options={filteredItemsCrypto}
+                onChange={setFilterTextCrypto}
+                onSelectedItemChange={(value) =>
+                  console.log("Selected Item ", value)
+                }
+                getOptionKey={(item) => item.id}
+                getOptionLabel={(item) => item.symbol}
+                toggleIcon={({ isOpen }) => {
+                  return isOpen ? (
+                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
+                  ) : (
+                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
+                  );
+                }}
               />
-            </Container>
+          ) : (
+              <Typeahead
+                inputValue={filterTextStock} // for value to be populated at the field
+                options={filteredItemsStock}
+                onChange={setFilterTextStock}
+                onSelectedItemChange={(value) =>
+                  console.log("Selected Item ", value)
+                }
+                getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
+                getOptionLabel={(item) => item.displaySymbol}
+                toggleIcon={({ isOpen }) => {
+                  return isOpen ? (
+                    <MaterialIcons name="arrow-drop-up" size={24} color="black" />
+                  ) : (
+                    <MaterialIcons name="arrow-drop-down" size={24} color="black" />
+                  );
+                }}
+              />
+          )}
+          </Container>
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Date
+            </Text>
+            <Pressable width="100%" onPress={showDatepicker}>
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
+              >
+                {formattedDate}
+              </Text>
+            </Pressable>
+            <DatePicker
+              isVisible={show}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
+          </Container>
 
-
-            {/* price */}
-            <Container width="90%" px="4" bgColor="#fff">
+          {/* price */}
+          <Container width="90%" px="4" pt="4" bgColor="#fff">
             <Text fontSize="sm" fontWeight="bold">
               Price
             </Text>
@@ -224,184 +310,98 @@ const EditInvestmentPage = ({ navigation, route }) => {
               color="coolGray.600"
               value={priceInvestment.toString()}
               onChangeText={(text) => setPriceInvestment(text)}
-              onBlur={() =>onPriceBlur(priceInvestment)}
+              onBlur={() => onPriceBlur(priceInvestment)}
             />
-             {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
+            {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
           </Container>
-            
 
-            {/* quantity */}
-        <Container width="90%" px="4" bgColor="#fff">
-          <Text fontSize="sm" fontWeight="bold">
-            Quantity
-          </Text>
-          <Input
-            width="100%"
-            fontSize="sm"
-            mt="1"
-            color="coolGray.600"
-            placeholder="Enter Quantity"
-            value={qtyInvestment.toString()}
-            onChangeText={(text) => setQtyInvestment(text)}
-            onBlur={() =>onQtyBlur(qtyInvestment)}
-          />
-          {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
-        </Container>
-
-
-      {/* Transaction */}
-
-      <Container width="90%" p="4" bgColor="#fff">
-          <Text fontSize="sm" fontWeight="bold">
-            Transaction
-          </Text>
-          <Pressable width="100%" onPress={() => changeModalVisibilityTransaction(true)}>
-            <Text
+          {/* quantity */}
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Quantity
+            </Text>
+            <Input
+              width="100%"
               fontSize="sm"
               mt="1"
-              borderRadius="sm"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              p="2"
-            >
-              {transaction}
+              color="coolGray.600"
+              placeholder="Enter Quantity"
+              value={qtyInvestment.toString()}
+              onChangeText={(text) => setQtyInvestment(text)}
+              onBlur={() => onQtyBlur(qtyInvestment)}
+            />
+            {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
+          </Container>
+
+          {/* Transaction */}
+
+          <Container width="90%" px="4" bgColor="#fff">
+            <Text fontSize="sm" fontWeight="bold">
+              Transaction
             </Text>
-          </Pressable>
-          <Modal
-            isOpen={isModalVisibleTransaction}
-            defaultIsOpen="false"
-            onClose={() => changeModalVisibilityTransaction(false)}
-            size="sm"
-          >
-            <Modal.Content>
-              <Modal.CloseButton />
-              <Modal.Header
-                _text={{
-                  fontWeight: "bold",
-                  fontSize: "sm",
-                }}
+            <Pressable
+              width="100%"
+              onPress={() => changeModalVisibilityTransaction(true)}
+            >
+              <Text
+                fontSize="sm"
+                mt="1"
+                borderRadius="sm"
+                borderColor="coolGray.200"
+                borderWidth="1"
+                p="2"
               >
-                Transaction
-              </Modal.Header>
-              <Modal.Body>
-                <ModalTransactionPicker
-                  changeModalVisibilityTransaction={changeModalVisibilityTransaction}
-                  setDataTransaction={setDataTransaction}
-                />
-              </Modal.Body>
-            </Modal.Content>
-          </Modal>
-        </Container>
-                    
+                {transaction}
+              </Text>
+            </Pressable>
+            <Modal
+              isOpen={isModalVisibleTransaction}
+              defaultIsOpen="false"
+              onClose={() => changeModalVisibilityTransaction(false)}
+              size="sm"
+            >
+              <Modal.Content>
+                <Modal.CloseButton />
+                <Modal.Header
+                  _text={{
+                    fontWeight: "bold",
+                    fontSize: "sm",
+                  }}
+                >
+                  Transaction
+                </Modal.Header>
+                <Modal.Body>
+                  <ModalTransactionPicker
+                    changeModalVisibilityTransaction={
+                      changeModalVisibilityTransaction
+                    }
+                    setDataTransaction={setDataTransaction}
+                  />
+                </Modal.Body>
+              </Modal.Content>
+            </Modal>
+          </Container>
 
-        {/* Category */}
-
-        <Container width="90%" p="4" bgColor="#fff">
-        <Text fontSize="sm" fontWeight="bold">
-          Category
-        </Text>
-        <Pressable width="100%" onPress={() => changeModalVisibilityCat(true)}>
-          <Text
-            fontSize="sm"
-            mt="1"
-            borderRadius="sm"
-            borderColor="coolGray.200"
-            borderWidth="1"
-            p="2"
-          >
-            {categoryInvestment}
-          </Text>
-        </Pressable>
-        <Modal
-          isOpen={isModalVisibleCat}
-          defaultIsOpen="false"
-          onClose={() => changeModalVisibilityCat(false)}
-          size="sm"
-        >
-          <Modal.Content>
-            <Modal.CloseButton />
-            <Modal.Header
-              _text={{
-                fontWeight: "bold",
-                fontSize: "sm",
+          <Button.Group size="sm" mt="5">
+            <Button
+              variant="outline"
+              bgColor="white"
+              colorScheme="light"
+              onPress={() =>
+                navigation.navigate("Show Investment Page", { entry: entry })
+              }
+            >
+              <Text>Cancel</Text>
+            </Button>
+            <Button
+              colorScheme="primary"
+              onPress={() => {
+                handleSubmit(entry);
               }}
             >
-              Category
-            </Modal.Header>
-            <Modal.Body>
-              <ModalCatPicker
-                changeModalVisibilityCat={changeModalVisibilityCat}
-                setDataCat={setDataCat}
-              />
-            </Modal.Body>
-          </Modal.Content>
-        </Modal>
-      </Container>
-
-
-      {/* Autocomplete ticker */}
-
-      { categoryInvestment === "Crypto" ?
-      <Container width="90%" p="4" bgColor="#fff">
-        <Typeahead
-          inputValue={filterTextCrypto} // for value to be populated at the field
-          options={filteredItemsCrypto}
-          onChange={setFilterTextCrypto}
-          onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-          getOptionKey={(item) => item.id}
-          getOptionLabel={(item) => item.symbol}
-          label="Select Crypto Ticker"
-          toggleIcon={({ isOpen }) => {
-            return isOpen ? (
-              <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
-            ) : (
-              <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
-            );
-          }}
-        />
-      </Container>
-                      :
-      <Container width="90%" p="4" bgColor="#fff">
-        <Typeahead
-          inputValue={filterTextStock}  // for value to be populated at the field
-          options={filteredItemsStock}
-          onChange={setFilterTextStock}
-          onSelectedItemChange={(value) => console.log("Selected Item ", value)}
-          getOptionKey={(item) => item.symbol} //the key must be available in api, else wont work
-          getOptionLabel={(item) => item.displaySymbol}
-          label="Select Stock Ticker"
-          toggleIcon={({ isOpen }) => {
-            return isOpen ? (
-              <Icon name="arrow-drop-up" type="MaterialIcons" size={12} />
-            ) : (
-              <Icon name="arrow-drop-down" type="MaterialIcons" size={12} />
-            );
-          }}
-        />
-      </Container>
-                      }
-
-      <Button.Group size="sm" mt="5">
-          <Button
-            variant="outline"
-            bgColor="white"
-            colorScheme="light"
-            onPress={() =>
-              navigation.navigate("Show Investment Page", { entry: entry })
-            }
-          >
-            <Text>Cancel</Text>
-          </Button>
-          <Button
-            colorScheme="primary"
-            onPress={() => {
-              handleSubmit(entry);
-            }}
-          >
-            <Text>Update</Text>
-          </Button>
-        </Button.Group>
-
+              <Text>Update</Text>
+            </Button>
+          </Button.Group>
         </Center>
       </KeyboardAvoidingView>
     </NativeBaseProvider>
@@ -409,4 +409,3 @@ const EditInvestmentPage = ({ navigation, route }) => {
 };
 
 export default EditInvestmentPage;
-
