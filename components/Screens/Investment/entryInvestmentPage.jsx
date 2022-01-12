@@ -67,6 +67,7 @@ const EntryInvestmentPage = ({ navigation }) => {
   const [inputCryptoItems, setInputCryptoItems] = useState(autocompleteCryptoList);
   const [inputStockItems, setInputStockItems] = useState(autocompleteStockList);
 
+
   const {
     isOpen,
     getInputProps,
