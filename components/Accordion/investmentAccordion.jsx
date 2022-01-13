@@ -3,43 +3,11 @@
 import React from 'react';
 import { useContext } from 'react'
 import DataContext from '../../context/DataContext';
-import { ScrollView, StyleSheet, Text, Dimensions} from 'react-native';
-import { Accordion, NativeBaseProvider, Center, Box, Pressable, HStack } from 'native-base';
-import { createNavigatorFactory } from '@react-navigation/native';
+import { ScrollView} from 'react-native';
+import { Accordion, Text, NativeBaseProvider, Center, Box, Pressable, HStack } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 const _ = require('underscore')
-
-const screenWidth = Dimensions.get('screen').width
-const screenHeight = Dimensions.get('screen').height
-
-  const styles = StyleSheet.create({
-    entryWrapper: {
-        flex:1,
-        flexDirection:'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        // backgroundColor:'blue'
-    },
-    entryDesc: {
-        flex: 1,
-        color:'#424642',
-        width:screenWidth*0.8,
-        // backgroundColor:'green',
-    },
-    entryPrice: {
-        flex: 1,
-        textAlign:'right',
-        color:'#424642'
-        // backgroundColor:'yellow'
-    },
-    divider:{
-        backgroundColor:'#D8D8D8',
-    }
-
-
-})
-
 
 function AccordionComponent() {
 
@@ -175,17 +143,17 @@ const entries = allDates.map((date,index)=>{
   return(
     <Accordion.Item key={index}>
         <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300"}}>
-        <Text style={{fontWeight:'bold'}}>{date}</Text>
-        <Accordion.Icon /> 
+        <Text fontWeight="bold">{date}</Text>
+        <Accordion.Icon color="black" size="5"/> 
         </Accordion.Summary>
         {entriesByDay[date].map((entry,index2)=>{
         return(
-        <Pressable key={index2} style={styles.pressable} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
+        <Pressable key={index2} onPress={() => navigation.navigate('Show Investment Page', {entry})}>
         <Accordion.Details key={index} bgColor={checkDivider(index2)}>
         <HStack width="100%" justifyContent="space-between">
-            <Text style={styles.entryDesc}>{entry.investmentsentry.transaction}</Text>
-            <Text style={styles.entryDesc}>Quantity: {entry.investmentsentry.quantity}</Text>
-            <Text style={styles.entryPrice}>Price: {`$${entry.investmentsentry.price}`}</Text>
+            <Text >{entry.investmentsentry.transaction}</Text>
+            <Text >Quantity: {entry.investmentsentry.quantity}</Text>
+            <Text >Price: {`$${entry.investmentsentry.price}`}</Text>
         </HStack>
         </Accordion.Details>
         </Pressable>

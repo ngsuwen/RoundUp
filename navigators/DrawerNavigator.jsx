@@ -91,7 +91,7 @@ export default function App({ navigation }) {
 
       <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage}
         options={{drawerItemStyle: {display:"none"}}} />
-      <Drawer.Screen name="Show Ticker Page" component={ShowTickerPage}
+      <Drawer.Screen name="Transactions" component={ShowTickerPage}
         options={{drawerItemStyle: {display:"none"}}} />
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>

@@ -128,7 +128,7 @@ const [user, setUser] = userContext
             <Pressable 
                 onPress={() => {
                 setSelectedTickerAndPrice(stock)
-                navigation.navigate('Show Ticker Page')}}
+                navigation.navigate('Transactions')}}
             >
                 <HStack justifyContent="space-between" py="4" mx="7">
                     <Box>
