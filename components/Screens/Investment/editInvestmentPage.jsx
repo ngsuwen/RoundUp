@@ -206,13 +206,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
           alert("One of the fields is invalid. Create failed!");
           return navigation.navigate("Edit Investment Page", { entry: entry });
         }
-        
+     
       }
-      // no field validation error not working
-      // if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
-      //   alert("One of the fields is empty. Create failed!");
-      //   return navigation.navigate("Edit Investment Page", { entry: entry });
-      // }
+        // no field validation error not working
+        if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
+        alert("One of the fields is empty. Create failed!");
+        return navigation.navigate("Edit Investment Page", { entry: entry });
+      }
+      
      
 
       const data = await res.json();
