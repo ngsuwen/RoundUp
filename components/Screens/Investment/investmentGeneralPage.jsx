@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     <View style={styles.container}>
       <Carousel showsControls={false} style={styles.carousel} containerStyle={styles.carouselContainer} dotStyle={styles.dotStyle} activeDotStyle={styles.activeDotStyle}>
         <PieChartComponent/>
-        <InvestmentLineChartComponentDaily/>
+        {/* <InvestmentLineChartComponentDaily/> */}
       </Carousel>
       <View style={styles.cardContainer}>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
