@@ -64,21 +64,10 @@ const EntryInvestmentPage = ({ navigation }) => {
   const autocompleteCryptoList = coin.map((item) => item.symbol);
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
-  const [inputCryptoItems, setInputCryptoItems] = useState(autocompleteCryptoList);
-  const [inputStockItems, setInputStockItems] = useState(autocompleteStockList);
-
-  const [inputValue, setInputValue] = React.useState();
-
-  const {
-    isOpen,
-    getInputProps,
-    getMenuItemProps,
-    getMenuProps,
-    getToggleButtonProps,
-  } = useTypeahead({
-    items: categoryInvestment === "Crypto" ? inputCryptoItems:inputStockItems,
-    itemToString: (item) => item.toString()
-  });
+  const [inputCryptoItems, setInputCryptoItems] = useState(['btc','eth','luna']);
+  const [inputStockItems, setInputStockItems] = useState(['tsla','googl','sq']);
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState();
 
   const textChangeHandler = (text) => {
     categoryInvestment === "Crypto"
@@ -95,6 +84,12 @@ const EntryInvestmentPage = ({ navigation }) => {
     setInputValue(text);
     return;
   };
+
+  const buttonHandler=(text)=>{
+    setInputValue(text)
+    setIsOpen(false)
+    return
+  }
 
   // validation
   const [isPriceValid, setIsPriceValid] = useState(true);
@@ -133,6 +128,7 @@ const EntryInvestmentPage = ({ navigation }) => {
 
   // to show and hide date picker
   const showDatepicker = () => {
+    setIsOpen(false)
     setShow(true);
   };
 
@@ -144,6 +140,7 @@ const EntryInvestmentPage = ({ navigation }) => {
   const [isModalVisibleCat, setIsModalVisibleCat] = useState(false);
 
   const changeModalVisibilityCat = (bool) => {
+    setIsOpen(false)
     setIsModalVisibleCat(bool);
   };
 
@@ -156,6 +153,7 @@ const EntryInvestmentPage = ({ navigation }) => {
     useState(false);
 
   const changeModalVisibilityTransaction = (bool) => {
+    setIsOpen(false)
     setIsModalVisibleTransaction(bool);
   };
 
@@ -176,6 +174,7 @@ const EntryInvestmentPage = ({ navigation }) => {
       setIsPriceValid(true);
       setIsQtyValid(true);
       setInputValue('')
+      setIsOpen(false)
     });
     return resetPage;
   }, [expenseForceRender]);
@@ -308,6 +307,7 @@ const EntryInvestmentPage = ({ navigation }) => {
                 mt="1"
                 color="coolGray.600"
                 placeholder="Enter Ticker"
+                onFocus={()=>setIsOpen(true)}
                 value={inputValue}
                 onChangeText={(text)=>textChangeHandler(text)}
                 w={{
@@ -316,7 +316,7 @@ const EntryInvestmentPage = ({ navigation }) => {
                 }}
                 InputRightElement={
                   <IconButton
-                    {...getToggleButtonProps()}
+                    onPress={()=>setIsOpen(!isOpen)}
                     icon={
                       isOpen ? (
                         <MaterialIcons
@@ -345,16 +345,15 @@ const EntryInvestmentPage = ({ navigation }) => {
                 borderWidth="1"
                 pb="2"
                 bgColor="muted.50"
-                {...getMenuProps()}
               >
                 <ScrollView>
                   {categoryInvestment === "Crypto" ?
                   inputCryptoItems.map((item, index) => (
                     <Button
                       key={`${item}${index}`}
-                      {...getMenuItemProps(item, index)}
                       bgColor="muted.50"
                       justifyContent="flex-start"
+                      onPress={()=>buttonHandler(item)}
                     >
                       <Text fontSize="sm">{item}</Text>
                     </Button>
@@ -362,9 +361,9 @@ const EntryInvestmentPage = ({ navigation }) => {
                   inputStockItems.map((item, index) => (
                     <Button
                       key={`${item}${index}`}
-                      {...getMenuItemProps(item, index)}
                       bgColor="muted.50"
                       justifyContent="flex-start"
+                      onMouseDown={()=>buttonHandler(item)}
                     >
                       <Text fontSize="sm">{item}</Text>
                     </Button>
@@ -413,6 +412,7 @@ const EntryInvestmentPage = ({ navigation }) => {
               placeholder="Enter Price"
               value={priceInvestment.toString()}
               onChangeText={(text) => setPriceInvestment(text)}
+              onFocus={()=>setIsOpen(false)}
               onBlur={() => onPriceBlur(priceInvestment)}
             />
             {isPriceValid ? "" : <Text color="red.600">Invalid Price</Text>}
@@ -431,6 +431,7 @@ const EntryInvestmentPage = ({ navigation }) => {
               placeholder="Enter Quantity"
               value={qtyInvestment.toString()}
               onChangeText={(text) => setQtyInvestment(text)}
+              onFocus={()=>setIsOpen(false)}
               onBlur={() => onQtyBlur(qtyInvestment)}
             />
             {isQtyValid ? "" : <Text color="red.600">Invalid Quantity</Text>}
