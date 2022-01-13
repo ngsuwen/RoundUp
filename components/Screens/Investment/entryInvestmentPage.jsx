@@ -193,10 +193,11 @@ const EntryInvestmentPage = ({ navigation }) => {
               date: dateInvestment,
               price: priceInvestment,
               category: categoryInvestment,
-              ticker:
-                categoryInvestment === "Crypto"
-                  ? inputCryptoItems[0]
-                  : inputStockItems[0],
+              // ticker:
+              //   categoryInvestment === "Crypto"
+              //     ? inputCryptoItems[0]
+              //     : inputStockItems[0],
+              ticker: inputValue,
               quantity: qtyInvestment,
               transaction: transaction,
             },
@@ -364,7 +365,7 @@ const EntryInvestmentPage = ({ navigation }) => {
                       key={`${item}${index}`}
                       bgColor="muted.50"
                       justifyContent="flex-start"
-                      onMouseDown={()=>buttonHandler(item)}
+                      onPress={()=>buttonHandler(item)}
                     >
                       <Text fontSize="sm">{item}</Text>
                     </Button>
