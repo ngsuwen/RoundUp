@@ -43,7 +43,7 @@ const [user, setUser] = userContext
 
     const allTickerList = Object.keys(entriesByTicker).sort()
 
-    // console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
+    console.log('alltickerlist:',allTickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
 
     // need to filter out stocks/crypto with 0 qty so we don't track prices for those 
     

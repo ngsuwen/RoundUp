@@ -22,7 +22,7 @@
     "android": {
       "package": "com.ga.roundup",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/arrow.png",
+        "foregroundImage": "./assets/rounduplogo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
