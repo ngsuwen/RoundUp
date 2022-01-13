@@ -22,7 +22,7 @@ export default function networthLineChartComponent({dataMonth, networthYearlyDat
       },
     ],
     legend: [
-      `NETWORTH, ${monthArr[todayDate.getMonth() + 1]} ${
+      `NET WORTH, ${monthArr[todayDate.getMonth() + 1]} ${
         todayDate.getFullYear() - 1
       } - ${monthArr[todayDate.getMonth()]} ${todayDate.getFullYear()}`,
     ], 
@@ -51,7 +51,7 @@ export default function networthLineChartComponent({dataMonth, networthYearlyDat
   return (
     <LineChart
       data={linedata}
-      width={screenWidth}
+      width={screenWidth *0.95}
       height={screenHeight * 0.25}
       chartConfig={chartConfig}
       bezier
