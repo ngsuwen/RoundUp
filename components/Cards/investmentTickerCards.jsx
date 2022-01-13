@@ -1,8 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import DataContext from '../../context/DataContext';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, Pressable } from 'react-native';
-import { parse } from 'react-native-svg';
+import { Text, Box, Pressable, HStack, Divider, Center } from 'native-base';
 const _ = require('underscore')
 
 export default function investmentTickerCard() {
@@ -126,97 +125,35 @@ const [user, setUser] = userContext
     setTickerAndPrice(tickerAndPriceArr)
     }
 
-
-    const screenWidth = Dimensions.get('screen').width
-    const screenHeight = Dimensions.get('screen').height
-
-    const styles = StyleSheet.create({
-    wrapper: {
-    flex: 1,
-    flexDirection:'column',
-    width: screenWidth*0.9,
-    backgroundColor: '#D9DFE8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    margin: '3%',
-    shadowColor: "#000",
-    shadowOffset: {
-    width: 2,
-    height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    },
-    infoWrapper:{
-    flex:1,
-    flexDirection:'row',
-    width:screenWidth*0.7,
-    margin:'2%',
-    },
-    tickernamewrapper: {
-    flexDirection:'column',
-    },
-    stockpricewrapper: {
-    flex:2,
-    width:'50%',
-    },
-    ticker:{
-    fontWeight:'bold',
-    },
-    name:{
-    fontSize: 9,
-    },
-    price:{
-    textAlign:'right',
-    },
-    pressableWrapper: {
-    display:'flex',
-    height:'30%',
-    width:'100%',
-    flexDirection:'row',
-    alignItems:'stretch',
-    justifyContent:'center',
-    borderRadius: 5,
-    margin: '5%',
-    },
-    pressable: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius: 5,
-    padding: '2%',
-    marginLeft: '2%',
-    marginRight: '2%',
-    },
-    })
-
-
     const stockCards = tickerAndPrice.map((stock,index)=>{
         return (
-        <View style={styles.wrapper} key={index}>
-            <Pressable onPress={() => {
+        <Box key={index}>
+            <Pressable 
+                onPress={() => {
                 setSelectedTickerAndPrice(stock)
-                navigation.navigate('Show Ticker Page')}}>
-                <View style={styles.infoWrapper}>
-                    <View style={styles.tickernamewrapper}>
-                        <Text style={styles.ticker}>{stock.ticker.toUpperCase()}</Text>
-                        {/* <Text style={styles.name}>{stock.name}</Text> */}
-                    </View>
-                    <View style={styles.stockpricewrapper}>
-                         <Text style={styles.price}>$ {stock.prettifiedValue}</Text>
-                    </View>
-                </View>
+                navigation.navigate('Transactions')}}
+            >
+                <HStack justifyContent="space-between" py="4" mx="7">
+                    <Box>
+                        <Text fontWeight="bold">{stock.ticker.toUpperCase()}</Text>
+                        {/* <Text>{stock.name}</Text> */}
+                    </Box>
+                    <Box>
+                         <Text >$ {stock.prettifiedValue}</Text>
+                    </Box>
+                </HStack>
             </Pressable>
-        </View>
+            {index!=tickerAndPrice.length-1?<Divider/>:<Box/>}
+        </Box>
         )
     })
     
     return (
-    <>
+    tickerAndPrice.length>0?
+    <Box borderWidth={1} borderColor="coolGray.300" borderRadius={15}>
       {stockCards}
-    </>
+    </Box>
+    :<Center><Text>No entries yet</Text></Center>
     )
   }
   

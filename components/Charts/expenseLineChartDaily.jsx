@@ -92,7 +92,7 @@ const numberWithCommas = (num) => {
 return (
       <LineChart
           data={linedata}
-          width={screenWidth}
+          width={screenWidth *0.95}
           height={screenHeight*0.25}
           chartConfig={chartConfig}
           bezier

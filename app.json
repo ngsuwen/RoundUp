@@ -20,13 +20,14 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ga.roundup",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/arrow.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/rounduplogo.png"
     },
     "description": "RoundUp is a finance app that tracks your savings, expenses and investments all in one app."
   }

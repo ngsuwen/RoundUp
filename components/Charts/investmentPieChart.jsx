@@ -50,8 +50,8 @@ const reloadExpenses = () => {
   if(totalAmountArr.length>0){
     setDataPoints(totalAmountArr)
   }else{
-    setDataPoints([0])
-    setAllLabels(['Loading...'])
+    setDataPoints([100])
+    setAllLabels([''])
   }
   }
 
@@ -102,7 +102,7 @@ const reloadExpenses = () => {
         <PieChart
             data={chartData}
             width={screenWidth}
-            height={screenHeight*0.2}
+            height={screenHeight*0.25}
             chartConfig={chartConfig}
             accessor="population"
             backgroundColor="transparent"
