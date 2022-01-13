@@ -55,8 +55,8 @@ const EntryInvestmentPage = ({ navigation }) => {
     setFilterTextCrypto,
     filterTextStock,
     setFilterTextStock,
-    filteredItemsCrypto,
-    filteredItemsStock,
+    // filteredItemsCrypto,
+    // filteredItemsStock,
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;

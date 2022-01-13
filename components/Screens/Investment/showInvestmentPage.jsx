@@ -28,7 +28,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
          stock,setStock,
          filterTextCrypto,setFilterTextCrypto,
          filterTextStock,setFilterTextStock,
-         filteredItemsCrypto,filteredItemsStock,
+        //  filteredItemsCrypto,filteredItemsStock,
         ] = investmentEntryContext
 
   const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
