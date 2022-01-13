@@ -15,19 +15,12 @@ import moment from "moment";
 const _ = require("underscore");
 
 export default function tickerDataCard() {
-  const {
-    investmentContext,
-    userContext,
-    investmentTickerContext,
-    tickerAndPriceContext,
-    selectedTickerAndPriceContext,
-  } = useContext(DataContext);
-  const [fetchedInvestmentEntries, setFetchedInvestmentEntries] =
-    investmentContext;
+  const { investmentContext,userContext,investmentTickerContext,tickerAndPriceContext,selectedTickerAndPriceContext,investmentAccordionForceRenderContext} = useContext(DataContext);
+  const [fetchedInvestmentEntries, setFetchedInvestmentEntries] = investmentContext;
   const [tickerAndPrice, setTickerAndPrice] = tickerAndPriceContext;
-  const [selectedTickerAndPrice, setSelectedTickerAndPrice] =
-    selectedTickerAndPriceContext;
+  const [selectedTickerAndPrice, setSelectedTickerAndPrice] = selectedTickerAndPriceContext;
   const [tickerData, setTickerData] = investmentTickerContext;
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext;
   const [user, setUser] = userContext;
 
   const RenderTickerCardData = () => {
@@ -138,7 +131,7 @@ export default function tickerDataCard() {
       // console.log('tickercard data rendered')
     });
     return resetPage;
-  }, [selectedTickerAndPrice]);
+  }, [fetchedInvestmentEntries]);
 
   return (
     <Box height="40%" justifyContent="center" mx={25}>
