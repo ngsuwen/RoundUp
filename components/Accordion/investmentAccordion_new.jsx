@@ -76,7 +76,7 @@ useEffect(()=>{
   reloadInvestments()
     })
   return resetPage
-},[fetchedInvestmentEntries,investmentAccordionForceRender])
+},[fetchedInvestmentEntries])
 
 const navigation = useNavigation()
 

@@ -16,7 +16,7 @@ import ShowPageCard from "../../Cards/showPageCard";
 
 const ShowInvestmentPage = ({ navigation, route }) => {
   // useContext
-  const { expenseForceRenderContext, investmentEntryContext } = useContext(DataContext);
+  const { expenseForceRenderContext, investmentEntryContext,investmentAccordionForceRenderContext } = useContext(DataContext);
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
   const [dateInvestment,setDateInvestment,
          priceInvestment,setPriceInvestment,
@@ -30,6 +30,8 @@ const ShowInvestmentPage = ({ navigation, route }) => {
          filterTextStock,setFilterTextStock,
          filteredItemsCrypto,filteredItemsStock,
         ] = investmentEntryContext
+
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
 
   const {entry} = route.params;
 
@@ -50,7 +52,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
       return;
     }
 
-    setExpenseForceRender(!expenseForceRender)
+    setInvestmentAccordionForceRender(!investmentAccordionForceRender)
     navigation.navigate("Investment");
   };
 

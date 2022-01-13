@@ -30,9 +30,10 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const { entry } = route.params;
 
   // useContext
-  const { userContext, investmentEntryContext, expenseForceRenderContext } =
+  const { userContext, investmentEntryContext, expenseForceRenderContext,investmentAccordionForceRenderContext } =
     React.useContext(DataContext);
   const [userId, setUserId] = userContext;
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
 
   const [
     dateInvestment,
@@ -215,7 +216,13 @@ const EditInvestmentPage = ({ navigation, route }) => {
      
 
       const data = await res.json();
+
+      setInvestmentAccordionForceRender(!investmentAccordionForceRender)
+      console.log('investmentaccordionforcerenderstate:',investmentAccordionForceRender)
+      console.log('edit investment page force render')
+
       // pass the data into params entry so that showpage will show latest updated data
+
       navigation.navigate("Show Investment Page", { entry: data });
     } catch (err) {
       console.log(err);

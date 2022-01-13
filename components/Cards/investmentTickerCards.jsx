@@ -9,20 +9,23 @@ export default function investmentTickerCard() {
 
 const navigation = useNavigation()
 
-const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData, investmentTickerContext,selectedTickerAndPriceContext} = useContext(DataContext)
+const { investmentContext, userContext, tickerAndPriceContext,investmentGPContext,investmentContextRawData, investmentAccordionForceRenderContext, investmentTickerContext,selectedTickerAndPriceContext} = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [fetchedInvestmentEntriesRawData,setFetchedInvestmentEntriesRawData] = investmentContextRawData
 const [tickerAndPrice,setTickerAndPrice] = tickerAndPriceContext
 const [selectedTickerAndPrice,setSelectedTickerAndPrice] = selectedTickerAndPriceContext
+const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
 const [user, setUser] = userContext
 
 
     useEffect(()=>{
-    const resetPage = navigation.addListener("focus", ()=>{
+    // const resetPage = navigation.addListener("focus", ()=>{
         fetchInvestments()
-        })
-        return resetPage
-    },[])
+        console.log('fetchinvestments rendered')
+        return // unmounting so when page is focused on investmenttickercards page it refreshes and refetch data... else it wont refresh as component is already mounted and useEffect will not work.
+        // })
+        // return resetPage
+    },[investmentAccordionForceRender])
 
     const fetchInvestments = async () => {
         const userid = user

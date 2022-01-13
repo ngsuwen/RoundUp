@@ -30,9 +30,10 @@ import {
 
 const EntryInvestmentPage = ({ navigation }) => {
   // useContext
-  const { userContext, investmentEntryContext, expenseForceRenderContext } =
+  const { userContext, investmentEntryContext, expenseForceRenderContext, investmentAccordionForceRenderContext} =
     useContext(DataContext);
   const [userId, setUserId] = userContext;
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
   const [
     dateInvestment,
     setDateInvestment,
@@ -65,7 +66,7 @@ const EntryInvestmentPage = ({ navigation }) => {
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
   const [inputCryptoItems, setInputCryptoItems] = useState(['btc','eth','luna']);
-  const [inputStockItems, setInputStockItems] = useState(['tsla','googl','sq']);
+  const [inputStockItems, setInputStockItems] = useState(['TSLA','GOOG','SQ']);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState();
 
@@ -218,8 +219,7 @@ const EntryInvestmentPage = ({ navigation }) => {
           return navigation.navigate("Entry Investment Page");
         }
       }
-      
-      setExpenseForceRender(!expenseForceRender);
+      setInvestmentAccordionForceRender(!investmentAccordionForceRender)
 
      
     } catch (err) {

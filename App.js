@@ -46,6 +46,7 @@ function App() {
   const [stock, setStock] = useState([])
   const [filterTextCrypto, setFilterTextCrypto] = useState("");
   const [filterTextStock, setFilterTextStock] = useState("");
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = useState(false)
 
   // filtered for coin
   const filteredItemsCrypto = useMemo(() => {
@@ -118,6 +119,7 @@ useEffect(()=>{
   // forcerender for update routes
   const [expenseForceRender, setExpenseForceRender] = useState(false);
   const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
+  
 
   // check storage for tokens upon opening app
   useEffect(async () => {
@@ -279,6 +281,7 @@ useEffect(()=>{
             setFetchedInvestmentEntriesRawData,
           ],
           selectedTickerAndPriceContext:[selectedTickerAndPrice,setSelectedTickerAndPrice],
+          investmentAccordionForceRenderContext: [investmentAccordionForceRender,setInvestmentAccordionForceRender],
         }}
       >
         <StackNavigator />
