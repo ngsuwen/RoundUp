@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, Box, Pressable, HStack, Divider, Center } from 'native-base';
 const _ = require('underscore')
 
-export default function investmentTickerCard() {
+export default function investmentTickerCard({isFilteredByCrypto, isFilteredByStocks}) {
 
 const navigation = useNavigation()
 
@@ -19,9 +19,9 @@ const [user, setUser] = userContext
 
     useEffect(()=>{
         fetchInvestments()
-        console.log('fetchinvestments rendered')
+        // console.log('fetchinvestments rendered')
         return // unmounting so when page is focused on investmenttickercards page it refreshes and refetch data... else it wont refresh as component is already mounted and useEffect will not work.
-    },[investmentAccordionForceRender])
+    },[investmentAccordionForceRender, isFilteredByCrypto, isFilteredByStocks])
 
     const fetchInvestments = async () => {
         const userid = user
@@ -75,7 +75,7 @@ const [user, setUser] = userContext
         }
 
         const priceFetcher = async () => {
-            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='US stocks'){
+            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='US stocks' && isFilteredByStocks){
                 const stockprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/stocks/${ticker}/current`)
                 const parsedStockPriceObj = await stockprice.json()
                 if(parsedStockPriceObj['value']>=1){
@@ -93,7 +93,7 @@ const [user, setUser] = userContext
                 return parsedStockPriceObj
             }
             
-            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto'){
+            if(entriesByTicker[ticker][0]['investmentsentry']['category']==='Crypto' && isFilteredByCrypto){
                 const cryptoprice = await fetch(`https://roundup-api.herokuapp.com/data/investment/crypto/${ticker}/current`)
                 const parsedCryptoPriceObj = await cryptoprice.json()
                 if(parsedCryptoPriceObj['value']>=1){
@@ -115,7 +115,7 @@ const [user, setUser] = userContext
 
         const fetchedPrice = await priceFetcher()
         // console.log('fetchedprice:',fetchedPrice)
-        tickerAndPriceArr.push(fetchedPrice)
+        fetchedPrice?tickerAndPriceArr.push(fetchedPrice):""
        
         }
 

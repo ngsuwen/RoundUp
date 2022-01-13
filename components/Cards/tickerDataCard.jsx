@@ -136,7 +136,7 @@ export default function tickerDataCard() {
   return (
     <Box height="40%" justifyContent="center" mx={25}>
       <Box borderColor="coolGray.300" borderWidth={1} mx={2} mb={1} borderRadius={10} p={5}>
-        <Text fontWeight="bold" pb={2}>{tickerData.ticker}</Text>
+        <Text fontWeight="bold" textTransform={"uppercase"} pb={2}>{tickerData.ticker}</Text>
         <Text>Current Price: ${tickerData.currentPrice}</Text>
         <Text>Cost Basis: ${tickerData.costBasis}</Text>
         <Text>Quantity: {tickerData.currentStockQty} units</Text>

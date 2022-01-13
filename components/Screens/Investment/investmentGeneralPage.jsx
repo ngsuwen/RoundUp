@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { NativeBaseProvider, View, Box, Button, Center, VStack, Text } from "native-base";
 import { Dimensions, ScrollView } from "react-native";
 import Carousel from "pinar";
@@ -9,6 +9,10 @@ import DataContext from "../../../context/DataContext";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function GeneralBreakdownPage({navigation}) {
+  // filter state
+  const [ isFilteredByCrypto, setIsFilteredByCrypto ] = React.useState(true)
+  const [ isFilteredByStocks, setIsFilteredByStocks ] = React.useState(true)
+
   const { userRoleContext } = React.useContext(DataContext);
   const [userRole, setUserRole] = userRoleContext;
 
@@ -76,16 +80,18 @@ export default function GeneralBreakdownPage({navigation}) {
           <Center>
             <Button.Group>
               <Button
-                variant="outline"
+                variant={isFilteredByStocks?"outline":"subtle"}
+                _text={{color:isFilteredByStocks?"coolGray.500":"coolGray.300"}}
                 colorScheme="light"
-                onPress={() => console.log("add toggle")}
+                onPress={() => setIsFilteredByStocks(!isFilteredByStocks)}
               >
                 Stocks
               </Button>
               <Button
-                variant="outline"
+                variant={isFilteredByCrypto?"outline":"subtle"}
+                _text={{color:isFilteredByCrypto?"coolGray.500":"coolGray.300"}}
                 colorScheme="light"
-                onPress={() => console.log("add toggle")}
+                onPress={() => setIsFilteredByCrypto(!isFilteredByCrypto)}
               >
                 Crypto
               </Button>
@@ -104,7 +110,7 @@ export default function GeneralBreakdownPage({navigation}) {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
           >
-            <InvestmentTickerCards />
+            <InvestmentTickerCards isFilteredByCrypto={isFilteredByCrypto} isFilteredByStocks={isFilteredByStocks}/>
           </ScrollView>
         </Box>
       </Box>}

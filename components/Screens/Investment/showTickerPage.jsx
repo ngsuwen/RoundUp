@@ -1,21 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import * as React from "react";
 import {
   StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
   Dimensions,
-  ScrollView,
 } from "react-native";
 import { NativeBaseProvider, Box, Button, Center } from "native-base";
-import Carousel from "pinar";
-import ExpenseLineChartComponent from "../../Charts/expenseLineChart";
 import TickerDataCard from "../../Cards/tickerDataCard";
 import AccordionList from "../../Accordion/investmentAccordion";
-import MonthSelector from "../../Picker/monthPicker";
-import yearlyInvestment from "../../api/yearlyInvestment";
 
 export default function TickerBreakdownPage({ navigation }) {
   const screenWidth = Dimensions.get("screen").width;
@@ -91,7 +81,7 @@ export default function TickerBreakdownPage({ navigation }) {
                 colorScheme="light"
                 onPress={() => navigation.navigate("Entry Investment Page")}
               >
-                Add Entry
+                Add Investment
               </Button>
             </Button.Group>
           </Center>

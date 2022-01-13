@@ -69,7 +69,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
   const [inputCryptoItems, setInputCryptoItems] = React.useState(['btc','eth','luna']);
-  const [inputStockItems, setInputStockItems] = React.useState(['tsla','googl','sq']);
+  const [inputStockItems, setInputStockItems] = React.useState(['TSLA','GOOGL','SQ']);
   const [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState();
 
