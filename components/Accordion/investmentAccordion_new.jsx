@@ -62,7 +62,7 @@ const formattedGroupedDate = moment(groupedDate, moment.ISO_8601).format('YYYY-M
 return formattedGroupedDate
 })
 setEntriesByDayArr(entriesByDay)
-console.log('ACCORDION state:',entriesByDayArr)
+// console.log('ACCORDION state:',entriesByDayArr)
 
 
 // sorting the dates by lastest first (at the top)

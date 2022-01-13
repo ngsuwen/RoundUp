@@ -18,12 +18,9 @@ const [user, setUser] = userContext
 
 
     useEffect(()=>{
-    // const resetPage = navigation.addListener("focus", ()=>{
         fetchInvestments()
         console.log('fetchinvestments rendered')
         return // unmounting so when page is focused on investmenttickercards page it refreshes and refetch data... else it wont refresh as component is already mounted and useEffect will not work.
-        // })
-        // return resetPage
     },[investmentAccordionForceRender])
 
     const fetchInvestments = async () => {
@@ -45,6 +42,7 @@ const [user, setUser] = userContext
     const fetchStockPrice = async (entriesByTicker) => { 
 
     const allTickerList = Object.keys(entriesByTicker).sort()
+
     // console.log('tickerlist:',tickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
 
     // need to filter out stocks/crypto with 0 qty so we don't track prices for those 
@@ -136,7 +134,6 @@ const [user, setUser] = userContext
                 <HStack justifyContent="space-between" py="4" mx="7">
                     <Box>
                         <Text fontWeight="bold">{stock.ticker.toUpperCase()}</Text>
-                        {/* <Text>{stock.name}</Text> */}
                     </Box>
                     <Box>
                          <Text >$ {stock.prettifiedValue}</Text>

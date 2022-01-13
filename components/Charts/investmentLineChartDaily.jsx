@@ -31,57 +31,44 @@ const reloadExpenses = () => {
   // calculating total amount of everything (stocks and crypto combined)
 
 
-   // setting up arr of obj for y-axis data to be matched and injected 
-   const yAxisDataArr = allLabels.map(date=>{
-    return {
-      'date':date,
-      'totalAmount':0
-    }
-    })
+ 
 
-  // have to make sure there's pricehistory for the txn you're getting as priceHistory will be empty for newly added entries
-  for(let i = 0;i < tickerList.length;i++){
-    const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('DD-MMM')) // index 0 of the first ticker as that will give the longest date data point
-    // console.log('datedatapoints:',dateDataPoints)
-    // set x-axis
-    setAllLabels(dateDataPoints)
-    
-    // console.log('yaxisdatarr:',yAxisDataArr)
+   const dateDataPoints = fetchedInvestmentEntries[tickerList[0]][0]['priceHistory'].slice(-7).map(priceHistoryDataPoint => moment(priceHistoryDataPoint['date']).format('DD-MMM')) // index 0 of the first ticker as that will give the longest date data point
+   // console.log('datedatapoints:',dateDataPoints)
+   // set x-axis
+   setAllLabels(dateDataPoints)
    
+    // setting up arr of obj for y-axis data to be matched and injected 
+    let yAxisDataArr = []
+
+   for(let date of dateDataPoints){
+   yAxisDataArr.push({
+     date,
+     'totalAmount':0
+    })
+   }
+
+  //  console.log('yaxisdatarr:',yAxisDataArr)
+
+  for(let i = 0;i < tickerList.length;i++){
     // need to get qty * price for the last 7 days to calculate totalstocksandcryptoamount
 
-    fetchedInvestmentEntries[tickerList[i]][0]['priceHistory'].slice(-7).forEach((priceHistoryEntryForOneDay,index)=>{
-      // reusing the same transaction from above i and j nested loop as we need just one txn. for each day of the txn. 
-      // console.log('priceHistoryEntry:',priceHistoryEntry) // contains date,price,quantity for one particular date
-      // console.log('ticker data 2:',tickerList[i], 'total amount:',priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity)
-      // totalStocksAndCryptoAmountForOneDay += priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity // calculating and adding the total stock/crypto amount for that one day for this stock. Entire loop will add all stocks/crypto into totalStocksAndCryptoAmountForOneDay. 
-      // console.log('totalbeforerounding:',totalStocksAndCryptoAmountForOneDay)
-      // console.log(`
-      // ticker: ${tickerList[i]},
-      // date: ${moment(priceHistoryEntryForOneDay['date']).format('MM:SS')},
-      // amount: ${priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity}
-      // `)
-      // console.log('totalafterrounding:',Math.round(totalStocksAndCryptoAmountForOneDay))
-
+    fetchedInvestmentEntries[tickerList[i]][0]['priceHistory'].slice(-7).forEach((priceHistoryEntryForOneDay)=>{
       for(let date of yAxisDataArr){
         if(date['date'] == moment(priceHistoryEntryForOneDay['date']).format('DD-MMM')){
-          date['totalAmount'] += priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity
+          date['totalAmount'] += Math.round(priceHistoryEntryForOneDay.price) * priceHistoryEntryForOneDay.quantity
         }
       }
 
-      console.log('yaxisdataarr:',yAxisDataArr)
+      // console.log('yaxisdataarr:',yAxisDataArr)
 
-      // yAxisDataArr.forEach(date=>{
-      //   console.log('x-axis date:',date['date'],'y-axis date:',moment(priceHistoryEntryForOneDay['date']).format('DD-MMM'))
-      // })
+      // filtering out y-axis data to setstate
+      let dataPointsArr = yAxisDataArr.map((dateAndAmount=>{
+        return dateAndAmount.totalAmount
+      }))
 
-      // yAxisDataArr[] += Math.round(totalSto`cksAndCryptoAmountForOneDay) // for each day of the txn of every ticker, we add it to the respective total amount for that day in yAxisDataArr. Loops thru all the days firstly for each ticker and subsequently for all tickers
-      // console.log('yAXis:',yAxisDataArr)
+      setDataPoints(dataPointsArr)
     })}
-
-  // console.log('yAXis:',yAxisDataArr)
-  setDataPoints(yAxisDataArr)
-  // console.log('datapts:',dataPoints)
 
   }
   catch(err){

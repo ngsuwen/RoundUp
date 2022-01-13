@@ -218,8 +218,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
       const data = await res.json();
 
       setInvestmentAccordionForceRender(!investmentAccordionForceRender)
-      console.log('investmentaccordionforcerenderstate:',investmentAccordionForceRender)
-      console.log('edit investment page force render')
 
       // pass the data into params entry so that showpage will show latest updated data
 
