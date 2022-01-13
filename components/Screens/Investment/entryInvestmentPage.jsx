@@ -226,7 +226,7 @@ const EntryInvestmentPage = ({ navigation }) => {
       console.log(err);
     }
 
-    navigation.navigate("Investment GP");
+    navigation.navigate("Investment");
   };
   return (
     <NativeBaseProvider>
@@ -241,7 +241,7 @@ const EntryInvestmentPage = ({ navigation }) => {
           <View width="90%" paddingRight={5} alignItems="flex-end">
             <Pressable
               onPress={() => {
-                navigation.navigate("Investment GP");
+                navigation.navigate("Investment");
               }}
             >
               <Entypo name="cross" size={24} color="black" />

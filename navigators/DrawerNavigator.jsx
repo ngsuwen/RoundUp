@@ -87,17 +87,12 @@ export default function App({ navigation }) {
       <Drawer.Screen name="About" component={About} />
       <Drawer.Screen name="Money In" component={cashGeneralPage} />
       <Drawer.Screen name="Money Out" component={expenseGeneralPage} />
-      <Drawer.Screen name="Investment GP" component={investmentGeneralPage} />
+      <Drawer.Screen name="Investment" component={investmentGeneralPage} />
 
-      <Drawer.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
       <Drawer.Screen name="Index Investment Page" component={IndexInvestmentPage}
-        options={{drawerItemStyle: {height: 0}}} />
-      <Drawer.Screen name="Show Investment Page" component={ShowInvestmentPage} 
-        options={{drawerItemStyle: {height: 0}}}/> 
-      <Drawer.Screen name="Edit Investment Page" component={EditInvestmentPage}
-        options={{drawerItemStyle: {height: 0}}} />
+        options={{drawerItemStyle: {display:"none"}}} />
       <Drawer.Screen name="Show Ticker Page" component={ShowTickerPage}
-       options={{drawerItemStyle: {height: 0}}} />
+        options={{drawerItemStyle: {display:"none"}}} />
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );

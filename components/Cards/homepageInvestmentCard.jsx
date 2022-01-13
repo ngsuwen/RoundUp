@@ -69,7 +69,7 @@ export default function homepageCashCard({ navigation, investmentYearlyData }) {
         </Center>
         <HStack mb="2" width="85%" justifyContent="space-between">
           <Text fontWeight="bold">Investment</Text>
-          <Text onPress={() => navigation.navigate("Investment GP")}>
+          <Text onPress={() => navigation.navigate("Investment")}>
             See all <AntDesign name="right" size={14} color="black" />
           </Text>
         </HStack>
