@@ -66,7 +66,7 @@ const EntryInvestmentPage = ({ navigation }) => {
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
   const [inputCryptoItems, setInputCryptoItems] = useState(['btc','eth','luna']);
-  const [inputStockItems, setInputStockItems] = useState(['TSLA','GOOG','SQ']);
+  const [inputStockItems, setInputStockItems] = useState(['TSLA','GOOGL','SQ']);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState();
 
