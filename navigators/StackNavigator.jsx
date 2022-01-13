@@ -11,6 +11,9 @@ import EditExpensePage from "../components/Screens/Expense/editExpensePage";
 import EntryCashPage from "../components/Screens/Cash/entryCashPage";
 import ShowCashPage from "../components/Screens/Cash/showCashPage";
 import EditCashPage from "../components/Screens/Cash/editCashPage";
+import EntryInvestmentPage from "../components/Screens/Investment/entryInvestmentPage";
+import ShowInvestmentPage from "../components/Screens/Investment/showInvestmentPage";
+import EditInvestmentPage from "../components/Screens/Investment/editInvestmentPage";
 import DrawerComponent from "./DrawerNavigator";
 import ShowTickerPage from "../components/Screens/Investment/showTickerPage"
 
@@ -45,7 +48,9 @@ export default function StackNavigator() {
       <Stack.Screen name="Show Cash Page" component={ShowCashPage} />
       <Stack.Screen name="Edit Cash Page" component={EditCashPage} />
 
-
+      <Stack.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
+      <Stack.Screen name="Edit Investment Page" component={EditInvestmentPage} />
+      <Stack.Screen name="Show Investment Page" component={ShowInvestmentPage} /> 
     </Stack.Navigator>
   );
 }

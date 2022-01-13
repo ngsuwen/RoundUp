@@ -51,7 +51,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
     }
 
     setExpenseForceRender(!expenseForceRender)
-    navigation.navigate("Investment GP");
+    navigation.navigate("Investment");
   };
 
   //need this to populate editpage with specified fields

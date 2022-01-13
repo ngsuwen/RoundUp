@@ -65,25 +65,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const autocompleteCryptoList = coin.map((item) => item.symbol);
   const autocompleteStockList = stock.map((item) => item.displaySymbol);
 
-  const [inputCryptoItems, setInputCryptoItems] = React.useState(autocompleteCryptoList);
-  const [inputStockItems, setInputStockItems] = React.useState(autocompleteStockList);
-  
+  const [inputCryptoItems, setInputCryptoItems] = React.useState(['btc','eth','luna']);
+  const [inputStockItems, setInputStockItems] = React.useState(['tsla','googl','sq']);
+  const [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState();
 
   React.useEffect(() => {
-    setInputValue(entry.investmentsentry.ticker);
-  }, [expenseForceRender]);
-
-  const {
-    isOpen,
-    getInputProps,
-    getMenuItemProps,
-    getMenuProps,
-    getToggleButtonProps,
-  } = useTypeahead({
-    items: categoryInvestment === "Crypto" ? inputCryptoItems : inputStockItems,
-    itemToString: (item) => item.toString(),
-  });
+    setInputValue(categoryInvestment === "Crypto"?filterTextCrypto:filterTextStock);
+  }, [expenseForceRender, filterTextStock, filterTextCrypto]);
 
   const textChangeHandler = (text) => {
     categoryInvestment === "Crypto"
@@ -101,6 +90,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
     return;
   };
   
+  const buttonHandler=(text)=>{
+    setInputValue(text)
+    setIsOpen(false)
+    return
+  }
+
   // validation
   const [isPriceValid, setIsPriceValid] = React.useState(true);
   const [isQtyValid, setIsQtyValid] = React.useState(true);
@@ -138,6 +133,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
 
   // to show and hide date picker
   const showDatepicker = () => {
+    setIsOpen(false);
     setShow(true);
   };
 
@@ -149,6 +145,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const [isModalVisibleCat, setIsModalVisibleCat] = React.useState(false);
 
   const changeModalVisibilityCat = (bool) => {
+    setIsOpen(false);
     setIsModalVisibleCat(bool);
   };
 
@@ -161,6 +158,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
     React.useState(false);
 
   const changeModalVisibilityTransaction = (bool) => {
+    setIsOpen(false);
     setIsModalVisibleTransaction(bool);
   };
 
@@ -293,6 +291,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 fontSize="sm"
                 mt="1"
                 color="coolGray.600"
+                placeholder="Enter Ticker"
+                onFocus={()=>setIsOpen(true)}
                 value={inputValue}
                 onChangeText={(text)=>textChangeHandler(text)}
                 w={{
@@ -301,7 +301,6 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 }}
                 InputRightElement={
                   <IconButton
-                    {...getToggleButtonProps()}
                     icon={
                       isOpen ? (
                         <MaterialIcons
@@ -330,16 +329,15 @@ const EditInvestmentPage = ({ navigation, route }) => {
                 borderWidth="1"
                 pb="2"
                 bgColor="muted.50"
-                {...getMenuProps()}
               >
                 <ScrollView>
                   {categoryInvestment === "Crypto"
                     ? inputCryptoItems.map((item, index) => (
                         <Button
                           key={`${item}${index}`}
-                          {...getMenuItemProps(item, index)}
                           bgColor="muted.50"
                           justifyContent="flex-start"
+                          onPress={()=>buttonHandler(item)}
                         >
                           <Text fontSize="sm">{item}</Text>
                         </Button>
@@ -347,9 +345,9 @@ const EditInvestmentPage = ({ navigation, route }) => {
                     : inputStockItems.map((item, index) => (
                         <Button
                           key={`${item}${index}`}
-                          {...getMenuItemProps(item, index)}
                           bgColor="muted.50"
                           justifyContent="flex-start"
+                          onPress={()=>buttonHandler(item)}
                         >
                           <Text fontSize="sm">{item}</Text>
                         </Button>
@@ -394,6 +392,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               mt="1"
               color="coolGray.600"
               value={priceInvestment.toString()}
+              onFocus={()=>setIsOpen(false)}
               onChangeText={(text) => setPriceInvestment(text)}
               onBlur={() => onPriceBlur(priceInvestment)}
             />
@@ -411,6 +410,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
               mt="1"
               color="coolGray.600"
               placeholder="Enter Quantity"
+              onFocus={()=>setIsOpen(false)}
               value={qtyInvestment.toString()}
               onChangeText={(text) => setQtyInvestment(text)}
               onBlur={() => onQtyBlur(qtyInvestment)}
