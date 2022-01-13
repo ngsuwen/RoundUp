@@ -45,9 +45,9 @@ export default function GeneralBreakdownPage({navigation}) {
           <View pl={2.5}>
             <PieChartComponent />
           </View>
-          <View>
+          {/* <View>
             <InvestmentLineChartComponentDaily />
-          </View>
+          </View> */}
         </Carousel>
         <Box height="10%" px={6}>
           <Center>
