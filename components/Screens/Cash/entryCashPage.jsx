@@ -74,7 +74,7 @@ const EntryCashPage = ({ navigation }) => {
     const resetPage = navigation.addListener("focus", () => {
       setDateCash(new Date());
       setAmountCash([]);
-      setCategoryCash("Select Category...");
+      setCategoryCash("Income");
       setDescriptionCash("");
     });
     return resetPage;
