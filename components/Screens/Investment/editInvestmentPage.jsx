@@ -167,14 +167,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setTransaction(option);
   };
 
-  // clear states onload at entryinvestment page
-  React.useEffect(() => {
-    const resetPage = navigation.addListener("focus", () => {
-      setIsPriceValid(true);
-      setIsQtyValid(true);
-    });
-    return resetPage;
-  }, [expenseForceRender]);
+  // // clear states onload at entryinvestment page
+  // React.useEffect(() => {
+  //   const resetPage = navigation.addListener("focus", () => {
+  //     setIsPriceValid(true);
+  //     setIsQtyValid(true);
+  //   });
+  //   return resetPage;
+  // }, [expenseForceRender]);
 
   const handleSubmit = async (investment) => {
     try {
