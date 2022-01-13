@@ -52,13 +52,13 @@ const reloadExpenses = () => {
 
   for(let i = 0;i < tickerList.length;i++){
     // need to get qty * price for the last 7 days to calculate totalstocksandcryptoamount
-
-    fetchedInvestmentEntries[tickerList[i]][0]['priceHistory'].slice(-7).forEach((priceHistoryEntryForOneDay)=>{
+      fetchedInvestmentEntries[tickerList[i]][0]['priceHistory'].slice(-7).forEach((priceHistoryEntryForOneDay)=>{
       for(let date of yAxisDataArr){
         if(date['date'] == moment(priceHistoryEntryForOneDay['date']).format('DD-MMM')){
-          date['totalAmount'] += Math.round(priceHistoryEntryForOneDay.price) * priceHistoryEntryForOneDay.quantity
+          date['totalAmount'] += priceHistoryEntryForOneDay.price * priceHistoryEntryForOneDay.quantity
         }
-      }
+    }})
+    }
 
       // console.log('yaxisdataarr:',yAxisDataArr)
 
@@ -68,8 +68,6 @@ const reloadExpenses = () => {
       }))
 
       setDataPoints(dataPointsArr)
-    })}
-
   }
   catch(err){
     console.log(err)
