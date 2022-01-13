@@ -1,6 +1,5 @@
 import * as React from "react";
 import DataContext from "../../../context/DataContext";
-import { StyleSheet, TextInput, SafeAreaView, Dimensions } from "react-native";
 // import DatePicker from "@react-native-community/datetimepicker";
 import DatePicker from "react-native-neat-date-picker";
 import { ModalCatPicker } from "./modalInvestCatPicker";
@@ -28,6 +27,9 @@ import { ScrollView } from "react-native";
 
 const EditInvestmentPage = ({ navigation, route }) => {
   const { entry } = route.params;
+
+  // click handler loading
+  const [clicked, setClicked] = React.useState(false);
 
   // useContext
   const { userContext, investmentEntryContext, expenseForceRenderContext,investmentAccordionForceRenderContext } =
@@ -207,6 +209,7 @@ const EditInvestmentPage = ({ navigation, route }) => {
         // validation
         if (isPriceValid === false || isQtyValid === false) {
           alert("One of the fields is invalid. Create failed!");
+          setClicked(false);
           return navigation.navigate("Edit Investment Page", { entry: entry });
         }
 
@@ -230,9 +233,10 @@ const EditInvestmentPage = ({ navigation, route }) => {
       setInvestmentAccordionForceRender(!investmentAccordionForceRender)
 
       // pass the data into params entry so that showpage will show latest updated data
-
+      setClicked(false);
       navigation.navigate("Show Investment Page", { entry: data });
     } catch (err) {
+      setClicked(false);
       console.log(err);
     }
   };
@@ -495,6 +499,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
             </Button>
             <Button
               colorScheme="primary"
+              onPressIn={()=>setClicked(true)}
+              isLoading={clicked ? true : false}
               onPress={() => {
                 handleSubmit(entry);
               }}

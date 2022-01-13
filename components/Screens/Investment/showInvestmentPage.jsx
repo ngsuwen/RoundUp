@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from 'moment';
 import {
   Center,
@@ -15,6 +15,10 @@ import { Entypo } from "@expo/vector-icons";
 import ShowPageCard from "../../Cards/showPageCard";
 
 const ShowInvestmentPage = ({ navigation, route }) => {
+
+  // click handler loading
+  const [clicked, setClicked] = useState(false);
+  
   // useContext
   const { expenseForceRenderContext, investmentEntryContext,investmentAccordionForceRenderContext } = useContext(DataContext);
   const [expenseForceRender,setExpenseForceRender] = expenseForceRenderContext
@@ -53,6 +57,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
     }
 
     setInvestmentAccordionForceRender(!investmentAccordionForceRender)
+    setClicked(false);
     navigation.navigate("Investment");
   };
 
@@ -122,7 +127,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
           >
             <Text >Edit</Text>
           </Button>
-          <Button colorScheme="danger" onPress={() => deleteInvestment(entry._id)}>
+          <Button onPressIn={()=>setClicked(true)} isLoading={clicked ? true : false} colorScheme="danger" onPress={() => deleteInvestment(entry._id)}>
           <Text>Delete</Text>
           </Button>
         </Button.Group>

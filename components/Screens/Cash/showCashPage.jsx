@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import moment from "moment";
 import {
   Center,
@@ -14,6 +14,10 @@ import DataContext from "../../../context/DataContext";
 import { Entypo } from "@expo/vector-icons";
 
 const ShowCashPage = ({ navigation, route }) => {
+
+  // click handler loading
+  const [clicked, setClicked] = useState(false);
+  
   // useContext
   const { cashContext, expenseForceRenderContext, cashEntryContext } =
     useContext(DataContext);
@@ -53,6 +57,7 @@ const ShowCashPage = ({ navigation, route }) => {
 
     //reloadCash();
     setExpenseForceRender(!expenseForceRender);
+    setClicked(false);
     navigation.navigate("Money In");
   };
 
@@ -105,7 +110,7 @@ const ShowCashPage = ({ navigation, route }) => {
           >
             <Text >Edit</Text>
           </Button>
-          <Button colorScheme="danger" onPress={() => deleteCash(entry._id)}>
+          <Button onPressIn={()=>setClicked(true)} isLoading={clicked ? true : false} colorScheme="danger" onPress={() => deleteCash(entry._id)}>
           <Text>Delete</Text>
           </Button>
         </Button.Group>

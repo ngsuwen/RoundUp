@@ -19,6 +19,10 @@ import { Entypo } from "@expo/vector-icons";
 import moment from "moment";
 
 const EntryCashPage = ({ navigation }) => {
+
+  // click handler loading
+  const [clicked, setClicked] = useState(false);
+
   // useContext
   const { userContext, cashEntryContext, expenseForceRenderContext } =
     useContext(DataContext);
@@ -120,11 +124,13 @@ const EntryCashPage = ({ navigation }) => {
         // validation
         if (isAmountValid === false){
           alert("One of the fields is invalid. Create failed!")
+          setClicked(false);
           return navigation.navigate("Add Money In")
         }
       // no field validation error
       if (amountCash.length < 1 || descriptionCash.length < 1 ){
         alert("One of the fields is empty. Create failed!")
+        setClicked(false);
         return navigation.navigate("Add Money In")
       }
       }
@@ -134,7 +140,7 @@ const EntryCashPage = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
-
+    setClicked(false);
     navigation.navigate("Money In");
   };
   return (
@@ -255,6 +261,8 @@ const EntryCashPage = ({ navigation }) => {
             variant="outline"
             bgColor="white"
             colorScheme="light"
+            onPressIn={()=>setClicked(true)} 
+            isLoading={clicked ? true : false}
             onPress={handleSubmit}
             mt="5"
           >

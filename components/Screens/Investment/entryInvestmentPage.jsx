@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DataContext from "../../../context/DataContext";
 import DatePicker from "react-native-neat-date-picker";
 // import DatePicker from "@react-native-community/datetimepicker"
@@ -13,9 +12,6 @@ import {
   NativeBaseProvider,
   KeyboardAvoidingView,
   Input,
-  useTypeahead,
-  Typeahead,
-  Icon,
   IconButton,
   Center,
   Box,
@@ -25,7 +21,6 @@ import {
   Pressable,
   Text,
   View,
-  Divider,
 } from "native-base";
 
 const EntryInvestmentPage = ({ navigation }) => {
@@ -60,6 +55,9 @@ const EntryInvestmentPage = ({ navigation }) => {
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
+
+  // click handler loading
+  const [clicked, setClicked] = useState(false);
 
   // autocomplete
   const autocompleteCryptoList = coin.map((item) => item.symbol);
@@ -212,26 +210,28 @@ const EntryInvestmentPage = ({ navigation }) => {
         // validation
         if (isPriceValid === false || isQtyValid === false) {
           alert("One of the fields is invalid. Create failed!");
+          setClicked(false);
           return navigation.navigate("Entry Investment Page");
         }
         // no field validation error not working
         if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
           alert("One of the fields is empty. Create failed!");
+          setClicked(false);
           return navigation.navigate("Entry Investment Page");
         }
 
         if (!inputValue){
           alert("Ticker field is empty. Create failed!");
+          setClicked(false);
           return navigation.navigate("Entry Investment Page");
         }
       }
       setInvestmentAccordionForceRender(!investmentAccordionForceRender)
-
      
     } catch (err) {
       console.log(err);
     }
-
+    setClicked(false);
     navigation.navigate("Investment");
   };
   return (
@@ -498,7 +498,9 @@ const EntryInvestmentPage = ({ navigation }) => {
             variant="outline"
             bgColor="white"
             colorScheme="light"
+            onPressIn={()=>setClicked(true)}
             onPress={handleSubmit}
+            isLoading={clicked ? true : false}
             mt="5"
           >
             <Text>Add Investment</Text>

@@ -19,6 +19,9 @@ import moment from "moment";
 const EditCashPage = ({ navigation, route }) => {
   const { entry } = route.params;
 
+  // click handler loading
+  const [clicked, setClicked] = React.useState(false);
+
   // useContext
   const { userContext, cashEntryContext, expenseForceRenderContext } =
     React.useContext(DataContext);
@@ -104,6 +107,7 @@ const EditCashPage = ({ navigation, route }) => {
         // validation
         if (isAmountValid === false){
           alert("One of the fields is invalid. Create failed!")
+          setClicked(false);
           return navigation.navigate("Edit Cash Page", {entry: entry})
         }
         
@@ -117,8 +121,10 @@ const EditCashPage = ({ navigation, route }) => {
 
       const data = await res.json();
       // pass the data into params entry so that showpage will show latest updated data
+      setClicked(false);
       navigation.navigate("Show Cash Page", { entry: data });
     } catch (err) {
+      setClicked(false);
       console.log(err);
     }
   };
@@ -255,6 +261,8 @@ const EditCashPage = ({ navigation, route }) => {
             </Button>
             <Button
               colorScheme="primary"
+              onPressIn={()=>setClicked(true)} 
+              isLoading={clicked ? true : false}
               onPress={() => {
                 handleSubmit(entry);
               }}
