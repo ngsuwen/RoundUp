@@ -56,8 +56,8 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setFilterTextCrypto,
     filterTextStock,
     setFilterTextStock,
-    filteredItemsCrypto,
-    filteredItemsStock,
+    // filteredItemsCrypto,
+    // filteredItemsStock,
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
@@ -71,9 +71,12 @@ const EditInvestmentPage = ({ navigation, route }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState();
 
+  // need useEffect to auto-populate correct ticker field in edit which follows showpage
   React.useEffect(() => {
-    setInputValue(categoryInvestment === "Crypto"?filterTextCrypto:filterTextStock);
+    setInputValue(categoryInvestment === "Crypto" ? filterTextCrypto : filterTextStock);
   }, [expenseForceRender, filterTextStock, filterTextCrypto]);
+
+
 
   const textChangeHandler = (text) => {
     categoryInvestment === "Crypto"
@@ -167,14 +170,14 @@ const EditInvestmentPage = ({ navigation, route }) => {
     setTransaction(option);
   };
 
-  // clear states onload at entryinvestment page
-  React.useEffect(() => {
-    const resetPage = navigation.addListener("focus", () => {
-      setIsPriceValid(true);
-      setIsQtyValid(true);
-    });
-    return resetPage;
-  }, [expenseForceRender]);
+  // // clear states onload at entryinvestment page
+  // React.useEffect(() => {
+  //   const resetPage = navigation.addListener("focus", () => {
+  //     setIsPriceValid(true);
+  //     setIsQtyValid(true);
+  //   });
+  //   return resetPage;
+  // }, [expenseForceRender]);
 
   const handleSubmit = async (investment) => {
     try {

@@ -55,8 +55,8 @@ const EntryInvestmentPage = ({ navigation }) => {
     setFilterTextCrypto,
     filterTextStock,
     setFilterTextStock,
-    filteredItemsCrypto,
-    filteredItemsStock,
+    // filteredItemsCrypto,
+    // filteredItemsStock,
   ] = investmentEntryContext;
 
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
@@ -169,7 +169,7 @@ const EntryInvestmentPage = ({ navigation }) => {
       setPriceInvestment([]);
       setCategoryInvestment("Crypto");
       setQtyInvestment([]);
-      setTransaction("Select Buy or Sell...");
+      setTransaction("Buy");
       setFilterTextCrypto("");
       setFilterTextStock("");
       setIsPriceValid(true);
@@ -197,7 +197,7 @@ const EntryInvestmentPage = ({ navigation }) => {
               //   categoryInvestment === "Crypto"
               //     ? inputCryptoItems[0]
               //     : inputStockItems[0],
-              ticker: inputValue,
+              ticker: inputValue, // inputValue contains the ticker
               quantity: qtyInvestment,
               transaction: transaction,
             },
@@ -217,6 +217,11 @@ const EntryInvestmentPage = ({ navigation }) => {
         // no field validation error not working
         if (priceInvestment.length < 1 || qtyInvestment.length < 1) {
           alert("One of the fields is empty. Create failed!");
+          return navigation.navigate("Entry Investment Page");
+        }
+
+        if (!inputValue){
+          alert("Ticker field is empty. Create failed!");
           return navigation.navigate("Entry Investment Page");
         }
       }
@@ -309,16 +314,16 @@ const EntryInvestmentPage = ({ navigation }) => {
                 mt="1"
                 color="coolGray.600"
                 placeholder="Enter Ticker"
-                onFocus={()=>setIsOpen(true)}
+                onFocus={()=>setIsOpen(true)} //will automatically dropdown the suggestions upon clicking input field
                 value={inputValue}
                 onChangeText={(text)=>textChangeHandler(text)}
                 w={{
                   base: "100%",
                   md: "25%",
                 }}
-                InputRightElement={
+                InputRightElement={ // this is for the arrow button up and down
                   <IconButton
-                    onPress={()=>setIsOpen(!isOpen)}
+                    onPress={()=>setIsOpen(!isOpen)} // will toggle open and close suggestions
                     icon={
                       isOpen ? (
                         <MaterialIcons
@@ -337,7 +342,7 @@ const EntryInvestmentPage = ({ navigation }) => {
                   />
                 }
               />
-            </Box>
+            </Box> 
             {isOpen && (
               <Box
                 width="100%"
@@ -348,7 +353,8 @@ const EntryInvestmentPage = ({ navigation }) => {
                 pb="2"
                 bgColor="muted.50"
               >
-                <ScrollView>
+              {/* This here creates the dropdown suggestions */}
+                <ScrollView>  
                   {categoryInvestment === "Crypto" ?
                   inputCryptoItems.map((item, index) => (
                     <Button

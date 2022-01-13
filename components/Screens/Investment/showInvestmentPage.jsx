@@ -28,7 +28,7 @@ const ShowInvestmentPage = ({ navigation, route }) => {
          stock,setStock,
          filterTextCrypto,setFilterTextCrypto,
          filterTextStock,setFilterTextStock,
-         filteredItemsCrypto,filteredItemsStock,
+        //  filteredItemsCrypto,filteredItemsStock,
         ] = investmentEntryContext
 
   const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
@@ -93,6 +93,10 @@ const ShowInvestmentPage = ({ navigation, route }) => {
             <Entypo name="cross" size={24} color="black" />
           </Pressable>
        </View>
+       <ShowPageCard heading="Category" body={entry.investmentsentry.category} />
+      <Divider width="80%"/>
+      <ShowPageCard heading="Ticker" body={entry.investmentsentry.ticker} />
+      <Divider width="80%"/>
        <ShowPageCard heading="Date" body={formattedDate} />
        <Divider width="80%"/>
        <ShowPageCard
@@ -107,11 +111,8 @@ const ShowInvestmentPage = ({ navigation, route }) => {
       <Divider width="80%"/>
       <ShowPageCard heading="Transaction" body={entry.investmentsentry.transaction} />
       <Divider width="80%"/>
-      <Divider width="80%"/>
-      <ShowPageCard heading="Category" body={entry.investmentsentry.category} />
-      <Divider width="80%"/>
-      <ShowPageCard heading="Ticker" body={entry.investmentsentry.ticker} />
-
+      
+      
       <Button.Group size="sm" mt="5">
           <Button
             variant="outline"

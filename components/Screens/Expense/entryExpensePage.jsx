@@ -72,7 +72,7 @@ const EntryExpensePage = ({ navigation }) => {
     const resetPage = navigation.addListener("focus", () => {
       setDate(new Date());
       setAmount([]);
-      setCategory("Select Category...");
+      setCategory("Shopping");
       setDescription("");
     });
     return resetPage;

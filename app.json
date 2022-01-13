@@ -18,7 +18,7 @@
       "package": "com.ga.roundup",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/arrow.png",
+        "foregroundImage": "./assets/rounduplogo.png",
         "backgroundColor": "#FFFFFF"
       }
     },

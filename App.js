@@ -48,21 +48,23 @@ function App() {
   const [filterTextStock, setFilterTextStock] = useState("");
   const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = useState(false)
 
-  // filtered for coin
-  const filteredItemsCrypto = useMemo(() => {
-    return coin.filter(
-      (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
-    );
+  // // filtered for coin
+  // const filteredItemsCrypto = useMemo(() => {
+  //   return coin.filter(
+  //     (item) => item.symbol.toLowerCase().indexOf(filterTextCrypto.toLowerCase()) > -1
+  //   );
     
-  }, [filterTextCrypto]);
+  // }, [filterTextCrypto]);
 
-  // filtered for stock
-  const filteredItemsStock = useMemo(() => {
-    return stock.filter(
-      (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
-    );
+  // // filtered for stock
+  // const filteredItemsStock = useMemo(() => {
+  //   return stock.filter(
+  //     (item) => item.displaySymbol.toLowerCase().indexOf(filterTextStock.toLowerCase()) > -1
+  //   );
     
-  }, [filterTextStock]);
+  // }, [filterTextStock]);
+
+ 
 
 //fetch crypto for ticker
 useEffect(()=>{
@@ -262,8 +264,8 @@ useEffect(()=>{
             setFilterTextCrypto,
             filterTextStock,
             setFilterTextStock,
-            filteredItemsCrypto,
-            filteredItemsStock,
+            // filteredItemsCrypto,
+            // filteredItemsStock,
           ],
           investmentQContext: [allInvestment],
           userContext: [user, setUser],

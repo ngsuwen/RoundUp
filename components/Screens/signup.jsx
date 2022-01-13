@@ -116,7 +116,7 @@ export default function LoginPage({ navigation }) {
             }}
           >
             <Center>
-              <Image source={require("../../assets/rounduplogo.png")} />
+              <Image source={require("../../assets/rounduplogo.png")} style={{height:128,width:128}} />
               <Heading mb="5">Round Up</Heading>
               <Text color={"red.600"}>
                 {isSignUpValid == "pass"
