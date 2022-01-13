@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import DataContext from '../../context/DataContext';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Box, Pressable, HStack, Divider } from 'native-base';
+import { Text, Box, Pressable, HStack, Divider, Center } from 'native-base';
 const _ = require('underscore')
 
 export default function investmentTickerCard() {
@@ -140,15 +140,17 @@ const [user, setUser] = userContext
                     </Box>
                 </HStack>
             </Pressable>
-            {index!=tickerAndPrice.length-1?<Divider/>:""}
+            {index!=tickerAndPrice.length-1?<Divider/>:<Box/>}
         </Box>
         )
     })
     
     return (
+    tickerAndPrice.length>0?
     <Box borderWidth={1} borderColor="coolGray.300" borderRadius={15}>
       {stockCards}
     </Box>
+    :<Center><Text>No entries yet</Text></Center>
     )
   }
   

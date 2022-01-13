@@ -1,12 +1,17 @@
 import React from "react";
-import { NativeBaseProvider, View, Box, Button, Center } from "native-base";
+import { NativeBaseProvider, View, Box, Button, Center, VStack, Text } from "native-base";
 import { Dimensions, ScrollView } from "react-native";
 import Carousel from "pinar";
 import InvestmentLineChartComponentDaily from "../../Charts/investmentLineChartDaily";
 import PieChartComponent from "../../Charts/investmentPieChart";
 import InvestmentTickerCards from "../../Cards/investmentTickerCards";
+import DataContext from "../../../context/DataContext";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function GeneralBreakdownPage({navigation}) {
+  const { userRoleContext } = React.useContext(DataContext);
+  const [userRole, setUserRole] = userRoleContext;
+
   const screenHeight = Dimensions.get("screen").height;
   const carouselHeight = screenHeight * 0.34;
 
@@ -35,6 +40,24 @@ export default function GeneralBreakdownPage({navigation}) {
 
   return (
     <NativeBaseProvider>
+        {userRole==="BASIC"?
+        <Box bgColor="#fff" height="100%" justifyContent={"center"}>
+          <VStack
+            space={3}
+            alignItems="center"
+            justifyContent="center"
+            pl={5}
+            pr={3}
+          >
+            <AntDesign name="lock" size={24} color="black" />
+            <Button variant="outline" colorScheme="dark" onPress={()=>navigation.navigate("Profile")}>
+            <Text fontSize="sm" color="coolGray.800">
+              Unlock Premium
+            </Text>
+            </Button>
+          </VStack>
+        </Box>
+        :
       <Box bgColor="#fff" height="100%">
         <Carousel
           height={carouselHeight}
@@ -84,7 +107,7 @@ export default function GeneralBreakdownPage({navigation}) {
             <InvestmentTickerCards />
           </ScrollView>
         </Box>
-      </Box>
+      </Box>}
     </NativeBaseProvider>
   );
 }

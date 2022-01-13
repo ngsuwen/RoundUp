@@ -50,8 +50,8 @@ const reloadExpenses = () => {
   if(totalAmountArr.length>0){
     setDataPoints(totalAmountArr)
   }else{
-    setDataPoints([0])
-    setAllLabels(['Loading...'])
+    setDataPoints([100])
+    setAllLabels([''])
   }
   }
 
