@@ -1,10 +1,13 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Dimensions } from "react-native";
 import { Accordion, NativeBaseProvider, Center, Box, Text } from "native-base";
 
 function AccordionComponent() {
+
+  const screenWidth = Dimensions.get("screen").width;
+
   return (
-    <Box m={3}>
+    <Box mt={5} width={screenWidth*0.9}>
       <Accordion allowMultiple>
       <Accordion.Item>
           <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
@@ -14,10 +17,7 @@ function AccordionComponent() {
             <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          The RoundUp App allows user to track their networth, income, expenses and investments all in one app, which solves the painpoint of the conventional budgeting app where tracking of investments is usually not supported.
           </Accordion.Details>
         </Accordion.Item>
         <Accordion.Item>
@@ -57,12 +57,23 @@ function AccordionComponent() {
         <Accordion.Item>
           <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
             <Text fontWeight="bold">
-            Why is the line graph at Investment page not updated?
+            Why is the line graph not updating at the Investment page?
             </Text>
             <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            The line graph will only be updated once everyday at 4pm. Entries created / edited / deleted after 4pm will have to wait for the next day to be reflected.
+          The line graph will only be updated once everyday around 5-5:30am SGT. Entries created / edited / deleted after 5:30am SGT will have to wait for the next day to be reflected.
+          </Accordion.Details>
+        </Accordion.Item>
+        <Accordion.Item>
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
+          <Text fontWeight="bold">
+            The Team
+            </Text>
+            <Accordion.Icon color="black"/>
+          </Accordion.Summary>
+          <Accordion.Details>
+          This app is a group effort by Ng Su Wen, Qamarul Arifin and Kang Shi Zheng. 
           </Accordion.Details>
         </Accordion.Item>
       </Accordion>
@@ -73,7 +84,7 @@ export default function About() {
   return (
     <NativeBaseProvider>
       <Center flex={1} bg="#fff">
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
           <AccordionComponent />
         </ScrollView>
       </Center>
