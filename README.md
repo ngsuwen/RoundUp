@@ -49,8 +49,7 @@ There will also be a ticker card which calculates for each ticker, the cost basi
 
 Front-End:
 
-- React Native
-- Expo
+- React Native with Expo
 
 Back-End [Repo](https://github.com/ngsuwen/RoundUp-BE).
 
@@ -63,5 +62,7 @@ API used:
 - CoinGecko (crypto data)
 
 ### Ways to improve
+
+- Currently, the investment bezier chart will not update immediately if a new ticker is added. Updates will only happen at the close of the US stock market. One way to improve is to allow immediate update when a new ticker is added. 
 
 ### Unsolved problem
