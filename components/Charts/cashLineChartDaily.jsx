@@ -96,9 +96,6 @@ export default function cashLineChartComponent() {
       chartConfig={chartConfig}
       bezier
       fromZero={true}
-      style={{
-        marginLeft: 20,
-      }}
       formatYLabel={(data)=>numberWithCommas(Math.round(data))}
     />
   );
