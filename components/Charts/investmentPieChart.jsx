@@ -105,7 +105,11 @@ const reloadExpenses = () => {
             height={screenHeight*0.25}
             chartConfig={chartConfig}
             accessor="population"
+            style={{
+              marginLeft: 10,
+            }}
             backgroundColor="transparent"
+            
         />
   )
 

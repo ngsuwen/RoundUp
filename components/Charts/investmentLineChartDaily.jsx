@@ -115,6 +115,10 @@ const reloadExpenses = () => {
             chartConfig={chartConfig}
             bezier
             fromZero={true}
+            style={{
+              marginTop: 15,
+              marginLeft: 20,
+            }}
             formatYLabel={(data)=>numberWithCommas(Math.round(data))}
         />
   )}
