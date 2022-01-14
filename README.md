@@ -12,11 +12,11 @@ At any point in time, users of the RoundUp App will be able to know their financ
 
 ### User Stories
 
-User is able to signup for an account or login if they already have an existing account.
+User is able to signup for an account or login if they already have an existing account. The user will remain logged in even after the app is closed. 
 
 ![Login and signup page](/assets/readMeScreenShots/login.png)
 
-The investment components will be locked if the account type is basic. User can update their account details at the user profile page. Account type can be upgraded to premium with a referral code.
+The investment components will be locked if the account type is basic. User can update their account details at the user profile page. Account type can be upgraded to premium with a referral code. User can also change the password or delete the account at the user profile page. 
 
 ![Profile page](/assets/readMeScreenShots/profile.png)
 
