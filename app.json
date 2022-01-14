@@ -4,7 +4,7 @@
     "slug": "RoundUp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/rounduplogo.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -25,7 +25,7 @@
     "web": {
       "favicon": "./assets/rounduplogo.png"
     },
-    "description": "RoundUp is a finance app that tracks your savings, expenses and investments all in one app.",
+    "description": "RoundUp is a finance app that tracks your savings, expenses, investments and networth. This is a group effort by Suwen Ng, Qamarul Arifin & Kang Shi Zheng.",
     "githubUrl": "https://github.com/shizhenggg/RoundUp"
   }
 }
