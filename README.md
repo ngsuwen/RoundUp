@@ -2,7 +2,7 @@
 
 App Demo
 
-The RoundUp App can be accessed [here](https://expo.dev/@shizhenggg/RoundUp) with Expo, compatible with both IOS and Android. <br>
+The RoundUp App can be accessed [here](https://expo.dev/@shizhenggg/RoundUp) with Expo, compatible with both iOS and Android. <br>
 You can also install the RoundUp App directly onto your phone [here](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40ngsuwen/RoundUp-510c994d5e7e4940926793e7537c97e5-signed.apk).
 
 # Description
