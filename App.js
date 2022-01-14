@@ -20,6 +20,8 @@ function App() {
   const [amount, setAmount] = useState([]);
   const [category, setCategory] = useState("Shopping");
   const [description, setDescription] = useState("");
+  // useState for expense fetched entries (month) 
+  const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
 
   // useState for cash
   const [allCash, setAllCash] = useState([]);
@@ -27,6 +29,9 @@ function App() {
   const [amountCash, setAmountCash] = useState([]);
   const [categoryCash, setCategoryCash] = useState("Income");
   const [descriptionCash, setDescriptionCash] = useState("");
+  // useState for cash fetched entries (month)
+  const [fetchedCashEntries, setFetchedCashEntries] = useState([]);
+
 
   // useState for investment
   const [allInvestment, setAllInvestment] = useState([]);
@@ -47,6 +52,15 @@ function App() {
   const [filterTextCrypto, setFilterTextCrypto] = useState("");
   const [filterTextStock, setFilterTextStock] = useState("");
   const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = useState(false)
+  const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
+  const [tickerAndPrice, setTickerAndPrice] = useState([]);
+  const [tickerData, setTickerData] = useState([]);
+  const [selectedTickerAndPrice,setSelectedTickerAndPrice] = useState()
+  const [fetchedInvestmentEntriesRawData, setFetchedInvestmentEntriesRawData] = useState([]);
+
+  // forcerender for routes update
+  const [expenseForceRender, setExpenseForceRender] = useState(false);
+  const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
 
   // // filtered for coin
   // const filteredItemsCrypto = useMemo(() => {
@@ -100,28 +114,11 @@ useEffect(()=>{
     }, [])
 
 
-  // useState for month selector (KSZ)
+  // useState for month selector 
   const [selectedMonth, setSelectedMonth] = useState(
     moment().format("YYYY-MM")
   );
 
-  // useState for cash fetched entries (month)
-  const [fetchedCashEntries, setFetchedCashEntries] = useState([]);
-
-  // useState for expense fetched entries (month) (KSZ)
-  const [fetchedExpenseEntries, setFetchedExpenseEntries] = useState([]);
-
-  // useState for investment
-  const [fetchedInvestmentEntries, setInvestmentEntries] = useState([]);
-  const [tickerAndPrice, setTickerAndPrice] = useState([]);
-  const [tickerData, setTickerData] = useState([]);
-  const [selectedTickerAndPrice,setSelectedTickerAndPrice] = useState()
-  const [fetchedInvestmentEntriesRawData, setFetchedInvestmentEntriesRawData] =
-    useState([]);
-  // forcerender for update routes
-  const [expenseForceRender, setExpenseForceRender] = useState(false);
-  const [investmentgpForceRender, setInvestmentgpForceRender] = useState(false);
-  
 
   // check storage for tokens upon opening app
   useEffect(async () => {

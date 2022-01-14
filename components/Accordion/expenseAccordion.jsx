@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import DataContext from "../../context/DataContext";
 import { ScrollView } from "react-native";
 import {
@@ -10,9 +10,7 @@ import {
   Text,
   Pressable,
   HStack,
-  Divider,
 } from "native-base";
-import { createNavigatorFactory } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 const _ = require("underscore");

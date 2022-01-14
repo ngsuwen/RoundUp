@@ -1,13 +1,8 @@
 import * as React from "react";
 import {
-  StyleSheet,
-  View,
-  Image,
-  SafeAreaView,
   Dimensions,
-  ScrollView,
 } from "react-native";
-import { Alert, Box, VStack, Text, Center, Button } from "native-base";
+import { VStack, Text, Center, Button } from "native-base";
 import { LineChart } from "react-native-chart-kit";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";

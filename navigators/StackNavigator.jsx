@@ -49,8 +49,8 @@ export default function StackNavigator() {
       <Stack.Screen name="Edit Cash Page" component={EditCashPage} />
 
       <Stack.Screen name="Entry Investment Page" component={EntryInvestmentPage} /> 
-      <Stack.Screen name="Edit Investment Page" component={EditInvestmentPage} />
       <Stack.Screen name="Show Investment Page" component={ShowInvestmentPage} /> 
+      <Stack.Screen name="Edit Investment Page" component={EditInvestmentPage} />
     </Stack.Navigator>
   );
 }

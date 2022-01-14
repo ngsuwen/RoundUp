@@ -1,10 +1,8 @@
-// note that investment chart will only update the next day as market data for consolidatino is fetched daily
+// note that investment chart will only update the next day as market data for consolidation is fetched daily
 
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
-import {
-  LineChart,
-} from 'react-native-chart-kit'
+import { Dimensions } from 'react-native';
+import { LineChart } from 'react-native-chart-kit'
 import DataContext from '../../context/DataContext'
 import moment from 'moment'
  

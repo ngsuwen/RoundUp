@@ -1,13 +1,6 @@
 import * as React from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
   Dimensions,
-  Button,
-  ScrollView,
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 

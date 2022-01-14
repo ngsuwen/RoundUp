@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Dimensions,
-} from "react-native";
+import { Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
 export default function networthLineChartComponent({dataMonth, networthYearlyData, monthArr, todayDate}) {

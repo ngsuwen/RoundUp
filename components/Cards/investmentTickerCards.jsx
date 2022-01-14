@@ -34,19 +34,16 @@ const [user, setUser] = userContext
             return groupedTicker
         })
         // console.log('entriesByTicker:',entriesByTicker)
-        setFetchedInvestmentEntries(entriesByTicker) // ran but state will only update the next render... so fetchStockPrice() should not depend on state but rather a separate array that cna be passed into the function so you dont have to wait for the next render
+        setFetchedInvestmentEntries(entriesByTicker)
         fetchStockPrice(entriesByTicker)
        }
 
 
     const fetchStockPrice = async (entriesByTicker) => { 
-
+        
     const allTickerList = Object.keys(entriesByTicker).sort()
 
-    // console.log('alltickerlist:',allTickerList) // ran but empty array as fetchedInvestmentEntries state is only updated the next render, hence tickerandpricestate will still be empty. Solved by passing entriesByTicker as variable instead.
-
     // need to filter out stocks/crypto with 0 qty so we don't track prices for those 
-    
     let tickerList = []
     allTickerList.forEach((ticker)=>{
         let currentStockQty = 0

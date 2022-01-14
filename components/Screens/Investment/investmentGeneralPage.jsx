@@ -45,6 +45,7 @@ export default function GeneralBreakdownPage({navigation}) {
   return (
     <NativeBaseProvider>
         {userRole==="BASIC"?
+        // show if BASIC user
         <Box bgColor="#fff" height="100%" justifyContent={"center"}>
           <VStack
             space={3}
@@ -62,6 +63,7 @@ export default function GeneralBreakdownPage({navigation}) {
           </VStack>
         </Box>
         :
+        // show if PREMIUM user
       <Box bgColor="#fff" height="100%">
         <Carousel
           height={carouselHeight}

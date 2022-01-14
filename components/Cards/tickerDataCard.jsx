@@ -4,24 +4,16 @@ import DataContext from "../../context/DataContext";
 import {
   Text,
   Box,
-  Image,
-  SafeAreaBox,
-  Dimensions,
-  Button,
-  Pressable,
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 const _ = require("underscore");
 
 export default function tickerDataCard() {
-  const { investmentContext,userContext,investmentTickerContext,tickerAndPriceContext,selectedTickerAndPriceContext,investmentAccordionForceRenderContext} = useContext(DataContext);
+  const { investmentContext, investmentTickerContext,selectedTickerAndPriceContext} = useContext(DataContext);
   const [fetchedInvestmentEntries, setFetchedInvestmentEntries] = investmentContext;
-  const [tickerAndPrice, setTickerAndPrice] = tickerAndPriceContext;
   const [selectedTickerAndPrice, setSelectedTickerAndPrice] = selectedTickerAndPriceContext;
   const [tickerData, setTickerData] = investmentTickerContext;
-  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext;
-  const [user, setUser] = userContext;
 
   const RenderTickerCardData = () => {
     // array of objects containing transaction data
@@ -38,6 +30,8 @@ export default function tickerDataCard() {
     // sorting the dates by lastest first (at the top)
     const allDates = Object.keys(entriesByDay).sort();
 
+    /////////////////////////////////////////////////////////// LOGIC FOR TICKER DATA ///////////////////////////////////////////////////////////
+
     // avg price per stock, needed to find new totalAmountPaid
     // cost basis for one BUY transaction can be derived by price bought * qty
     // to get a moving cost basis, we need to get the average of all costBasis up to that buy transaction
@@ -46,7 +40,6 @@ export default function tickerDataCard() {
 
     // for every SELL txn, we need minus costBasis * qty sold off from total amount paid to find total amount paid for remaining qty of shares
     let totalAmountPaid = 0;
-
     let currentStockQty = 0;
 
     ///// TO FIND UNREALIZED P/L /////
@@ -68,14 +61,10 @@ export default function tickerDataCard() {
 
     const stockDataCalculationFunction = allDates.map((date, index) => {
       entriesByDay[date].forEach((entry, index) => {
-        // will have to use loop instead of (for txn of arr) in order to access the index. index is needed to single out the first buy in price to not get the average of the first buy in price. index 1 onwards will have to be divided by 2, but not index 0.
-        // console.log('entriesbydateTICKERPAGE:',entriesByDay)
         if (entry.investmentsentry.transaction === "Buy") {
           totalAmountPaid +=
             entry.investmentsentry.price * entry.investmentsentry.quantity;
           currentStockQty += entry.investmentsentry.quantity;
-          // console.log('ticker:',entry.investmentsentry.ticker)
-          // console.log('BUYtotalamtpaid:',totalAmountPaid)
 
           // update cost basis after totalAmountPaid and currentStockQty is updated
           if (index === 0) {
@@ -87,13 +76,10 @@ export default function tickerDataCard() {
         if (entry.investmentsentry.transaction === "Sell") {
           totalAmountPaid -= entry.investmentsentry.quantity * costBasis;
           currentStockQty -= entry.investmentsentry.quantity;
-          // console.log('ticker:',entry.investmentsentry.ticker)
-          // console.log('SELLtotalamtpaid:',totalAmountPaid)
         }
       });
     });
 
-    // assuming current price is $20 (from API)
     let unrealizedPL =
       currentStockQty * selectedTickerAndPrice.value - totalAmountPaid;
 
@@ -102,15 +88,6 @@ export default function tickerDataCard() {
     // console.log('currentstockqty:',currentStockQty)
     // console.log('unrealized P/L:',unrealizedPL)
 
-    // linking to cash page
-    // for all sell transactions, to add into cash balance
-    // for all buy transactions, to deduct from cash balance
-
-    // const monthOfExpense = moment(investmentMonth, moment.ISO_8601).format('YYYY-MM')
-
-    // do this last when you have all info
-    // similar to the investmenttickercards, if you save as state, it will only rerender the 2nd cycle, so on first render at tickerDataCard it will be empty unless forcedtorerender again.
-
     setTickerData({
       ticker: selectedTickerAndPrice.ticker,
       currentPrice: selectedTickerAndPrice.value,
@@ -118,16 +95,11 @@ export default function tickerDataCard() {
       currentStockQty: currentStockQty,
       totalAmountPaid: totalAmountPaid,
       unrealizedPL: unrealizedPL.toFixed(2),
-    });
-
-    // console.log('tickerData:',tickerData) // will input array [] for first render but state is already set, just not refreshed for console.log
+    })
   };
-
-  const navigation = useNavigation();
 
   useEffect(() => {
       RenderTickerCardData();
-      // console.log('tickercard data rendered')
     return
   }, [fetchedInvestmentEntries,selectedTickerAndPrice]);
 
@@ -142,5 +114,5 @@ export default function tickerDataCard() {
         <Text>Unrealized P/L: ${tickerData.unrealizedPL}</Text>
       </Box>
     </Box>
-  );
+  )
 }

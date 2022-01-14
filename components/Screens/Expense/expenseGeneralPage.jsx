@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NativeBaseProvider, View, Box, Button } from "native-base";
+import { NativeBaseProvider, View, Box } from "native-base";
 import { Dimensions } from "react-native";
 import Carousel from "pinar";
 import ExpenseLineChartComponent from "../../Charts/expenseLineChartDaily";
@@ -61,32 +61,4 @@ export default function GeneralBreakdownPage({navigation}) {
       </Box>
     </NativeBaseProvider>
   );
-}
-
-{
-  /* <NativeBaseProvider>
-<Box bgColor="#fff" height="100%">
-  <Carousel
-    height={carouselHeight}
-    showsControls={false}
-    dotStyle={styles.dotStyle}
-    activeDotStyle={styles.activeDotStyle}
-  >
-    <View>
-      <PieChartComponent />
-    </View>
-    <View>
-      <ExpenseLineChartComponent />
-    </View>
-  </Carousel>
-  
-    <View>
-      <MonthSelector />
-    </View>
-    <View>
-      <AccordionList />
-    </View>
-  
-</Box>
-</NativeBaseProvider> */
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, Button, ScrollView } from 'react-native';
+import { Dimensions } from 'react-native';
 import {
   PieChart
 } from 'react-native-chart-kit'
