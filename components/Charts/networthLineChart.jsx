@@ -54,9 +54,6 @@ export default function networthLineChartComponent({dataMonth, networthYearlyDat
       chartConfig={chartConfig}
       bezier
       fromZero={true}
-      style={{
-        marginLeft: 15,
-      }}
       formatYLabel={(data)=>numberWithCommas(Math.round(data))}
     />
   );

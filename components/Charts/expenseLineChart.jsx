@@ -53,9 +53,6 @@ export default function expenseLineChartComponent({dataMonth, expenseYearlyData,
         chartConfig={chartConfig}
         bezier
         fromZero={true}
-        style={{
-          marginLeft: 15,
-        }}
         formatYLabel={(data)=>numberWithCommas(Math.round(data))}
       />
     </>

@@ -71,8 +71,9 @@ const style = {
 };
 
 export default function Home({ navigation }) {
-  const { userContext, expenseForceRenderContext } = React.useContext(DataContext);
+  const { userContext, expenseForceRenderContext, investmentAccordionForceRenderContext } = React.useContext(DataContext);
   const [user, setUser] = userContext;
+  const [investmentAccordionForceRender,setInvestmentAccordionForceRender] = investmentAccordionForceRenderContext
   const [expenseForceRender, setExpenseForceRender] = expenseForceRenderContext;
   const [cashYearlyData, setCashYearlyData] = React.useState([0,0,0,0])
   const [expenseYearlyData, setExpenseYearlyData] = React.useState([0,0,0,0])
@@ -104,7 +105,7 @@ export default function Home({ navigation }) {
   
   React.useEffect(async()=>{
     await calculateData()
-  },[expenseForceRender])
+  },[expenseForceRender, investmentAccordionForceRender])
 
   return (
     <NativeBaseProvider>

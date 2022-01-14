@@ -90,9 +90,6 @@ export default function cashLineChartComponent({dataMonth, investmentYearlyData,
         chartConfig={chartConfig}
         bezier
         fromZero={true}
-        style={{
-          marginLeft: 15,
-        }}
         formatYLabel={(data)=>numberWithCommas(Math.round(data))}
       />
     </>
