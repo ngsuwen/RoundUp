@@ -126,12 +126,10 @@ export default function tickerDataCard() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const resetPage = navigation.addListener("focus", () => {
       RenderTickerCardData();
       // console.log('tickercard data rendered')
-    });
-    return resetPage;
-  }, [fetchedInvestmentEntries]);
+    return
+  }, [fetchedInvestmentEntries,selectedTickerAndPrice]);
 
   return (
     <Box height="40%" justifyContent="center" mx={25}>

@@ -59,6 +59,7 @@ export default function expenseLineChartComponent({dataMonth, expenseYearlyData,
         height={screenHeight * 0.25}
         chartConfig={chartConfig}
         bezier
+        fromZero={true}
         formatYLabel={(data)=>numberWithCommas(Math.round(data))}
       />
     </>

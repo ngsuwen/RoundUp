@@ -114,6 +114,7 @@ const reloadExpenses = () => {
             height={screenHeight*0.25}
             chartConfig={chartConfig}
             bezier
+            fromZero={true}
             formatYLabel={(data)=>numberWithCommas(Math.round(data))}
         />
   )}
