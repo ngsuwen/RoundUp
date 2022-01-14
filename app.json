@@ -25,6 +25,7 @@
     "web": {
       "favicon": "./assets/rounduplogo.png"
     },
-    "description": "RoundUp is a finance app that tracks your savings, expenses and investments all in one app."
+    "description": "RoundUp is a finance app that tracks your savings, expenses and investments all in one app.",
+    "githubUrl": "https://github.com/shizhenggg/RoundUp"
   }
 }

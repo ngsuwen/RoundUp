@@ -1,5 +1,3 @@
-// for this page, we cannot fetch investment record per month as we will need all data to calculate p/l. Hence we shall only filter all the data per month selected.
-
 import React from 'react';
 import { useContext } from 'react'
 import DataContext from '../../context/DataContext';
@@ -11,7 +9,7 @@ const _ = require('underscore')
 
 function AccordionComponent() {
 
-const {investmentContext, userContext, selectedTickerAndPriceContext } = useContext(DataContext)
+const {investmentContext, selectedTickerAndPriceContext } = useContext(DataContext)
 const [fetchedInvestmentEntries,setFetchedInvestmentEntries] = investmentContext
 const [selectedTickerAndPrice,setSelectedTickerAndPrice] = selectedTickerAndPriceContext
 
@@ -75,7 +73,7 @@ return (
 
  
 export default function AccordionList () {
-  const navigation = useNavigation()
+  
   return (
     <NativeBaseProvider>
       <Center flex={1}>
