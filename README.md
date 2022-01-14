@@ -16,6 +16,10 @@ User is able to signup for an account or login if they already have an existing 
 
 ![Login and signup page](/assets/readMeScreenShots/login.png)
 
+The investment components will be locked if the account type is basic. User can update their account details at the user profile page. Account type can be upgraded to premium with a referral code.
+
+![Profile page](/assets/readMeScreenShots/profile.png)
+
 At the home page, user will be shown their current networth, income, expenses and investment balances (past 12 months) presented in bezier charts in a carousel.
 User will also have quick access to access their income (Money In), expenses (Money Out) and investment information with cards at the homepage.
 User will also be able to conveniently add new entries for income, expenses and investments from the cards.
