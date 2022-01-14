@@ -26,6 +26,10 @@ export default function LoginPage({ navigation }) {
   const [user, setUser] = userContext;
   const [userRole, setUserRole] = userRoleContext
 
+  // useState check update click
+  const [clicked, setClicked] = useState(false)
+  const [clicked2, setClicked2] = useState(false)
+
   // useState
   const [isUpdateValid, setIsUpdateValid] = useState("pass");
   const [password, setPassword] = useState("");
@@ -46,16 +50,22 @@ export default function LoginPage({ navigation }) {
       setIsUpdateValid(checkUpdate.error ? "password" : "pass");
       // go back profile page if got error
       if (checkUpdate.error) {
+        setClicked(false)
+        setClicked2(false)
         navigation.navigate("Profile");
         return;
       }
       // go to home page if successful
       setUserRole(referral===""?"BASIC":"PREMIUM")
+      setClicked(false)
+      setClicked2(false)
       navigation.navigate("Home");
     } catch (err) {
       console.log(err);
       setIsUpdateValid("error");
       // go back profile page if unexpected error
+      setClicked(false)
+      setClicked2(false)
       navigation.navigate("Profile");
     }
   }
@@ -67,6 +77,7 @@ export default function LoginPage({ navigation }) {
       setIsUpdateValid(removeUser.error ? "password" : "pass");
       // go back profile page if got error
       if (removeUser.error) {
+        setClicked(false)
         navigation.navigate("Profile");
         return;
       }
@@ -77,8 +88,10 @@ export default function LoginPage({ navigation }) {
       setUser("");
       setUserRole(null)
       console.log("deleted");
+      setClicked(false)
       navigation.navigate("Login");
     } catch (err) {
+      setClicked(false)
       console.log(err);
     }
   }
@@ -87,7 +100,7 @@ export default function LoginPage({ navigation }) {
     Alert.alert("", "Are you sure? Deleted accounts cannot be recovered.", [
       {
         text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
+        onPress: () => setClicked2(false),
         style: "cancel",
       },
       { text: "OK", onPress: deleteUserApi },
@@ -181,11 +194,18 @@ export default function LoginPage({ navigation }) {
                   variant="outline"
                   bgColor="white"
                   colorScheme="light"
+                  onPressIn={()=>setClicked(true)}
+                  isDisabled={clicked2 ? true : false} 
+                  isLoading={clicked ? true : false}
                   onPress={updateHandler}
                 >
                   <Text>Update</Text>
                 </Button>
-                <Button colorScheme="danger" onPress={deleteHandler}>
+                <Button 
+                  onPressIn={()=>setClicked2(true)} 
+                  isDisabled={clicked ? true : false}
+                  isLoading={clicked2 ? true : false}
+                  colorScheme="danger" onPress={deleteHandler}>
                   <Text>Delete</Text>
                 </Button>
               </Button.Group>

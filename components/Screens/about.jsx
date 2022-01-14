@@ -29,7 +29,7 @@ function AccordionComponent() {
             <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            As a basic user, you can track your inflow and outflow of cash. As a premium user, you can track your investment for cyptocurrencies and stocks.
+            As a basic user, you can track your inflow (Money In) and outflow (Money Out) of cash. As a premium user, you can track your Investment for cyptocurrencies and stocks.
           </Accordion.Details>
         </Accordion.Item>
         <Accordion.Item>
@@ -43,7 +43,7 @@ function AccordionComponent() {
             Currently, only the US market is available. 
           </Accordion.Details>
         </Accordion.Item>
-                <Accordion.Item>
+        <Accordion.Item>
           <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
             <Text fontWeight="bold">
             Why is the data not updated?
@@ -51,7 +51,18 @@ function AccordionComponent() {
             <Accordion.Icon color="black"/>
           </Accordion.Summary>
           <Accordion.Details>
-            After you have created / edited / deleted entries, it takes time to update our database. Please give the app a few seconds to reflect the changes. We hope to seek your understanding. 
+            After you have created / edited / deleted entries, it takes time to update our database. Please give the app a few seconds to reflect the changes. 
+          </Accordion.Details>
+        </Accordion.Item>
+        <Accordion.Item>
+          <Accordion.Summary _expanded={{ backgroundColor: "coolGray.300" }}>
+            <Text fontWeight="bold">
+            Why is the line graph at Investment page not updated?
+            </Text>
+            <Accordion.Icon color="black"/>
+          </Accordion.Summary>
+          <Accordion.Details>
+            The line graph will only be updated once everyday at 4pm. Entries created / edited / deleted after 4pm will have to wait for the next day to be reflected.
           </Accordion.Details>
         </Accordion.Item>
       </Accordion>
