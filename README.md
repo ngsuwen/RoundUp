@@ -63,6 +63,6 @@ API used:
 
 ### Ways to improve
 
-- Currently, the investment bezier chart will not update immediately if a new ticker is added. Updates will only happen at the close of the US stock market. One way to improve is to allow immediate update when a new ticker is added. 
+- Currently, the investment bezier chart (at the investment page) will not update immediately if a stock/crypto is added, edited or removed. Updates will only happen at the close of the US stock market. One way to improve is to allow immediate update when a new ticker is added. 
 
 ### Unsolved problem
